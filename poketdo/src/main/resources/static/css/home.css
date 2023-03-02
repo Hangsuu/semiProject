@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+/* [Component] home-raid-board*/
+.home-raid-board {
+  width: 100%;
+  height: 30%;
+}
+/* [Component] home-board-title */
+.home-board-title {
+  display: flex;
+  align-items: flex-end;
+}
+
+.home-board-title > *:first-child {
+  flex-grow: 1;
+}
+.home-board-title > * {
+  color: #747171;
+}
+/* home-raid-content */
+.home-raid-board > *:nth-child(2) {
+  display: flex;
+}
+/* home-raid-sticker */
+.home-raid-board > *:nth-child(2) > div {
+  width: 25%;
+  margin: 2em 20px;
+  padding-bottom: 0.5em;
+  border: 1px solid transparent;
+  border-radius: 0.7em;
+  background-color: #ffe87e;
+  display: flex;
+  flex-direction: column;
+}
+/* home-riad-sticker-row */
+.home-raid-board > *:nth-child(2) > div > div:not(:nth-child(2)) {
+  padding: 0.25em;
+}
+.home-raid-board > *:nth-child(2) > div > div:first-child {
+  flex-grow: 4;
+  padding: 0 1em;
+  font-size: 1.3em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.home-raid-board > *:nth-child(2) > div > div:nth-child(2) {
+  flex-grow: 1;
+}
+.home-raid-board ul {
+  list-style-type: disc;
+  padding-left: 2em;
+}
+.home-raid-board > *:nth-child(2) > div > div:last-child {
+  flex-grow: 2;
+  display: flex;
+  margin: 0 1.5em;
+}
+
+/* home-raid-sticker [Component] party, pool */
+.party.pool {
+  background-color: #ff2e00;
+}
+.pool {
+  width: 20%;
+  margin: 0 0.25em;
+  background-color: #c8c8c8;
+  border-radius: 0.5em;
+}
+
+/* [component] home-cool */
+.home-cool {
+  height: 40%;
+  margin: 2em 0;
+}
+
+/* [component] home-cool-monster */
+.home-cool-monster > * {
+}
+
+/* [component] home-cool-board*/
+.home-cool-board {
+  margin-left: 2em;
+}

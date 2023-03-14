@@ -12,7 +12,7 @@ public class HomeController {
     }
 
     @GetMapping("/sample")
-    public String test4() {
+    public String sample() {
         return "/WEB-INF/views/sample.jsp";
     }
 }

@@ -16,7 +16,7 @@ section {
   display: flex;
   margin: 20px auto;
 }
-aside {
+.aside {
   width: 220px;
   padding: 1em;
 }
@@ -31,14 +31,19 @@ footer {
 
 /* [Component] favicon */
 .favicon {
+  height: 100%;
+}
+.favicon > *{
   display: flex;
   height: 100%;
   align-items: end;
+  text-decoration: none;
+  color: black;
 }
-.favicon > *:first-child {
+.favicon > * > *:first-child {
   height: 100%;
 }
-.favicon > *:nth-child(2) {
+.favicon > * > *:nth-child(2) {
   font-size: 2em;
   font-weight: bold;
 }

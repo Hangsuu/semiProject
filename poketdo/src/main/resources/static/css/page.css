@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* # 첫 페이지 (/) */
 
 /* [Component] home-raid-board*/
 .home-raid-board {
@@ -81,4 +82,86 @@
 /* [component] home-cool-board*/
 .home-cool-board {
   margin-left: 2em;
+}
+
+
+/* # 로그인 페이지 (/member/login) */
+section.member-login-section {
+  width: 550px;
+}
+section.member-login-section article{
+  min-height: 700px;
+}
+section.member-login-section form {
+  display: flex;
+  height: 100%;
+}
+.login-form {
+  width: 100%;
+  height: 80%;
+  /* margin: auto 0; */
+  margin-top: 1.5em;
+  display: flex;
+  flex-direction: column;
+}
+.login-form > * {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: 0.5em auto;
+}
+.login-form > *:first-child {
+  flex-grow: 1;
+  display: flex;
+}
+.login-form > * > * {
+  width: 100%;
+  height: 100%;
+  padding: 1.2em;
+}
+.login-form > *:first-child > *{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-form input{
+  outline: none;
+  background-color: #fffcfc;
+  border: 1px solid #747171;
+  border-radius: 0.5em;
+}
+.login-form button {
+  background-color: #ffd400;
+  border: 1px solid transparent;
+  border-radius: 0.5em;
+  font-weight: 800;
+}
+.login-form button:hover {
+  cursor: pointer;
+}
+.login-form a {
+  text-decoration: none;
+  color: #747171
+}
+.login-form > *:first-child > * > *:last-child{
+  font-size: 3em;
+  color: black;
+}
+.login-form > *:first-child img {
+  width: 80px;
+}
+.login-form > *:last-child {
+  border-top:1px solid #747171;
+}
+.login-form > *:last-child > * {
+  padding: 0.5em;
+  color: #747171;
+  font-weight: 800;
+}
+.login-form > *:last-child > *:first-child {
+  text-align: end;
+}
+.login-form > *:nth-child(5) {
+  color: red;
+  font-weight: bold;
 }

@@ -12,12 +12,22 @@
   margin-top: 0.8em;
 }
 
-/* [Component] flex-row*/
+/* [Component] flex-row-grow */
 .flex-row-grow {
   width: 100%;
   display: flex;
   flex-direction: row;
 }
 .flex-row-grow > * {
+  flex-grow: 1;
+}
+
+/* [Component] flex-column-grow */
+.flex-column-grow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.flex-column-grow > * {
   flex-grow: 1;
 }

@@ -20,6 +20,10 @@ pageEncoding="UTF-8"%>
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     />
+    <!-- 링크확인창 CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
     <title>Document</title>
 
   </head>
@@ -50,10 +54,10 @@ pageEncoding="UTF-8"%>
                 <a href="#"><span>포켓몬리스트</span></a>
               </div>
               <div>
-                <a href="#"><span>개체값 시뮬레이터</span></a>
+                <a href="/simulator"><span>개체값 시뮬레이터</span></a>
               </div>
               <div>
-                <a href="#"><span>개체값 계산</span></a>
+                <a href="/calculator"><span>개체값 계산</span></a>
               </div>
             </div>
           </div>

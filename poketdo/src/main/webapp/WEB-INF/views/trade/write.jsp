@@ -6,12 +6,6 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-<style>
-  .sample-article {
-    font-size: 100px;
-  }
-</style>
-
 <!-- section -->
 <section test>
   <!-- aside -->
@@ -19,7 +13,7 @@
   <!-- article -->
   <article class="container-800">
     <form action="#" method="post" enctype="multipart/form-data" class="w-100">
-      <input type="hidden" name="trade_writer" value="${sessionScope.memberId}"/>
+      <input type="hidden" name="pocketmonTradeWriter" value="${sessionScope.memberId}"/>
       <div class="row center">
         <h1>교환글 글쓰기</h1>
       </div>
@@ -35,7 +29,7 @@
       </div>
       <div class="row">
         <label>거래일
-          <input type="date" class="form-input w-100">
+          <input type="datetime-local" class="form-input w-100" name="pocketmonTradeTradeTime">
         </label>
       </div>
       <button type="submit" class="form-btn w-100 positive">등록</button>

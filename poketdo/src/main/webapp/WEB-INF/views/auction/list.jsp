@@ -34,7 +34,7 @@
 				<c:forEach var="auctionDto" items="${list}">
 					<tr>
 						<td>${auctionDto.seqNo}</td>
-						<td><a href="detail?seqNo=${auctionDto.seqNo}&page=${param.page}">${auctionDto.auctionTitle}</a></td>
+						<td><a href="detail?seqNo=${auctionDto.seqNo}&page=${param.page}" class="link">${auctionDto.auctionTitle}</a></td>
 						<td>${auctionDto.auctionWriter}</td>
 						<td>${auctionDto.auctionFinishTime}</td>
 						<td>${auctionDto.auctionRead}</td>
@@ -59,7 +59,7 @@
 	<!-- 이전 페이지로 이동 -->
 		<c:choose>
 			<c:when test="${vo.prev}">
-				<a href="${vo.prevPage}"><i class="fa-solid fa-angle-left"></i></a>
+				<a href="list?page=${vo.prevPage}"><i class="fa-solid fa-angle-left"></i></a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled"><i class="fa-solid fa-angle-left disabled"></i></a>

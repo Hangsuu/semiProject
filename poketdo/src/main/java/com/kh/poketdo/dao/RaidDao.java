@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.RaidDto;
+import com.kh.poketdo.vo.PaginationVO;
 
 @Repository
 public class RaidDao {
@@ -58,10 +59,40 @@ public class RaidDao {
 		return jdbcTemplate.update(sql, param)>0;
 	}
 	//읽기(R)
-	public List<RaidDto> selectList(){
-		String sql = "select * from raid order by seq_no desc";
-		return jdbcTemplate.query(sql, mapper);
+	public List<RaidDto> selectList(PaginationVO vo){
+		if(vo.isSearch()) {
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"select * from raid where instr(#1, ?)>0 order by raid_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword(), vo.getBegin(),vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		else {
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"select * from raid order by raid_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			Object[] param = {vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
 	}
+	public int selectCount(PaginationVO vo) {
+		if(vo.isSearch()) {
+			String sql = "select count(*) from raid where instr(#1, ?)>0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String sql = "select count(*) from raid";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
+	
 	public void readCount(int seqNo) {
 		String sql = "update raid set raid_read=raid_read+1 where seq_no=?";
 		Object[] param = {seqNo};

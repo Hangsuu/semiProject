@@ -20,6 +20,7 @@ import com.kh.poketdo.dao.RaidDao;
 import com.kh.poketdo.dao.RaidJoinDao;
 import com.kh.poketdo.dto.RaidDto;
 import com.kh.poketdo.dto.RaidJoinDto;
+import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
 @RequestMapping("/raid")
@@ -43,9 +44,10 @@ public class RaidController {
 		return "redirect:detail";
 	}
 	@GetMapping("/list")
-	public String list(Model model) {
-		List<RaidDto> list = raidDao.selectList();
-		model.addAttribute("list", list);
+	public String list(Model model,
+			@ModelAttribute("vo") PaginationVO vo) {
+		vo.setCount(raidDao.selectCount(vo));
+		model.addAttribute("list", raidDao.selectList(vo));
 		return "/WEB-INF/views/raid/list.jsp";
 	}
 	@GetMapping("/detail")

@@ -14,31 +14,3 @@
 [test] a {
   border: 1px dotted black !important;
 }
-
-[test] main {
-  background-color: gray;
-}
-
-[test] header {
-  background-color: #ff4757;
-}
-
-[test] nav {
-  background-color: #7bed9f;
-}
-
-[test] section {
-  background-color: #70a1ff;
-}
-
-[test] aside {
-  background-color: #ffa502;
-}
-
-[test] article {
-  background-color: plum;
-}
-
-[test] footer {
-  background-color: #dfe4ea;
-}

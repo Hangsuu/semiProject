@@ -11,15 +11,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PocketmonTradeDto {
-    private int pocketmonTradeNo;
-    private int allboardNo;
-    private String pocketmonTradeTitle;
-    private String pocketmonTradeWriter;
-    private Date pocketmonTradeWrittenTime;
-    private String pocketmonTradeContent;
-    private Date pocketmonTradeTradeTime;
-    private boolean pocketmonTradeComplete;
-    private int pocketmonTradeRead;
-    private int pocketmonTradeReply;
-    private int pocketmonTradeLike;
+
+  private int pocketmonTradeNo;
+  private int allboardNo;
+  private String pocketmonTradeTitle;
+  private String pocketmonTradeWriter;
+  private Date pocketmonTradeWrittenTime;
+  private String pocketmonTradeContent;
+  private Date pocketmonTradeTradeTime;
+  private int pocketmonTradeComplete;
+  private int pocketmonTradeRead;
+  private int pocketmonTradeReply;
+  private int pocketmonTradeLike;
 }

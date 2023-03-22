@@ -18,14 +18,27 @@
   <aside></aside>
   <!-- article -->
   <article class="container-800">
-    <form action="#" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="trade_writer" />
-      <div class="row">
+    <form action="#" method="post" enctype="multipart/form-data" class="w-100">
+      <input type="hidden" name="trade_writer" value="${sessionScope.memberId}"/>
+      <div class="row center">
         <h1>교환글 글쓰기</h1>
       </div>
       <div class="row">
-        <div></div>
+        <label>제목
+        <input class="form-input w-100" name="pocketmonTradeTitle" type="text" placeholder="제목을 입력하세요">
+      </label>
       </div>
+      <div class="row">
+        <label>내용 
+          <textarea class="form-input w-100" name="pocketmonTradeContent"></textarea>
+        </label>
+      </div>
+      <div class="row">
+        <label>거래일
+          <input type="date" class="form-input w-100">
+        </label>
+      </div>
+      <button type="submit" class="form-btn w-100 positive">등록</button>
     </form>
   </article>
 

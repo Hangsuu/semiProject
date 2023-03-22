@@ -1,6 +1,10 @@
 package com.kh.poketdo.controller;
 
+import com.kh.poketdo.dao.PocketmonTradeDao;
 import com.kh.poketdo.dto.PocketmonTradeDto;
+import com.kh.poketdo.service.PocketmonTradeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/trade")
 public class TradeController {
+
+  @Autowired
+  private PocketmonTradeDao pocketmonTradeDao;
+
+  @Autowired
+  private PocketmonTradeService pocketmonTradeService;
 
   @GetMapping("")
   public String list() {
@@ -25,11 +35,16 @@ public class TradeController {
 
   @PostMapping("/write")
   public String write(@ModelAttribute PocketmonTradeDto pocketmonTradeDto) {
-    return "redirect:";
+    int newAllBoardSeq = pocketmonTradeService.insert(pocketmonTradeDto);
+    return "redirect:" + newAllBoardSeq;
   }
 
   @GetMapping("/{pocketmonTradeNo}")
   public String detail(@PathVariable int pocketmonTradeNo, Model model) {
-    return "";
+    PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
+      pocketmonTradeNo
+    );
+    model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
+    return "/WEB-INF/views/trade/detail.jsp";
   }
 }

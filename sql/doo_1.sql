@@ -82,7 +82,7 @@ create table nice(
 -- 포켓몬 교환 테이블
 create table pocketmon_trade (
   pocketmon_trade_no number PRIMARY KEY,
-  pocketmon_allboard_no references allboard(allboard_no),
+  allboard_no references allboard(allboard_no),
   pocketmon_trade_title varchar2(100),
   pocketmon_trade_writer references member(member_id),
   pocketmon_trade_written_time date,

@@ -58,13 +58,13 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
           <div>
-            <a href="#"><span>게시판</span></a>
+            <a href="/board/list"><span>게시판</span></a>
             <div>
               <div>
-                <a href="#"><span>자유게시판</span></a>
+                <a href="/board/list"><span>자유게시판</span></a>
               </div>
               <div>
-                <a href="#"><span>인기게시판</span></a>
+                <a href="/board/hot"><span>인기게시판</span></a>
               </div>
               <div>
                 <a href="#"><span>포켓몬교환 게시판</span></a>

@@ -9,4 +9,14 @@ public class AllboardDao {
 
   @Autowired
   private JdbcTemplate jdbcTemplate;
+
+  public int sequence() {
+    String sql = "select allboard_seq.nextval from dual";
+    return jdbcTemplate.queryForObject(sql, int.class);
+  }
+  // C
+  // R
+  // R
+  // U
+  // D
 }

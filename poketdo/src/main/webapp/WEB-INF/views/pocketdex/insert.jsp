@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>등록페이지 입니다~</h1>
-	<form action="pocketDataInsertProcess" method="post">
+	<form action="insertProcess" method="post">
 		<label>포켓몬스터 번호</label>
 		<input name="monsterNo">
 		

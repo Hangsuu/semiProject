@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.poketdo.dao.MonsterJoinTypeDao;
@@ -15,6 +16,7 @@ import com.kh.poketdo.dao.PocketDexDao;
 import com.kh.poketdo.dto.PocketDexDto;
 
 @Controller
+@RequestMapping("/pocketDex")
 public class PocketDexController {
 
 	//PocketDexDao 주입
@@ -27,14 +29,14 @@ public class PocketDexController {
 	
 	
 	//포켓몬스터 기본 정보 입력 페이지
-	@GetMapping("/pocketDataInsert")
+	@GetMapping("/insert")
 	public String pocketDataInsert() {
-		return "/WEB-INF/views/pocketdex/pocketDataInsert.jsp";
+		return "/WEB-INF/views/pocketdex/insert.jsp";
 	}
 	
 	//포켓몬스터 기본 정보 처리
-	@PostMapping("/pocketDataInsertProcess")
-	public String pocketDataInsertProcess(
+	@PostMapping("/insertProcess")
+	public String insertProcess(
 			@ModelAttribute PocketDexDto pocketDexDto,	//포켓몬스터 기본 정보
 			@RequestParam List<Integer> typeJoinNo	//포켓몬스터 속성 번호
 			) {
@@ -48,23 +50,23 @@ public class PocketDexController {
 			monsterJoinTypeDao.insert(mosterJoinNo, no);
 			}
 		}
-		return "redirect:/pocketDataInsertFinish";
+		return "redirect:insertFinish";
 	}
 	
 	//포켓몬스터 기본 정보 입력 완료 페이지
-	@GetMapping("/pocketDataInsertFinish")
+	@GetMapping("/insertFinish")
 	public String pocketDataInsertFinish() {
-		return "/WEB-INF/views/pocketdex/pocketDataInsertFinish.jsp";
+		return "/WEB-INF/views/pocketdex/insertFinish.jsp";
 	}
 	
 	//포켓몬스터 목록
-	@GetMapping("/pocketDexList")
+	@GetMapping("/list")
 	public String pocketDexList(
 			Model model,
 			@ModelAttribute PocketDexDto pocketDexDto
 			) {
 		model.addAttribute("list", pocketDexDao.selectList());	
-		return "/WEB-INF/views/pocketdex/pocketDexList.jsp";
+		return "/WEB-INF/views/pocketdex/list.jsp";
 	}
 	
 	//포켓몬스터 정보 수정
@@ -74,6 +76,6 @@ public class PocketDexController {
 	@GetMapping("/delete")
 	public String delete(@RequestParam int monsterNo) {
 		pocketDexDao.delete(monsterNo);
-		return "redirect:pocketDexList";
+		return "redirect:list";
 	}
 }

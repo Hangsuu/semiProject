@@ -32,12 +32,13 @@ public class BoardDao {
 			boardDto.setBoardLike(rs.getInt("board_like"));
 			boardDto.setBoardDislike(rs.getInt("board_dislike"));
 			boardDto.setBoardReply(rs.getInt("board_reply"));
-			boardDto.setBoardGroup(rs.getInt("board_group"));
 			return boardDto;
 		}
 	};
 	
-	//번호를 생성하는 동시에 등록하기
+//	번호를 생성하면서 등록하는 방법
+//	1. 시퀀스 번호를 듀얼 테이블을 사용하여 조회
+//	2. 생성된 번호까지 설정한 DTO를 등록
 	public int sequence() {
 		String sql = "select board_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);
@@ -45,20 +46,18 @@ public class BoardDao {
 	
 	//게시글 생성
 	public void insert(BoardDto boardDto) {
-		String sql = "insert into board("
-				+ "board_no, board_writer, board_title, board_content, "
-				+ "board_time, board_head, board_read, board_like, board_dislike, board_reply, board_group "
-				+ "values(?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, 0, 0)";
-		Object[] param = {
-			boardDto.getBoardNo(), boardDto.getBoardWriter(),
-			boardDto.getBoardTitle(), boardDto.getBoardContent(),
-			boardDto.getBoardTime(), boardDto.getBoardHead(), 
-			boardDto.getBoardRead(), boardDto.getBoardLike(), 
-			boardDto.getBoardDislike(), boardDto.getBoardReply(), 
-			boardDto.getBoardGroup()
-		};
-		jdbcTemplate.update(sql, param);
+	    String sql = "INSERT INTO board "
+	               + "(board_no, board_writer, board_title, board_content, board_time, board_head, board_read, board_like, board_dislike, board_reply) "
+	               + "VALUES (board_seq.nextval, ?, ?, ?, SYSDATE, ?, 0, 0, 0, 0)";
+	    Object[] param = {
+	        boardDto.getBoardWriter(),
+	        boardDto.getBoardTitle(),
+	        boardDto.getBoardContent(),
+	        boardDto.getBoardHead()
+	    };
+	    jdbcTemplate.update(sql, param); 
 	}
+
 	
 	
 	//게시글 수정

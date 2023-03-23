@@ -1,9 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-<!-- jquery cdn -->
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>     
+    <!-- jquery cdn -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     
 <!-- summernote cdn -->
@@ -12,8 +14,8 @@
 
 <script type="text/javascript">
 	$(function(){
-		$('[name=content]').summernote({
-            placeholder: '³»¿ë ÀÛ¼º',
+		$('[name=boardContent]').summernote({
+            placeholder: 'ë‚´ìš© ì‘ì„±',
             tabsize: 4,
             height: 250,
             toolbar: [
@@ -27,34 +29,67 @@
         });
 	});	
     </script>
+    
+      <c:if test="${sessionScope.memberLevel == 'ë§ˆìŠ¤í„°'}">
+<script type="text/javascript">
+	function checkAll(){
+		var allCheckbox = document.querySelector(".check-all");
+		var checkboxes = document.querySelectorAll("input[type=checkbox][name=boardNo]");
+		for(var i = 0; i < checkboxes.length; i++){
+			checkboxes[i].checked = allCheckbox.checked;
+		}
+	}
+	function checkUnit(){
+		var allCheckbox = document.querySelector(".check-all");
+		var checkboxes = document.querySelectorAll("input[type=checkbox][name=boardNo]");
+		var count = 0;
+		for(var i = 0; i < checkboxes.length; i++){
+			if(checkboxes[i].checked){
+				count++;
+			}
+		}
+		allCheckbox.checked = (checkboxes.length == count);
+	}
+	function formCheck(){
+		var checkboxes = document.querySelectorAll("input[type=checkbox][name=boardNo]:checked")
+		if(checkboxes.length == 0) return false;
+		
+		return confirm("ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
+	}
+</script>
+</c:if>
 
-<form>
+    <form action="write" method="post" autocomplete="off">
         <div class="container-800">
             <div class="row center">
-                <h1>°Ô½Ã±Û ÀÛ¼º</h1>
+                <h1>ê²Œì‹œê¸€ ì‘ì„±</h1>
             </div>
 
             <div class="row">
-                <label>¸»¸Ó¸®</label>
+                <label>ë§ë¨¸ë¦¬</label>
                 <select name="boardHead">
-                <option value="">¾øÀ½</option>
-                <c:if test="${memberLevel == '°ü¸®ÀÚ'}">
-                    <option>°øÁö</option>
+                <option value="">ì—†ìŒ</option>
+                <c:if test="${memberLevel == 'ë§ˆìŠ¤í„°'}">
+                    <option>ê³µì§€</option>
                 </c:if>
-                <option>ÀÚÀ¯</option>
-                <option>ÀÎ±â</option>
+                <option>ììœ </option>
                 </select>
             </div>
 
             <div class="row">
-                <input type="text" name="boardTitle" required placeholder="Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä." class="form-input w-100"></div>
+                <input type="text" name="boardTitle" required placeholder="ì œëª©ì„ ì…ë ¥í•˜ì„¸ìš”." class="form-input w-100">
+            </div>
             <div class="row">
                 <textarea name="boardContent"></textarea>
             </div>
 
             <div class="row">
-                <button type="submit" class="form-btn positive w-100">µî·Ï</button>
+                <button type="submit" class="form-btn positive w-100">ë“±ë¡</button>
             </div>
+            <div class="row">
+            <a class="form-btn neutral w-100" href="list">ëª©ë¡</a>
+        	</div>
         </div>
     </form>
+
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

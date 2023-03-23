@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -27,6 +29,7 @@
     <div class="row">
         <h1>포켓몬교환 디테일</h1>
         <h1>${pocketmonTradeDto}</h1>
+        <h1><fmt:formatDate value="${pocketmonTradeDto.getPocketmonTradeWrittenTime()}" pattern="yyyy년MM월dd일 H시 m분 s초"/></h1>
     </div>
     <div class="row">
       <h1>${pocketmonTradeDto.getPocketmonTradeTitle()}</h1>

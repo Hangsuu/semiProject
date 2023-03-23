@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,6 +15,7 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
+    <!-- font-awesome CDN -->
     <link
       rel="stylesheet"
       type="text/css"
@@ -25,7 +26,6 @@ pageEncoding="UTF-8"%>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
     <title>Document</title>
-
   </head>
   <body>
     <main class="container-1200">
@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
                 <a href="#"><span>인기게시판</span></a>
               </div>
               <div>
-                <a href="#"><span>포켓몬교환 게시판</span></a>
+                <a href="/trade"><span>포켓몬교환 게시판</span></a>
               </div>
             </div>
           </div>
@@ -107,3 +107,6 @@ pageEncoding="UTF-8"%>
           </div>
         </div>
       </nav>
+    </main>
+  </body>
+</html>

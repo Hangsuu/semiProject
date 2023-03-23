@@ -121,18 +121,26 @@ public class PocketDexController {
 
   //포켓몬스터 정보 수정
   @GetMapping("/edit")
-  public String edit(@RequestParam int mosterNo) {
+  public String edit(
+		  Model model,
+		  @RequestParam int monsterNo,
+		  @ModelAttribute PocketDexDto pocketDexDto
+		  ) {
+	  model.addAttribute(pocketDexDao.selectOne(monsterNo));
+	  
     return "/WEB-INF/views/pocketdex/edit.jsp";
   }
 
-  //	@PostMapping("/editProcess")
-  //	public String editProcess(
-  //			@RequestParam int monsterNo,
-  //
-  //			) {
-  //		pocketDexDao.edit(monsterNo);
-  //		return "/"
-  //	}
+  	@PostMapping("/editProcess")
+  	public String editProcess(
+  				Model model,
+  			  @ModelAttribute PocketDexDto pocketDexDto
+  			  
+  			) {
+  		
+  		pocketDexDao.edit(pocketDexDto);
+  		return "redirect:detail";
+  	}
 
   //포켓몬스터 정보 삭제
   @GetMapping("/delete")

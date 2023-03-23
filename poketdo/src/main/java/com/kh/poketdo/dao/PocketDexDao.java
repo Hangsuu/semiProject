@@ -115,12 +115,19 @@ public class PocketDexDao {
 		return jdbcTemplate.update(sql,param)>0;
 		}
 	
+	//포켓몬스터 데이터 상세조회
+	public PocketDexDto selectOne(int monsterNo) {
+		String sql = "select * from monster where monster_no=? ";
+		Object [] param = {monsterNo};
+		List<PocketDexDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
 	//포켓몬스터 데이터 삭제
 	public boolean delete(int monsterNo) {
 		String sql = "delete monster where monster_no=?";
 		Object[] param= {monsterNo};
 		return jdbcTemplate.update(sql,param)>0;
-				
 	}
 		
 		

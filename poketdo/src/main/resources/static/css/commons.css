@@ -723,3 +723,7 @@ input [name="memberPw"] {
   left: auto;
   right: 100%;
 }
+
+main section article h1 {
+  font-size: 2em;
+}

@@ -107,6 +107,3 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </div>
         </div>
       </nav>
-    </main>
-  </body>
-</html>

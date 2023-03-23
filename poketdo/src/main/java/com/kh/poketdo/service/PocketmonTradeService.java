@@ -33,6 +33,8 @@ public class PocketmonTradeService {
     java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
     pocketmonTradeDto.setPocketmonTradeTradeTime(sqlDate);
 
+    System.out.println("sqlDate: " + sqlDate);
+
     allboardDao.insert(
       AllboardDto
         .builder()

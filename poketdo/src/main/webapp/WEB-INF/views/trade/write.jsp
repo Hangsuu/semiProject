@@ -3,8 +3,13 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <!-- summernote css, jQuery CDN -->
-<!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" /> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<style>
+  textarea[name=pocketmonTradeContent] {
+    min-height: 500px;
+  }
+</style>
 
 <!-- section -->
 <section test>
@@ -15,7 +20,7 @@
     <form action="#" method="post" enctype="multipart/form-data" class="w-100">
       <input type="hidden" name="pocketmonTradeWriter" value="${sessionScope.memberId}"/>
       <div class="row center">
-        <h1>교환글 글쓰기</h1>
+        <h1>포켓몬 교환</h1>
       </div>
       <div class="row">
         <label>제목
@@ -24,7 +29,7 @@
       </div>
       <div class="row">
         <label>내용 
-          <textarea class="form-input w-100" name="pocketmonTradeContent"></textarea>
+          <textarea class="form-input w-100" name="pocketmonTradeContent" placeholder="내용을 입력하세요"></textarea>
         </label>
       </div>
       <div class="row">

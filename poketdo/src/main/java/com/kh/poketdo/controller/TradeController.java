@@ -55,7 +55,12 @@ public class TradeController {
       pocketmonTradeNo
     );
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
+
     return "/WEB-INF/views/trade/detail.jsp";
   }
-  
+
+  @GetMapping("/test")
+  public String test() {
+    return "/WEB-INF/views/trade/test.jsp";
+  }
 }

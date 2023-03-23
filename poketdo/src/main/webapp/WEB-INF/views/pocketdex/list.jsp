@@ -15,6 +15,7 @@
 			<tr>
 				<th>번호</th>
 				<th>이름</th>
+				<th>속성</th>
 				<th>관리</th>
 			</tr>
 		</thead>
@@ -23,6 +24,7 @@
 				<tr>
 					<td>${pocketDexDto.monsterNo}</td>
 					<td>${pocketDexDto.monsterName}</td>
+					<td>${pocketDexDto.monsterTypeName}</td>
 					<td>
 						<a href="edit?monsterNo=${pocketDexDto.monsterNo}" >수정</a>
 						<a href="delete?monsterNo=${pocketDexDto.monsterNo}" >삭제</a>

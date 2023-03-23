@@ -70,7 +70,18 @@ public class PocketDexController {
 	}
 	
 	//포켓몬스터 정보 수정
-	
+	@GetMapping("/edit")
+	public String edit(@RequestParam int mosterNo) {
+		return "/WEB-INF/views/pocketdex/edit.jsp";
+	}
+//	@PostMapping("/editProcess")
+//	public String editProcess(
+//			@RequestParam int monsterNo,
+//			
+//			) {
+//		pocketDexDao.edit(monsterNo);
+//		return "/"
+//	}
 	
 	//포켓몬스터 정보 삭제
 	@GetMapping("/delete")

@@ -24,4 +24,6 @@ public class PocketDexDto {
 	private int monsterEffortSatk;
 	private int monsterEffortSdef;
 	
+	//포켓몬스터 속성 데이터
+	private String monsterTypeName;
 }

@@ -1,7 +1,5 @@
 package com.kh.poketdo.controller;
 
-import java.io.Console;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -49,5 +47,23 @@ public class MemberController {
         session.removeAttribute("memberId");
         session.removeAttribute("memberLevel");
         return "redirect:" + request.getHeader("Referer");
+    }
+        
+    @GetMapping("/join")
+    public String join() {
+    	return "/WEB-INF/views/member/join.jsp";
+    }
+    
+//    @PostMapping("/join")
+//    public String join(@ModelAttribute MemberDto memberDto,
+//    		@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+//    	memberService.join(memberDto, attach);
+//    	
+//    	return "redirect:joinFinish";
+//    }
+        
+    @GetMapping("/joinFinish")
+    public String joinFinish() {
+    	return "/WEB-INF/views/member/joinFinish.jsp";
     }
 }

@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
@@ -18,6 +17,26 @@ public class MemberDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    
+    
+	public void insert(MemberDto memberDto) {
+		String sql="insert into member("
+					+ "member_id, member_pw, member_nick, "
+					+ "member_code, member_email, member_level, "
+					+ "member_point, member_join, member_deadline"
+					+ ") values ("
+					+ "?,?,?,?,?,?,?,'일반회원', 0, sysdate, null"
+					+ ")";
+		Object[] param = {
+				memberDto.getMemberId(), memberDto.getMemberPw(),
+				memberDto.getMemberNick(), memberDto.getMemberCode(),
+				memberDto.getMemberEmail(), memberDto.getMemberLevel(),
+				memberDto.getMemberPoint(), memberDto.getMemberDeadline()
+		};
+		jdbcTemplate.update(sql,param);
+		
+	}
+
 
     private RowMapper<MemberDto> mapper = new RowMapper<MemberDto>() {
 

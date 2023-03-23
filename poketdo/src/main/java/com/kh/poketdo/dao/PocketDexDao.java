@@ -25,7 +25,8 @@ public class PocketDexDao {
 			return PocketDexDto.builder()
 					.monsterNo(rs.getInt("monster_no"))
 					.monsterName(rs.getString("monster_name"))
-					.monsterTypeName(rs.getString("monster_type_name"))
+//					.monsterTypeNo(rs.getInt("monster_type_no"))
+//					.monsterTypeName(rs.getString("monster_type_name"))
 					.monsterBaseHp(rs.getInt("monster_base_hp"))
 					.monsterBaseAtk(rs.getInt("monster_base_atk"))
 					.monsterBaseDef(rs.getInt("monster_base_def"))
@@ -45,7 +46,7 @@ public class PocketDexDao {
 	//포켓몬스터 정보 입력
 	public void insert(PocketDexDto pocketDexDto) {
 		String sql = "insert into monster ( "
-				+ "monster_no, monster_name, monster_type_name, monster_base_hp, "
+				+ "monster_no, monster_name, monster_base_hp, "
 				+ "monster_base_atk, monster_base_def, monster_base_spd, monster_base_satk, "
 				+ "monster_base_sdef, monster_effort_hp, monster_effort_atk, monster_effort_def, "
 				+ "monster_effort_spd, monster_effort_satk, monster_effort_sdef"
@@ -54,7 +55,6 @@ public class PocketDexDao {
 		Object[] param = {
 										pocketDexDto.getMonsterNo(), 
 										pocketDexDto.getMonsterName(),
-										pocketDexDto.getMonsterTypeName(),
 										pocketDexDto.getMonsterBaseHp(), 
 										pocketDexDto.getMonsterBaseAtk(),
 										pocketDexDto.getMonsterBaseDef(), 
@@ -71,19 +71,17 @@ public class PocketDexDao {
 		jdbcTemplate.update(sql, param);
 	}
 	
-	//포켓몬스터 목록
-//		public List<PocketDexDto> selectList(){
-//		String sql ="select * from monster order by monster_no asc";
-//		return jdbcTemplate.query(sql, mapper);
-//	}
+	//	포켓몬스터 목록
+		public List<PocketDexDto> selectList(){
+		String sql ="select * from monster order by monster_no asc";
+		return jdbcTemplate.query(sql, mapper);
+	}
 
 	//	포켓몬스터 목록
-	public List<PocketDexDto> selectList(){
-	String sql ="SELECT mon.*, pt.*, tp.* "
-			+ "FROM monster mon "
-			+ "INNER JOIN monster_join_type pt ON mon.monster_no = pt.monster_join_no "
-			+ "INNER JOIN monster_type tp ON pt.type_join_no = tp.monster_type_no";
-	return jdbcTemplate.query(sql, mapper);
+	public List<PocketDexDto> selectListAddType(int monsterNo){
+	String sql ="SELECT monster_type_name from monster_with_type where monster_no=?";
+	Object[] param = {monsterNo};
+	return jdbcTemplate.query(sql, mapper, param);
 	}
 	
 		

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.poketdo.dao.MonsterJoinTypeDao;
 import com.kh.poketdo.dao.PocketDexDao;
+import com.kh.poketdo.dao.PocketWithTypeDao;
 import com.kh.poketdo.dto.PocketDexDto;
+import com.kh.poketdo.dto.PocketWithTypeDto;
 
 @Controller
 @RequestMapping("/pocketDex")
@@ -26,6 +28,10 @@ public class PocketDexController {
 	//MonsterJoinTypeDao 주입
 	@Autowired
 	private MonsterJoinTypeDao monsterJoinTypeDao;
+	
+	//PocketWithTypeDao 주입
+	@Autowired
+	private PocketWithTypeDao pocketWithTypeDao;
 	
 	
 	//포켓몬스터 기본 정보 입력 페이지
@@ -63,9 +69,18 @@ public class PocketDexController {
 	@GetMapping("/list")
 	public String pocketDexList(
 			Model model,
-			@ModelAttribute PocketDexDto pocketDexDto
+			@ModelAttribute PocketDexDto pocketDexDto,
+			@ModelAttribute PocketWithTypeDto pocketWithTypeDto
 			) {
-		model.addAttribute("list", pocketDexDao.selectList());	
+		List<PocketDexDto> list = pocketDexDao.selectList();
+		
+		for(PocketDexDto dto : list ) {
+			System.out.println("포켓몬넘버 ="+dto.getMonsterNo());
+		}
+		model.addAttribute("list", list);
+//		model.addAttribute("list2", pocketWithTypeDao.selectListAddType(dto.getMonsterNo()));		
+		model.addAttribute("list2", pocketWithTypeDao.selectListAddType(4));		
+		
 		return "/WEB-INF/views/pocketdex/list.jsp";
 	}
 	

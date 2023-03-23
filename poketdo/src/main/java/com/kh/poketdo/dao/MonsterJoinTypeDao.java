@@ -20,4 +20,7 @@ public class MonsterJoinTypeDao {
 		jdbcTemplate.update(sql, param);
 	}
 	
+	
+	
+	
 }

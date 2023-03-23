@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>등록 완료 페이지입니다~</h1>
-	<a href="pocketDataInsert">새로 등록</a>
+	<a href="insert">새로 등록</a>
 	<a href="list">포켓몬스터 목록</a>
 </body>
 </html>

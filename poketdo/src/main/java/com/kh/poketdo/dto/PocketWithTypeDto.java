@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 //포켓몬스터 기본 정보 테이블 DTO
 
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
-public class PocketDexDto {
+public class PocketWithTypeDto {
 	private int monsterNo;
 	private String monsterName;
 	private int monsterBaseHp;
@@ -27,4 +27,8 @@ public class PocketDexDto {
 	//포켓몬스터 속성 데이터
 	private int monsterTypeNo;
 	private String monsterTypeName;
+	
+	//포켓몬 속성 연결 데이터
+	private int monsterJoinNo;
+	private int typeJoinNo;
 }

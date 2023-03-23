@@ -22,16 +22,21 @@
 		<tbody>
 			<c:forEach var="pocketDexDto"  items="${list}">
 				<tr>
-					<td>${pocketDexDto.monsterNo}</td>
+					<td>
+					${pocketDexDto.monsterNo}
+					</td>
 					<td>${pocketDexDto.monsterName}</td>
-					<td>${pocketDexDto.monsterTypeName}</td>
+					<td>
+						<c:forEach var="pocketWithTypeDto" items="${list2}">
+							${pocketWithTypeDto.monsterTypeName}
+						</c:forEach>
+					</td>
 					<td>
 						<a href="edit?monsterNo=${pocketDexDto.monsterNo}" >수정</a>
 						<a href="delete?monsterNo=${pocketDexDto.monsterNo}" >삭제</a>
 					</td>
 				</tr>
 			</c:forEach>
-		
 		</tbody>
 	</table>
 </body>

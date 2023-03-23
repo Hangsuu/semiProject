@@ -39,7 +39,6 @@
   	    	 processData:false,
   	    	 contentType:false,
   	    	 success:function(response){
-  	    		console.log(response);
   	    		//서버로 전송할 이미지 번호 정보 생성
   	    		var input = $("<input>").attr("type","hidden").attr("name","attachmentNo").val(response.attachmentNo);
   	    		$("form").prepend(input);
@@ -57,7 +56,7 @@
   });
 </script>
 <div class="container-800 mt-50">
-<form action="write" method="post">
+<form action="write" method="post" autocomplete="off">
 <input type="hidden" name="auctionWriter" value="${sessionScope.memberId}">
 	<div class="row">
 		제목<input class="form-input w-100" name="auctionTitle">

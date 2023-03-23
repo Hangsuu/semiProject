@@ -5,7 +5,7 @@
 <div class="container-800 mt-50">
 	<div class="row"><h1 style="font-size:2em">레이드</h1></div>
 	<div class="row">
-		<form action="list" method="get">
+		<form action="list" method="get" autocomplete="off">
 			<select name="column" class="form-input">
 				<option value="raid_title">제목</option>
 				<option value="raid_monster">몬스터</option>
@@ -34,7 +34,9 @@
 				<c:forEach var="raidDto" items="${list}">
 					<tr>
 						<td>${raidDto.raidNo}</td>
-						<td><a href="detail?seqNo=${raidDto.seqNo}&page=${param.page}" class="link">[${raidDto.raidMonster}] ${raidDto.raidTitle}</a></td>
+						<td><a href="detail?seqNo=${raidDto.seqNo}&page=${param.page}" class="link">
+							[${raidDto.raidMonster}] ${raidDto.raidTitle}
+						</a></td>
 						<td>${raidDto.raidStartTime}</td>
 						<td>${raidDto.raidParticipant}/4</td>
 						<c:choose>

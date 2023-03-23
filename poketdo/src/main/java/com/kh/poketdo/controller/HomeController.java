@@ -12,16 +12,15 @@ import com.kh.poketdo.vo.SimulatorVO;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
-    public String test() {
-        return "/WEB-INF/views/home.jsp";
-    }
-
-    @GetMapping("/sample")
-    public String sample() {
-        return "/WEB-INF/views/sample.jsp";
-    }
-    
+  @GetMapping("/")
+  public String test() {
+    return "/WEB-INF/views/home.jsp";
+  }
+	@GetMapping("/sample")
+	public String sample() {
+	    return "/WEB-INF/views/sample.jsp";
+	}
+	
 	@GetMapping("/simulator")
 	public String simulator(Model model) {
 		List<SimulatorVO> list = new ArrayList<SimulatorVO>();
@@ -32,9 +31,9 @@ public class HomeController {
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/simulator/simulator.jsp";
 	}
-    
-    @GetMapping("/calculator")
-    public String calculator() {
-    	return "/WEB-INF/views/simulator/calc.jsp";
-    }
+	
+	@GetMapping("/calculator")
+	public String calculator() {
+		return "/WEB-INF/views/simulator/calc.jsp";
+	}
 }

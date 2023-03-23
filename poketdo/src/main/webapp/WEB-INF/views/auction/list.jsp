@@ -6,7 +6,7 @@
 	<div class="row"><h1 style="font-size:2em">경매</h1></div>
 <!-- 검색 -->
 	<div class="row">
-		<form action="list" method="get">
+		<form action="list" method="get" autocomplete="off">
 			<select name="column" class="form-input">
 				<option value="auction_title">제목</option>
 				<option value="auction_content">내용</option>

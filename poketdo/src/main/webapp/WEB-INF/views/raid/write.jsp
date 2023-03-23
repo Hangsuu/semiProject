@@ -39,7 +39,6 @@
   	    	 processData:false,
   	    	 contentType:false,
   	    	 success:function(response){
-  	    		console.log(response);
   	    		//서버로 전송할 이미지 번호 정보 생성
   	    		var input = $("<input>").attr("type","hidden").attr("name","attachmentNo").val(response.attachmentNo);
   	    		$("form").prepend(input);
@@ -47,7 +46,7 @@
 	     		//var imgNode=$("<img>").attr("src", "/rest/attachment/download?attachmentNo="+response.attachmentNo);
 	     		var imgNode=$("<img>").attr("src", "/rest/attachment/download/"+response.attachmentNo);
 	     		//$summernote.summernote('insertNode', imgNode);//summernote의 객체를 나타내므로 고쳐야됨
-	     		$("[name=boardContent]").summernote('insertNode', imgNode.get(0));
+	     		$("[name=raidContent]").summernote('insertNode', imgNode.get(0));
   	    	 },
   	    	 error:function(){},
   	      });
@@ -57,7 +56,7 @@
   });
 </script>
 <div class="container-800 mt-50">
-<form action="write" method="post">
+<form action="write" method="post" autocomplete="off">
 <input type="hidden" name="raidWriter" value="${sessionScope.memberId}">
 	<div class="row">
 		제목 : <input class="form-input" name="raidTitle">

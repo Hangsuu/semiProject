@@ -56,10 +56,10 @@ public class PocketWithTypeDao {
 
 
 	//	포켓몬스터 목록
-	public List<PocketWithTypeDto> selectListAddType(int monsterNo){
+	public String selectListAddType(int monsterNo){
 	String sql ="select monster_type_name from monster_with_type where monster_no=?";
 	Object[] param = {monsterNo};
-	return jdbcTemplate.query(sql, mapper2, param);
+	return jdbcTemplate.queryForObject(sql, String.class, param);
 	}
 	
 		

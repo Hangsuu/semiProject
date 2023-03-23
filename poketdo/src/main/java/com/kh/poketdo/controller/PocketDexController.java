@@ -1,5 +1,6 @@
 package com.kh.poketdo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.poketdo.dao.MonsterJoinTypeDao;
 import com.kh.poketdo.dao.PocketDexDao;
 import com.kh.poketdo.dao.PocketWithTypeDao;
+import com.kh.poketdo.dto.MonsterJoinTypeDto;
 import com.kh.poketdo.dto.PocketDexDto;
 import com.kh.poketdo.dto.PocketWithTypeDto;
+import com.kh.poketdo.dto.TypeTestDto;
 
 @Controller
 @RequestMapping("/pocketDex")
@@ -73,10 +76,17 @@ public class PocketDexController {
 			@ModelAttribute PocketWithTypeDto pocketWithTypeDto
 			) {
 		List<PocketDexDto> list = pocketDexDao.selectList();
-		
-		for(PocketDexDto dto : list ) {
-			System.out.println("포켓몬넘버 ="+dto.getMonsterNo());
-		}
+////		System.out.println(list);
+//		List<String> list20 = new ArrayList<>();
+//		for(MonsterJoinTypeDto joinDto : list) {
+//			type.add
+//		}
+//		for(PocketDexDto dto : list ) {
+////			List<FindDto dto> list3 = pocketWithTypeDao.selectListAddType(dto.getMonsterNo());
+////			System.out.println("포켓몬넘버 ="+dto.getMonsterNo());
+//			List<TypeTestDto> list10 = pocketWithTypeDao.selectListAddType(dto.getMonsterNo());
+////			System.out.println(list10);
+//		}
 		model.addAttribute("list", list);
 //		model.addAttribute("list2", pocketWithTypeDao.selectListAddType(dto.getMonsterNo()));		
 		model.addAttribute("list2", pocketWithTypeDao.selectListAddType(4));		

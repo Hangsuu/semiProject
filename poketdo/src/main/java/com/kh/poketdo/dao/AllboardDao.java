@@ -19,11 +19,11 @@ public class AllboardDao {
   // C
   public void insert(AllboardDto allboardDto) {
     String sql =
-      "insert into allboard (allboard_no, allboard_board_type, allboard_board_type_no) values (?, ?, ?)";
+      "insert into allboard (allboard_no, allboard_board_type, allboard_board_no) values (?, ?, ?)";
     Object[] param = {
       allboardDto.getAllboardNo(),
       allboardDto.getAllboardBoardType(),
-      allboardDto.getAllboardBoardTypeNo(),
+      allboardDto.getAllboardBoardNo(),
     };
     jdbcTemplate.update(sql, param);
   }

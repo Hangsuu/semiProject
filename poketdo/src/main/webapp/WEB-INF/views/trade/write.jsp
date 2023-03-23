@@ -3,8 +3,8 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <!-- summernote css, jQuery CDN -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" /> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> -->
 
 <!-- section -->
 <section test>
@@ -29,7 +29,7 @@
       </div>
       <div class="row">
         <label>거래일
-          <input type="datetime-local" class="form-input w-100" name="pocketmonTradeTradeTime">
+          <input type="datetime-local" class="form-input w-100" name="promise">
         </label>
       </div>
       <button type="submit" class="form-btn w-100 positive">등록</button>

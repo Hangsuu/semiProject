@@ -46,8 +46,8 @@ public class AuctionController {
 	@PostMapping("/write")
 	public String write(@ModelAttribute AuctionDto dto, RedirectAttributes attr,
 			@RequestParam int lastDay) {
-		int seq = auctionDao.sequence();
-		dto.setSeqNo(seq);
+		int allboardNo = auctionDao.sequence();
+		dto.setAllboardNo(allboardNo);
 		
 		java.util.Date currentTime = new java.util.Date();
 		Calendar calendar = Calendar.getInstance();
@@ -58,38 +58,38 @@ public class AuctionController {
 		
 		auctionDao.insert(dto);
 		attr.addAttribute("page", "1");
-		attr.addAttribute("seqNo", seq);
+		attr.addAttribute("allboardNo", allboardNo);
 		return "redirect:detail";
 	}
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam int seqNo, Model model, HttpSession session) {
-		AuctionDto auctionDto = auctionDao.selectOne(seqNo);
+	public String detail(@RequestParam int allboardNo, Model model, HttpSession session) {
+		AuctionDto auctionDto = auctionDao.selectOne(allboardNo);
 		String auctionWriter = auctionDto.getAuctionWriter();
 		String memberId = (String) session.getAttribute("memberId");
 		boolean owner = auctionWriter!=null && auctionWriter.equals(memberId);
 		if(!owner) {
 			Set<Integer> memory = (Set<Integer>)session.getAttribute("memory");
 			if(memory==null) memory = new HashSet<Integer>();
-			if(!memory.contains(seqNo)) {
-				auctionDao.readCount(seqNo);
-				memory.add(seqNo);
+			if(!memory.contains(allboardNo)) {
+				auctionDao.readCount(allboardNo);
+				memory.add(allboardNo);
 			}
 			session.setAttribute("memory", memory);
 		}
-		model.addAttribute("auctionDto", auctionDao.selectOne(seqNo));
+		model.addAttribute("auctionDto", auctionDao.selectOne(allboardNo));
 		return "/WEB-INF/views/auction/detail.jsp";
 	}
 	
 	@PostMapping("/bid")
 	public String detail(@ModelAttribute AuctionBidDto dto, RedirectAttributes attr,
-			@RequestParam int seqNo) {
-		AuctionDto auctionDto = auctionDao.selectOne(seqNo);
+			@RequestParam int allboardNo) {
+		AuctionDto auctionDto = auctionDao.selectOne(allboardNo);
 		java.util.Date currentTime = new java.util.Date();
 		java.util.Date auctionDate = new java.util.Date(auctionDto.getAuctionFinishTime().getTime());
 		boolean overTime = auctionDate.getTime()<=currentTime.getTime();
 		boolean isTenMin = (auctionDate.getTime()-currentTime.getTime())/1000/60<=10;
-		attr.addAttribute("seqNo", seqNo);
+		attr.addAttribute("allboardNo", allboardNo);
 		if(!overTime && !isTenMin) {
 			auctionBidDao.insert(dto);
 		}
@@ -99,25 +99,25 @@ public class AuctionController {
 			calendar.setTime(currentTime);
 			calendar.add(Calendar.MINUTE, 10);
 			java.sql.Date newTime = new java.sql.Date(calendar.getTime().getTime());
-			auctionDao.changeFinishTime(newTime, seqNo);
+			auctionDao.changeFinishTime(newTime, allboardNo);
 		}
 
 		return "redirect:detail";
 	}
 	@GetMapping("/delete")
-	public String delete(@RequestParam int seqNo, 
+	public String delete(@RequestParam int allboardNo, 
 			@RequestParam(required=false, defaultValue="1") int page,
 			RedirectAttributes attr,
 			HttpSession session) {
-		String memberId = auctionDao.selectOne(seqNo).getAuctionWriter();
+		String memberId = auctionDao.selectOne(allboardNo).getAuctionWriter();
 		String sessionId = (String)session.getAttribute("memberId");
 		if(memberId.equals(sessionId)) {
-			auctionDao.delete(seqNo);
+			auctionDao.delete(allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:list";
 		}
 		else {
-			attr.addAttribute("seqNo", seqNo);
+			attr.addAttribute("allboardNo", allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:detail";
 		}

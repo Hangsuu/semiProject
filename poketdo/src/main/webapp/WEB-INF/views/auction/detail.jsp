@@ -4,14 +4,14 @@
 <script type="text/javascript">
 	$(function(){
 		var params = new URLSearchParams(location.search);
-		var seqNo = params.get("seqNo");
+		var allboardNo = params.get("allboardNo");
 		
 		getMinPrice();
 		getMaxPrice();
 		
 		function getMinPrice(){
 			$.ajax({
-				url:"/rest/auction/min/"+seqNo,
+				url:"/rest/auction/min/"+allboardNo,
 				method:"get",
 				success:function(response){
 					$(".min-bid-price").text(response);
@@ -20,7 +20,7 @@
 		};
 		function getMaxPrice() {
 			$.ajax({
-				url:"/rest/auction/max/"+seqNo,
+				url:"/rest/auction/max/"+allboardNo,
 				method:"get",
 				success:function(response){
 					$(".max-bid-price").text(response);
@@ -49,7 +49,7 @@
 					},
 				});
 				$.ajax({
-					url:"/rest/auction/min?bidPrice="+enterPrice+"&seqNo="+seqNo,
+					url:"/rest/auction/min?bidPrice="+enterPrice+"&allboardNo="+allboardNo,
 					method:"get",
 					success:function(){
 						console.log("성공");
@@ -107,13 +107,14 @@
 	조회수 : ${auctionDto.auctionRead}
 	</div>
 	<div class="row">
-	내용 : <textarea class="form-input w-100" readonly>${auctionDto.auctionContent}</textarea>
+	내용
+		<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
 	</div>
 	<div class="row">
 	글쓴이 : ${auctionDto.auctionWriter}
 	</div>
 	<form class="form-bid">
-		<input type="hidden" name="auctionBidOrigin" value="${auctionDto.seqNo}">
+		<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
 		<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
 		<input class="form-input" name="auctionBidPrice">
 		<button type="button" class="form-btn neutral bid-btn">입찰</button>
@@ -127,7 +128,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<a href="delete?seqNo=${auctionDto.seqNo}&page=${param.page}" class="form-btn neutral">삭제</a>
+		<a href="delete?allboardNo=${auctionDto.allboardNo}&page=${param.page}" class="form-btn neutral">삭제</a>
 		<a href="list?page=${param.page}" class="form-btn neutral">목록</a>
 	</div>
 </div>

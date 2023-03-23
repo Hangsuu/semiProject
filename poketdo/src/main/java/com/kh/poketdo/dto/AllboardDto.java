@@ -13,5 +13,5 @@ public class AllboardDto {
 
   private int allboardNo;
   private String allboardBoardType;
-  private int allboardBoardTypeNo;
+  private int allboardBoardNo;
 }

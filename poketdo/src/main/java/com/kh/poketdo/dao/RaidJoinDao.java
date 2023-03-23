@@ -20,7 +20,7 @@ public class RaidJoinDao {
 		public RaidJoinDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return RaidJoinDto.builder()
 					.raidJoinNo(rs.getInt("raid_join_no"))
-					.raidJoinRaid(rs.getInt("raid_join_raid"))
+					.raidJoinOrigin(rs.getInt("raid_join_origin"))
 					.raidJoinParticipant(rs.getString("raid_join_participant"))
 					.raidJoinContent(rs.getString("raid_join_content"))
 					.raidJoinConfirm(rs.getInt("raid_join_confirm")).build();
@@ -28,14 +28,14 @@ public class RaidJoinDao {
 	};
 	
 	public void insert(RaidJoinDto raidJoinDto) {
-		String sql="insert into raid_join(raid_join_no, raid_join_raid, raid_join_participant,"
+		String sql="insert into raid_join(raid_join_no, raid_join_origin, raid_join_participant,"
 				+ "raid_join_content, raid_join_confirm) values(raid_join_seq.nextval,?,?,?,?)";
-		Object[] param= {raidJoinDto.getRaidJoinRaid(), raidJoinDto.getRaidJoinParticipant(), raidJoinDto.getRaidJoinContent(),
+		Object[] param= {raidJoinDto.getRaidJoinOrigin(), raidJoinDto.getRaidJoinParticipant(), raidJoinDto.getRaidJoinContent(),
 				raidJoinDto.getRaidJoinConfirm()};
 		jdbcTemplate.update(sql, param);
 	}
 	public int count(int seqNo) {
-		String sql="select count(*) from raid_join where raid_join_raid=? and raid_join_confirm=1";
+		String sql="select count(*) from raid_join where raid_join_origin=? and raid_join_confirm=1";
 		Object[] param= {seqNo};
 		Integer cnt = jdbcTemplate.queryForObject(sql, Integer.class, param);
 		if(cnt==null) cnt=0;

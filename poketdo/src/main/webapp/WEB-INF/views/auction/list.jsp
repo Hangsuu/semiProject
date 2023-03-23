@@ -33,8 +33,8 @@
 			<tbody>
 				<c:forEach var="auctionDto" items="${list}">
 					<tr>
-						<td>${auctionDto.seqNo}</td>
-						<td><a href="detail?seqNo=${auctionDto.seqNo}&page=${param.page}" class="link">${auctionDto.auctionTitle}</a></td>
+						<td>${auctionDto.allboardNo}</td>
+						<td><a href="detail?allboardNo=${auctionDto.allboardNo}&page=${param.page}" class="link">${auctionDto.auctionTitle}</a></td>
 						<td>${auctionDto.auctionWriter}</td>
 						<td>${auctionDto.auctionFinishTime}</td>
 						<td>${auctionDto.auctionRead}</td>

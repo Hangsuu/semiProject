@@ -34,7 +34,7 @@
 				<c:forEach var="raidDto" items="${list}">
 					<tr>
 						<td>${raidDto.raidNo}</td>
-						<td><a href="detail?seqNo=${raidDto.seqNo}&page=${param.page}" class="link">
+						<td><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
 						<td>${raidDto.raidStartTime}</td>

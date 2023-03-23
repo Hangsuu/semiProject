@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.kh.poketdo.dto.AllboardDto;
 import com.kh.poketdo.dto.RaidDto;
 import com.kh.poketdo.vo.PaginationVO;
 
@@ -17,12 +18,14 @@ public class RaidDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private AllboardDao allboardDao;
 	
 	private RowMapper<RaidDto> mapper = new RowMapper<RaidDto>() {
 		@Override
 		public RaidDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return RaidDto.builder()
-					.seqNo(rs.getInt("seq_no"))
+					.allboardNo(rs.getInt("allboard_no"))
 					.raidNo(rs.getInt("raid_no"))
 					.raidWriter(rs.getString("raid_writer"))
 					.raidTitle(rs.getString("raid_title"))
@@ -40,22 +43,28 @@ public class RaidDao {
 		}
 	};
 	public int sequence() {
-		String sql = "select seq.nextval from dual";
+		String sql = "select allboard_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
 	//생성(C)
 	public void insert(RaidDto dto) {
-		String sql = "insert into raid(seq_no, raid_no, raid_writer, raid_title, raid_content, "
+		String sql = "insert into raid(allboard_no, raid_no, raid_writer, raid_title, raid_content, "
 				+ "raid_monster, raid_start_time, raid_type) "
 				+ "values(?,raid_seq.nextval,?,?,?,?,?,?)";
-		Object[] param = {dto.getSeqNo(), dto.getRaidWriter(), dto.getRaidTitle(), dto.getRaidContent(), 
+		Object[] param = {dto.getAllboardNo(), dto.getRaidWriter(), dto.getRaidTitle(), dto.getRaidContent(), 
 				dto.getRaidMonster(), dto.getRaidStartTime(), dto.getRaidType()};
 		jdbcTemplate.update(sql, param);
+		
+		AllboardDto allboardDto = new AllboardDto();
+		allboardDto.setAllboardNo(dto.getAllboardNo());
+		allboardDto.setAllboardBoardType("raid");
+		allboardDto.setAllboardBoardNo(selectOne(dto.getAllboardNo()).getRaidNo());
+		allboardDao.insert(allboardDto);
 	}
 	//삭제(D)
-	public boolean delete(int seqNo) {
-		String sql = "delete raid where seq_no=?";
-		Object[] param = {seqNo};
+	public boolean delete(int allboardNo) {
+		String sql = "delete raid where allboard_no=?";
+		Object[] param = {allboardNo};
 		return jdbcTemplate.update(sql, param)>0;
 	}
 	//읽기(R)
@@ -93,21 +102,33 @@ public class RaidDao {
 		}
 	}
 	
-	public void readCount(int seqNo) {
-		String sql = "update raid set raid_read=raid_read+1 where seq_no=?";
-		Object[] param = {seqNo};
+	public void readCount(int allboardNo) {
+		String sql = "update raid set raid_read=raid_read+1 where allboard_no=?";
+		Object[] param = {allboardNo};
 		jdbcTemplate.update(sql, param);
 	}
-	public RaidDto selectOne(int seqNo) {
-		String sql = "select * from raid where seq_no=?";
-		Object[] param = {seqNo};
+	public RaidDto selectOne(int allboardNo) {
+		String sql = "select * from raid where allboard_no=?";
+		Object[] param = {allboardNo};
 		List<RaidDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty()? null : list.get(0);
 	}
 	//수정(U)
 	public boolean edit(RaidDto raidDto) {
-		String sql = "update raid set raid_title=?, raid_content=?, raid_type=? where seq_no=?";
-		Object[] param = {raidDto.getRaidTitle(), raidDto.getRaidContent(), raidDto.getRaidType(), raidDto.getSeqNo()};
+		String sql = "update raid set raid_title=?, raid_content=?, raid_type=? where allboard_no=?";
+		Object[] param = {raidDto.getRaidTitle(), raidDto.getRaidContent(), raidDto.getRaidType(), raidDto.getAllboardNo()};
 		return jdbcTemplate.update(sql, param)>0;
+	}
+	//댓글 갯수 반영
+	public void replySet(int allboardNo, int replyCount) {
+		String sql = "update raid set raid_reply=? where allboard_no=?";
+		Object[] param = {replyCount, allboardNo};
+		jdbcTemplate.update(sql, param);
+	}
+	//좋아요 갯수 반영
+	public void likeSet(int allboardNo, int likeCount) {
+		String sql = "update raid set raid_like=? where allboard_no=?";
+		Object[] param = {likeCount, allboardNo};
+		jdbcTemplate.update(sql, param);
 	}
 }

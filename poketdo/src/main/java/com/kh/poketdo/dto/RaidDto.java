@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class RaidDto {
-	private int seqNo;
+	private int allboardNo;
 	private int raidNo;
 	private String raidWriter;
 	private String raidTitle;

@@ -37,10 +37,10 @@ public class RaidController {
 	@PostMapping("/write")
 	public String write(@ModelAttribute RaidDto raidDto, RedirectAttributes attr) {
 		int sequence = raidDao.sequence();
-		raidDto.setSeqNo(sequence);
+		raidDto.setAllboardNo(sequence);
 		raidDao.insert(raidDto);
 		attr.addAttribute("page", 1);
-		attr.addAttribute("seqNo", sequence);
+		attr.addAttribute("allboardNo", sequence);
 		return "redirect:detail";
 	}
 	@GetMapping("/list")
@@ -51,44 +51,44 @@ public class RaidController {
 		return "/WEB-INF/views/raid/list.jsp";
 	}
 	@GetMapping("/detail")
-	public String detail(@RequestParam int seqNo, Model model,
+	public String detail(@RequestParam int allboardNo, Model model,
 			HttpSession session) {
-		RaidDto raidDto = raidDao.selectOne(seqNo);
+		RaidDto raidDto = raidDao.selectOne(allboardNo);
 		String memberId = (String)session.getAttribute("memberId");
 		String raidWriter = raidDto.getRaidWriter();
 		boolean owner = raidWriter!=null && raidWriter.equals(memberId);
 		if(!owner) {
 			Set<Integer> memory = (Set<Integer>)session.getAttribute("memory");
 			if(memory==null) memory = new HashSet<Integer>();
-			if(!memory.contains(seqNo)) {
-				raidDao.readCount(seqNo);
-				memory.add(seqNo);
+			if(!memory.contains(allboardNo)) {
+				raidDao.readCount(allboardNo);
+				memory.add(allboardNo);
 			}
 		}
-		model.addAttribute("raidDto", raidDao.selectOne(seqNo));
-		model.addAttribute("count", raidJoinDao.count(seqNo));
+		model.addAttribute("raidDto", raidDao.selectOne(allboardNo));
+		model.addAttribute("count", raidJoinDao.count(allboardNo));
 		return "/WEB-INF/views/raid/detail.jsp";
 	}
 	@PostMapping("/join")
 	public String join(@ModelAttribute RaidJoinDto raidJoinDto, 
-			@RequestParam int seqNo, RedirectAttributes attr) {
+			@RequestParam int allboardNo, RedirectAttributes attr) {
 		raidJoinDao.insert(raidJoinDto);
-		attr.addAttribute("seqNo", seqNo);
+		attr.addAttribute("allboardNo", allboardNo);
 		return "redirect:detail";
 	}
 	@GetMapping("/delete")
 	public String delete(RedirectAttributes attr,
-			@RequestParam int seqNo, @RequestParam(defaultValue="1") int page,
+			@RequestParam int allboardNo, @RequestParam(defaultValue="1") int page,
 			HttpSession session) {
 		String memberId = (String)session.getAttribute("memberId");
-		if(memberId.equals(raidDao.selectOne(seqNo).getRaidWriter())) {
-			raidDao.delete(seqNo);
+		if(memberId.equals(raidDao.selectOne(allboardNo).getRaidWriter())) {
+			raidDao.delete(allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:list";
 		}
 		else {
 			attr.addAttribute("page", page);
-			attr.addAttribute("seqNo", seqNo);
+			attr.addAttribute("seqNo", allboardNo);
 			return "redirect:detail";
 		}
 	}

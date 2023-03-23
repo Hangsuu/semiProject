@@ -30,35 +30,6 @@
 	});	
     </script>
     
-      <c:if test="${sessionScope.memberLevel == '마스터'}">
-<script type="text/javascript">
-	function checkAll(){
-		var allCheckbox = document.querySelector(".check-all");
-		var checkboxes = document.querySelectorAll("input[type=checkbox][name=boardNo]");
-		for(var i = 0; i < checkboxes.length; i++){
-			checkboxes[i].checked = allCheckbox.checked;
-		}
-	}
-	function checkUnit(){
-		var allCheckbox = document.querySelector(".check-all");
-		var checkboxes = document.querySelectorAll("input[type=checkbox][name=boardNo]");
-		var count = 0;
-		for(var i = 0; i < checkboxes.length; i++){
-			if(checkboxes[i].checked){
-				count++;
-			}
-		}
-		allCheckbox.checked = (checkboxes.length == count);
-	}
-	function formCheck(){
-		var checkboxes = document.querySelectorAll("input[type=checkbox][name=boardNo]:checked")
-		if(checkboxes.length == 0) return false;
-		
-		return confirm("정말 삭제하시겠습니까?");
-	}
-</script>
-</c:if>
-
     <form action="write" method="post" autocomplete="off">
         <div class="container-800">
             <div class="row center">

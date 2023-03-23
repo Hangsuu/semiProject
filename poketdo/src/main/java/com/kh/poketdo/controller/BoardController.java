@@ -59,12 +59,12 @@ public class BoardController {
 	@PostMapping("/write")
 	public String write(@ModelAttribute BoardDto boardDto,
 			HttpSession session, RedirectAttributes attr) {
+		// 게시글 번호 생성
+		int boardNo = boardDao.sequence();
 		//현재 로그인한 사용자의 memberId를 boardDto의 boardWriter에 설정
 		String memberId = (String)session.getAttribute("memberId");
 		boardDto.setBoardWriter(memberId);
 		
-		//게시글 번호 생성
-		int boardNo = boardDao.sequence();
 		boardDto.setBoardNo(boardNo);
 		System.out.println("boardDto: " + boardDto);
 		//게시글 생성
@@ -81,7 +81,7 @@ public class BoardController {
 	public String edit(@RequestParam int boardNo, Model model) {
 		model.addAttribute("boardDto", boardDao.selectOne(boardNo));
 		
-		return "WEB-INF/views/board/edit.jsp";
+		return "/WEB-INF/views/board/edit.jsp";
 	}
 	
 	
@@ -102,6 +102,22 @@ public class BoardController {
 		return "redirect:list";//상대경로
 		//return "redirect:/board/list";//절대경로
 	}
+	
+	@GetMapping("/delete/{boardNo}")
+	public String delete2(@PathVariable int boardNo) {
+		boardDao.delete(boardNo);
+//		return "redirect:../list";//상대경로
+		return "redirect:/board/list";//절대경로
+	}
+	
+	@PostMapping("/deleteAll")
+	public String deleteAll(@RequestParam int boardNo) {
+		boardDao.delete(boardNo);
+	    // 예시: Board.deleteAllPosts();
+
+	    return "redirect:/board/list";
+	}
+
 	
 //	조회수 중복 방지 시나리오
 //	1. 작성자 본인은 조회수 증가를 하지 않는다

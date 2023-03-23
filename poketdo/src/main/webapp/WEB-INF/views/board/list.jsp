@@ -122,7 +122,8 @@
 								[${boardDto.boardHead}]
 							</c:if>
 							
-							${boardDto.boardTitle}(${board_reply})
+							${boardDto.boardTitle}
+							<c:if test="${boardDto.boardReply != 0}">(${board_reply})</c:if>
 						</a>
 					</td>
 					<td class="left">${boardDto.boardWriter}</td>

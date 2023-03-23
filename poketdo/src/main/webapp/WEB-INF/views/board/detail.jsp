@@ -67,6 +67,9 @@
             <i class="fa-heart"></i>
             </c:if>
             
+            싫어요
+            <span class="bad-count">${boardDto.boardDislike}</span>
+            
             댓글 
             <span class="reply-count">${boardDto.boardReply}</span>
         </div>
@@ -94,7 +97,7 @@
             </div>
             <c:if test="${sessionScope.memberId != null}">		
             <div class="row right">
-                <button type="button" class="form-btn positive reply-insert-btn">댓글 작성</button>
+                <button type="submit" class="form-btn positive reply-insert-btn">댓글 작성</button>
             </div>
             </c:if>
     
@@ -104,7 +107,6 @@
         
         <div class="row right">
             <a class="form-btn positive" href="/board/write">글쓰기</a>
-            <a class="form-btn positive" href="/board/write?boardParent=${boardDto.boardNo}">답글쓰기</a>
             
             <c:if test="${owner}">
             <!-- 내가 작성한 글이라면 수정과 삭제 메뉴를 출력 -->

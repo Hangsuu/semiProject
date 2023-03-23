@@ -38,10 +38,10 @@
 
 <div class="container-800">
     <div class="row center">
-        <h1>자유 게시판</h1>
+        <h1>인기글 게시판</h1>
     </div>
     <div class="row center">
-        남을 비방하는 경우 예고 없이 삭제될 수 있습니다
+        이곳은 자신의 인기력을 테스트하는 공간입니다.
     </div>
     
     <c:if test="${sessionScope.memberLevel == '마스터'}">
@@ -121,7 +121,8 @@
 								[${boardDto.boardHead}]
 							</c:if>
 							
-							${boardDto.boardTitle}(${board_reply})
+							${boardDto.boardTitle}
+							<c:if test="${boardDto.boardReply != 0}">(${board_reply})</c:if>
 						</a>
 					</td>
 					<td class="left">${boardDto.boardWriter}</td>

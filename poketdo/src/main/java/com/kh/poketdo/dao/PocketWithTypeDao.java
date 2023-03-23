@@ -45,22 +45,11 @@ public class PocketWithTypeDao {
     }
   };
 
-  private RowMapper<PocketWithTypeDto> mapper2 = new RowMapper<PocketWithTypeDto>() {
-    @Override
-    public PocketWithTypeDto mapRow(ResultSet rs, int rowNum)
-      throws SQLException {
-      return PocketWithTypeDto
-        .builder()
-        .monsterTypeName(rs.getString("monster_type_name"))
-        .build();
-    }
-  };
-
-  // 포켓몬스터 목록
-  public List<PocketWithTypeDto> selectListAddType(int monsterNo) {
+  //	포켓몬스터 목록
+  public String selectListAddType(int monsterNo) {
     String sql =
       "select monster_type_name from monster_with_type where monster_no=?";
     Object[] param = { monsterNo };
-    return jdbcTemplate.query(sql, mapper2, param);
+    return jdbcTemplate.queryForObject(sql, String.class, param);
   }
 }

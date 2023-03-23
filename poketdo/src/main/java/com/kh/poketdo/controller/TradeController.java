@@ -1,10 +1,11 @@
 package com.kh.poketdo.controller;
 
 import com.kh.poketdo.dao.PocketmonTradeDao;
+import com.kh.poketdo.dao.TestDao;
 import com.kh.poketdo.dto.PocketmonTradeDto;
+import com.kh.poketdo.dto.TestDto;
 import com.kh.poketdo.service.PocketmonTradeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ public class TradeController {
   @Autowired
   private PocketmonTradeService pocketmonTradeService;
 
+  @Autowired
+  private TestDao testDao;
+
   @GetMapping("")
   public String list() {
     return "/WEB-INF/views/trade/list.jsp";
@@ -35,8 +39,12 @@ public class TradeController {
 
   @PostMapping("/write")
   public String write(@ModelAttribute PocketmonTradeDto pocketmonTradeDto) {
-    int newAllBoardSeq = pocketmonTradeService.insert(pocketmonTradeDto);
-    return "redirect:" + newAllBoardSeq;
+    System.out.println(
+      "### getPocketmonTradeTradeTime(): " +
+      pocketmonTradeDto.getPocketmonTradeTradeTime()
+    );
+    int newPocketmonTradeSeq = pocketmonTradeService.insert(pocketmonTradeDto);
+    return "redirect:" + newPocketmonTradeSeq;
   }
 
   @GetMapping("/{pocketmonTradeNo}")
@@ -46,5 +54,17 @@ public class TradeController {
     );
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
     return "/WEB-INF/views/trade/detail.jsp";
+  }
+
+  @GetMapping("/test")
+  public String test() {
+    return "/WEB-INF/views/trade/test.jsp";
+  }
+
+  @PostMapping("/test")
+  public String test2(@ModelAttribute TestDto testdto) {
+    System.out.println(testdto.getTime());
+    // testDao.insert(testdto);
+    return "redirect:";
   }
 }

@@ -62,7 +62,7 @@ public class TradeController {
   }
 
   @PostMapping("/test")
-  public String test2(@ModelAttribute TestDto testdto) {
+  public String test2(@ModelAttribute TestDto testdto, @RequestParam String pocketmonTrade) {
     System.out.println(testdto.getTime());
     // testDao.insert(testdto);
     return "redirect:";

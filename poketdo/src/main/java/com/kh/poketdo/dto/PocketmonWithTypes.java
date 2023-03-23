@@ -1,17 +1,17 @@
 package com.kh.poketdo.dto;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//포켓몬스터 기본 정보 테이블 DTO
-
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class PocketWithTypeDto {
+@NoArgsConstructor
+// 기존 monster정보 + 타입들(monsterTypes)
+public class PocketmonWithTypes {
 
   private int monsterNo;
   private String monsterName;
@@ -27,12 +27,5 @@ public class PocketWithTypeDto {
   private int monsterEffortSpd;
   private int monsterEffortSatk;
   private int monsterEffortSdef;
-
-  //포켓몬스터 속성 데이터
-  private int monsterTypeNo;
-  private String monsterTypeName;
-
-  //포켓몬 속성 연결 데이터
-  private int monsterJoinNo;
-  private int typeJoinNo;
+  private List<String> monsterTypes;
 }

@@ -20,15 +20,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="pocketDexDto"  items="${list}">
+			<c:forEach var="pocketDexDto"  items="${list3}">
 				<tr>
 					<td>
 					${pocketDexDto.monsterNo}
 					</td>
 					<td>${pocketDexDto.monsterName}</td>
 					<td>
-						<c:forEach var="pocketWithTypeDto" items="${list2}">
-							${pocketWithTypeDto.monsterTypeName}
+						<c:forEach var="i" begin="0" end="${pocketDexDto.getMonsterTypes().size()-1}">
+							<c:choose>
+								<c:when test="${i==pocketDexDto.getMonsterTypes().size()-1}">
+									${pocketDexDto.getMonsterTypes().get(i)}
+								</c:when>
+								<c:otherwise>
+									${pocketDexDto.getMonsterTypes().get(i)},
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</td>
 					<td>

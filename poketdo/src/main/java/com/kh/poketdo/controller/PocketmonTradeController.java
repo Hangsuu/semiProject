@@ -3,10 +3,9 @@ package com.kh.poketdo.controller;
 import com.kh.poketdo.dao.PocketmonTradeDao;
 import com.kh.poketdo.dto.PocketmonTradeDto;
 import com.kh.poketdo.service.PocketmonTradeService;
-import java.io.Console;
+import com.kh.poketdo.vo.PaginationVO;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/trade")
-public class TradeController {
+@RequestMapping("/pocketmonTrade")
+public class PocketmonTradeController {
 
   @Autowired
   private PocketmonTradeDao pocketmonTradeDao;
@@ -27,14 +26,23 @@ public class TradeController {
   @Autowired
   private PocketmonTradeService pocketmonTradeService;
 
+  // 포켓몬 교환 리스트
   @GetMapping("")
-  public String list() {
-    return "/WEB-INF/views/trade/list.jsp";
+  public String list(
+    @ModelAttribute("pageVo") PaginationVO pageVo,
+    Model model
+  ) {
+    List<PocketmonTradeDto> pockmonTradelists = pocketmonTradeService.getPocketmonTradeList(
+      pageVo
+    );
+    model.addAttribute("trades", pockmonTradelists);
+    return "/WEB-INF/views/pocketmonTrade/list.jsp";
   }
 
+  // 포켓몬 교환 쓰기
   @GetMapping("/write")
   public String write() {
-    return "/WEB-INF/views/trade/write.jsp";
+    return "/WEB-INF/views/pocketmonTrade/write.jsp";
   }
 
   @PostMapping("/write")
@@ -42,25 +50,28 @@ public class TradeController {
     @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
     @RequestParam String promise
   ) throws ParseException {
+    // 통합 테이블과 포켓몬교환 테이블에 insert
     int newPocketmonTradeSeq = pocketmonTradeService.insert(
       pocketmonTradeDto,
       promise
     );
+    // insert 후 상세페이지로 redirect
     return "redirect:" + newPocketmonTradeSeq;
   }
 
+  // 포켓몬 교환 상세
   @GetMapping("/{pocketmonTradeNo}")
   public String detail(@PathVariable int pocketmonTradeNo, Model model) {
+    // 포켓몬 교환 no로 selectOne해서 model로 jsp파일에 전달
     PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
       pocketmonTradeNo
     );
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
-
-    return "/WEB-INF/views/trade/detail.jsp";
+    return "/WEB-INF/views/pocketmonTrade/detail.jsp";
   }
 
   @GetMapping("/test")
   public String test() {
-    return "/WEB-INF/views/trade/test.jsp";
+    return "/WEB-INF/views/pocketmonTrade/test.jsp";
   }
 }

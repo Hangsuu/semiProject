@@ -20,7 +20,7 @@
 </style>
 
 <!-- section -->
-<section test>
+<section >
 
   <!-- aside -->
   <aside></aside>
@@ -29,7 +29,7 @@
     <div class="row">
         <h1>포켓몬교환 디테일</h1>
         <h1>${pocketmonTradeDto}</h1>
-        <h1><fmt:formatDate value="${pocketmonTradeDto.getPocketmonTradeWrittenTime()}" pattern="yyyy년MM월dd일 H시 m분 s초"/></h1>
+        <h1><fmt:formatDate value="${pocketmonTradeDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m"/></h1>
     </div>
     <div class="row">
       <h1>${pocketmonTradeDto.getPocketmonTradeTitle()}</h1>
@@ -38,21 +38,37 @@
       <h2>${pocketmonTradeDto.getPocketmonTradeWriter()}</h2>
     </div>
     <div class="row board-info-head">
-      <span>작성시간 ${pocketmonTradeDto.getPocketmonTradeWrittenTime()}</span> 
-      <span class="pocketmonTradeRead">조회수 ${pocketmonTradeDto.getPocketmonTradeRead()}</span>
+      <span>작성시간 <fmt:formatDate value="${pocketmonTradeDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m"/></span> 
+      <span class="pocketmonTradeRead">&nbsp;&nbsp;조회수 ${pocketmonTradeDto.getPocketmonTradeRead()}</span>
       <span class="pocketmonTradeReply">댓글 ${pocketmonTradeDto.getPocketmonTradeReply()}</span>
     </div>
-    <br>
+    <hr/>
     <div class="row pocketmonTradeContent">
       <div>
         ${pocketmonTradeDto.getPocketmonTradeContent()}
       </div>
     </div>
     <div class="row">
-      <div></div>
+      <div>
+        <a href="#">${pocketmonTradeDto.getPocketmonTradeWriter()}님의 게시글 더 보기</a>
+      </div>
     </div>
-    <div class="row board-info-footer">
-
+    <div class="row">
+      <span>
+        좋아요 ${pocketmonTradeDto.getPocketmonTradeLike()}
+      </span>
+      <span class="pocketmonTradeReply">댓글 ${pocketmonTradeDto.getPocketmonTradeReply()}</span>
+      <!-- 공유, 신고 -->
+    </div>
+    <hr>
+    </div>
+    <div class="row">
+      <!-- 댓글 -->
+    </div>
+    <div class="row">
+      <a href="write">글쓰기</a>
+      <a href=".">목록</a>
+      <div>top</div>
     </div>
   </article>
 

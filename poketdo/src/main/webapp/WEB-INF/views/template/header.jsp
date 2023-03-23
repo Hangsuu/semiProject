@@ -71,7 +71,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <a href="#"><span>인기게시판</span></a>
               </div>
               <div>
-                <a href="/trade"><span>포켓몬교환 게시판</span></a>
+                <a href="/pocketmonTrade"><span>포켓몬교환 게시판</span></a>
               </div>
             </div>
           </div>

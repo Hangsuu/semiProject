@@ -1,6 +1,7 @@
 package com.kh.poketdo.dao;
 
 import com.kh.poketdo.dto.PocketmonTradeDto;
+import com.kh.poketdo.vo.PaginationVO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -41,13 +42,13 @@ public class PocketmonTradeDao {
     }
   };
 
-  // sequence 생성
+  // 포켓몬 교환 sequence 생성
   public int sequence() {
     String sql = "select pocketmon_trade_seq.nextval from dual";
     return jdbcTemplate.queryForObject(sql, int.class);
   }
 
-  // C
+  // C 포켓몬 교환 게시물 생성
   public void insert(PocketmonTradeDto pocketmonTradeDto) {
     String sql =
       "insert into pocketmon_trade (pocketmon_trade_no, allboard_no, pocketmon_trade_title, pocketmon_trade_writer, pocketmon_trade_written_time, pocketmon_trade_content, pocketmon_trade_trade_time, pocketmon_trade_complete, pocketmon_trade_read, pocketmon_trade_reply, pocketmon_trade_like) values (?, ?, ?, ?, sysdate, ?, ?, 0, 0, 0, 0)";
@@ -63,13 +64,40 @@ public class PocketmonTradeDao {
     jdbcTemplate.update(sql, param);
   }
 
-  // R
-  // R
+  // R 포켓몬교환 게시물 리스트
+  public List<PocketmonTradeDto> selectList(PaginationVO pageVo) {
+    String sql;
+    Object[] param;
+    if (pageVo.getKeyword().equals("")) {
+      sql =
+        "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade order by pocketmon_trade_no asc) tmp) where rn between ? and ?";
+      param = new Object[] { pageVo.getBegin(), pageVo.getEnd() };
+    } else {
+      sql =
+        "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade where instr(#1, ?) > 0 order by pocketmon_trade_no asc) tmp) where rn between ? and ?";
+      sql.replace("#1", pageVo.getColumn());
+      param =
+        new Object[] {
+          pageVo.getKeyword(),
+          pageVo.getBegin(),
+          pageVo.getEnd(),
+        };
+    }
+    return jdbcTemplate.query(sql, mapper, param);
+  }
+
+  // R 포켓몬교환 게시물 상세
   public PocketmonTradeDto selectOne(int pocketmonTradeNo) {
     String sql = "select * from pocketmon_trade where pocketmon_trade_no = ?";
     Object[] param = { pocketmonTradeNo };
     List<PocketmonTradeDto> list = jdbcTemplate.query(sql, mapper, param);
     return list.isEmpty() ? null : list.get(0);
+  }
+
+  // R 포켓몬교환 게시물 Cnt
+  public int getCount() {
+    String sql = "select count(*) from pocketmon_trade";
+    return jdbcTemplate.queryForObject(sql, int.class);
   }
   // U
   // D

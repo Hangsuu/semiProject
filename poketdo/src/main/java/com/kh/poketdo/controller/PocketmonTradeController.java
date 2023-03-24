@@ -7,6 +7,7 @@ import com.kh.poketdo.vo.PaginationVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,6 +59,7 @@ public class PocketmonTradeController {
       pocketmonTradeDto,
       promise
     );
+    System.out.println(pocketmonTradeDto.getPocketmonTradeWriter());
     // insert 후 상세페이지로 redirect
     return "redirect:" + newPocketmonTradeSeq;
   }
@@ -74,7 +76,7 @@ public class PocketmonTradeController {
   }
 
   // 포켓몬 교환 수정
-  @GetMapping("/edit/{pocketmonTradeNo}")
+  @GetMapping("/{pocketmonTradeNo}/edit")
   public String edit(@PathVariable int pocketmonTradeNo, Model model) {
     PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
       pocketmonTradeNo
@@ -96,6 +98,24 @@ public class PocketmonTradeController {
   ) throws ParseException {
     pocketmonTradeService.update(pocketmonTradeDto, promise);
     return "redirect:/pocketmonTrade/" + pocketmonTradeNo;
+  }
+
+  @GetMapping("/delete/{pocketmonTradeNo}")
+  public String delete(
+    @PathVariable int pocketmonTradeNo,
+    HttpSession session
+  ) {
+    if (
+      pocketmonTradeDao
+        .selectOne(pocketmonTradeNo)
+        .getPocketmonTradeWriter()
+        .equals(session.getAttribute("memberId"))
+    ) {
+      pocketmonTradeDao.delete(pocketmonTradeNo);
+      return "redirect:/pocketmonTrade";
+    } else {
+      return "/WEB-INF/views/pocketmonTrade/error.jsp";
+    }
   }
 
   @GetMapping("/test")

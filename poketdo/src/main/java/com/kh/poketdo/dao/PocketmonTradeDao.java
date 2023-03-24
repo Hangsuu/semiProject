@@ -70,11 +70,11 @@ public class PocketmonTradeDao {
     Object[] param;
     if (pageVo.getKeyword().equals("")) {
       sql =
-        "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade order by pocketmon_trade_no asc) tmp) where rn between ? and ?";
+        "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
       param = new Object[] { pageVo.getBegin(), pageVo.getEnd() };
     } else {
       sql =
-        "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade where instr(#1, ?) > 0 order by pocketmon_trade_no asc) tmp) where rn between ? and ?";
+        "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade where instr(#1, ?) > 0 order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
       sql = sql.replace("#1", pageVo.getColumn());
       param =
         new Object[] {
@@ -110,7 +110,7 @@ public class PocketmonTradeDao {
     return cnt;
   }
 
-  // U
+  // U 포켓몬교환 게시물 수정
   public boolean update(PocketmonTradeDto pocketmonTradeDto) {
     String sql =
       "update pocketmon_trade set pocketmon_trade_title = ?, pocketmon_trade_content = ?, pocketmon_trade_trade_time = ? where pocketmon_trade_no = ?";
@@ -122,5 +122,19 @@ public class PocketmonTradeDao {
     };
     return jdbcTemplate.update(sql, param) > 0;
   }
+
+  // U 포켓몬교환 게시물 좋아요 Cnt
+  public boolean likeSet(int allboardNo, int likeCount) {
+    String sql =
+      "update pocketmon_trade set pocketmon_trade_like = ? where allboard_no = ?";
+    Object[] param = { likeCount, allboardNo };
+    return jdbcTemplate.update(sql, param) > 0;
+  }
+
   // D
+  public boolean delete(int pocketmonTradeNo) {
+    String sql = "delete from pocketmon_trade where pocketmon_trade_No = ?";
+    Object[] param = { pocketmonTradeNo };
+    return jdbcTemplate.update(sql, param) > 0;
+  }
 }

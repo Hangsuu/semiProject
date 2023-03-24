@@ -3,10 +3,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
+<!-- summernote css, jQuery CDN -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+    const memberId = "${sessionScope.memberId}";
+    const allboardNo = "${pocketmonTradeDto.getAllboardNo()}";
+    const likeTableDto = {
+      memberId: memberId, 
+      allboardNo: allboardNo
+    }
+</script>
+<script src="/static/js/pocketmonTrade.js"></script>
+<!-- <script src="/static/js/reply.js"></script> -->
 <style>
-  .board-info-head, 
-  .board-info-footer
+  .pocketmonTrade-info-head, 
+  .pocketmonTrade-info-footer
   {
     display: flex;
   }
@@ -17,7 +29,7 @@
   .pocketmonTradeContent {
     min-height: 400px;
   }
-  .to-list-btn {
+  #pocketmonTrade-list-btn {
     margin-left: auto;
   }
   .pocketmonTrade-btn {
@@ -27,6 +39,18 @@
     color: black;
     text-decoration: none;
     border: 1px black solid;
+  }
+  #pocketmonTrade-like {
+    font-weight: bold;
+  }
+  #pocketmonTrade-like:hover {
+    cursor: pointer;
+  }
+  #pocketmonTrade-reply {
+    border: 1px solid #E5E5E5;
+  }
+  textarea[name=replyContent] {
+    resize: none;
   }
 </style>
 
@@ -46,7 +70,7 @@
     <div class="row">
       <h2>${pocketmonTradeDto.getPocketmonTradeWriter()}</h2>
     </div>
-    <div class="row board-info-head">
+    <div class="row pocketmonTrade-info-head">
       <span>작성시간 <fmt:formatDate value="${pocketmonTradeDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m"/></span> 
       <span class="pocketmonTradeRead">&nbsp;&nbsp;조회수 ${pocketmonTradeDto.getPocketmonTradeRead()}</span>
       <span class="pocketmonTradeReply">댓글 ${pocketmonTradeDto.getPocketmonTradeReply()}</span>
@@ -63,8 +87,8 @@
       </div>
     </div>
     <div class="row">
-      <span>
-        좋아요 ${pocketmonTradeDto.getPocketmonTradeLike()}
+      <span id="pocketmonTrade-like">
+        <i class="fa-regular fa-heart fa-red" style="color:red"></i> 좋아요 <span id="pocketmonTrade-like-Cnt">${pocketmonTradeDto.getPocketmonTradeLike()}</span>
       </span>
       <span class="pocketmonTradeReply">댓글 ${pocketmonTradeDto.getPocketmonTradeReply()}</span>
       <!-- 공유, 신고 -->
@@ -74,14 +98,27 @@
     <div class="row">
       <!-- 댓글 -->
     </div>
-    <div class="row board-info-footer">
-      <a href="write">글쓰기</a>
+    <div class="row pocketmonTrade-info-footer">
+      <a class="pocketmonTrade-btn" href="write">글쓰기</a>
       <c:if test="${sessionScope.memberId == pocketmonTradeDto.getPocketmonTradeWriter()}">
-        <a href="/pocketmonTrade/edit/${pocketmonTradeDto.getPocketmonTradeNo()}">수정</a>
-        <a class="pocketmonTrade-btn" id="pocketmonTrade-delete-btn" href="#">삭제</a>
+        <a class="pocketmonTrade-btn" href="/pocketmonTrade/${pocketmonTradeDto.getPocketmonTradeNo()}/edit">수정</a>
+        <a class="pocketmonTrade-btn" id="pocketmonTrade-delete-btn" href="/pocketmonTrade/delete/${pocketmonTradeDto.getPocketmonTradeNo()}">삭제</a>
       </c:if>
-      <a class="to-list-btn" href="/pocketmonTrade">목록</a>
+      <a id="pocketmonTrade-list-btn" class="pocketmonTrade-btn" href="/pocketmonTrade">목록</a>
       <div>top으로</div>
+    </div>
+    <div class="row">
+      <div id="pocketmonTrade-reply">
+        <div class="row">
+          ${sessionScope.memberId}
+        </div>
+        <form action="#" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="replyOrigin" value="${pocketmonTradeDto.getAllboardNo()}">
+          <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
+          <textarea class="summernote" name="replyContent"></textarea>
+          <button id="pocketmonTrade-reply-btn" type="submit">등록</button>
+        </form>
+      </div>
     </div>
   </article>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -13,16 +13,15 @@
 
 <!-- section -->
 <section test>
-
   <!-- aside -->
-  <aside>
-  </aside>
-  
+  <aside></aside>
+
   <!-- article -->
   <article>
     <div class="sample-article">
-        <h1>이놈!!!!!!!!!!</h1>
+      <h1>이놈!!!!!!!!!!</h1>
     </div>
   </article>
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+</section>

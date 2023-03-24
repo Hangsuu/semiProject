@@ -44,7 +44,7 @@ public class PocketmonTradeService {
       AllboardDto
         .builder()
         .allboardNo(newAllBoardSeq)
-        .allboardBoardType("pocketmonTrade")
+        .allboardBoardType("pocketmon_trade")
         .allboardBoardNo(newPocketmonTradeSeq)
         .build()
     );

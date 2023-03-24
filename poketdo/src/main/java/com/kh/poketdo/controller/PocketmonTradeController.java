@@ -73,8 +73,6 @@ public class PocketmonTradeController {
   }
 
   // 포켓몬 교환 수정
-  @GetMapping("/")
-
   @GetMapping("/test")
   public String test() {
     return "/WEB-INF/views/pocketmonTrade/test.jsp";

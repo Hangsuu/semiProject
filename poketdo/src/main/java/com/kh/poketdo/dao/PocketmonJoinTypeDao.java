@@ -1,28 +1,30 @@
 package com.kh.poketdo.dao;
 
-import com.kh.poketdo.dto.MonsterJoinTypeDto;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import com.kh.poketdo.dto.PocketmonJoinTypeDto;
+
 @Repository
-public class MonsterJoinTypeDao {
+public class PocketmonJoinTypeDao {
 
   //JdbcTemplate 주입
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
-  private RowMapper<MonsterJoinTypeDto> mapper = new RowMapper<MonsterJoinTypeDto>() {
+  private RowMapper<PocketmonJoinTypeDto> mapper = new RowMapper<PocketmonJoinTypeDto>() {
     @Override
     @Nullable
-    public MonsterJoinTypeDto mapRow(ResultSet rs, int rowNum)
+    public PocketmonJoinTypeDto mapRow(ResultSet rs, int rowNum)
       throws SQLException {
-      return MonsterJoinTypeDto
+      return PocketmonJoinTypeDto
         .builder()
         .monsterJoinNo(rs.getInt("monster_join_no"))
         .typeJoinNo(rs.getInt("type_join_no"))
@@ -38,7 +40,8 @@ public class MonsterJoinTypeDao {
     jdbcTemplate.update(sql, param);
   }
 
-  public List<MonsterJoinTypeDto> selectOne(int monsterJoinNo) {
+  //포켓몬스터 번호로 포켓몬스터 속성 검색
+  public List<PocketmonJoinTypeDto> selectOne(int monsterJoinNo) {
     String sql =
       "select * from monster_join_type where monster_join_no = ? order by type_join_no asc";
     Object[] param = { monsterJoinNo };

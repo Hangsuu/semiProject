@@ -88,13 +88,13 @@ public class PocketDexDao {
 	
 	//포켓몬스터 데이터 수정
 	public boolean edit(PocketDexDto pocketDexDto) {
-		String sql = "update monster set monster_name=? "
-							+ "monster_base_hp=? monster_base_atk=? "
-							+ "monster_base_def=? monster_base_spd=? "
-							+ "monster_base_satk=? monster_base_sdef=? "
-							+ "monster_effort_hp=? monster_effort_atk=? "
-							+ "monster_effort_def=? monster_effort_spd=? "
-							+ "monster_effort_satk=? monster_effort_sdef=? "
+		String sql = "update monster set monster_name=?, "
+							+ "monster_base_hp=?, monster_base_atk=?, "
+							+ "monster_base_def=?, monster_base_spd=?, "
+							+ "monster_base_satk=?, monster_base_sdef=?, "
+							+ "monster_effort_hp=?, monster_effort_atk=?, "
+							+ "monster_effort_def=?, monster_effort_spd=?, "
+							+ "monster_effort_satk=?, monster_effort_sdef=? "
 							+ "where monster_no=?";
 		Object[] param = {
 										pocketDexDto.getMonsterName(), 

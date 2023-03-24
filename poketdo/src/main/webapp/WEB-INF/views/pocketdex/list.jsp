@@ -46,5 +46,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<a href="insert">포켓몬스터 신규 등록</a>
 </body>
 </html>

@@ -10,6 +10,7 @@
 	<h1>포켓몬스터 정보 수정 페이지~</h1>
 	<form action="editProcess" method="post">
 		<label>포켓몬스터 번호 : ${pocketDexDto.monsterNo}</label>
+		<input type="hidden" name="monsterNo" value="${pocketDexDto.monsterNo}"> 
 		
 		<br>
 		

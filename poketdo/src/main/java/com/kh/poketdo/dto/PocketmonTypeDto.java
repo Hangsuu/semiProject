@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MonsterJoinTypeDto {
+// 몬스터타입Dto
+public class PocketmonTypeDto {
 
-  //포켓몬스터 기본 정보 + 타입 연결 테이블 DTO
-
-  private int monsterJoinNo;
-  private int typeJoinNo; // snake_case에서 camelCase로 바꿈
+  private int monsterTypeNo;
+  private String monsterTypeName;
 }

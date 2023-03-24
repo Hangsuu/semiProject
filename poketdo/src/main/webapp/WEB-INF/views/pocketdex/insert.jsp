@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>등록페이지 입니다~</h1>
-	<form action="insertProcess" method="post">
+	<form action="insertProcess" method="post" enctype="multipart/form-data">
 		<label>포켓몬스터 번호</label>
 		<input name="pocketNo">
 		
@@ -129,6 +129,9 @@
 		
 		<br>
 		
+		<label>포켓몬스터 이미지(png, gif, jpg)</label>
+		<input type="file" name="attach" accept=".png, .gif, .jpg">
+		<br>
 		<button>입력 완료</button>
 	</form>
 	

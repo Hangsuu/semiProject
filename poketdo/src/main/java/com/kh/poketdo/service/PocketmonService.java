@@ -19,7 +19,7 @@ import com.kh.poketdo.dto.PocketmonDto;
 public class PocketmonService {
 
 	@Autowired
-	private PocketmonDao pocketDexDao;
+	private PocketmonDao pocketmonDao;
 	@Autowired
 	private FileUploadProperties fileUploadProperties;
 	@Autowired
@@ -34,11 +34,11 @@ public class PocketmonService {
 	}
 	
 	public void join(
-			PocketmonDto pocketDexDto,
+			PocketmonDto pocketmonDto,
 			MultipartFile attach
 			) throws IllegalStateException, IOException {
 		//1. 포켓몬 정보 등록
-		pocketDexDao.insert(pocketDexDto);
+		pocketmonDao.insert(pocketmonDto);
 		
 		//2. 첨부한 파일이 있을경우
 		if(!attach.isEmpty()) {

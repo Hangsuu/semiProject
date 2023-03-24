@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class PocketmonImageDto {
-	private int attachementNo;
-	private int pokcetNo;
+	private int attachmentNo;
+	private int pocketNo;
 }

@@ -1,5 +1,6 @@
 package com.kh.poketdo.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +12,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketWithTypeDao;
+import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonTypeDao;
 import com.kh.poketdo.dto.PocketmonDto;
-import com.kh.poketdo.dto.PocketWithTypeDto;
 import com.kh.poketdo.dto.PocketmonJoinTypeDto;
 import com.kh.poketdo.dto.PocketmonWithTypes;
+import com.kh.poketdo.service.PocketmonService;
 
 @Controller
 @RequestMapping("/pocketDex")
@@ -36,10 +38,14 @@ public class PocketmonController {
   
   @Autowired
   private PocketmonTypeDao pocketmonTypeDao;
-
+  
+  @Autowired
+  private PocketmonService pocketmonService;
+  
   //포켓몬스터 기본 정보 입력 페이지
   @GetMapping("/insert")
-  public String pocketDataInsert() {
+  public String pocketDataInsert(Model model) {
+	
     return "/WEB-INF/views/pocketdex/insert.jsp";
   }
 
@@ -47,10 +53,12 @@ public class PocketmonController {
   @PostMapping("/insertProcess")
   public String insertProcess(
     @ModelAttribute PocketmonDto pocketmonDto, //포켓몬스터 기본 정보
-    @RequestParam List<Integer> typeJoinNo //포켓몬스터 속성 번호
-  ) {
+    @RequestParam List<Integer> typeJoinNo, //포켓몬스터 속성 번호
+    @RequestParam MultipartFile attach
+  ) throws IllegalStateException, IOException {
     //포켓몬스터 기본 정보 입력
-    pocketmonDao.insert(pocketmonDto);
+	pocketmonService.join(pocketmonDto, attach);
+//    pocketmonDao.insert(pocketmonDto);
     //포켓몬스터 번호 추출
     int pocketJoinNo = pocketmonDto.getPocketNo();
     //포켓몬스터 속성 번호 입력
@@ -71,9 +79,7 @@ public class PocketmonController {
   //포켓몬스터 목록
   @GetMapping("/list")
   public String pocketDexList(
-    Model model,
-    @ModelAttribute PocketmonDto pocketmonDto,
-    @ModelAttribute PocketWithTypeDto pocketWithTypeDto
+    Model model
   ) {
     // 포켓몬들이 전부 들어있는 list
     List<PocketmonDto> list = pocketmonDao.selectList();
@@ -112,7 +118,6 @@ public class PocketmonController {
     }
 
     model.addAttribute("list3", list3);
-
     return "/WEB-INF/views/pocketdex/list.jsp";
   }
 

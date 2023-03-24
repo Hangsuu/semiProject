@@ -68,9 +68,9 @@
       </c:forEach>
     </div>
     <div class="row right">
-      <a class="a-btn" href="write">글쓰기</a>
+      <a class="a-btn" href="pocketmonTrade/write">글쓰기</a>
     </div>
-    <div class="row">
+    <div class="row center">
       <div>
         페이지네이션
         <c:choose>
@@ -83,17 +83,52 @@
         </c:choose>
         <c:choose>
           <c:when test="{pageVo.isPrev()}">
-            <a href="?page=${pageVo.getPrevPage()}"></a>
+            <a href="?page=${pageVo.getPrevPage()}">&lt;</a>
           </c:when>
+          <c:otherwise>
+            &lt;
+          </c:otherwise>
         </c:choose>
-        &lt;
-        1 2 3 4 5 6 7 8 9 10
-        &gt;
-        &raquo;
+        <c:forEach var="i" begin="1" end="${pageVo.getFinishBlock()}">
+          <c:choose>
+            <c:when test="${i == pageVo.getPage()}">
+              ${i}
+            </c:when>
+            <c:otherwise>
+              <a href="?page=${i}">${i}</a>
+            </c:otherwise>
+          </c:choose>
+        </c:forEach>
+        <!-- 1 2 3 4 5 6 7 8 9 10 -->
+        <c:choose>
+          <c:when test="${pageVo.isNext()}">
+            <a href="?page=${pageVo.getNextPage()}">&gt;</a>
+          </c:when>
+          <c:otherwise>
+            &gt;
+          </c:otherwise>
+        </c:choose>
+        <c:choose>
+          <c:when test="${pageVo.isLast()}">
+            &raquo;
+          </c:when>
+          <c:otherwise>
+            <a href="?page=${pageVo.getTotalPage()}">&raquo;</a>
+          </c:otherwise>
+        </c:choose>
       </div>
       <hr/>
-      <div>
-        검색
+      <div class="row">
+        <form action="" method="get">
+          <select name="column">
+            <option value="">선택</option>
+            <option>제목</option>
+            <option>글작성자</option>
+            <option>내용</option>
+          </select>
+          <input type="search" name="keyword" placeholder="검색어를 입력해주세요">
+          <button type="submit" class="positive">검색</button>
+        </form>
       </div>
     </div>
   </article>

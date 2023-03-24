@@ -9,20 +9,20 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.kh.poketdo.dto.PocketDexDto;
+import com.kh.poketdo.dto.PocketmonDto;
 
 @Repository
-public class PocketDexDao {
+public class PocketmonDao {
 
 	//JdbcTemplate 주입
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	//조회를 위한 RowMapper 생성
-	private RowMapper<PocketDexDto> mapper = new RowMapper<PocketDexDto>() {
+	private RowMapper<PocketmonDto> mapper = new RowMapper<PocketmonDto>() {
 		@Override
-		public PocketDexDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return PocketDexDto.builder()
+		public PocketmonDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return PocketmonDto.builder()
 					.pocketNo(rs.getInt("pocket_no"))
 					.pocketName(rs.getString("pocket_name"))
 					.pocketBaseHp(rs.getInt("pocket_base_hp"))
@@ -42,7 +42,7 @@ public class PocketDexDao {
 	}; 
 	
 	//포켓몬스터 정보 입력
-	public void insert(PocketDexDto pocketDexDto) {
+	public void insert(PocketmonDto pocketmonDto) {
 		String sql = "insert into pocketmon ( "
 				+ "pocket_no, pocket_name, pocket_base_hp, "
 				+ "pocket_base_atk, pocket_base_def, pocket_base_spd, pocket_base_satk, "
@@ -51,32 +51,32 @@ public class PocketDexDao {
 				+ " ) "
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 		Object[] param = {
-										pocketDexDto.getPocketNo(), 
-										pocketDexDto.getPocketName(),
-										pocketDexDto.getPocketBaseHp(), 
-										pocketDexDto.getPocketBaseAtk(),
-										pocketDexDto.getPocketBaseDef(), 
-										pocketDexDto.getPocketBaseSpd(),
-										pocketDexDto.getPocketBaseSatk(), 
-										pocketDexDto.getPocketBaseSdef(),
-										pocketDexDto.getPocketEffortHp(), 
-										pocketDexDto.getPocketEffortAtk(),
-										pocketDexDto.getPocketEffortDef(), 
-										pocketDexDto.getPocketEffortSpd(),
-										pocketDexDto.getPocketEffortSatk(), 
-										pocketDexDto.getPocketEffortSdef()
+										pocketmonDto.getPocketNo(), 
+										pocketmonDto.getPocketName(),
+										pocketmonDto.getPocketBaseHp(), 
+										pocketmonDto.getPocketBaseAtk(),
+										pocketmonDto.getPocketBaseDef(), 
+										pocketmonDto.getPocketBaseSpd(),
+										pocketmonDto.getPocketBaseSatk(), 
+										pocketmonDto.getPocketBaseSdef(),
+										pocketmonDto.getPocketEffortHp(), 
+										pocketmonDto.getPocketEffortAtk(),
+										pocketmonDto.getPocketEffortDef(), 
+										pocketmonDto.getPocketEffortSpd(),
+										pocketmonDto.getPocketEffortSatk(), 
+										pocketmonDto.getPocketEffortSdef()
 									  };
 		jdbcTemplate.update(sql, param);
 	}
 	
 	//	포켓몬스터 목록
-		public List<PocketDexDto> selectList(){
+		public List<PocketmonDto> selectList(){
 		String sql ="select * from pocketmon order by pocket_no asc";
 		return jdbcTemplate.query(sql, mapper);
 	}
 
 	//	포켓몬스터 타입 이름 검색
-	public List<PocketDexDto> selectListAddType(int pocketNo){
+	public List<PocketmonDto> selectListAddType(int pocketNo){
 	String sql ="select pocket_type_name from pocketmon_with_type where pocket_no=?";
 	Object[] param = {pocketNo};
 	return jdbcTemplate.query(sql, mapper, param);
@@ -84,7 +84,7 @@ public class PocketDexDao {
 	
 	
 	//포켓몬스터 정보 수정
-	public boolean edit(PocketDexDto pocketDexDto) {
+	public boolean edit(PocketmonDto pocketmonDto) {
 		String sql = "update pocketmon set pocket_name=?, "
 							+ "pocket_base_hp=?, pocket_base_atk=?, "
 							+ "pocket_base_def=?, pocket_base_spd=?, "
@@ -94,29 +94,29 @@ public class PocketDexDao {
 							+ "pocket_effort_satk=?, pocket_effort_sdef=? "
 							+ "where pocket_no=?";
 		Object[] param = {
-										pocketDexDto.getPocketName(), 
-										pocketDexDto.getPocketBaseHp(), 
-										pocketDexDto.getPocketBaseAtk(),
-										pocketDexDto.getPocketBaseDef(),
-										pocketDexDto.getPocketBaseSpd(),
-										pocketDexDto.getPocketBaseSatk(),
-										pocketDexDto.getPocketBaseSdef(),
-										pocketDexDto.getPocketEffortHp(),
-										pocketDexDto.getPocketEffortAtk(),
-										pocketDexDto.getPocketEffortDef(),
-										pocketDexDto.getPocketEffortSpd(),
-										pocketDexDto.getPocketEffortSatk(),
-										pocketDexDto.getPocketEffortSdef(),
-										pocketDexDto.getPocketNo()
+										pocketmonDto.getPocketName(), 
+										pocketmonDto.getPocketBaseHp(), 
+										pocketmonDto.getPocketBaseAtk(),
+										pocketmonDto.getPocketBaseDef(),
+										pocketmonDto.getPocketBaseSpd(),
+										pocketmonDto.getPocketBaseSatk(),
+										pocketmonDto.getPocketBaseSdef(),
+										pocketmonDto.getPocketEffortHp(),
+										pocketmonDto.getPocketEffortAtk(),
+										pocketmonDto.getPocketEffortDef(),
+										pocketmonDto.getPocketEffortSpd(),
+										pocketmonDto.getPocketEffortSatk(),
+										pocketmonDto.getPocketEffortSdef(),
+										pocketmonDto.getPocketNo()
 										};
 		return jdbcTemplate.update(sql,param)>0;
 		}
 	
 	//포켓몬스터 정보 상세조회
-	public PocketDexDto selectOne(int pocketNo) {
+	public PocketmonDto selectOne(int pocketNo) {
 		String sql = "select * from pocketmon where pocket_no=? ";
 		Object [] param = {pocketNo};
-		List<PocketDexDto> list = jdbcTemplate.query(sql, mapper, param);
+		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty() ? null : list.get(0);
 	}
 	

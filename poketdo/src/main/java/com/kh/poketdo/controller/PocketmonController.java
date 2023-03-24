@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kh.poketdo.dao.PocketDexDao;
+import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketWithTypeDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonTypeDao;
-import com.kh.poketdo.dto.PocketDexDto;
+import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketWithTypeDto;
 import com.kh.poketdo.dto.PocketmonJoinTypeDto;
 import com.kh.poketdo.dto.PocketmonWithTypes;
 
 @Controller
 @RequestMapping("/pocketDex")
-public class PocketDexController {
+public class PocketmonController {
 
   @Autowired
-  private PocketDexDao pocketDexDao;
+  private PocketmonDao pocketmonDao;
   
   @Autowired
   private PocketmonJoinTypeDao pocketmonJoinTypeDao;
@@ -46,13 +46,13 @@ public class PocketDexController {
   //포켓몬스터 기본 정보 처리
   @PostMapping("/insertProcess")
   public String insertProcess(
-    @ModelAttribute PocketDexDto pocketDexDto, //포켓몬스터 기본 정보
+    @ModelAttribute PocketmonDto pocketmonDto, //포켓몬스터 기본 정보
     @RequestParam List<Integer> typeJoinNo //포켓몬스터 속성 번호
   ) {
     //포켓몬스터 기본 정보 입력
-    pocketDexDao.insert(pocketDexDto);
+    pocketmonDao.insert(pocketmonDto);
     //포켓몬스터 번호 추출
-    int pocketJoinNo = pocketDexDto.getPocketNo();
+    int pocketJoinNo = pocketmonDto.getPocketNo();
     //포켓몬스터 속성 번호 입력
     for (Integer no : typeJoinNo) {
       if (no != null) {
@@ -72,15 +72,15 @@ public class PocketDexController {
   @GetMapping("/list")
   public String pocketDexList(
     Model model,
-    @ModelAttribute PocketDexDto pocketDexDto,
+    @ModelAttribute PocketmonDto pocketmonDto,
     @ModelAttribute PocketWithTypeDto pocketWithTypeDto
   ) {
     // 포켓몬들이 전부 들어있는 list
-    List<PocketDexDto> list = pocketDexDao.selectList();
+    List<PocketmonDto> list = pocketmonDao.selectList();
 
     // 타입이 포함된 pocketmonWithType들이 담긴 list(model에 첨부)
     List<PocketmonWithTypes> list3 = new ArrayList<>();
-    for (PocketDexDto dto : list) {
+    for (PocketmonDto dto : list) {
       // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
       List<PocketmonJoinTypeDto> list2 = 
     		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
@@ -122,23 +122,23 @@ public class PocketDexController {
 		  Model model,
 		  @RequestParam int monsterNo
 		  ) {
-	  model.addAttribute(pocketDexDao.selectOne(monsterNo));
+	  model.addAttribute(pocketmonDao.selectOne(monsterNo));
 	  
     return "/WEB-INF/views/pocketdex/edit.jsp";
   }
 
   	@PostMapping("/editProcess")
   	public String editProcess(
-  			  @ModelAttribute PocketDexDto pocketDexDto
+  			  @ModelAttribute PocketmonDto pocketmonDto
   			) {
-  		pocketDexDao.edit(pocketDexDto);
+  		pocketmonDao.edit(pocketmonDto);
   		return "redirect:list";
   	}
 
   //포켓몬스터 정보 삭제
   @GetMapping("/delete")
   public String delete(@RequestParam int monsterNo) {
-    pocketDexDao.delete(monsterNo);
+    pocketmonDao.delete(monsterNo);
     return "redirect:list";
   }
 }

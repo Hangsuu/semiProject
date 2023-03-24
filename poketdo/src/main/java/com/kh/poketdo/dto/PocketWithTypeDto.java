@@ -13,26 +13,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PocketWithTypeDto {
 
-  private int monsterNo;
-  private String monsterName;
-  private int monsterBaseHp;
-  private int monsterBaseAtk;
-  private int monsterBaseDef;
-  private int monsterBaseSpd;
-  private int monsterBaseSatk;
-  private int monsterBaseSdef;
-  private int monsterEffortHp;
-  private int monsterEffortAtk;
-  private int monsterEffortDef;
-  private int monsterEffortSpd;
-  private int monsterEffortSatk;
-  private int monsterEffortSdef;
+  private int pocketNo;
+  private String pocketName;
+  private int pocketBaseHp;
+  private int pocketBaseAtk;
+  private int pocketBaseDef;
+  private int pocketBaseSpd;
+  private int pocketBaseSatk;
+  private int pocketBaseSdef;
+  private int pocketEffortHp;
+  private int pocketEffortAtk;
+  private int pocketEffortDef;
+  private int pocketEffortSpd;
+  private int pocketEffortSatk;
+  private int pocketEffortSdef;
 
   //포켓몬스터 속성 데이터
-  private int monsterTypeNo;
-  private String monsterTypeName;
+  private int pocketTypeNo;
+  private String pocketTypeName;
 
   //포켓몬 속성 연결 데이터
-  private int monsterJoinNo;
+  private int pocketJoinNo;
   private int typeJoinNo;
 }

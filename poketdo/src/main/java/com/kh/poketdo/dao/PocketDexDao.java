@@ -23,110 +23,107 @@ public class PocketDexDao {
 		@Override
 		public PocketDexDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return PocketDexDto.builder()
-					.monsterNo(rs.getInt("monster_no"))
-					.monsterName(rs.getString("monster_name"))
-//					.monsterTypeNo(rs.getInt("monster_type_no"))
-//					.monsterTypeName(rs.getString("monster_type_name"))
-					.monsterBaseHp(rs.getInt("monster_base_hp"))
-					.monsterBaseAtk(rs.getInt("monster_base_atk"))
-					.monsterBaseDef(rs.getInt("monster_base_def"))
-					.monsterBaseSpd(rs.getInt("monster_base_spd"))
-					.monsterBaseSatk(rs.getInt("monster_base_satk"))
-					.monsterBaseSdef(rs.getInt("monster_base_sdef"))
-					.monsterEffortHp(rs.getInt("monster_effort_hp"))
-					.monsterEffortAtk(rs.getInt("monster_effort_atk"))
-					.monsterEffortDef(rs.getInt("monster_effort_def"))
-					.monsterEffortSpd(rs.getInt("monster_effort_spd"))
-					.monsterEffortSatk(rs.getInt("monster_effort_satk"))
-					.monsterEffortSdef(rs.getInt("monster_effort_sdef"))
+					.pocketNo(rs.getInt("pocket_no"))
+					.pocketName(rs.getString("pocket_name"))
+					.pocketBaseHp(rs.getInt("pocket_base_hp"))
+					.pocketBaseAtk(rs.getInt("pocket_base_atk"))
+					.pocketBaseDef(rs.getInt("pocket_base_def"))
+					.pocketBaseSpd(rs.getInt("pocket_base_spd"))
+					.pocketBaseSatk(rs.getInt("pocket_base_satk"))
+					.pocketBaseSdef(rs.getInt("pocket_base_sdef"))
+					.pocketEffortHp(rs.getInt("pocket_effort_hp"))
+					.pocketEffortAtk(rs.getInt("pocket_effort_atk"))
+					.pocketEffortDef(rs.getInt("pocket_effort_def"))
+					.pocketEffortSpd(rs.getInt("pocket_effort_spd"))
+					.pocketEffortSatk(rs.getInt("pocket_effort_satk"))
+					.pocketEffortSdef(rs.getInt("pocket_effort_sdef"))
 					.build();
 		}
 	}; 
 	
 	//포켓몬스터 정보 입력
 	public void insert(PocketDexDto pocketDexDto) {
-		String sql = "insert into monster ( "
-				+ "monster_no, monster_name, monster_base_hp, "
-				+ "monster_base_atk, monster_base_def, monster_base_spd, monster_base_satk, "
-				+ "monster_base_sdef, monster_effort_hp, monster_effort_atk, monster_effort_def, "
-				+ "monster_effort_spd, monster_effort_satk, monster_effort_sdef"
+		String sql = "insert into pocketmon ( "
+				+ "pocket_no, pocket_name, pocket_base_hp, "
+				+ "pocket_base_atk, pocket_base_def, pocket_base_spd, pocket_base_satk, "
+				+ "pocket_base_sdef, pocket_effort_hp, pocket_effort_atk, pocket_effort_def, "
+				+ "pocket_effort_spd, pocket_effort_satk, pocket_effort_sdef"
 				+ " ) "
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 		Object[] param = {
-										pocketDexDto.getMonsterNo(), 
-										pocketDexDto.getMonsterName(),
-										pocketDexDto.getMonsterBaseHp(), 
-										pocketDexDto.getMonsterBaseAtk(),
-										pocketDexDto.getMonsterBaseDef(), 
-										pocketDexDto.getMonsterBaseSpd(),
-										pocketDexDto.getMonsterBaseSatk(), 
-										pocketDexDto.getMonsterBaseSdef(),
-										pocketDexDto.getMonsterEffortHp(), 
-										pocketDexDto.getMonsterEffortAtk(),
-										pocketDexDto.getMonsterEffortDef(), 
-										pocketDexDto.getMonsterEffortSpd(),
-										pocketDexDto.getMonsterEffortSatk(), 
-										pocketDexDto.getMonsterEffortSdef()
+										pocketDexDto.getPocketNo(), 
+										pocketDexDto.getPocketName(),
+										pocketDexDto.getPocketBaseHp(), 
+										pocketDexDto.getPocketBaseAtk(),
+										pocketDexDto.getPocketBaseDef(), 
+										pocketDexDto.getPocketBaseSpd(),
+										pocketDexDto.getPocketBaseSatk(), 
+										pocketDexDto.getPocketBaseSdef(),
+										pocketDexDto.getPocketEffortHp(), 
+										pocketDexDto.getPocketEffortAtk(),
+										pocketDexDto.getPocketEffortDef(), 
+										pocketDexDto.getPocketEffortSpd(),
+										pocketDexDto.getPocketEffortSatk(), 
+										pocketDexDto.getPocketEffortSdef()
 									  };
 		jdbcTemplate.update(sql, param);
 	}
 	
 	//	포켓몬스터 목록
 		public List<PocketDexDto> selectList(){
-		String sql ="select * from monster order by monster_no asc";
+		String sql ="select * from pocketmon order by pocket_no asc";
 		return jdbcTemplate.query(sql, mapper);
 	}
 
-	//	포켓몬스터 목록
-	public List<PocketDexDto> selectListAddType(int monsterNo){
-	String sql ="SELECT monster_type_name from monster_with_type where monster_no=?";
-	Object[] param = {monsterNo};
+	//	포켓몬스터 타입 이름 검색
+	public List<PocketDexDto> selectListAddType(int pocketNo){
+	String sql ="select pocket_type_name from pocketmon_with_type where pocket_no=?";
+	Object[] param = {pocketNo};
 	return jdbcTemplate.query(sql, mapper, param);
 	}
 	
-		
 	
-	//포켓몬스터 데이터 수정
+	//포켓몬스터 정보 수정
 	public boolean edit(PocketDexDto pocketDexDto) {
-		String sql = "update monster set monster_name=?, "
-							+ "monster_base_hp=?, monster_base_atk=?, "
-							+ "monster_base_def=?, monster_base_spd=?, "
-							+ "monster_base_satk=?, monster_base_sdef=?, "
-							+ "monster_effort_hp=?, monster_effort_atk=?, "
-							+ "monster_effort_def=?, monster_effort_spd=?, "
-							+ "monster_effort_satk=?, monster_effort_sdef=? "
-							+ "where monster_no=?";
+		String sql = "update pocketmon set pocket_name=?, "
+							+ "pocket_base_hp=?, pocket_base_atk=?, "
+							+ "pocket_base_def=?, pocket_base_spd=?, "
+							+ "pocket_base_satk=?, pocket_base_sdef=?, "
+							+ "pocket_effort_hp=?, pocket_effort_atk=?, "
+							+ "pocket_effort_def=?, pocket_effort_spd=?, "
+							+ "pocket_effort_satk=?, pocket_effort_sdef=? "
+							+ "where pocket_no=?";
 		Object[] param = {
-										pocketDexDto.getMonsterName(), 
-										pocketDexDto.getMonsterBaseHp(), 
-										pocketDexDto.getMonsterBaseAtk(),
-										pocketDexDto.getMonsterBaseDef(),
-										pocketDexDto.getMonsterBaseSpd(),
-										pocketDexDto.getMonsterBaseSatk(),
-										pocketDexDto.getMonsterBaseSdef(),
-										pocketDexDto.getMonsterEffortHp(),
-										pocketDexDto.getMonsterEffortAtk(),
-										pocketDexDto.getMonsterEffortDef(),
-										pocketDexDto.getMonsterEffortSpd(),
-										pocketDexDto.getMonsterEffortSatk(),
-										pocketDexDto.getMonsterEffortSdef(),
-										pocketDexDto.getMonsterNo()
+										pocketDexDto.getPocketName(), 
+										pocketDexDto.getPocketBaseHp(), 
+										pocketDexDto.getPocketBaseAtk(),
+										pocketDexDto.getPocketBaseDef(),
+										pocketDexDto.getPocketBaseSpd(),
+										pocketDexDto.getPocketBaseSatk(),
+										pocketDexDto.getPocketBaseSdef(),
+										pocketDexDto.getPocketEffortHp(),
+										pocketDexDto.getPocketEffortAtk(),
+										pocketDexDto.getPocketEffortDef(),
+										pocketDexDto.getPocketEffortSpd(),
+										pocketDexDto.getPocketEffortSatk(),
+										pocketDexDto.getPocketEffortSdef(),
+										pocketDexDto.getPocketNo()
 										};
 		return jdbcTemplate.update(sql,param)>0;
 		}
 	
-	//포켓몬스터 데이터 상세조회
-	public PocketDexDto selectOne(int monsterNo) {
-		String sql = "select * from monster where monster_no=? ";
-		Object [] param = {monsterNo};
+	//포켓몬스터 정보 상세조회
+	public PocketDexDto selectOne(int pocketNo) {
+		String sql = "select * from pocketmon where pocket_no=? ";
+		Object [] param = {pocketNo};
 		List<PocketDexDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
-	//포켓몬스터 데이터 삭제
-	public boolean delete(int monsterNo) {
-		String sql = "delete monster where monster_no=?";
-		Object[] param= {monsterNo};
+	//포켓몬스터 정보 삭제
+	public boolean delete(int pocketNo) {
+		String sql = "delete pocketmon where pocket_no=?";
+		Object[] param= {pocketNo};
 		return jdbcTemplate.update(sql,param)>0;
 	}
 		

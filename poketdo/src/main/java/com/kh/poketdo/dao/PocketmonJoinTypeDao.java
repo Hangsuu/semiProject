@@ -26,25 +26,25 @@ public class PocketmonJoinTypeDao {
       throws SQLException {
       return PocketmonJoinTypeDto
         .builder()
-        .monsterJoinNo(rs.getInt("monster_join_no"))
+        .pocketJoinNo(rs.getInt("pocket_join_no"))
         .typeJoinNo(rs.getInt("type_join_no"))
         .build();
     }
   };
 
   //포켓몬스터 번호 + 속성 번호 입력
-  public void insert(int mosterJoinNo, int typeJoinNo) {
+  public void insert(int pocketJoinNo, int typeJoinNo) {
     String sql =
-      "insert into monster_join_type (monster_join_no, type_join_no) values(?, ?)";
-    Object[] param = { mosterJoinNo, typeJoinNo };
+      "insert into pocketmon_join_type (pocket_join_no, type_join_no) values(?, ?)";
+    Object[] param = { pocketJoinNo, typeJoinNo };
     jdbcTemplate.update(sql, param);
   }
 
   //포켓몬스터 번호로 포켓몬스터 속성 검색
-  public List<PocketmonJoinTypeDto> selectOne(int monsterJoinNo) {
+  public List<PocketmonJoinTypeDto> selectOne(int pocketJoinNo) {
     String sql =
-      "select * from monster_join_type where monster_join_no = ? order by type_join_no asc";
-    Object[] param = { monsterJoinNo };
+      "select * from pocketmon_join_type where pocket_join_no = ? order by type_join_no asc";
+    Object[] param = { pocketJoinNo };
     return jdbcTemplate.query(sql, mapper, param);
   }
 }

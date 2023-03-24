@@ -23,33 +23,33 @@ public class PocketWithTypeDao {
       throws SQLException {
       return PocketWithTypeDto
         .builder()
-        .monsterNo(rs.getInt("monster_no"))
-        .monsterName(rs.getString("monster_name"))
-        .monsterTypeNo(rs.getInt("monster_type_no"))
-        .monsterTypeName(rs.getString("monster_type_name"))
-        .monsterJoinNo(rs.getInt("monster_join_no"))
+        .pocketNo(rs.getInt("pocket_no"))
+        .pocketName(rs.getString("pocket_name"))
+        .pocketTypeNo(rs.getInt("pocket_type_no"))
+        .pocketTypeName(rs.getString("pocket_type_name"))
+        .pocketJoinNo(rs.getInt("pocket_join_no"))
         .typeJoinNo(rs.getInt("type_join_no"))
-        .monsterBaseHp(rs.getInt("monster_base_hp"))
-        .monsterBaseAtk(rs.getInt("monster_base_atk"))
-        .monsterBaseDef(rs.getInt("monster_base_def"))
-        .monsterBaseSpd(rs.getInt("monster_base_spd"))
-        .monsterBaseSatk(rs.getInt("monster_base_satk"))
-        .monsterBaseSdef(rs.getInt("monster_base_sdef"))
-        .monsterEffortHp(rs.getInt("monster_effort_hp"))
-        .monsterEffortAtk(rs.getInt("monster_effort_atk"))
-        .monsterEffortDef(rs.getInt("monster_effort_def"))
-        .monsterEffortSpd(rs.getInt("monster_effort_spd"))
-        .monsterEffortSatk(rs.getInt("monster_effort_satk"))
-        .monsterEffortSdef(rs.getInt("monster_effort_sdef"))
+        .pocketBaseHp(rs.getInt("pocket_base_hp"))
+        .pocketBaseAtk(rs.getInt("pocket_base_atk"))
+        .pocketBaseDef(rs.getInt("pocket_base_def"))
+        .pocketBaseSpd(rs.getInt("pocket_base_spd"))
+        .pocketBaseSatk(rs.getInt("pocket_base_satk"))
+        .pocketBaseSdef(rs.getInt("pocket_base_sdef"))
+        .pocketEffortHp(rs.getInt("pocket_effort_hp"))
+        .pocketEffortAtk(rs.getInt("pocket_effort_atk"))
+        .pocketEffortDef(rs.getInt("pocket_effort_def"))
+        .pocketEffortSpd(rs.getInt("pocket_effort_spd"))
+        .pocketEffortSatk(rs.getInt("pocket_effort_satk"))
+        .pocketEffortSdef(rs.getInt("pocket_effort_sdef"))
         .build();
     }
   };
 
   //	포켓몬스터 목록
-  public String selectListAddType(int monsterNo) {
+  public String selectListAddType(int pocketNo) {
     String sql =
-      "select monster_type_name from monster_with_type where monster_no=?";
-    Object[] param = { monsterNo };
+      "select pocket_type_name from pocketmon_with_type where pocket_no=?";
+    Object[] param = { pocketNo };
     return jdbcTemplate.queryForObject(sql, String.class, param);
   }
 }

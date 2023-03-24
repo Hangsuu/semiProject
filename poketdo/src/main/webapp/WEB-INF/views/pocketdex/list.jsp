@@ -23,24 +23,24 @@
 			<c:forEach var="pocketDexDto"  items="${list3}">
 				<tr>
 					<td>
-					${pocketDexDto.monsterNo}
+					${pocketDexDto.pocketNo}
 					</td>
-					<td>${pocketDexDto.monsterName}</td>
+					<td>${pocketDexDto.pocketName}</td>
 					<td>
-						<c:forEach var="i" begin="0" end="${pocketDexDto.getMonsterTypes().size()-1}">
+						<c:forEach var="i" begin="0" end="${pocketDexDto.getPocketTypes().size()-1}">
 							<c:choose>
-								<c:when test="${i==pocketDexDto.getMonsterTypes().size()-1}">
-									${pocketDexDto.getMonsterTypes().get(i)}
+								<c:when test="${i==pocketDexDto.getPocketTypes().size()-1}">
+									${pocketDexDto.getPocketTypes().get(i)}
 								</c:when>
 								<c:otherwise>
-									${pocketDexDto.getMonsterTypes().get(i)},
+									${pocketDexDto.getPocketTypes().get(i)},
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
 					</td>
 					<td>
-						<a href="edit?monsterNo=${pocketDexDto.monsterNo}" >수정</a>
-						<a href="delete?monsterNo=${pocketDexDto.monsterNo}" >삭제</a>
+						<a href="edit?monsterNo=${pocketDexDto.pocketNo}" >수정</a>
+						<a href="delete?monsterNo=${pocketDexDto.pocketNo}" >삭제</a>
 					</td>
 				</tr>
 			</c:forEach>

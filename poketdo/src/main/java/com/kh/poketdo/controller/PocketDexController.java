@@ -52,11 +52,11 @@ public class PocketDexController {
     //포켓몬스터 기본 정보 입력
     pocketDexDao.insert(pocketDexDto);
     //포켓몬스터 번호 추출
-    int mosterJoinNo = pocketDexDto.getMonsterNo();
+    int pocketJoinNo = pocketDexDto.getPocketNo();
     //포켓몬스터 속성 번호 입력
     for (Integer no : typeJoinNo) {
       if (no != null) {
-    	 pocketmonJoinTypeDao.insert(mosterJoinNo, no);
+    	 pocketmonJoinTypeDao.insert(pocketJoinNo, no);
       }
     }
     return "redirect:insertFinish";
@@ -83,31 +83,31 @@ public class PocketDexController {
     for (PocketDexDto dto : list) {
       // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
       List<PocketmonJoinTypeDto> list2 = 
-    		  pocketmonJoinTypeDao.selectOne(dto.getMonsterNo());
+    		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
 
       List<String> typeList = new ArrayList<>();
       for (PocketmonJoinTypeDto joinDto : list2) {
-        typeList.add(pocketmonTypeDao.selectOne(joinDto.getTypeJoinNo()));
+        typeList.add(pocketmonTypeDao.selectOneForTypeName(joinDto.getTypeJoinNo()));
       }
       System.out.println(typeList);
       // jsp파일에 보내질 list3에 PocketmonWithTypes를 build하여 추가
       list3.add(
         PocketmonWithTypes
           .builder()
-          .monsterNo(dto.getMonsterNo())
-          .monsterName(dto.getMonsterName())
-          .monsterBaseHp(dto.getMonsterEffortHp())
-          .monsterBaseAtk(dto.getMonsterBaseAtk())
-          .monsterBaseDef(dto.getMonsterBaseDef())
-          .monsterBaseSpd(dto.getMonsterBaseSpd())
-          .monsterBaseSatk(dto.getMonsterBaseSatk())
-          .monsterEffortHp(dto.getMonsterEffortHp())
-          .monsterEffortAtk(dto.getMonsterEffortAtk())
-          .monsterEffortDef(dto.getMonsterEffortDef())
-          .monsterEffortSpd(dto.getMonsterEffortSpd())
-          .monsterEffortSatk(dto.getMonsterEffortSatk())
-          .monsterBaseSdef(dto.getMonsterEffortSdef())
-          .monsterTypes(typeList)
+          .pocketNo(dto.getPocketNo())
+          .pocketName(dto.getPocketName())
+          .pocketBaseHp(dto.getPocketEffortHp())
+          .pocketBaseAtk(dto.getPocketBaseAtk())
+          .pocketBaseDef(dto.getPocketBaseDef())
+          .pocketBaseSpd(dto.getPocketBaseSpd())
+          .pocketBaseSatk(dto.getPocketBaseSatk())
+          .pocketEffortHp(dto.getPocketEffortHp())
+          .pocketEffortAtk(dto.getPocketEffortAtk())
+          .pocketEffortDef(dto.getPocketEffortDef())
+          .pocketEffortSpd(dto.getPocketEffortSpd())
+          .pocketEffortSatk(dto.getPocketEffortSatk())
+          .pocketBaseSdef(dto.getPocketEffortSdef())
+          .pocketTypes(typeList)
           .build()
       );
     }

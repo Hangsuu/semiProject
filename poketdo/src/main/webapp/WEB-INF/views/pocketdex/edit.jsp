@@ -9,73 +9,73 @@
 <body>
 	<h1>포켓몬스터 정보 수정 페이지~</h1>
 	<form action="editProcess" method="post">
-		<label>포켓몬스터 번호 : ${pocketDexDto.monsterNo}</label>
-		<input type="hidden" name="monsterNo" value="${pocketDexDto.monsterNo}"> 
+		<label>포켓몬스터 번호 : ${pocketDexDto.pocketNo}</label>
+		<input type="hidden" name="pocketNo" value="${pocketDexDto.pocketNo}"> 
 		
 		<br>
 		
 		<label>포켓몬스터 이름</label>
-		<input name="monsterName" value="${pocketDexDto.monsterName}">
+		<input name="pocketName" value="${pocketDexDto.pocketName}">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (HP)</label>
-		<input name="monsterBaseHp" value="${pocketDexDto.monsterBaseHp}">
+		<input name="pocketBaseHp" value="${pocketDexDto.pocketBaseHp}">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (공격)</label>
-		<input name="monsterBaseAtk" value="${pocketDexDto.monsterBaseAtk}">
+		<input name="pocketBaseAtk" value="${pocketDexDto.pocketBaseAtk}">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (방어)</label>
-		<input name="monsterBaseDef" value="${pocketDexDto.monsterBaseDef}">
+		<input name="pocketBaseDef" value="${pocketDexDto.pocketBaseDef}">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (스피드)</label>
-		<input name="monsterBaseSpd" value="${pocketDexDto.monsterBaseSpd}">
+		<input name="pocketBaseSpd" value="${pocketDexDto.pocketBaseSpd}">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (특수공격)</label>
-		<input name="monsterBaseSatk" value="${pocketDexDto.monsterBaseSatk}">
+		<input name="pocketBaseSatk" value="${pocketDexDto.pocketBaseSatk}">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (특수방어)</label>
-		<input name="monsterBaseSdef" value="${pocketDexDto.monsterBaseSdef}">
+		<input name="pocketBaseSdef" value="${pocketDexDto.pocketBaseSdef}">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (HP)</label>
-		<input name="monsterEffortHp" value="${pocketDexDto.monsterEffortHp}">
+		<input name="pocketEffortHp" value="${pocketDexDto.pocketEffortHp}">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (공격)</label>
-		<input name="monsterEffortAtk" value="${pocketDexDto.monsterEffortAtk}">
+		<input name="pocketEffortAtk" value="${pocketDexDto.pocketEffortAtk}">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (방어)</label>
-		<input name="monsterEffortDef" value="${pocketDexDto.monsterEffortDef}">
+		<input name="pocketEffortDef" value="${pocketDexDto.pocketEffortDef}">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (스피드)</label>
-		<input name="monsterEffortSpd" value="${pocketDexDto.monsterEffortSpd}">
+		<input name="pocketEffortSpd" value="${pocketDexDto.pocketEffortSpd}">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (특수공격)</label>
-		<input name="monsterEffortSatk" value="${pocketDexDto.monsterEffortSatk}">
+		<input name="pocketEffortSatk" value="${pocketDexDto.pocketEffortSatk}">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (특수방어)</label>
-		<input name="monsterEffortSdef" value="${pocketDexDto.monsterEffortSdef}">
+		<input name="pocketEffortSdef" value="${pocketDexDto.pocketEffortSdef}">
 		
 		<br>
 		

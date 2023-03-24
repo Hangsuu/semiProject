@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 // 몬스터타입Dto
 public class PocketmonTypeDto {
 
-  private int monsterTypeNo;
-  private String monsterTypeName;
+  private int pocketTypeNo;
+  private String pocketTypeName;
 }

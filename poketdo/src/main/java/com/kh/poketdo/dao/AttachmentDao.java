@@ -51,7 +51,7 @@ public class AttachmentDao {
 	
 	//상세 조회 구현
 	public AttachmentDto selectOne(int attachmentNo) {
-		String sql = "select * from attachmetn where attachment_no =?";
+		String sql = "select * from attachment where attachment_no =?";
 		Object[] param = {attachmentNo};
 		List<AttachmentDto> list = jdbcTemplate.query(sql, mapper, param);
 		

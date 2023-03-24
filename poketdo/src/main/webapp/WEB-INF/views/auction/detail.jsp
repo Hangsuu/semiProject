@@ -60,36 +60,29 @@
 		});
 	});
 </script>
-<script type="text/javascript">
-	$(function(){
-		$.ajax({
-			
-		});
-	});
+<script>
+	/* 전역변수 설정 */
+	var memberId = "${sessionScope.memberId}";
+	var boardWriter = "${auctionDto.auctionWriter}";
 </script>
+<script src="/static/js/reply.js"></script>
 <script type="text/template" id="reply-template">
-<div class="row">
-	<div class="row reply-memberid">
-		<i class="fa-edit fa-solid"></i><i class="fa-trash fa-solid"></i>
+	<div class="row reply-box">
+		<div class="row reply-writer"></div>
+		<div class="row reply-time"></div>
+		<div class="row reply-content form-input"></div>
 	</div>
-	<div class="row reply-content">
-	</div>
-	<div class="row reply-time">
-	</div>
-</div>
 </script>
 <script type="text/template" id="reply-edit-template">
-<div class="row">
 	<div class="row">
-	</div>
-	<div class="row">
+		<textarea class="row reply-edit-content form-input w-100">수정</textarea>
 	</div>
 	<div class="row right">
-		<button class="form-btn neutral confirm-btn">수정</button>
-		<button class="form-btn neutral cancle-btn">취소</button>
+		<button class="form-btn neutral confirm-edit">수정</button>
+		<button class="form-btn neutral cancle-edit">취소</button>
 	</div>
-</div>
 </script>
+<script src="/static/js/like.js"></script>
 <div class="container-800 mt-50">
 	<div class="row">
 	제목 : ${auctionDto.auctionTitle}
@@ -108,6 +101,8 @@
 	</div>
 	<div class="row">
 	내용
+		<!-- 좋아요 -->
+		<div class="right user-like"><i class="fa-regular fa-heart"></i></div>
 		<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
 	</div>
 	<div class="row">
@@ -119,14 +114,20 @@
 		<input class="form-input" name="auctionBidPrice">
 		<button type="button" class="form-btn neutral bid-btn">입찰</button>
 	</form>
+
+<!-- 댓글 -->
+	<!-- 표시 -->
 	<div class="row reply-target">
 	</div>
+	<!-- 신청 -->
 	<div class="row">
-		<div class="row">
-			<textarea class="form-input reply-input w-100"></textarea>
-			<button type="button" class="form-btn neutral reply-btn">등록</button>
+	<hr>
+		<textarea class="form-input w-100 reply-textarea"></textarea>
+		<div class="row right">
+			<button class="form-btn neutral reply-submit">댓글달기</button>
 		</div>
 	</div>
+<!-- 댓글 끝 -->
 	<div class="row">
 		<a href="delete?allboardNo=${auctionDto.allboardNo}&page=${param.page}" class="form-btn neutral">삭제</a>
 		<a href="list?page=${param.page}" class="form-btn neutral">목록</a>

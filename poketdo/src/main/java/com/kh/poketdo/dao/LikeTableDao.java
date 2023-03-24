@@ -26,11 +26,13 @@ public class LikeTableDao {
 		if(count==1) {
 			String deleteSql = "delete like_table where allboard_no=? and member_id=?";
 			jdbcTemplate.update(deleteSql, param);
+			likeInsert(likeTableDto.getAllboardNo());
 			return false;
 		}
 		else {
 			String insertSql = "insert into like_table(allboard_no, member_id) values(?,?)";
 			jdbcTemplate.update(insertSql, param);
+			likeInsert(likeTableDto.getAllboardNo());
 			return true;
 		}
 	}

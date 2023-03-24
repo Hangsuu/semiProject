@@ -32,6 +32,8 @@ public class PocketmonTradeController {
     @ModelAttribute("pageVo") PaginationVO pageVo,
     Model model
   ) {
+    System.out.println(pageVo.getColumn());
+    System.out.println(pageVo.getKeyword());
     List<PocketmonTradeDto> pockmonTradelists = pocketmonTradeService.getPocketmonTradeList(
       pageVo
     );
@@ -69,6 +71,9 @@ public class PocketmonTradeController {
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
     return "/WEB-INF/views/pocketmonTrade/detail.jsp";
   }
+
+  // 포켓몬 교환 수정
+  @GetMapping("/")
 
   @GetMapping("/test")
   public String test() {

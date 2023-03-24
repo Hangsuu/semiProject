@@ -17,6 +17,9 @@
   .pocketmonTradeContent {
     min-height: 400px;
   }
+  .to-list-btn {
+    margin-left: auto;
+  }
 </style>
 
 <!-- section -->
@@ -65,10 +68,14 @@
     <div class="row">
       <!-- 댓글 -->
     </div>
-    <div class="row">
+    <div class="row board-info-footer">
       <a href="write">글쓰기</a>
-      <a href=".">목록</a>
-      <div>top</div>
+      <c:if test="${sessionScope.memberId == pocketmonDto.getPocketmonTradeWriter()}">
+        <a href="/pocketmonTrade/edit">수정</a>
+        <a href="#">삭제</a>
+      </c:if>
+      <a class="to-list-btn" href="/pocketmonTrade">목록</a>
+      <div>top으로</div>
     </div>
   </article>
 

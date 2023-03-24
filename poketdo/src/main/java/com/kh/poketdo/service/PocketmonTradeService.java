@@ -58,7 +58,7 @@ public class PocketmonTradeService {
 
   // 포켓몬교환 공지글, 게시물 리스트
   public List<PocketmonTradeDto> getPocketmonTradeList(PaginationVO pageVo) {
-    pageVo.setCount(pocketmonTradeDao.getCount());
+    pageVo.setCount(pocketmonTradeDao.getCount(pageVo));
     List<PocketmonTradeDto> lists = pocketmonTradeDao.selectList(pageVo);
     return lists;
   }

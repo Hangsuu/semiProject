@@ -75,7 +75,7 @@ public class PocketmonTradeDao {
     } else {
       sql =
         "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade where instr(#1, ?) > 0 order by pocketmon_trade_no asc) tmp) where rn between ? and ?";
-      sql.replace("#1", pageVo.getColumn());
+      sql = sql.replace("#1", pageVo.getColumn());
       param =
         new Object[] {
           pageVo.getKeyword(),
@@ -95,9 +95,19 @@ public class PocketmonTradeDao {
   }
 
   // R 포켓몬교환 게시물 Cnt
-  public int getCount() {
-    String sql = "select count(*) from pocketmon_trade";
-    return jdbcTemplate.queryForObject(sql, int.class);
+  public int getCount(PaginationVO pageVo) {
+    String sql;
+    int cnt;
+    if (pageVo.getKeyword().equals("")) {
+      sql = "select count(*) from pocketmon_trade";
+      cnt = jdbcTemplate.queryForObject(sql, int.class);
+    } else {
+      sql = "select count(*) from pocketmon_trade where instr(#1, ?) > 0";
+      sql = sql.replace("#1", pageVo.getColumn());
+      Object[] param = { pageVo.getKeyword() };
+      cnt = jdbcTemplate.queryForObject(sql, int.class, param);
+    }
+    return cnt;
   }
   // U
   // D

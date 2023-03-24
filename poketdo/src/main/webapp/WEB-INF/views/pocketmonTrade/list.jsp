@@ -58,7 +58,7 @@
       <c:forEach var="trade" items="${trades}">
         <div class="trade-row">
           <span>${trade.getPocketmonTradeNo()}</span>
-          <span>${trade.getPocketmonTradeTitle()}<c:if test="${trade.getPocketmonTradeReply()}!=0">[${trade.getPocketmonTradeReply()}]</c:if></span>
+          <span><a href="/pocketmonTrade/${trade.getPocketmonTradeNo()}">${trade.getPocketmonTradeTitle()}</a><c:if test="${trade.getPocketmonTradeReply()}!=0">[${trade.getPocketmonTradeReply()}]</c:if></span>
           <span>${trade.getPocketmonTradeWriter()}</span>
           <span>
             <fmt:formatDate value="${trade.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd."/>
@@ -99,7 +99,6 @@
             </c:otherwise>
           </c:choose>
         </c:forEach>
-        <!-- 1 2 3 4 5 6 7 8 9 10 -->
         <c:choose>
           <c:when test="${pageVo.isNext()}">
             <a href="?page=${pageVo.getNextPage()}">&gt;</a>
@@ -121,12 +120,33 @@
       <div class="row">
         <form action="" method="get">
           <select name="column">
-            <option value="">선택</option>
-            <option>제목</option>
-            <option>글작성자</option>
-            <option>내용</option>
+            <option value="pocketmon_trade_title">선택</option>
+            <c:choose>
+              <c:when test="${pageVo.getColumn()=='pocketmon_trade_title'}">
+                <option value="pocketmon_trade_title" selected>제목</option>
+              </c:when>
+              <c:otherwise>
+                <option value="pocketmon_trade_title">제목</option>
+              </c:otherwise>
+            </c:choose>
+            <c:choose>
+              <c:when test="${pageVo.getColumn()=='pocketmon_trade_writer'}">
+                <option value="pocketmon_trade_writer" selected>글작성자</option>
+              </c:when>
+              <c:otherwise>
+                <option value="pocketmon_trade_writer">글작성자</option>
+              </c:otherwise>
+            </c:choose>
+            <c:choose>
+              <c:when test="${pageVo.getColumn()=='pocketmon_trade_content'}">
+                <option value="pocketmon_trade_content" selected>내용</option>
+              </c:when>
+              <c:otherwise>
+                <option value="pocketmon_trade_content">내용</option>
+              </c:otherwise>
+            </c:choose>
           </select>
-          <input type="search" name="keyword" placeholder="검색어를 입력해주세요">
+          <input type="search" name="keyword" value="${pageVo.getKeyword()}" placeholder="검색어를 입력해주세요">
           <button type="submit" class="positive">검색</button>
         </form>
       </div>

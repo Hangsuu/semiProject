@@ -4,32 +4,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
     
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>    
-    
-    <!-- jquery cdn -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
-<!-- summernote cdn -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
 
-<script type="text/javascript">
-	$(function(){
-		$('[name=boardContent]').summernote({
-            placeholder: '내용 작성',
-            tabsize: 4,
-            height: 250,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture']]
-            ]
-        });
-	});	
-    </script>
+<c:if test="${sessionScope.memberId != null}">
+<link rel="stylesheet" type="text/css" href="/static/css/board-like.css">
+<link rel="stylesheet" type="text/css" href="/static/css/board-dislike.css">
+<script src="/static/js/board-like.js"></script>
+<script src="/static/js/board-dislike.js"></script>
+</c:if>
+
+<link rel="stylesheet" type="text/css" href="/static/css/reply.css">
+<script>
+	var memberId = "${sessionScope.memberId}";
+	var boardWriter = "${boardDto.boardWriter}";
+</script>
+<script src="/static/js/reply.js"></script>
+<script type="text/template" id="reply-template">
+	<div class="reply-item">
+		<div class="replyWriter">?</div>
+		<div class="replyContent">?</div>
+		<div class="replyTime">?</div>
+	</div>
+</script>
     
 	<div class="container-800">
         <div class="row center">
@@ -59,16 +55,23 @@
         </div>
         <hr>
         <div class="row">
-            좋아요 
-            <span class="heart-count">${boardDto.boardLike}</span>
-            
-            <c:if test="${sessionScope.memberId != null}">
-            <!-- 하트자리 -->
-            <i class="fa-heart"></i>
-            </c:if>
-            
-            싫어요
-            <span class="bad-count">${boardDto.boardDislike}</span>
+  			좋아요 
+  			<span class="heart-count">${boardDto.boardLike}</span>
+
+  			<c:if test="${sessionScope.memberId != null}">
+    		<!-- 좋아요 버튼 -->
+    		<i class="fa-heart"></i>
+  			</c:if>
+
+  			싫어요
+  			<span class="bad-count">${boardDto.boardDislike}</span>
+
+  			<c:if test="${sessionScope.memberId != null}">
+    		<!-- 싫어요 버튼 -->
+    		<i class="fa-thumbs-down"></i>
+  			</c:if>
+
+
             
             댓글 
             <span class="reply-count">${boardDto.boardReply}</span>

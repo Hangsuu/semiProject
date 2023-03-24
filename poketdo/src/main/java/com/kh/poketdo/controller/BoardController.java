@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.poketdo.dao.BoardDao;
 import com.kh.poketdo.dto.BoardDto;
 import com.kh.poketdo.service.BoardService;
+import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
 @RequestMapping("/board")
@@ -28,12 +28,19 @@ public class BoardController {
 	@Autowired
 	private BoardDao boardDao;
 	
-	@Autowired
-	private BoardService boardService;
-	
 	// 게시판 사이트 구현
 	@GetMapping("/list")
-	public String list(Model model) {
+	public String list(@ModelAttribute("vo") PaginationVO vo,
+			Model model) {
+		
+		// 게시글 전체 개수
+		int totalCount = boardDao.selectCount(vo);
+		vo.setCount(totalCount);
+		
+		//공지사항
+		model.addAttribute("noticeList", boardDao.selectNoticeList(1, 3));
+		
+		// 게시글
 		List<BoardDto> list = boardDao.selectList();
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/board/list.jsp";
@@ -41,8 +48,18 @@ public class BoardController {
 	
 	// 인기게시판 구현(추천 30이상)
 	@GetMapping("/hot")
-	public String hot(Model model) {
-		List<BoardDto> list = boardDao.HotselectList();
+	public String hot(@ModelAttribute("vo") PaginationVO vo,
+			Model model) {
+		
+		// 게시글 전체 개수
+		int totalCount = boardDao.selectCount(vo);
+		vo.setCount(totalCount);
+		
+		//공지사항
+		model.addAttribute("noticeList", boardDao.selectNoticeList(1, 3));
+		
+		// 게시글
+		List<BoardDto> list = boardDao.hotselectList();
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/board/hot.jsp";
 	}
@@ -66,7 +83,6 @@ public class BoardController {
 		boardDto.setBoardWriter(memberId);
 		
 		boardDto.setBoardNo(boardNo);
-		System.out.println("boardDto: " + boardDto);
 		//게시글 생성
 		boardDao.insert(boardDto);
 		
@@ -103,16 +119,13 @@ public class BoardController {
 		//return "redirect:/board/list";//절대경로
 	}
 	
-	@GetMapping("/delete/{boardNo}")
-	public String delete2(@PathVariable int boardNo) {
-		boardDao.delete(boardNo);
-//		return "redirect:../list";//상대경로
-		return "redirect:/board/list";//절대경로
-	}
 	
+	// 관리자를 위한 전체 삭제 기능
 	@PostMapping("/deleteAll")
-	public String deleteAll(@RequestParam int boardNo) {
-		boardDao.delete(boardNo);
+	public String deleteAll(@RequestParam(value="boardNo") List<Integer> list) {
+		for(int boardNo : list) {
+			boardDao.delete(boardNo);
+		}
 	    // 예시: Board.deleteAllPosts();
 
 	    return "redirect:/board/list";
@@ -161,13 +174,6 @@ public class BoardController {
 			
 		}
 		model.addAttribute("boardDto", boardDto);
-		model.addAttribute("boardNo", boardNo);
-		return "/WEB-INF/views/board/detail.jsp";
-	}
-
-	@GetMapping("/detail/{boardNo}")
-	public String detail2(@PathVariable int boardNo, Model model) {
-		model.addAttribute("boardDto", boardDao.selectOne(boardNo));
 		return "/WEB-INF/views/board/detail.jsp";
 	}
 	

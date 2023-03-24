@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class ReplyDto {
 	private int replyNo;
-	private String replyWriter;
 	private int replyOrigin;
+	private String replyWriter;
 	private String replyContent;
 	private Date replyTime;
 	private int replyGroup;

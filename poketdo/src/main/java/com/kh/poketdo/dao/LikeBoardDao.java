@@ -14,9 +14,11 @@ public class LikeBoardDao {
 	
 	//등록
 	public void insert(LikeBoardDto likeboardDto) {
-		String sql = "insert into like_table(allboard_no, member_id) values(?, ?)";
-		Object[] param = {likeboardDto.getAllboardNo(),
-						  likeboardDto.getMemberId()};
+		String sql = "insert into like_table(member_id, allboard_no) values(?, ?)";
+		System.out.println("sql: " + sql);
+		Object[] param = {likeboardDto.getMemberId(),
+						  likeboardDto.getAllboardNo()
+						 };
 		jdbcTemplate.update(sql, param);
 	}
 	

@@ -23,6 +23,7 @@ public class BoardDao {
 		public BoardDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 			BoardDto boardDto = new BoardDto();
 			boardDto.setBoardNo(rs.getInt("board_no"));
+			boardDto.setAllboardNo(rs.getInt("allboard_no"));
 			boardDto.setBoardWriter(rs.getString("board_writer"));
 			boardDto.setBoardTitle(rs.getString("board_title"));
 			boardDto.setBoardContent(rs.getString("board_content"));
@@ -47,8 +48,8 @@ public class BoardDao {
 	//게시글 생성
 	public void insert(BoardDto boardDto) {
 	    String sql = "INSERT INTO board "
-	               + "(board_no, board_writer, board_title, board_content, board_time, board_head, board_read, board_like, board_dislike, board_reply) "
-	               + "VALUES (?, ?, ?, ?, SYSDATE, ?, 0, 0, 0, 0)";
+	               + "(board_no, allboard_no, board_writer, board_title, board_content, board_time, board_head, board_read, board_like, board_dislike, board_reply) "
+	               + "VALUES (?, allboard_seq.nextval, ?, ?, ?, SYSDATE, ?, 0, 0, 0, 0)";
 	    Object[] param = {
 	    	boardDto.getBoardNo(),
 	        boardDto.getBoardWriter(),
@@ -64,7 +65,7 @@ public class BoardDao {
 	//게시글 수정
 	public boolean update(BoardDto boardDto) {
 		String sql = "update board "
-						+ "set board_head=?, board_title=?, board_content=? "
+						+ "set board_head= ?, board_title= ?, board_content= ? "
 						+ "where board_no = ?";
 		Object[] param = {
 			boardDto.getBoardHead(), boardDto.getBoardTitle(),
@@ -100,7 +101,7 @@ public class BoardDao {
 	
 	
 	// 인기 게시판 구현
-	public List<BoardDto> HotselectList() {
+	public List<BoardDto> hotselectList() {
 		String sql = "select * from board where board_like >= 30";
 		return jdbcTemplate.query(sql, mapper);
 	}
@@ -129,10 +130,10 @@ public class BoardDao {
 	
 	
 	//조회수 증가
-	public boolean updateReadCount(int boardNo) {
+	public boolean updateReadCount(int allboardNo) {
 		String sql = "update board set board_read=board_read+1 "
-					+ "where board_no = ?";
-		Object[] param = {boardNo};
+					+ "where allboard_no = ?";
+		Object[] param = {allboardNo};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
@@ -152,19 +153,19 @@ public class BoardDao {
 	}
 	
 	// 좋아요 갯수 증가
-	public void updateLikecount(int boardNo, int count) {
-		String sql = "update board set board_like = ? where board_no = ?";
-		Object[] param = {count, boardNo};
+	public void updateLikecount(int count, int allboardNo) {
+		String sql = "update board set board_like = ? where allboard_no = ?";
+		Object[] param = {count, allboardNo};
 		jdbcTemplate.update(sql, param);
 	}
 	
 	// 댓글 갯수 갱신 기능
-	public void updateReplycount(int boardNo) {
+	public void updateReplycount(int boardNo, int allboardNo) {
 		String sql = "update board set board_reply = ("
 					+ "select count(*) from reply where reply_origin = ?"
 					+ ") "
-					+ "where board_no = ?";
-		Object[] param = {boardNo, boardNo};
+					+ "where allboard_no = ?";
+		Object[] param = {boardNo, allboardNo};
 		jdbcTemplate.update(sql, param);
 	}
 	

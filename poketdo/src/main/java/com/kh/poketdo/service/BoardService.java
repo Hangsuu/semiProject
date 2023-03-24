@@ -23,8 +23,10 @@ public class BoardService {
 		boardDao.insert(boardDto);
 		
 		//글에 사용된 첨부파일번호(attachmentNo)와 글 번호(boardNo)를 연결한다
-		for( int  no : attachmentNo) {
-			boardDao.connect(boardNo, no);
+		if(attachmentNo != null) {
+			for(int no : attachmentNo) {
+				boardDao.connect(boardNo, no);
+			}
 		}
 		
 		return boardNo;

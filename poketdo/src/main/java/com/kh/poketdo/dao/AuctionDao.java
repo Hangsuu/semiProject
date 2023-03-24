@@ -110,16 +110,25 @@ public class AuctionDao {
 		Object[] param = {date, allboardNo};
 		jdbcTemplate.update(sql, param);
 	}
+	//종료 시간 얻기
+	public long getFinishTime(int allboardNo) {
+		String sql = "select auction_finish_time from auction where allboard_no=?";
+		Object[] param = {allboardNo};
+		return jdbcTemplate.queryForObject(sql, Date.class, param).getTime();
+	}
+	//최소 입찰금액 얻기
 	public int getMinPrice(int allboardNo) {
 		String sql = "select auction_min_price from auction where allboard_no=?";
 		Object[] param = {allboardNo};
 		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
+	//최대 입찰금액 얻기
 	public int getMaxPrice(int allboardNo) {
 		String sql = "select auction_max_price from auction where allboard_no=?";
 		Object[] param = {allboardNo};
 		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
+	//상위 입찰 시 최소 입찰금액 변경
 	public void changeMinPrice(int auctionMinPrice, int allboardNo) {
 		String sql = "update auction set auction_min_price=? where allboard_no=?";
 		Object[] param = {auctionMinPrice, allboardNo};
@@ -148,5 +157,21 @@ public class AuctionDao {
 		String sql = "update auction set auction_like=? where allboard_no=?";
 		Object[] param = {likeCount, allboardNo};
 		jdbcTemplate.update(sql, param);
+	}
+	
+	//북마크 읽기
+	public List<AuctionDto> bookmarkList(PaginationVO vo, String memberId){
+		String sql = "SELECT * FROM ("+
+				"SELECT tmp.*, rownum rn FROM ("+
+				"SELECT A.* FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=?"+
+				") tmp"+
+				") WHERE rn BETWEEN ? AND ?";
+		Object[] param = {memberId, vo.getBegin(), vo.getEnd()};
+		return jdbcTemplate.query(sql, mapper, param);
+	}
+	public int bookmarkCount(String memberId) {
+		String sql = "SELECT count(*) FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=?";
+		Object[] param = {memberId};
+		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
 }

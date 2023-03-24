@@ -1,70 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<script type="text/javascript">
-	$(function(){
-		var params = new URLSearchParams(location.search);
-		var allboardNo = params.get("allboardNo");
-		
-		getMinPrice();
-		getMaxPrice();
-		
-		function getMinPrice(){
-			$.ajax({
-				url:"/rest/auction/min/"+allboardNo,
-				method:"get",
-				success:function(response){
-					$(".min-bid-price").text(response);
-				}
-			});			
-		};
-		function getMaxPrice() {
-			$.ajax({
-				url:"/rest/auction/max/"+allboardNo,
-				method:"get",
-				success:function(response){
-					$(".max-bid-price").text(response);
-				}
-			});			
-		};
-		
-		$(".bid-btn").click(function(){
-			var data = $(".form-bid").serialize();
-			var enterPrice = $("[name=auctionBidPrice]").val();
-			var minPrice = $(".min-bid-price").text();
-			var maxPrice = $(".max-bid-price").text();
-			$(".form-bid").get(0).reset();
-			if(parseInt(enterPrice)<parseInt(minPrice)){
-				alert("최소 금액 이상 입찰하세요");
-			}
-			else if(parseInt(enterPrice)>parseInt(maxPrice)){
-				alert("최대 입찰금액 이상입니다");
-			}
-			else{
-				$.ajax({
-					url:"/rest/auction/",
-					method:"post",
-					data:data,
-					success:function(){
-					},
-				});
-				$.ajax({
-					url:"/rest/auction/min?bidPrice="+enterPrice+"&allboardNo="+allboardNo,
-					method:"get",
-					success:function(){
-						console.log("성공");
-						getMinPrice();
-					}
-				});
-			}
-		});
-	});
-</script>
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
 	var boardWriter = "${auctionDto.auctionWriter}";
 </script>
+<script src="/static/js/timer.js"></script>
+<script src="/static/js/auction-bid.js"></script>
 <script src="/static/js/reply.js"></script>
 <script type="text/template" id="reply-template">
 	<div class="row reply-box">
@@ -83,38 +27,53 @@
 	</div>
 </script>
 <script src="/static/js/like.js"></script>
+<script src="/static/js/bookmark.js"></script>
 <div class="container-800 mt-50">
 	<div class="row">
 	제목 : ${auctionDto.auctionTitle}
 	</div>
 	<div class="row">
-	마감 기한 : ${auctionDto.auctionFinishTime}
-	</div>
-	<div class="row">
-	최고 입찰 가격 : <span class="min-bid-price"></span>
-	</div>
-	<div class="row">
-	즉시 입찰 가격 : <span class="max-bid-price"></span>
+		<c:choose>
+			<c:when test="${auctionDto.finish==true}">
+				<span>종료된 경매</span>
+			</c:when>
+			<c:otherwise>
+				<div class="row">
+					남은시간 : <span class="rest-time" data-finish-time="${auctionDto.finishTime}">${auctionDto.time}</span>
+				</div>
+				<div class="row">
+				최고 입찰 가격 : <span class="min-bid-price"></span>
+				</div>
+				<div class="row">
+				즉시 입찰 가격 : <span class="max-bid-price"></span>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<div class="row">
 	조회수 : ${auctionDto.auctionRead}
 	</div>
 	<div class="row">
 	내용
-		<!-- 좋아요 -->
+<!-- 좋아요 -->
 		<div class="right user-like"><i class="fa-regular fa-heart"></i></div>
+<!-- 즐겨찾기 -->
+		<div class="right user-bookmark"><i class="fa-regular fa-star" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></div>
 		<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
 	</div>
 	<div class="row">
-	글쓴이 : ${auctionDto.auctionWriter}
+	글쓴이 : <span class="auction-writer">${auctionDto.auctionWriter}</span>
 	</div>
-	<form class="form-bid">
-		<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
-		<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
-		<input class="form-input" name="auctionBidPrice">
-		<button type="button" class="form-btn neutral bid-btn">입찰</button>
-	</form>
-
+<!-- 입찰기능 -->
+	<div class="row bid-form">
+		<form class="form-bid">
+			<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
+			<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
+			<input class="form-input" name="auctionBidPrice">
+			<button type="button" class="form-btn neutral bid-btn">입찰</button>
+		</form>
+	</div>
+<!-- 입찰기능 끝 -->
 <!-- 댓글 -->
 	<!-- 표시 -->
 	<div class="row reply-target">

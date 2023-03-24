@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.AuctionBidDao;
 import com.kh.poketdo.dao.AuctionDao;
+import com.kh.poketdo.dao.BookmarkDao;
 import com.kh.poketdo.dto.AuctionBidDto;
 import com.kh.poketdo.dto.AuctionDto;
 import com.kh.poketdo.vo.PaginationVO;
@@ -121,5 +122,14 @@ public class AuctionController {
 			attr.addAttribute("page", page);
 			return "redirect:detail";
 		}
+	}
+	@GetMapping("/bookmark")
+	public String bookmark(Model model, 
+			@ModelAttribute("vo") PaginationVO vo, @RequestParam String memberId) {
+		//목록의 숫자 계산 후 VO count에 입력
+		vo.setCount(auctionDao.bookmarkCount(memberId));
+		
+		model.addAttribute("list", auctionDao.bookmarkList(vo, memberId));
+		return "/WEB-INF/views/auction/list.jsp";
 	}
 }

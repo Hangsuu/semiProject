@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<script>
+	/* 전역변수 설정 */
+	var memberId = "${sessionScope.memberId}";
+</script>
+<script src="/static/js/timer.js"></script>
+<script src="/static/js/bookmark.js"></script>
 <div class="container-800 mt-50">
 	<div class="row"><h1 style="font-size:2em">경매</h1></div>
 <!-- 검색 -->
@@ -15,7 +21,8 @@
 			<input name="keyword" class="form-input" placeholder="검색">
 			<input name="page" type="hidden" value="${param.page}">
 			<button class="form-btn neutral">검색</button>
-		</form> 
+		</form>
+		<a href="bookmark?memberId=${sessionScope.memberId}" class="form-btn neutral">즐겨찾기 보기</a> 
 	</div>
 <!-- 게시판 테이블 -->
 	<div class="row">
@@ -25,20 +32,38 @@
 					<th>글번호</th>
 					<th class="w-40">제목</th>
 					<th>글쓴이</th>
-					<th>종료시간</th>
+					<th>남은시간</th>
 					<th>조회수</th>
 					<th>좋아요</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="auctionDto" items="${list}">
 					<tr>
-						<td>${auctionDto.allboardNo}</td>
-						<td><a href="detail?allboardNo=${auctionDto.allboardNo}&page=${param.page}" class="link">${auctionDto.auctionTitle}</a></td>
+						<td>${auctionDto.auctionNo}</td>
+						<td>
+							<a href="detail?allboardNo=${auctionDto.allboardNo}&page=${param.page}" class="link">
+								${auctionDto.auctionTitle}
+							</a>
+						</td>
 						<td>${auctionDto.auctionWriter}</td>
-						<td>${auctionDto.auctionFinishTime}</td>
+						<td>
+							<c:choose>
+								<c:when test="${auctionDto.finish==true}">
+									<span>종료</span>
+								</c:when>
+								<c:otherwise>
+									<div class="rest-time" data-finish-time="${auctionDto.finishTime}" >
+										${auctionDto.time}
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td>${auctionDto.auctionRead}</td>
 						<td>${auctionDto.auctionLike}</td>
+<!-- 즐겨찾기 -->
+						<td><i class="fa-regular fa-star" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></td>
 					</tr>
 				</c:forEach>
 			</tbody>

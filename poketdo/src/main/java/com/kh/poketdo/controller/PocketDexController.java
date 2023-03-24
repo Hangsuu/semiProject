@@ -89,7 +89,6 @@ public class PocketDexController {
       for (PocketmonJoinTypeDto joinDto : list2) {
         typeList.add(pocketmonTypeDao.selectOneForTypeName(joinDto.getTypeJoinNo()));
       }
-      System.out.println(typeList);
       // jsp파일에 보내질 list3에 PocketmonWithTypes를 build하여 추가
       list3.add(
         PocketmonWithTypes
@@ -121,8 +120,7 @@ public class PocketDexController {
   @GetMapping("/edit")
   public String edit(
 		  Model model,
-		  @RequestParam int monsterNo,
-		  @ModelAttribute PocketDexDto pocketDexDto
+		  @RequestParam int monsterNo
 		  ) {
 	  model.addAttribute(pocketDexDao.selectOne(monsterNo));
 	  
@@ -131,10 +129,8 @@ public class PocketDexController {
 
   	@PostMapping("/editProcess")
   	public String editProcess(
-  				Model model,
   			  @ModelAttribute PocketDexDto pocketDexDto
   			) {
-  		
   		pocketDexDao.edit(pocketDexDto);
   		return "redirect:list";
   	}

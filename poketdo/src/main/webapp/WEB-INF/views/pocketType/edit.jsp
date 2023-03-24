@@ -8,13 +8,13 @@
 </head>
 <body>
 	<h1>포켓몬스터 속성 정보 수정 페이지</h1>
+	
 	<form action="editProcess" method="post">
-		<label>포켓몬스터 속성 번호 : ${pocketmonTypeDto2.pocketTypeNo}</label>
-		${pocketmonTypeDto2}
-		<input type="hidden" name="pocketTypeNo" value=" ${pocketmonTypeDto.pocketTypeNo}">
+		<label>포켓몬스터 속성 번호 : ${PocketmonTypeDto.pocketTypeNo}</label>
+		<input type="hidden" name="pocketTypeNo" value=" ${PocketmonTypeDto.pocketTypeNo}">
 		<br>
-		<label>포켓몬스터 속성 이름 ${pocketmonTypeDto.pocketTypeName}</label>
-		<input name="pocketTypeName" value=" ${pocketmonTypeDto.pocketTypeName}">
+		<label>포켓몬스터 속성 이름</label>
+		<input name="pocketTypeName" value=" ${PocketmonTypeDto.pocketTypeName}">
 		<br>
 		<button>수정 완료</button> 
 	</form>

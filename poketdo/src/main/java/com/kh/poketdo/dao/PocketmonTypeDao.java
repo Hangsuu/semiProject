@@ -51,8 +51,8 @@ public class PocketmonTypeDao {
   //포켓몬스터 타입 정보 수정
   public boolean edit(PocketmonTypeDto pocketmonTypeDto) {
 	  String sql = "update pocketmon_type set "
-	  		+ "pocketmon_type_name=? "
-	  		+ "where pocketmon_type_no=?";
+	  		+ "pocket_type_name=? "
+	  		+ "where pocket_type_no=?";
 	  Object [] param = {
 			  							pocketmonTypeDto.getPocketTypeName(),
 			  							pocketmonTypeDto.getPocketTypeNo()

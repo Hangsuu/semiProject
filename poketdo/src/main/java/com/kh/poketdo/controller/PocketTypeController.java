@@ -52,13 +52,18 @@ public class PocketTypeController {
 	public String edit(
 			  Model model,
 			  @RequestParam int pocketTypeNo
-//			  @ModelAttribute PocketmonTypeDto pocketmonTypeDto 
 			  ) {
-		System.out.println(pocketmonTypeDao.selectOne(pocketTypeNo));
-		model.addAttribute("PocketmonTypeDto2", pocketmonTypeDao.selectOne(pocketTypeNo));
+		model.addAttribute("PocketmonTypeDto", pocketmonTypeDao.selectOne(pocketTypeNo));
 		
 		  return "/WEB-INF/views/pocketType/edit.jsp";
 	  }
+	@PostMapping("/editProcess")
+	public String editProcess(
+			@ModelAttribute PocketmonTypeDto pocketmonTypeDto
+			) {
+		pocketmonTypeDao.edit(pocketmonTypeDto);
+		return "redirect:list";
+	}
 	
 	//포켓몬스터 속성 정보 삭제
 	@GetMapping("/delete")

@@ -28,7 +28,7 @@ public class PocketmonTradeService {
         .builder()
         .allboardNo(newAllBoardSeq)
         .allboardBoardType("pocketmonTrade")
-        .allboardBoardTypeNo(newPocketmonTradeSeq)
+        .allboardBoardNo(newPocketmonTradeSeq)
         .build()
     );
 

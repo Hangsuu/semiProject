@@ -32,7 +32,7 @@ public class RaidDao {
 					.raidContent(rs.getString("raid_content"))
 					.raidMonster(rs.getString("raid_monster"))
 					.raidTime(rs.getDate("raid_time"))
-					.raidStartTime(rs.getDate("raid_start_time"))
+					.raidStartTime(rs.getTimestamp("raid_start_time"))
 					.raidParticipant(rs.getInt("raid_participant"))
 					.raidComplete(rs.getInt("raid_complete"))
 					.raidReply(rs.getInt("raid_reply"))

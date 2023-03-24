@@ -37,7 +37,7 @@
 						<td><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
-						<td>${raidDto.raidStartTime}</td>
+						<td>${raidDto.time}</td>
 						<td>${raidDto.raidParticipant}/4</td>
 						<c:choose>
 							<c:when test="${raidDto.raidType==0}">

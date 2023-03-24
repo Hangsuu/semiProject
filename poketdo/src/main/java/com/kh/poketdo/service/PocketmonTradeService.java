@@ -62,4 +62,14 @@ public class PocketmonTradeService {
     List<PocketmonTradeDto> lists = pocketmonTradeDao.selectList(pageVo);
     return lists;
   }
+
+  // 포켓몬 교환 게시물 업데이트
+  public boolean update(PocketmonTradeDto pocketmonTradeDto, String promise)
+    throws ParseException {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
+    Date parsedDate = dateFormat.parse(promise);
+    java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+    pocketmonTradeDto.setPocketmonTradeTradeTime(sqlDate);
+    return pocketmonTradeDao.update(pocketmonTradeDto);
+  }
 }

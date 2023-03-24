@@ -109,6 +109,18 @@ public class PocketmonTradeDao {
     }
     return cnt;
   }
+
   // U
+  public boolean update(PocketmonTradeDto pocketmonTradeDto) {
+    String sql =
+      "update pocketmon_trade set pocketmon_trade_title = ?, pocketmon_trade_content = ?, pocketmon_trade_trade_time = ? where pocketmon_trade_no = ?";
+    Object[] param = {
+      pocketmonTradeDto.getPocketmonTradeTitle(),
+      pocketmonTradeDto.getPocketmonTradeContent(),
+      pocketmonTradeDto.getPocketmonTradeTradeTime(),
+      pocketmonTradeDto.getPocketmonTradeNo(),
+    };
+    return jdbcTemplate.update(sql, param) > 0;
+  }
   // D
 }

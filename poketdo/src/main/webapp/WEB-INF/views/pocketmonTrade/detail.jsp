@@ -20,6 +20,14 @@
   .to-list-btn {
     margin-left: auto;
   }
+  .pocketmonTrade-btn {
+    /* ba */
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+    color: black;
+    text-decoration: none;
+    border: 1px black solid;
+  }
 </style>
 
 <!-- section -->
@@ -31,11 +39,9 @@
   <article class="container-800">
     <div class="row">
         <h1>포켓몬교환 디테일</h1>
-        <h1>${pocketmonTradeDto}</h1>
-        <h1><fmt:formatDate value="${pocketmonTradeDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m"/></h1>
     </div>
     <div class="row">
-      <h1>${pocketmonTradeDto.getPocketmonTradeTitle()}</h1>
+      <h1>제목: ${pocketmonTradeDto.getPocketmonTradeTitle()}</h1>
     </div>
     <div class="row">
       <h2>${pocketmonTradeDto.getPocketmonTradeWriter()}</h2>
@@ -70,13 +76,12 @@
     </div>
     <div class="row board-info-footer">
       <a href="write">글쓰기</a>
-      <c:if test="${sessionScope.memberId == pocketmonDto.getPocketmonTradeWriter()}">
-        <a href="/pocketmonTrade/edit">수정</a>
-        <a href="#">삭제</a>
+      <c:if test="${sessionScope.memberId == pocketmonTradeDto.getPocketmonTradeWriter()}">
+        <a href="/pocketmonTrade/edit/${pocketmonTradeDto.getPocketmonTradeNo()}">수정</a>
+        <a class="pocketmonTrade-btn" id="pocketmonTrade-delete-btn" href="#">삭제</a>
       </c:if>
       <a class="to-list-btn" href="/pocketmonTrade">목록</a>
       <div>top으로</div>
     </div>
   </article>
-
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

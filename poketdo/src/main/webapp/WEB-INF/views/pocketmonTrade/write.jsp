@@ -9,6 +9,7 @@
   textarea[name=pocketmonTradeContent] {
     min-height: 500px;
   }
+
 </style>
 
 <!-- section -->

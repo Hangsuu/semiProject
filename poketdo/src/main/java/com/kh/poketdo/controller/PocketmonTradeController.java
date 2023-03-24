@@ -5,6 +5,7 @@ import com.kh.poketdo.dto.PocketmonTradeDto;
 import com.kh.poketdo.service.PocketmonTradeService;
 import com.kh.poketdo.vo.PaginationVO;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,6 +74,30 @@ public class PocketmonTradeController {
   }
 
   // 포켓몬 교환 수정
+  @GetMapping("/edit/{pocketmonTradeNo}")
+  public String edit(@PathVariable int pocketmonTradeNo, Model model) {
+    PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
+      pocketmonTradeNo
+    );
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+    String formattedDate = formatter.format(
+      pocketmonTradeDto.getPocketmonTradeTradeTime()
+    );
+    model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
+    model.addAttribute("formattedDate", formattedDate);
+    return "/WEB-INF/views/pocketmonTrade/edit.jsp";
+  }
+
+  @PostMapping("/edit/{pocketmonTradeNo}")
+  public String edit(
+    @PathVariable int pocketmonTradeNo,
+    @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
+    @RequestParam String promise
+  ) throws ParseException {
+    pocketmonTradeService.update(pocketmonTradeDto, promise);
+    return "redirect:/pocketmonTrade/" + pocketmonTradeNo;
+  }
+
   @GetMapping("/test")
   public String test() {
     return "/WEB-INF/views/pocketmonTrade/test.jsp";

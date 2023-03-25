@@ -1,6 +1,12 @@
 package com.kh.poketdo.restcontroller;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.poketdo.dao.AuctionBidDao;
 import com.kh.poketdo.dao.AuctionDao;
 import com.kh.poketdo.dto.AuctionBidDto;
+import com.kh.poketdo.dto.AuctionDto;
+import com.kh.poketdo.vo.BookmarkVO;
+import com.kh.poketdo.vo.PaginationVO;
 
 @RestController
 @RequestMapping("/rest/auction")
@@ -42,5 +51,11 @@ public class AuctionRestController {
 	@GetMapping("/complete/{allboardNo}")
 	public boolean isFinish(@PathVariable int allboardNo) {
 		return auctionDao.selectOne(allboardNo).isFinish();
+	}
+	@PostMapping("/list")
+	public BookmarkVO list(@ModelAttribute PaginationVO vo, HttpSession session){
+		String memberId = (String)session.getAttribute("memberId");
+		vo.setCount(auctionDao.bookmarkCount(vo, memberId));
+		return BookmarkVO.builder().vo(vo).list(auctionDao.bookmarkList(vo, memberId)).build();
 	}
 }

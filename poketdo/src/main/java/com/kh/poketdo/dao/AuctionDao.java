@@ -161,17 +161,37 @@ public class AuctionDao {
 	
 	//북마크 읽기
 	public List<AuctionDto> bookmarkList(PaginationVO vo, String memberId){
-		String sql = "SELECT * FROM ("+
-				"SELECT tmp.*, rownum rn FROM ("+
-				"SELECT A.* FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=?"+
-				") tmp"+
-				") WHERE rn BETWEEN ? AND ?";
-		Object[] param = {memberId, vo.getBegin(), vo.getEnd()};
-		return jdbcTemplate.query(sql, mapper, param);
+		if(vo.isSearch()) {
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"SELECT A.* FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=? where instr(#1, ?)>0 order by auction_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {memberId, vo.getKeyword(), vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		else {
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"SELECT A.* FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=? order by auction_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			Object[] param = {memberId, vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
 	}
-	public int bookmarkCount(String memberId) {
-		String sql = "SELECT count(*) FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=?";
-		Object[] param = {memberId};
-		return jdbcTemplate.queryForObject(sql, int.class, param);
+	public int bookmarkCount(PaginationVO vo, String memberId) {
+		if(vo.isSearch()) {
+			String sql = "SELECT count(*) FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=? where instr(#1, ?)>0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {memberId, vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String sql = "SELECT count(*) FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=?";
+			Object[] param = {memberId};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
 	}
 }

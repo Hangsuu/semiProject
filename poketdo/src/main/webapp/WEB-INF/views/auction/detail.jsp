@@ -33,22 +33,25 @@
 	제목 : ${auctionDto.auctionTitle}
 	</div>
 	<div class="row">
-		<c:choose>
-			<c:when test="${auctionDto.finish==true}">
+		<div class="row finished-auction">
+			<div class="row">
 				<span>종료된 경매</span>
-			</c:when>
-			<c:otherwise>
-				<div class="row">
-					남은시간 : <span class="rest-time" data-finish-time="${auctionDto.finishTime}">${auctionDto.time}</span>
-				</div>
-				<div class="row">
-				최고 입찰 가격 : <span class="min-bid-price"></span>
-				</div>
-				<div class="row">
-				즉시 입찰 가격 : <span class="max-bid-price"></span>
-				</div>
-			</c:otherwise>
-		</c:choose>
+			</div>
+			<div class="row">
+			낙찰 가격 : <span class="min-bid-price"></span>
+			</div>			
+		</div>
+		<div class="row ing-auction">
+			<div class="row">
+				남은시간 : <span class="rest-time" data-finish-time="${auctionDto.finishTime}">${auctionDto.time}</span>
+			</div>
+			<div class="row">
+			최고 입찰 가격 : <span class="min-bid-price"></span>
+			</div>
+			<div class="row">
+			즉시 입찰 가격 : <span class="max-bid-price"></span>
+			</div>
+		</div>
 	</div>
 	<div class="row">
 	조회수 : ${auctionDto.auctionRead}
@@ -56,7 +59,7 @@
 	<div class="row">
 	내용
 <!-- 좋아요 -->
-		<div class="right user-like"><i class="fa-regular fa-heart"></i></div>
+		<div class="right user-like"><i class="fa-regular fa-heart" style="color:red"></i></div>
 <!-- 즐겨찾기 -->
 		<div class="right user-bookmark"><i class="fa-regular fa-star" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></div>
 		<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>

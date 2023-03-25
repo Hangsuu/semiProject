@@ -22,7 +22,7 @@
 			<input name="page" type="hidden" value="${param.page}">
 			<button class="form-btn neutral">검색</button>
 		</form>
-		<a href="bookmark?memberId=${sessionScope.memberId}" class="form-btn neutral">즐겨찾기 보기</a> 
+		<a href="bookmark?page=1&keyword=&column=" class="form-btn neutral">즐겨찾기 보기</a> 
 	</div>
 <!-- 게시판 테이블 -->
 	<div class="row">
@@ -78,13 +78,13 @@
 				<a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
 			</c:when>
 			<c:otherwise>
-				<a href="list?page=1"><i class="fa-solid fa-angles-left"></i></a>
+				<a href="list?${vo.parameter}&page=1"><i class="fa-solid fa-angles-left"></i></a>
 			</c:otherwise>
 		</c:choose>
 	<!-- 이전 페이지로 이동 -->
 		<c:choose>
 			<c:when test="${vo.prev}">
-				<a href="list?page=${vo.prevPage}"><i class="fa-solid fa-angle-left"></i></a>
+				<a href="list?${vo.parameter}&page=${vo.prevPage}"><i class="fa-solid fa-angle-left"></i></a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled"><i class="fa-solid fa-angle-left disabled"></i></a>
@@ -100,7 +100,7 @@
 	<!-- 다음 페이지 -->
 		<c:choose>
 			<c:when test="${vo.next}">
-				<a href="list?page=${vo.nextPage}" class=""><i class="fa-solid fa-angle-right"></i></a>
+				<a href="list?${vo.parameter}&page=${vo.nextPage}" class=""><i class="fa-solid fa-angle-right"></i></a>
 			</c:when>
 			<c:otherwise><a class="disabled">
 				<i class="fa-solid fa-angle-right"></i></a>
@@ -109,7 +109,7 @@
 	<!-- 마지막페이지로 -->
 		<c:choose>
 			<c:when test="${!vo.last}">
-				<a href="list?page=${vo.totalPage}" class=""><i class="fa-solid fa-angles-right"></i></a>
+				<a href="list?${vo.parameter}&page=${vo.totalPage}" class=""><i class="fa-solid fa-angles-right"></i></a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled"><i class="fa-solid fa-angles-right"></i></a>

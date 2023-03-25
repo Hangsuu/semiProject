@@ -12,9 +12,16 @@ $(function(){
 			success:function(response){
 				if(response){
 					$(".bid-form").hide();
+					$(".ing-auction").hide();
+					$(".finished-auction").show();
 					return true;
 				}
-				else return false;
+				else {
+					$(".finished-auction").hide();
+					$(".bid-form").show();
+					$(".ing-auction").show();
+					return false;
+				}
 			}
 		});
 	}
@@ -55,7 +62,7 @@ $(function(){
 			var minPrice = $(".min-bid-price").text();
 			var maxPrice = $(".max-bid-price").text();
 			$(".form-bid").get(0).reset();
-			if(parseInt(enterPrice)<parseInt(minPrice)){
+			if(parseInt(enterPrice)<=parseInt(minPrice)){
 				alert("최소 금액 이상 입찰하세요");
 			}
 			else if(parseInt(enterPrice)>parseInt(maxPrice)){

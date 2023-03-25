@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AllboardDto {
+public class MonsterJoinTypeDto {
 
-  private int allboardNo;
-  private String allboardBoardType;
-  private int allboardBoardNo;
+	//포켓몬스터 기본 정보 + 타입 연결 테이블 DTO
+	
+	private int monsterJoinNo;
+	private int type_join_no;
+	
+	
 }

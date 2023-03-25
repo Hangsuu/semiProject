@@ -1,7 +1,5 @@
 package com.kh.poketdo.controller;
 
-import java.io.Console;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 

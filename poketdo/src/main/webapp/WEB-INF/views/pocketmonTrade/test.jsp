@@ -3,6 +3,9 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
+  .sample-aside {
+    font-size: 40px;
+  }
   .sample-article {
     font-size: 100px;
   }
@@ -10,16 +13,13 @@
 
 <!-- section -->
 <section test>
-
   <!-- aside -->
   <aside></aside>
+
   <!-- article -->
   <article>
-    <div class="container-800">
-        <h1>교환글 리스트</h1>
-        <a href="#">교환글 상세</a>
-        <a href="/trade/write">교환글 글쓰기</a>
-    </div>
+    <div class="sample-article">sample article</div>
   </article>
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+</section>

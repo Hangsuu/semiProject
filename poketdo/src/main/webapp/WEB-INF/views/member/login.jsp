@@ -3,8 +3,6 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script src="/static/js/memberLogin.js"></script>
-
 <!-- section -->
 <section class="member-login-section">
 

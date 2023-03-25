@@ -23,7 +23,7 @@ section {
 article {
   min-height: 1200px;
   padding: 1em;
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 footer {
   padding: 1em;

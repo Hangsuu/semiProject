@@ -84,12 +84,11 @@
   margin-left: 2em;
 }
 
-
 /* # 로그인 페이지 (/member/login) */
 section.member-login-section {
   width: 550px;
 }
-section.member-login-section article{
+section.member-login-section article {
   min-height: 700px;
 }
 section.member-login-section form {
@@ -119,12 +118,12 @@ section.member-login-section form {
   height: 100%;
   padding: 1.2em;
 }
-.login-form > *:first-child > *{
+.login-form > *:first-child > * {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.login-form input{
+.login-form input {
   outline: none;
   background-color: #fffcfc;
   border: 1px solid #747171;
@@ -141,9 +140,9 @@ section.member-login-section form {
 }
 .login-form a {
   text-decoration: none;
-  color: #747171
+  color: #747171;
 }
-.login-form > *:first-child > * > *:last-child{
+.login-form > *:first-child > * > *:last-child {
   font-size: 3em;
   color: black;
 }
@@ -151,7 +150,7 @@ section.member-login-section form {
   width: 80px;
 }
 .login-form > *:last-child {
-  border-top:1px solid #747171;
+  border-top: 1px solid #747171;
 }
 .login-form > *:last-child > * {
   padding: 0.5em;
@@ -164,4 +163,84 @@ section.member-login-section form {
 .login-form > *:nth-child(5) {
   color: red;
   font-weight: bold;
+}
+
+/* # 포켓몬 교환 리스트 */
+.pocketmonTrade-list {
+  min-height: 600px;
+}
+.pocketmonTrade-a-link {
+  color: black;
+  text-decoration: none;
+}
+.pocketmonTrade-list-banner {
+  font-size: 2em;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.pocketmonTrade-a-btn {
+  border: 1px solid black;
+  color: black;
+  text-decoration: none;
+  padding: 0.3em;
+}
+.pocketmonTrade-row {
+  display: flex;
+  height: 2em;
+}
+.pocketmonTrade-row > * {
+  width: 10%;
+  text-align: center;
+}
+.pocketmonTrade-row > *:first-child {
+  width: 13%;
+}
+.pocketmonTrade-row > *:nth-child(2) {
+  width: 45%;
+  text-align: start;
+}
+.pocketmonTrade-row > *:nth-child(3) {
+  width: 15%;
+  /* text-align: start; */
+}
+.pocketmonTrade-row > *:nth-child(4) {
+  width: 17%;
+}
+
+/* # 포켓몬교환 디테일 */
+.pocketmonTrade-info-head,
+.pocketmonTrade-info-footer {
+  display: flex;
+}
+.pocketmonTradeReply {
+  margin-left: auto;
+}
+.pocketmonTradeContent {
+  min-height: 400px;
+}
+#pocketmonTrade-list-btn {
+  margin-left: auto;
+}
+.pocketmonTrade-btn {
+  font-weight: bold;
+  padding: 0.25em 0.5em;
+  color: black;
+  text-decoration: none;
+  border: 1px black solid;
+}
+#pocketmonTrade-like {
+  font-weight: bold;
+}
+#pocketmonTrade-like:hover {
+  cursor: pointer;
+}
+#pocketmonTrade-reply {
+  border: 1px solid #e5e5e5;
+  padding: 1em;
+}
+
+textarea[name="replyContent"] {
+  resize: none;
 }

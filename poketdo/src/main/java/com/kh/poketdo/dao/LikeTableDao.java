@@ -24,49 +24,45 @@ public class LikeTableDao {
   @Autowired
   private RaidDao raidDao;
 
-  //좋아요/좋아요 해제 입력 및 결과값 반환
+  // 좋아요/좋아요 해제 입력 및 결과값 반환
   public boolean insert(LikeTableDto likeTableDto) {
-    String countSql =
-      "select count(*) from like_table where allboard_no=? and member_id=?";
+    String countSql = "select count(*) from like_table where allboard_no=? and member_id=?";
     Object[] param = {
-      likeTableDto.getAllboardNo(),
-      likeTableDto.getMemberId(),
+        likeTableDto.getAllboardNo(),
+        likeTableDto.getMemberId(),
     };
     int count = jdbcTemplate.queryForObject(countSql, int.class, param);
     if (count == 1) {
-      String deleteSql =
-        "delete like_table where allboard_no=? and member_id=?";
+      String deleteSql = "delete like_table where allboard_no=? and member_id=?";
       jdbcTemplate.update(deleteSql, param);
       likeInsert(likeTableDto.getAllboardNo());
       return false;
     } else {
-      String insertSql =
-        "insert into like_table(allboard_no, member_id) values(?,?)";
+      String insertSql = "insert into like_table(allboard_no, member_id) values(?,?)";
       jdbcTemplate.update(insertSql, param);
       likeInsert(likeTableDto.getAllboardNo());
       return true;
     }
   }
 
-  //최초 좋아요 여부 판단
+  // 최초 좋아요 여부 판단
   public boolean isLike(LikeTableDto likeTableDto) {
-    String countSql =
-      "select count(*) from like_table where allboard_no=? and member_id=?";
+    String countSql = "select count(*) from like_table where allboard_no=? and member_id=?";
     Object[] param = {
-      likeTableDto.getAllboardNo(),
-      likeTableDto.getMemberId(),
+        likeTableDto.getAllboardNo(),
+        likeTableDto.getMemberId(),
     };
     return jdbcTemplate.queryForObject(countSql, int.class, param) == 1;
   }
 
-  //좋아요 개수 카운트 메서드
+  // 좋아요 개수 카운트 메서드
   public int likeCount(int allboardNo) {
     String sql = "select count(*) from like_table where allboard_no = ?";
     Object[] param = { allboardNo };
     return jdbcTemplate.queryForObject(sql, int.class, param);
   }
 
-  //좋아요 개수 입력 메서드
+  // 좋아요 개수 입력 메서드
   public int likeInsert(int allboardNo) {
     AllboardDto allboardDto = allboardDao.selectOne(allboardNo);
     int likeCount = likeCount(allboardNo);

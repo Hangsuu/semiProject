@@ -18,6 +18,7 @@ public class PocketmonTradeDto {
   private String pocketmonTradeWriter;
   private Date pocketmonTradeWrittenTime;
   private String pocketmonTradeContent;
+  private String pocketmonTradeHead;
   private Date pocketmonTradeTradeTime;
   private int pocketmonTradeComplete;
   private int pocketmonTradeRead;

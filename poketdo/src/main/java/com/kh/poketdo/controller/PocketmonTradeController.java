@@ -31,15 +31,13 @@ public class PocketmonTradeController {
   // 포켓몬 교환 리스트
   @GetMapping("")
   public String list(
-    @ModelAttribute("pageVo") PaginationVO pageVo,
-    Model model
-  ) {
-    System.out.println(pageVo.getColumn());
-    System.out.println(pageVo.getKeyword());
+      @ModelAttribute("pageVo") PaginationVO pageVo,
+      Model model) {
     List<PocketmonTradeDto> pockmonTradelists = pocketmonTradeService.getPocketmonTradeList(
-      pageVo
-    );
+        pageVo);
+    List<PocketmonTradeDto> pocketmonTradeNotices = pocketmonTradeDao.selectNotice();
     model.addAttribute("trades", pockmonTradelists);
+    model.addAttribute("notices", pocketmonTradeNotices);
     return "/WEB-INF/views/pocketmonTrade/list.jsp";
   }
 
@@ -51,14 +49,12 @@ public class PocketmonTradeController {
 
   @PostMapping("/write")
   public String write(
-    @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
-    @RequestParam String promise
-  ) throws ParseException {
+      @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
+      @RequestParam String promise) throws ParseException {
     // 통합 테이블과 포켓몬교환 테이블에 insert
     int newPocketmonTradeSeq = pocketmonTradeService.insert(
-      pocketmonTradeDto,
-      promise
-    );
+        pocketmonTradeDto,
+        promise);
     System.out.println(pocketmonTradeDto.getPocketmonTradeWriter());
     // insert 후 상세페이지로 redirect
     return "redirect:" + newPocketmonTradeSeq;
@@ -69,8 +65,7 @@ public class PocketmonTradeController {
   public String detail(@PathVariable int pocketmonTradeNo, Model model) {
     // 포켓몬 교환 no로 selectOne해서 model로 jsp파일에 전달
     PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
-      pocketmonTradeNo
-    );
+        pocketmonTradeNo);
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
     return "/WEB-INF/views/pocketmonTrade/detail.jsp";
   }
@@ -79,43 +74,29 @@ public class PocketmonTradeController {
   @GetMapping("/{pocketmonTradeNo}/edit")
   public String edit(@PathVariable int pocketmonTradeNo, Model model) {
     PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
-      pocketmonTradeNo
-    );
+        pocketmonTradeNo);
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
     String formattedDate = formatter.format(
-      pocketmonTradeDto.getPocketmonTradeTradeTime()
-    );
+        pocketmonTradeDto.getPocketmonTradeTradeTime());
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
     model.addAttribute("formattedDate", formattedDate);
     return "/WEB-INF/views/pocketmonTrade/edit.jsp";
   }
 
-  @PostMapping("/edit/{pocketmonTradeNo}")
+  @PostMapping("/{pocketmonTradeNo}/edit")
   public String edit(
-    @PathVariable int pocketmonTradeNo,
-    @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
-    @RequestParam String promise
-  ) throws ParseException {
+      @PathVariable int pocketmonTradeNo,
+      @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
+      @RequestParam String promise) throws ParseException {
     pocketmonTradeService.update(pocketmonTradeDto, promise);
     return "redirect:/pocketmonTrade/" + pocketmonTradeNo;
   }
 
   @GetMapping("/delete/{pocketmonTradeNo}")
   public String delete(
-    @PathVariable int pocketmonTradeNo,
-    HttpSession session
-  ) {
-    if (
-      pocketmonTradeDao
-        .selectOne(pocketmonTradeNo)
-        .getPocketmonTradeWriter()
-        .equals(session.getAttribute("memberId"))
-    ) {
-      pocketmonTradeDao.delete(pocketmonTradeNo);
-      return "redirect:/pocketmonTrade";
-    } else {
-      return "/WEB-INF/views/pocketmonTrade/error.jsp";
-    }
+      @PathVariable int pocketmonTradeNo,
+      HttpSession session) {
+    return pocketmonTradeService.delete(pocketmonTradeNo, session);
   }
 
   @GetMapping("/test")

@@ -39,4 +39,10 @@ public class ReplyRestController {
   public void edit(@ModelAttribute ReplyDto replyDto) {
     replyDao.update(replyDto);
   }
+
+  @PostMapping("/test")
+  public String test(@ModelAttribute ReplyDto replyDto) {
+    System.out.println(replyDto);
+    return "통신 성공";
+  }
 }

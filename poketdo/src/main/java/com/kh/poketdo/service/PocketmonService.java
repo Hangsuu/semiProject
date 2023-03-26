@@ -2,6 +2,8 @@ package com.kh.poketdo.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -12,8 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.poketdo.configuration.FileUploadProperties;
 import com.kh.poketdo.dao.AttachmentDao;
 import com.kh.poketdo.dao.PocketmonDao;
+import com.kh.poketdo.dao.PocketmonImageDao;
+import com.kh.poketdo.dao.PocketmonJoinTypeDao;
+import com.kh.poketdo.dao.PocketmonTypeDao;
 import com.kh.poketdo.dto.AttachmentDto;
 import com.kh.poketdo.dto.PocketmonDto;
+import com.kh.poketdo.dto.PocketmonImageDto;
+import com.kh.poketdo.dto.PocketmonJoinTypeDto;
+import com.kh.poketdo.dto.PocketmonWithTypes;
 
 @Service
 public class PocketmonService {
@@ -24,6 +32,13 @@ public class PocketmonService {
 	private FileUploadProperties fileUploadProperties;
 	@Autowired
 	private AttachmentDao attachmentDao;
+	@Autowired
+	private PocketmonImageDao pocketmonImageDao;
+	@Autowired
+	private PocketmonTypeDao pocketmonTypeDao;
+	@Autowired
+	private PocketmonJoinTypeDao pocketmonJoinTypeDao;
+	
 	
 	private File dir;
 	
@@ -54,14 +69,52 @@ public class PocketmonService {
 										.attachmentSize(attach.getSize())
 									.build());
 			//2-2 포켓몬정보테이블과 첨부파일 정보 연결
-//			pocketmonImageDao.insert(PocketmonImageDto.builder()
-//												.pocketNo(pocketDexDto.getPocketNo())
-//												.attachmentNo(attachmentNo)
-//											.build());
-//			
+			pocketmonImageDao.insert(PocketmonImageDto.builder()
+												.pocketNo(pocketmonDto.getPocketNo())
+												.attachmentNo(attachmentNo)
+											.build());
 		}
 		
 	}
 	
+	//포켓몬 속성 불러오기
+	public List<PocketmonWithTypes> pocketmonTypeSelect(){
+		 // 포켓몬들이 전부 들어있는 list
+	    List<PocketmonDto> list = pocketmonDao.selectList();
+
+	    // 타입이 포함된 pocketmonWithType들이 담긴 list(model에 첨부)
+	    List<PocketmonWithTypes> list3 = new ArrayList<>();
+	    for (PocketmonDto dto : list) {
+	      // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
+	      List<PocketmonJoinTypeDto> list2 = 
+	    		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
+
+	      List<String> typeList = new ArrayList<>();
+	      for (PocketmonJoinTypeDto joinDto : list2) {
+	        typeList.add(pocketmonTypeDao.selectOneForTypeName(joinDto.getTypeJoinNo()));
+	      }
+	      // jsp파일에 보내질 list3에 PocketmonWithTypes를 build하여 추가
+	      list3.add(
+	        PocketmonWithTypes
+	          .builder()
+	          .pocketNo(dto.getPocketNo())
+	          .pocketName(dto.getPocketName())
+	          .pocketBaseHp(dto.getPocketEffortHp())
+	          .pocketBaseAtk(dto.getPocketBaseAtk())
+	          .pocketBaseDef(dto.getPocketBaseDef())
+	          .pocketBaseSpd(dto.getPocketBaseSpd())
+	          .pocketBaseSatk(dto.getPocketBaseSatk())
+	          .pocketEffortHp(dto.getPocketEffortHp())
+	          .pocketEffortAtk(dto.getPocketEffortAtk())
+	          .pocketEffortDef(dto.getPocketEffortDef())
+	          .pocketEffortSpd(dto.getPocketEffortSpd())
+	          .pocketEffortSatk(dto.getPocketEffortSatk())
+	          .pocketBaseSdef(dto.getPocketEffortSdef())
+	          .pocketTypes(typeList)
+	          .build()
+	      );
+	    }
+	    return list3;
+	}
 	
 }

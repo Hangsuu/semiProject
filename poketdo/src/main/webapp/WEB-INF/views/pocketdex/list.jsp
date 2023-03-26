@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>포켓몬스터 목록</title>
-</head>
-<body>
+
 	<h1>포켓몬스터 목록</h1>
 	<table>
 		<thead>
@@ -47,5 +42,5 @@
 		</tbody>
 	</table>
 	<a href="insert">포켓몬스터 신규 등록</a>
-</body>
-</html>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

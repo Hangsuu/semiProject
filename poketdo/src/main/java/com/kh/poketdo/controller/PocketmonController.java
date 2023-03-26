@@ -1,7 +1,6 @@
 package com.kh.poketdo.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.poketdo.dao.PocketWithTypeDao;
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
-import com.kh.poketdo.dao.PocketmonTypeDao;
 import com.kh.poketdo.dto.PocketmonDto;
-import com.kh.poketdo.dto.PocketmonJoinTypeDto;
 import com.kh.poketdo.dto.PocketmonWithTypes;
 import com.kh.poketdo.service.PocketmonService;
 
@@ -33,14 +29,11 @@ public class PocketmonController {
   @Autowired
   private PocketmonJoinTypeDao pocketmonJoinTypeDao;
   
-  @Autowired
-  private PocketWithTypeDao pocketWithTypeDao;
-  
-  @Autowired
-  private PocketmonTypeDao pocketmonTypeDao;
-  
+ 
   @Autowired
   private PocketmonService pocketmonService;
+  
+  
   
   //포켓몬스터 기본 정보 입력 페이지
   @GetMapping("/insert")
@@ -81,41 +74,8 @@ public class PocketmonController {
   public String pocketDexList(
     Model model
   ) {
-    // 포켓몬들이 전부 들어있는 list
-    List<PocketmonDto> list = pocketmonDao.selectList();
-
-    // 타입이 포함된 pocketmonWithType들이 담긴 list(model에 첨부)
-    List<PocketmonWithTypes> list3 = new ArrayList<>();
-    for (PocketmonDto dto : list) {
-      // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
-      List<PocketmonJoinTypeDto> list2 = 
-    		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
-
-      List<String> typeList = new ArrayList<>();
-      for (PocketmonJoinTypeDto joinDto : list2) {
-        typeList.add(pocketmonTypeDao.selectOneForTypeName(joinDto.getTypeJoinNo()));
-      }
-      // jsp파일에 보내질 list3에 PocketmonWithTypes를 build하여 추가
-      list3.add(
-        PocketmonWithTypes
-          .builder()
-          .pocketNo(dto.getPocketNo())
-          .pocketName(dto.getPocketName())
-          .pocketBaseHp(dto.getPocketEffortHp())
-          .pocketBaseAtk(dto.getPocketBaseAtk())
-          .pocketBaseDef(dto.getPocketBaseDef())
-          .pocketBaseSpd(dto.getPocketBaseSpd())
-          .pocketBaseSatk(dto.getPocketBaseSatk())
-          .pocketEffortHp(dto.getPocketEffortHp())
-          .pocketEffortAtk(dto.getPocketEffortAtk())
-          .pocketEffortDef(dto.getPocketEffortDef())
-          .pocketEffortSpd(dto.getPocketEffortSpd())
-          .pocketEffortSatk(dto.getPocketEffortSatk())
-          .pocketBaseSdef(dto.getPocketEffortSdef())
-          .pocketTypes(typeList)
-          .build()
-      );
-    }
+   
+	List<PocketmonWithTypes> list3 = pocketmonService.pocketmonTypeSelect();
 
     model.addAttribute("list3", list3);
     return "/WEB-INF/views/pocketdex/list.jsp";

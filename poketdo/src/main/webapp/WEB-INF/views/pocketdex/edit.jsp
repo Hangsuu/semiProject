@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>포켓몬스터 정보 수정</title>
-</head>
-<body>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+
 	<h1>포켓몬스터 정보 수정 페이지~</h1>
 	<form action="editProcess" method="post">
 		<label>포켓몬스터 번호 : ${pocketmonDto.pocketNo}</label>
@@ -131,5 +127,5 @@
 		
 		<button>입력 완료</button>
 	</form>
-</body>
-</html>
+	
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -63,7 +63,7 @@
 						<td>${auctionDto.auctionRead}</td>
 						<td>${auctionDto.auctionLike}</td>
 <!-- 즐겨찾기 -->
-						<td><i class="fa-regular fa-star" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></td>
+						<td><i class="fa-regular fa-bookmark" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></td>
 					</tr>
 				</c:forEach>
 			</tbody>

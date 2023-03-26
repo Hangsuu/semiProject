@@ -33,8 +33,7 @@ public class RaidDao {
 					.raidMonster(rs.getString("raid_monster"))
 					.raidTime(rs.getDate("raid_time"))
 					.raidStartTime(rs.getTimestamp("raid_start_time"))
-					.raidParticipant(rs.getInt("raid_participant"))
-					.raidComplete(rs.getInt("raid_complete"))
+					.raidCount(rs.getInt("raid_count"))
 					.raidReply(rs.getInt("raid_reply"))
 					.raidLike(rs.getInt("raid_like"))
 					.raidDislike(rs.getInt("raid_dislike"))
@@ -129,6 +128,12 @@ public class RaidDao {
 	public void likeSet(int allboardNo, int likeCount) {
 		String sql = "update raid set raid_like=? where allboard_no=?";
 		Object[] param = {likeCount, allboardNo};
+		jdbcTemplate.update(sql, param);
+	}
+	//확정된 참가자 숫자를 입력
+	public void confirmedCount(int count, int allboardNo) {
+		String sql = "update raid set raid_count=? where allboard_no=?";
+		Object[] param = {count, allboardNo};
 		jdbcTemplate.update(sql, param);
 	}
 }

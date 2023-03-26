@@ -1,4 +1,4 @@
-package com.kh.poketdo.dto;
+package com.kh.poketdo.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class RaidJoinDto {
-	private int raidJoinNo;
-	private int raidJoinOrigin;
-	private String raidJoinMember;
+public class RaidJoinVO {
+	private boolean isJoiner;
 	private String raidJoinContent;
-	private int raidJoinConfirm;
+	private boolean isConfirmed;
 }

@@ -16,7 +16,7 @@ $(function(){
 	checkList();
 	
 	function starClick(){
-		$(".fa-star").click(function(){
+		$(".fa-bookmark").click(function(){
 			console.log("클릭");
 			if(confirm("정말 즐겨찾기 해제하시겠습니까?")){
 				var allboardNo = $(this).data("allboard-no");
@@ -42,6 +42,7 @@ $(function(){
 	
 	function checkList(){
 		$(".list-target").empty();
+		$(".pagination").empty();
 		$.ajax({
 			url:"/rest/auction/list",
 			method:"post",
@@ -65,14 +66,10 @@ $(function(){
 					}
 					$(html).find(".list-read").text(response.list[i].auctionRead);
 					$(html).find(".list-like").text(response.list[i].auctionLike);
-					$(html).find(".fa-star").attr("data-allboard-no", response.list[i].allboardNo).click(starClick);
+					$(html).find(".fa-bookmark").attr("data-allboard-no", response.list[i].allboardNo).click(starClick);
 					$(".list-target").append(html);
 				};
 				var target = $(".pagination");
-				/* 
-				var a = $("<a>");
-				var i = $("<i>").addClass("fa-solid");
-				 */
 				if(response.vo.first){
 					var a = $("<a>").addClass("disabled");
 					var i = $("<i>").addClass("fa-solid fa-angles-left");
@@ -154,7 +151,7 @@ $(function(){
 		</td>
 		<td class="list-read"></td>
 		<td class="list-like"></td>
-		<td><i class="fa-solid fa-star" data-bookmark-type="auction"></i></td>
+		<td><i class="fa-solid fa-bookmark" data-bookmark-type="auction"></i></td>
 	</tr>
 </script>
 <div class="container-800 mt-50">

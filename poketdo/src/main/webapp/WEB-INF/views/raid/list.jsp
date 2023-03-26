@@ -18,11 +18,11 @@
 	</div>
 <!-- 테이블 시작 -->
 	<div class="row">
-		<table class="table table-slit">
+		<table class="table table-slit center">
 			<thead>
 				<tr>
 					<th>글번호</th>
-					<th>제목</th>
+					<th class="w-40">제목</th>
 					<th>시작시간</th>
 					<th>참가자</th>
 					<th>타입</th>
@@ -38,7 +38,7 @@
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
 						<td>${raidDto.time}</td>
-						<td>${raidDto.raidParticipant}/4</td>
+						<td>${raidDto.raidCount}/4</td>
 						<c:choose>
 							<c:when test="${raidDto.raidType==0}">
 								<td>모집</td>

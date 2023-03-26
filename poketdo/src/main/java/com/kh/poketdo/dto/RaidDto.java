@@ -19,8 +19,7 @@ public class RaidDto {
 	private String raidMonster;
 	private Date raidTime;
 	private Timestamp raidStartTime;
-	private int raidParticipant;
-	private int raidComplete;
+	private int raidCount;
 	private int raidReply;
 	private int raidLike;
 	private int raidDislike;
@@ -28,8 +27,16 @@ public class RaidDto {
 	private int raidType;
 
 	public String getTime() {
-		SimpleDateFormat time = new SimpleDateFormat("M월 d일 a h시 m분");
+		SimpleDateFormat time = new SimpleDateFormat("M/d kk:mm");
 		java.util.Date a =  new java.sql.Timestamp(raidStartTime.getTime());
-		return time.format(a);
+		java.util.Date currentTime = new java.util.Date();
+		if(a.getTime()-currentTime.getTime()<0) return "종료";
+		else return time.format(a);
+	}
+	
+	public boolean isRaidComplete() {
+		java.util.Date a =  new java.sql.Timestamp(raidStartTime.getTime());
+		java.util.Date currentTime = new java.util.Date();
+		return a.getTime()-currentTime.getTime()<0 || raidCount==4;
 	}
 }

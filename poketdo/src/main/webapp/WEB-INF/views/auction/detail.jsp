@@ -61,7 +61,7 @@
 <!-- 좋아요 -->
 		<div class="right user-like"><i class="fa-regular fa-heart" style="color:red"></i></div>
 <!-- 즐겨찾기 -->
-		<div class="right user-bookmark"><i class="fa-regular fa-star" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></div>
+		<div class="right user-bookmark"><i class="fa-regular fa-bookmark" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></div>
 		<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
 	</div>
 	<div class="row">

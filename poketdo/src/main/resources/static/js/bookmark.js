@@ -1,7 +1,7 @@
 $(function(){
 	checkBookmark();
 	function checkBookmark(){
-		$(".fa-star").each(function(){
+		$(".fa-bookmark").each(function(){
 			var allboardNo = $(this).data("allboard-no");
 			var starBox = $(this);
 			$.ajax({
@@ -26,7 +26,7 @@ $(function(){
 		});		
 	}
 	
-	$(".fa-star").click(function(){ 
+	$(".fa-bookmark").click(function(){ 
 		var allboardNo = $(this).data("allboard-no");
 		var starBox = $(this);
 		var bookmarkType = $(this).data("bookmark-type");

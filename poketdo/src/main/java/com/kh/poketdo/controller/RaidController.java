@@ -64,17 +64,11 @@ public class RaidController {
 				raidDao.readCount(allboardNo);
 				memory.add(allboardNo);
 			}
+			session.setAttribute("memory", memory);
 		}
 		model.addAttribute("raidDto", raidDao.selectOne(allboardNo));
 		model.addAttribute("count", raidJoinDao.count(allboardNo));
 		return "/WEB-INF/views/raid/detail.jsp";
-	}
-	@PostMapping("/join")
-	public String join(@ModelAttribute RaidJoinDto raidJoinDto, 
-			@RequestParam int allboardNo, RedirectAttributes attr) {
-		raidJoinDao.insert(raidJoinDto);
-		attr.addAttribute("allboardNo", allboardNo);
-		return "redirect:detail";
 	}
 	@GetMapping("/delete")
 	public String delete(RedirectAttributes attr,

@@ -20,7 +20,11 @@
 					<td>
 					${pocketmonDto.pocketNo}
 					</td>
-					<td>${pocketmonDto.pocketName}</td>
+					<td>
+						<a href="detail?pocketNo=${pocketmonDto.pocketNo}">
+							${pocketmonDto.pocketName}
+						</a>
+					</td>
 					<td>
 						<c:forEach var="i" begin="0" end="${pocketmonDto.getPocketTypes().size()-1}">
 							<c:choose>

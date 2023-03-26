@@ -15,9 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
+import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
-import com.kh.poketdo.dto.PocketmonWithTypes;
 import com.kh.poketdo.service.PocketmonService;
+import com.kh.poketdo.vo.PocketmonWithTypesVO;
 
 @Controller
 @RequestMapping("/pocketDex")
@@ -28,6 +29,9 @@ public class PocketmonController {
   
   @Autowired
   private PocketmonJoinTypeDao pocketmonJoinTypeDao;
+  
+  @Autowired
+  private PocketmonWithImageDao pocketmonWithImageDao;
   
  
   @Autowired
@@ -50,7 +54,7 @@ public class PocketmonController {
     @RequestParam MultipartFile attach
   ) throws IllegalStateException, IOException {
     //포켓몬스터 기본 정보 입력
-	pocketmonService.join(pocketmonDto, attach);
+	pocketmonService.pocketmonInsert(pocketmonDto, attach);
 //    pocketmonDao.insert(pocketmonDto);
     //포켓몬스터 번호 추출
     int pocketJoinNo = pocketmonDto.getPocketNo();
@@ -75,7 +79,7 @@ public class PocketmonController {
     Model model
   ) {
    
-	List<PocketmonWithTypes> list3 = pocketmonService.pocketmonTypeSelect();
+	List<PocketmonWithTypesVO> list3 = pocketmonService.pocketmonTypeSelect();
 
     model.addAttribute("list3", list3);
     return "/WEB-INF/views/pocketdex/list.jsp";
@@ -97,9 +101,19 @@ public class PocketmonController {
   			  @ModelAttribute PocketmonDto pocketmonDto
   			) {
   		pocketmonDao.edit(pocketmonDto);
-  		return "redirect:list";
+  		return "redirect:detail";
   	}
 
+  //포켓몬스터 정보 상세
+  @GetMapping("/detail")
+  public String detail(Model model, @RequestParam int pocketNo) {
+	  model.addAttribute("pocketmonWithImageDto", pocketmonWithImageDao.selectOne(pocketNo));
+	  List<String> list = pocketmonService.pocketmonTypeSelectOne(pocketNo);
+	  model.addAttribute("pocketmonTypes" , list);
+	  return "/WEB-INF/views/pocketdex/detail.jsp";
+  }
+  
+  	
   //포켓몬스터 정보 삭제
   @GetMapping("/delete")
   public String delete(@RequestParam int monsterNo) {

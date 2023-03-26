@@ -1,4 +1,4 @@
-package com.kh.poketdo.dto;
+package com.kh.poketdo.vo;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 // 기존 monster정보 + 타입들(monsterTypes)
-public class PocketmonWithTypes {
+public class PocketmonWithTypesVO {
 
   private int pocketNo;
   private String pocketName;

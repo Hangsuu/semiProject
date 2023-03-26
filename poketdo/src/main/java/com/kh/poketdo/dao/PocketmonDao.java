@@ -126,6 +126,12 @@ public class PocketmonDao {
 		Object[] param= {pocketNo};
 		return jdbcTemplate.update(sql,param)>0;
 	}
-		
+	
+	//포켓몬스터 이미지 삭제
+	public boolean imageDelete(int pocketNo) {
+		String sql="delete from pocketmon_image where pocket_no=? ";
+		Object[] param = {pocketNo};
+		return jdbcTemplate.update(sql,param)>0;
+	}
 		
 }

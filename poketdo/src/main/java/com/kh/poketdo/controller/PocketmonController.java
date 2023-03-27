@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
+import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.service.PocketmonService;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;
 
@@ -41,7 +43,7 @@ public class PocketmonController {
   
   //포켓몬스터 기본 정보 입력 페이지
   @GetMapping("/insert")
-  public String pocketDataInsert(Model model) {
+  public String pocketDataInsert() {
 	
     return "/WEB-INF/views/pocketdex/insert.jsp";
   }
@@ -80,7 +82,6 @@ public class PocketmonController {
   ) {
    
 	List<PocketmonWithTypesVO> list3 = pocketmonService.pocketmonTypeSelect();
-
     model.addAttribute("list3", list3);
     return "/WEB-INF/views/pocketdex/list.jsp";
   }
@@ -89,18 +90,21 @@ public class PocketmonController {
   @GetMapping("/edit")
   public String edit(
 		  Model model,
-		  @RequestParam int monsterNo
+		  @RequestParam int pocketNo
 		  ) {
-	  model.addAttribute(pocketmonDao.selectOne(monsterNo));
+	  model.addAttribute(pocketmonDao.selectOne(pocketNo));
 	  
     return "/WEB-INF/views/pocketdex/edit.jsp";
   }
 
   	@PostMapping("/editProcess")
   	public String editProcess(
-  			  @ModelAttribute PocketmonDto pocketmonDto
-  			) {
-  		pocketmonDao.edit(pocketmonDto);
+  			@ModelAttribute PocketmonDto pocketmonDto,
+  			MultipartFile attach,
+			@RequestParam int pocketNo,
+			RedirectAttributes attr
+  			) throws IllegalStateException, IOException {
+  		pocketmonService.pocketmonEdit(pocketmonDto, attach, pocketNo, attr);
   		return "redirect:detail";
   	}
 
@@ -116,8 +120,8 @@ public class PocketmonController {
   	
   //포켓몬스터 정보 삭제
   @GetMapping("/delete")
-  public String delete(@RequestParam int monsterNo) {
-    pocketmonDao.delete(monsterNo);
+  public String delete(@RequestParam int pocketNo) {
+    pocketmonDao.delete(pocketNo);
     return "redirect:list";
   }
 }

@@ -8,6 +8,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th>이미지</th>
 				<th>번호</th>
 				<th>이름</th>
 				<th>속성</th>
@@ -17,6 +18,10 @@
 		<tbody>
 			<c:forEach var="pocketmonDto"  items="${list3}">
 				<tr>
+					<td>
+					<img width="200" height="200"
+						src="/attachment/${pocketmonDto.imageURL}">
+					</td>
 					<td>
 					${pocketmonDto.pocketNo}
 					</td>
@@ -38,8 +43,8 @@
 						</c:forEach>
 					</td>
 					<td>
-						<a href="edit?monsterNo=${pocketmonDto.pocketNo}" >수정</a>
-						<a href="delete?monsterNo=${pocketmonDto.pocketNo}" >삭제</a>
+						<a href="edit?pocketNo=${pocketmonDto.pocketNo}" >수정</a>
+						<a href="delete?pocketNo=${pocketmonDto.pocketNo}" >삭제</a>
 					</td>
 				</tr>
 			</c:forEach>

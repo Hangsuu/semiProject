@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<h1>포켓몬스터 속성 정보 수정 페이지</h1>
+	<h1>인장 정보 수정 페이지</h1>
 	
 	<form action="editProcess" method="post" enctype="multipart/form-data">
-		<label>포켓몬스터 속성 번호 : ${PocketmonTypeDto.pocketTypeNo}</label>
-		<input type="hidden" name="pocketTypeNo" value=" ${PocketmonTypeDto.pocketTypeNo}">
+		<label>인장 번호 : ${sealDto.pocketTypeNo}</label>
+		<input type="hidden" name="sealNo" value=" ${sealDto.sealNo}">
 		<br>
-		<label>포켓몬스터 속성 이름</label>
-		<input name="pocketTypeName" value="${PocketmonTypeDto.pocketTypeName}">
+		<label>인장 이름</label>
+		<input name="sealName" value="${sealDto.sealName}">
 		<br>
-		<label>포켓몬스터 속성 이미지(png, gif, jpg)</label>
+		<label>인장 이미지(png, gif, jpg)</label>
 		<input type="file" name="attach" accept=".png, .gif, .jpg">
 		<br>
 		<button>수정 완료</button> 

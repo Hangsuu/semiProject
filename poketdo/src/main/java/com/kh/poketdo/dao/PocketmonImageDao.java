@@ -45,8 +45,6 @@ public class PocketmonImageDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
-	//이미지 삭제
-	
 	//삭제
 	public boolean imageDelete(int pocketNo) {
 		String sql="delete from pocketmon_image where pocket_no=? ";

@@ -19,10 +19,12 @@ import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonImageDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonTypeDao;
+import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.AttachmentDto;
 import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonImageDto;
 import com.kh.poketdo.dto.PocketmonJoinTypeDto;
+import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;
 
 @Service
@@ -40,6 +42,8 @@ public class PocketmonService {
 	private PocketmonTypeDao pocketmonTypeDao;
 	@Autowired
 	private PocketmonJoinTypeDao pocketmonJoinTypeDao;
+	@Autowired
+	private PocketmonWithImageDao pocketmonWithImageDao;
 	
 	
 	private File dir;
@@ -112,21 +116,28 @@ public class PocketmonService {
 	
 	//포켓몬 전체 속성 불러오기
 	public List<PocketmonWithTypesVO> pocketmonTypeSelect(){
-		 // 포켓몬들이 전부 들어있는 list
+		
+		// 포켓몬들이 전부 들어있는 list
 	    List<PocketmonDto> list = pocketmonDao.selectList();
-
+	    
 	    // 타입이 포함된 pocketmonWithType들이 담긴 list(model에 첨부)
 	    List<PocketmonWithTypesVO> list3 = new ArrayList<>();
+	 
 	    for (PocketmonDto dto : list) {
 	      // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
 	      List<PocketmonJoinTypeDto> list2 = 
 	    		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
-
+	      
 	      List<String> typeList = new ArrayList<>();  
 	      for (PocketmonJoinTypeDto joinDto : list2) {
 	        typeList.add(pocketmonTypeDao.selectOneForTypeName(joinDto.getTypeJoinNo()));
-	        
 	      }
+	      
+	      //포켓몬스터 이미지 URL List
+	      PocketmonWithImageDto imageDto = 
+	    		  pocketmonWithImageDao.selectOne(dto.getPocketNo());
+	      
+	      
 	      // jsp파일에 보내질 list3에 PocketmonWithTypes를 build하여 추가
 	      list3.add(
 	        PocketmonWithTypesVO
@@ -145,6 +156,7 @@ public class PocketmonService {
 	          .pocketEffortSatk(dto.getPocketEffortSatk())
 	          .pocketBaseSdef(dto.getPocketEffortSdef())
 	          .pocketTypes(typeList)
+	          .imageURL(imageDto.getImageURL())
 	          .build()
 	      );
 	    }

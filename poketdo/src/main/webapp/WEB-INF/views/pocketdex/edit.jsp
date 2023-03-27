@@ -4,7 +4,7 @@
 
 
 	<h1>포켓몬스터 정보 수정 페이지~</h1>
-	<form action="editProcess" method="post">
+	<form action="editProcess" method="post" enctype="multipart/form-data">
 		<label>포켓몬스터 번호 : ${pocketmonDto.pocketNo}</label>
 		<input type="hidden" name="pocketNo" value="${pocketmonDto.pocketNo}"> 
 		
@@ -125,6 +125,9 @@
 		
 		<br>
 		
+		<label>포켓몬스터 이미지(png, gif, jpg)</label>
+		<input type="file" name="attach" accept=".png, .gif, .jpg">
+		<br>
 		<button>입력 완료</button>
 	</form>
 	

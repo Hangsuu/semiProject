@@ -4,13 +4,13 @@
 
 	<h1>등록페이지</h1>
 	<form action="insertProcess" method="post" enctype="multipart/form-data">
-		<label>포켓몬스터 속성 번호</label>
-		<input name="pocketTypeNo">
+		<label>인장 번호</label>
+		<input name="sealNo">
 		<br>
-		<label>포켓몬스터 속성 이름</label>
-		<input name="pocketTypeName">
+		<label>인장 이름</label>
+		<input name="sealName">
 		<br>
-		<label>포켓몬스터 속성 이미지(png, gif, jpg)</label>
+		<label>인장 이미지(png, gif, jpg)</label>
 		<input type="file" name="attach" accept=".png, .gif, .jpg">
 		<br>
 		<button>입력 완료</button>

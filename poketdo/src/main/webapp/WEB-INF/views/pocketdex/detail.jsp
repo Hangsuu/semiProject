@@ -13,6 +13,7 @@
 			<th>속성</th>
 			<th>관리</th>
 		</tr>
+	</thead>
 		<tbody>
 			
 				<tr>
@@ -37,13 +38,12 @@
 						</c:forEach>
 					</td>
 					<td>
-						<a href="edit?monsterNo=${pocketmonWithImageDto.pocketNo}" >수정</a>
-						<a href="delete?monsterNo=${pocketmonWithImageDto.pocketNo}" >삭제</a>
+						<a href="edit?pocketNo=${pocketmonWithImageDto.pocketNo}" >수정</a>
+						<a href="delete?pocketNo=${pocketmonWithImageDto.pocketNo}" >삭제</a>
 					</td>
 				</tr>
 		</tbody>
 	</table>
 	<a href="list">목록으로 이동</a>		
-	</thead>
-</table>
+	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

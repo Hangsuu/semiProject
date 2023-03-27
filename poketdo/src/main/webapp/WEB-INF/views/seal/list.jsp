@@ -34,7 +34,9 @@
 						${sealWithImageDto.sealPrice}
 					</td>
 					<td>
-						<a href="purchase?sealNo=${sealWithImageDto.sealNo}">구매</a>
+						<a href="list?sealNo=${sealWithImageDto.sealNo}&
+						sealPrice=${sealWithImageDto.sealPrice}&
+						memberId=${sessionScope.memberId}">구매</a>
 					</td>
 					<td>
 						<a href="edit?sealNo=${sealWithImageDto.sealNo}">수정</a>

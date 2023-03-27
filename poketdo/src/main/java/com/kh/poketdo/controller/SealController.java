@@ -3,8 +3,9 @@ package com.kh.poketdo.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.poketdo.dao.PointDao;
 import com.kh.poketdo.dao.SealDao;
 import com.kh.poketdo.dao.SealWithImageDao;
 import com.kh.poketdo.dto.SealDto;
@@ -30,6 +32,8 @@ public class SealController {
 	private SealService sealService;
 	@Autowired
 	private SealWithImageDao sealWithImageDao;
+	@Autowired
+	private PointDao pointDao;
 	
 	//인장 정보 입력 페이지
 	@GetMapping("/insert")
@@ -98,11 +102,17 @@ public class SealController {
 		return "redirect:list";
 	}
 	
-	@GetMapping("/purchase")
-	public String purchase(Model model) {
-		List<SealWithImageDto> list = sealWithImageDao.selectList();
-		model.addAttribute("list" , list);
-		return "/WEB-INF/views/seal/purchase.jsp";
+	//인장 구매 처리
+	@PostMapping("/list")
+	public String purchase(
+			@RequestParam String member_id,
+			@RequestParam int point,
+			HttpSession session
+			) {
+		pointDao.subPoint(member_id, point);
+		
+		
+		return "redirect:home";
 	}
 	
 	

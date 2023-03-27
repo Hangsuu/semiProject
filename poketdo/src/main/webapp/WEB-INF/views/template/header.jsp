@@ -107,7 +107,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <a href="#"><span>내 활동</span></a>
               </div>
               <div>
-                <a href="/message/receive"><span>쪽지</span></a>
+                <c:if test="${sessionScope.memberId != null}">
+                  <a href="/message/receive"><span>쪽지</span></a>
+                </c:if>
               </div>
             </div>
           </div>

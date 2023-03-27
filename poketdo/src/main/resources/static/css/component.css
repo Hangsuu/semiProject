@@ -31,3 +31,9 @@
 .flex-column-grow > * {
   flex-grow: 1;
 }
+
+.flex-row-justify-center {
+  display: flex;
+  justify-content: center;
+}
+/* flex-row-content */

@@ -73,7 +73,12 @@
   width: 1200px;
   margin: 0 auto;
 }
-
+.container-800.mg-0 {
+  margin: 0;
+}
+.mg-0-auto {
+  margin: 0 auto;
+}
 /* row와 row 사이에는 일정한 간격을 설정 */
 .row {
   margin: 10px 0px;

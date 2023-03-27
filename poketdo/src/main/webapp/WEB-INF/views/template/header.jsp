@@ -107,7 +107,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <a href="#"><span>내 활동</span></a>
               </div>
               <div>
-                <a href="message"><span>쪽지</span></a>
+                <a href="/message/receive"><span>쪽지</span></a>
               </div>
             </div>
           </div>

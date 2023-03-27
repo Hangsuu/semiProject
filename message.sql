@@ -11,3 +11,11 @@ create table message(
 );
 
 create sequence message_seq;
+
+alter table member drop column member_code;
+alter table member add member_birth date;
+
+update member set member_birth = sysdate where member_id = 'adminuser1';
+
+insert into message (message_no, message_recipient, message_sender, message_title, message_content, message_send_time, message_sender_store, message_receiver_store)
+values (1,'testuser1', 'testuser1', '테스트제목', '테스트내용', sysdate, 1, 1)

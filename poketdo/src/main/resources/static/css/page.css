@@ -244,3 +244,14 @@ section.member-login-section form {
 textarea[name="replyContent"] {
   resize: none;
 }
+
+/* # Message */
+.message-nav {
+  width: 200px;
+}
+.mg-0 {
+  margin: 0;
+}
+.message-row > * {
+  width: 33.33%;
+}

@@ -51,7 +51,6 @@ public class MessageDao {
       messageDto.getMessageSender(),
       messageDto.getMessageTitle(),
       messageDto.getMessageContent(),
-      messageDto.getMessageReceiveTime(),
     };
     jdbcTemplate.update(sql, param);
   }

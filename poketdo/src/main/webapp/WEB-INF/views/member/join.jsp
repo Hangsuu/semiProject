@@ -158,8 +158,8 @@
         <h2>트레이너 카드 미리보기</h2>
     
         <div>
-            <img id="image1" src="/semi/image/A.png" class="image-container image-1">
-            <img id="image2" src="/semi/image/B.png" class="image-container image-1" style= "display: none;" >
+            <img id="image1" src="/static/image/A.png" class="image-container image-1">
+            <img id="image2" src="/static/image/B.png" class="image-container image-1" style= "display: none;" >
           </div>
 
              <div class="row">
@@ -230,17 +230,20 @@
         
         
 
-         <div>
-        <button>회원가입</button>
-        </div>
 
     </div>
     
-    
-      <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
+ 
     </form>
     </div>
    
+    
+    
+         <div>
+        <button type="submit">회원가입</button>
+        </div>
+    
+         <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
            
   </article>
 

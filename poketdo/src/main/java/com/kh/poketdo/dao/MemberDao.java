@@ -22,14 +22,14 @@ public class MemberDao {
 	public void insert(MemberDto memberDto) {
 		String sql="insert into member("
 					+ "member_id, member_pw, member_nick, member_birth, "
-					+ "member_code, member_email, member_level, "
+					+ "member_email, member_level, "
 					+ "member_point, member_join, member_deadline"
 					+ ") values ("
-					+ "?,?,?,?,?,?,'일반회원', 0, sysdate, null"
+					+ "?,?,?,?,?,'일반회원', 0, sysdate, sysdate"
 					+ ")";
 		Object[] param = {
 				memberDto.getMemberId(), memberDto.getMemberPw(),
-				memberDto.getMemberNick(), memberDto.getMemberBirth(), memberDto.getMemberCode(),
+				memberDto.getMemberNick(), memberDto.getMemberBirth(), 
 				memberDto.getMemberEmail(), memberDto.getMemberLevel(),
 				memberDto.getMemberPoint(), memberDto.getMemberDeadline()
 		};
@@ -48,11 +48,14 @@ public class MemberDao {
             		.memberPw(rs.getString("member_pw"))
                     .memberNick(rs.getString("member_nick"))
                     .memberBirth(rs.getString("member_birth"))
-                    .memberCode(rs.getString("member_code"))
-                    .memberEmail(rs.getString("member_email")).memberLevel(rs.getString("member_level"))
-                    .memberPoint(rs.getInt("member_point")).memberjoin(rs.getDate("member_join"))
-                    .memberLogin(rs.getDate("member_login")).memberLoginCnt(rs.getInt("member_login_cnt"))
-                    .memberDeadline(rs.getDate("member_deadline")).build();
+                    .memberEmail(rs.getString("member_email"))
+                    .memberLevel(rs.getString("member_level"))
+                    .memberPoint(rs.getInt("member_point"))
+                    .memberjoin(rs.getDate("member_join"))
+                    .memberLogin(rs.getDate("member_login"))
+                    .memberLoginCnt(rs.getInt("member_login_cnt"))
+                    .memberDeadline(rs.getDate("member_deadline"))
+                    .build();
         }
 
     };
@@ -67,7 +70,7 @@ public class MemberDao {
     // ReadByPK
     public MemberDto selectOne(String memberId) {
         String sql = "select * from member where member_id = ?";
-        Object[] param = { memberId };
+        Object[] param = {memberId};
         List<MemberDto> list = jdbcTemplate.query(sql, mapper, param);
         return list.isEmpty() ? null : list.get(0);
     }

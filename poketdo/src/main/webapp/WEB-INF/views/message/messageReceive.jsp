@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -14,22 +15,20 @@
   <aside class="message-nav">
     <div class="row flex-row-grow">
         <a href="/message/write">쪽지쓰기</a>
-        <!-- <a href="/message/write">내게쓰기</a> -->
+        <a href="/message/write">내게쓰기</a>
     </div>
-    <a href="/message/receive" class="row">받은쪽지함</a>
-    <a href="/message/send" class="row">보낸쪽지함</a>
+    <div>
+      <a href="/message/receive" class="row">받은쪽지함</a>
+    </div>
+    <div>
+      <a href="/message/send" class="row">보낸쪽지함</a>
+    </div>
   </aside>
   
   <!-- article -->
   <article class="container-800 mg-0">
     <div class="row">
         <h1>받은 쪽지함</h1>
-    </div>
-    <div class="row">
-      <a href="/message/write">쪽지쓰기</a>
-    </div>
-    <div class="row">
-      <a href="/message/sendStore">보낸 편지함</a>
     </div>
     <div class="row">
       <div class="row flex-row-grow message-row">
@@ -41,8 +40,8 @@
         <hr class="mg-0"/>
         <div class="flex-row-grow message-row">
           <span>${messageDto.getMessageSender()}</span>
-           <a href="/message/detail">${messageDto.getMessageTitle()}</a>
-          <span>${messageDto.getMessageSendTime()}</span>
+           <a href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">${messageDto.getMessageTitle()}</a>
+          <span><fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/></span>
         </div>
       </c:forEach>
     </div>

@@ -20,5 +20,5 @@ public class MessageDto {
   private Date messageSendTime;
   private Date messageReceiveTime;
   private int messageSenderStore;
-  private int messageReceiverStore;
+  private int messageRecipientStore;
 }

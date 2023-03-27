@@ -7,7 +7,16 @@
 <style>
 
 </style>
-
+<script>
+  $(function(){
+    $(".message-delete-btn").click(function(e){
+      if(!confirm("정말 삭제하시겠습니까?")){
+        e.preventDefault();
+        return;
+      }
+    })
+  })
+</script>
 <!-- section -->
 <section test class="flex-row-justify-center">
 
@@ -24,29 +33,23 @@
   <!-- article -->
   <article class="container-800 mg-0">
     <div class="row">
-        <h1>보낸 쪽지함</h1>
+        <h1>쪽지 상세</h1>
     </div>
     <div class="row">
-      <a href="/message/write">쪽지쓰기</a>
+      <h1>${messageDto}</h1>
     </div>
+    <div class="row flex-row">
+        <a class="message-delete-btn" href="/message/receive/delete?messageNo=${messageDto.getMessageNo()}">삭제</a>
+        <a href="/message/write">답장</a>
+    </div>
+    <div><b>보낸사람</b> ${messageDto.getMessageSender()} [<fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/>]</div>
+    <div><b>받은사람</b> ${messageDto.getMessageRecipient()} [<fmt:formatDate value="${messageDto.getMessageReceiveTime()}" pattern="yyyy.MM.dd. H:m"/>]</div>
+    <div><b>제목:</b> ${messageDto.getMessageTitle()}</div>
+    <hr/>
     <div class="row">
-      <a href="/message/send">보낸 편지함</a>
+        ${messageDto.getMessageContent()}
     </div>
-    <div class="row">
-      <div class="row flex-row-grow message-row">
-        <span>받은사람</span>
-        <span>제목</span>
-        <span>날짜</span>
-      </div>
-      <c:forEach var="messageDto" items="${lists}">
-        <hr class="mg-0"/>
-        <div class="flex-row-grow message-row">
-          <span>${messageDto.getMessageRecipient()}</span>
-           <a href="/message/send/detail?messageNo=${messageDto.getMessageNo()}">${messageDto.getMessageTitle()}</a>
-          <span><fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/></span>
-        </div>
-      </c:forEach>
-    </div>
+    
   </article>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

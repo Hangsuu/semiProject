@@ -127,17 +127,24 @@ public class PocketmonTradeDao {
     return jdbcTemplate.update(sql, param) > 0;
   }
 
-  // U 포켓몬교환 게시물 좋아요 Cnt
+  // U 포켓몬교환 게시물 좋아요 수정
   public boolean likeSet(int allboardNo, int likeCount) {
     String sql = "update pocketmon_trade set pocketmon_trade_like = ? where allboard_no = ?";
     Object[] param = { likeCount, allboardNo };
     return jdbcTemplate.update(sql, param) > 0;
   }
 
-  // U 포켓몬교환 게시물 댓글 Cnt
+  // U 포켓몬교환 게시물 댓글 수정
   public boolean replySet(int allboardNo, int replyCount) {
     String sql = "update pocketmon_trade set pocketmon_trade_reply = ? where allboard_no = ?";
     Object[] param = { replyCount, allboardNo };
+    return jdbcTemplate.update(sql, param) > 0;
+  }
+
+  // U 포켓몬교환 게시물 조회수 수정
+  public boolean readSet(int pocketmonTradeNo) {
+    String sql = "update pocketmon_trade set pocketmon_trade_read = pocketmon_trade_read + 1 where pocketmon_trade_no = ?";
+    Object[] param = { pocketmonTradeNo };
     return jdbcTemplate.update(sql, param) > 0;
   }
 

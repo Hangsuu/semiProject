@@ -39,9 +39,31 @@
   </div>
   <hr/>
 </script>
-<style>
-  
-</style>
+<script type="text/template" id="pocketmonTrade-reply-write">
+  <div class=row>
+    <form action="#" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="replyParent" value="0">
+      <input type="hidden" name="replyOrigin" value="${pocketmonTradeDto.getAllboardNo()}">
+      <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
+      <textarea class="summernote" name="replyContent"></textarea>
+      <div class="right">
+        <button class="pocketmonTrade-btn" type="submit">취소</button>
+        <button class="pocketmonTrade-btn" type="submit">등록</button>
+      </div>
+    </form>
+  </div>
+</script>
+<script type="text/template" id="pocketmonTrade-reply-write2">
+  <div class=row>
+    <div class=row>
+      <textarea class="summernote" name="replyContent"></textarea>
+    </div>
+    <div class="right">
+      <button class="pocketmonTrade-btn" type="submit">취소</button>
+      <button class="pocketmonTrade-btn" type="submit">등록</button>
+    </div>
+  </div>
+</script>
 
 <!-- section -->
 <section >
@@ -98,7 +120,7 @@
         <a class="pocketmonTrade-btn" id="pocketmonTrade-delete-btn" href="/pocketmonTrade/delete/${pocketmonTradeDto.getPocketmonTradeNo()}">삭제</a>
       </c:if>
       <a id="pocketmonTrade-list-btn" class="pocketmonTrade-btn" href="/pocketmonTrade">목록</a>
-      <div>top으로</div>
+      <!-- <div>top으로</div> -->
     </div>
 
     <!-- 댓글 -->
@@ -112,6 +134,7 @@
           </div>
           <div class="row">
             <form action="#" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="replyParent" value="0">
               <input type="hidden" name="replyOrigin" value="${pocketmonTradeDto.getAllboardNo()}">
               <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
               <textarea class="summernote" name="replyContent"></textarea>

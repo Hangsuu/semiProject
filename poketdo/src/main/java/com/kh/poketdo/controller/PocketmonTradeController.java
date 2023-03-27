@@ -1,14 +1,14 @@
 package com.kh.poketdo.controller;
 
-import com.kh.poketdo.dao.PocketmonTradeDao;
-import com.kh.poketdo.dto.PocketmonTradeDto;
-import com.kh.poketdo.service.PocketmonTradeService;
-import com.kh.poketdo.vo.PaginationVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.kh.poketdo.dao.PocketmonTradeDao;
+import com.kh.poketdo.dto.PocketmonTradeDto;
+import com.kh.poketdo.service.PocketmonTradeService;
+import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
 @RequestMapping("/pocketmonTrade")
@@ -65,10 +70,25 @@ public class PocketmonTradeController {
 
   // 포켓몬 교환 상세
   @GetMapping("/{pocketmonTradeNo}")
-  public String detail(@PathVariable int pocketmonTradeNo, Model model) {
+  public String detail(@PathVariable int pocketmonTradeNo, Model model, HttpSession session) {
     // 포켓몬 교환 no로 selectOne해서 model로 jsp파일에 전달
     PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
         pocketmonTradeNo);
+
+    Set<Integer> readList = (Set<Integer>) session.getAttribute("readList") == null ? new HashSet<>()
+        : (Set<Integer>) session.getAttribute("readList");
+    boolean notWriter = !pocketmonTradeDto.getPocketmonTradeWriter().equals((String) session.getAttribute("memberId"));
+    boolean noRead = !readList.contains(pocketmonTradeNo);
+    System.out.println(notWriter);
+    System.out.println(noRead);
+    System.out.println(readList);
+    if (notWriter && noRead) {
+      readList.add(pocketmonTradeNo);
+      session.setAttribute("readList", readList);
+      pocketmonTradeDao.readSet(pocketmonTradeNo);
+      pocketmonTradeDto.setPocketmonTradeRead(pocketmonTradeDto.getPocketmonTradeRead() + 1);
+    }
+
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
     return "/WEB-INF/views/pocketmonTrade/detail.jsp";
   }

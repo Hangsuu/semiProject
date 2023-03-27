@@ -16,13 +16,17 @@ pageEncoding="UTF-8"%>
   });
   $(function () {
     const newEle = $($.parseHTML($("#template").html()));
-    newEle.click(function () {
-      console.log("흐에!!!!!!");
-    });
+    $(newEle).children().eq(1).click();
     $(".target").append(newEle);
   });
 </script>
 <script type="text/template" id="template">
+  <div>
+    <div class="first">첫째줄</div>
+    <div class="second">둘째줄</div>
+  </div>
+</script>
+<script type="text/template" id="template2">
   <div>
     <div class="first">첫째줄</div>
     <div class="second">둘째줄</div>

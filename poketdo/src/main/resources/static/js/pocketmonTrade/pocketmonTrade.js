@@ -1,6 +1,9 @@
 $(function () {
   // 좋아요 누른 member는 채운 하트
+
+  console.log($("<div>").html("<hr/>"));
   loadReply();
+  summernote();
   $.ajax({
     url: "/rest/like/check",
     method: "post",
@@ -22,13 +25,13 @@ $(function () {
       method: "get",
       data: { allboardNo: allboardNo },
       success: function (response) {
-        var replyContainer = $("#pocketmonTrade-replys");
+        let replyContainer = $("#pocketmonTrade-replys");
         replyContainer.empty();
-        for (var i = 0; i < response.length; i++) {
-          var newReplyEle = $(
+        for (let i = 0; i < response.length; i++) {
+          const newReplyEle = $(
             $.parseHTML($("#pocketmonTrade-reply-template").html())
           );
-          var replyBody = newReplyEle.eq(1).children();
+          let replyBody = newReplyEle.eq(1).children();
           // 댓글 작성자
           replyBody.eq(0).children().eq(0).text(response[i].replyWriter);
 
@@ -39,23 +42,40 @@ $(function () {
           // 시간
           replyBody.eq(2).children().eq(0).text(response[i].replyTime);
 
-          var writerEle = replyBody.find(".writerTag");
+          let writerEle = replyBody.find(".writerTag");
           if (response[i].replyWriter == pocketmonTradeWriter) {
             writerEle.addClass("writer");
           } else {
             writerEle.remove();
           }
           // 댓글 작성자 본인이 아닐 경우 수정, 삭제 버튼 제거
-
           if (response[i].replyWriter != memberId) {
             replyBody.find(".pocketmonTrade-btn").remove();
           } else {
           }
-          var replyNo = response[i].replyNo;
+          let replyNo = response[i].replyNo;
+
+          // 수정 버튼 처리
+          let replyConent = response[i].replyContent;
           replyBody
             .eq(0)
             .children()
             .eq(2)
+            .click(function () {
+              console.log(response[i].replyNo);
+              $("#pocketmonTrade-reply-write2");
+              // const newEditEle = $.parseHTML(
+              //   $("#pocketmonTrade-reply-write").html()
+              // );
+              // $(newEditEle).find("[name='replyContent']").val(replyConent);
+              // newReplyEle.html(newEditEle);
+              // newReplyEle.hide().after($("<div>").append($(newEditEle)).html());
+            });
+          // 삭제 버튼 처리
+          replyBody
+            .eq(0)
+            .children()
+            .eq(3)
             .click(function () {
               if (confirm("답글을 삭제하시겠습니까?")) {
                 $.ajax({
@@ -93,8 +113,8 @@ $(function () {
         location.href = "/member/login";
       }
     }
-    var heartEle = $(this).children().first();
-    var likeCntEle = $(this).children().eq(1);
+    let heartEle = $(this).children().first();
+    let likeCntEle = $(this).children().eq(1);
     // 좋아요일 때 하트 채우기, 아닐 때 비우기
     $.ajax({
       url: "/rest/like/",
@@ -125,7 +145,7 @@ $(function () {
     });
   });
 
-  $("#pocketmonTrade-devare-btn").click(function (e) {
+  $("#pocketmonTrade-delete-btn").click(function (e) {
     if (!confirm("정말 삭제하시겠습니까?")) {
       e.preventDefault();
     }
@@ -138,8 +158,8 @@ $(function () {
       alert("로그인을 해야만 댓글을 작성할 수 있습니다.");
       return;
     }
-    var replyFormEle = $("#pocketmonTrade-reply").find("form");
-    var data = replyFormEle.serialize();
+    let replyFormEle = $("#pocketmonTrade-reply").find("form");
+    let data = replyFormEle.serialize();
     // 댓글 테이블에 데이터 생성
     $.ajax({
       url: "/rest/reply/",
@@ -157,45 +177,49 @@ $(function () {
   //
 
   // summernote 세팅
-  $("textarea[name=replyContent]").summernote({
-    placeholder: "내용을 작성하세요",
-    tabsize: 4,
-    height: 200,
-    toolbar: [
-      ["table", ["table"]],
-      ["insert", ["link", "picture"]],
-      ["view", ["fullscreen", "help"]],
-    ],
-    disableResizeEditor: true,
-    callbacks: {
-      onImageUpload: function (files) {
-        if (files.length != 1) return;
+  function summernote() {
+    $("textarea[name=replyContent]").summernote({
+      placeholder: "내용을 작성하세요",
+      tabsize: 4,
+      height: 200,
+      toolbar: [
+        ["table", ["table"]],
+        ["insert", ["picture"]],
+      ],
+      disableResizeEditor: true,
+      callbacks: {
+        onImageUpload: function (files) {
+          if (files.length != 1) return;
 
-        var fd = new FormData();
-        fd.append("attach", files[0]);
-        $.ajax({
-          url: "/rest/attachment/upload",
-          method: "post",
-          data: fd,
-          processData: false,
-          contentType: false,
-          success: function (response) {
-            //서버로 전송할 이미지 번호 정보 생성
-            var input = $("<input>")
-              .attr("type", "hidden")
-              .attr("name", "attachmentNo")
-              .val(response.attachmentNo);
-            $("form").prepend(input);
+          let fd = new FormData();
+          fd.append("attach", files[0]);
+          $.ajax({
+            url: "/rest/attachment/upload",
+            method: "post",
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+              //서버로 전송할 이미지 번호 정보 생성
+              let input = $("<input>")
+                .attr("type", "hidden")
+                .attr("name", "attachmentNo")
+                .val(response.attachmentNo);
+              $("form").prepend(input);
 
-            //에디터에 추가할 이미지 생성
-            var imgNode = $("<img>")
-              .attr("src", "/rest/attachment/download/" + response.attachmentNo)
-              .width("25%");
-            $("[name=replyContent]").summernote("insertNode", imgNode.get(0));
-          },
-          error: function () {},
-        });
+              //에디터에 추가할 이미지 생성
+              let imgNode = $("<img>")
+                .attr(
+                  "src",
+                  "/rest/attachment/download/" + response.attachmentNo
+                )
+                .width("25%");
+              $("[name=replyContent]").summernote("insertNode", imgNode.get(0));
+            },
+            error: function () {},
+          });
+        },
       },
-    },
-  });
+    });
+  }
 });

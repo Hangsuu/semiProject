@@ -2,6 +2,7 @@ package com.kh.poketdo.restcontroller;
 
 import com.kh.poketdo.dao.ReplyDao;
 import com.kh.poketdo.dto.ReplyDto;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,11 +39,5 @@ public class ReplyRestController {
   @PutMapping("/")
   public void edit(@ModelAttribute ReplyDto replyDto) {
     replyDao.update(replyDto);
-  }
-
-  @PostMapping("/test")
-  public String test(@ModelAttribute ReplyDto replyDto) {
-    System.out.println(replyDto);
-    return "통신 성공";
   }
 }

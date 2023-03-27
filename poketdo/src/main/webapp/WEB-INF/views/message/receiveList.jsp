@@ -15,8 +15,16 @@
   </aside>
   
   <!-- article -->
-  <article>
-    <div class="sample-article">sample article</div>
+  <article class="container-800">
+    <div class="row">
+        <h1>받은 쪽지함</h1>
+    </div>
+    <div class="row">
+      <a href="/message/write">쪽지쓰기</a>
+    </div>
+    <div class="row">
+      <a href="/message/sendStore">보낸 편지함</a>
+    </div>
   </article>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

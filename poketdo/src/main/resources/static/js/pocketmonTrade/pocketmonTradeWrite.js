@@ -50,12 +50,20 @@ $(function () {
     },
   });
 
-  // 거래 시간 등록해야만 작성 가능하게
+  // 등록제한
   $("#pocketmonTrade-insert-btn").click(function (e) {
     const isPromiseNull = $("input[name=promise]").val() == "";
+    // 거래 시간 등록해야만 작성 가능
     if (isPromiseNull) {
       e.preventDefault();
       alert("거래일을 입력해주세요");
+      return;
+    }
+    // 로그인 해야만 작성가능
+    if (memberId == "") {
+      e.preventDefault();
+      alert("로그인 해야만 글 작성 가능합니다");
+      return;
     }
   });
 });

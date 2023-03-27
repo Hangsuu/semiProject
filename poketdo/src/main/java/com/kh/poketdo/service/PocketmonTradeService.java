@@ -1,20 +1,17 @@
 package com.kh.poketdo.service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.PocketmonTradeDao;
 import com.kh.poketdo.dto.AllboardDto;
 import com.kh.poketdo.dto.PocketmonTradeDto;
 import com.kh.poketdo.vo.PaginationVO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PocketmonTradeService {
@@ -27,7 +24,7 @@ public class PocketmonTradeService {
 
   // 포켓몬교환 게시물 쓰기
   public int insert(PocketmonTradeDto pocketmonTradeDto, String promise)
-      throws ParseException {
+    throws ParseException {
     // 통합, 포켓몬교환 sequence 생성
     int newAllBoardSeq = allboardDao.sequence();
     int newPocketmonTradeSeq = pocketmonTradeDao.sequence();
@@ -44,12 +41,13 @@ public class PocketmonTradeService {
 
     // 통합 테이블에 insert
     allboardDao.insert(
-        AllboardDto
-            .builder()
-            .allboardNo(newAllBoardSeq)
-            .allboardBoardType("pocketmon_trade")
-            .allboardBoardNo(newPocketmonTradeSeq)
-            .build());
+      AllboardDto
+        .builder()
+        .allboardNo(newAllBoardSeq)
+        .allboardBoardType("pocketmon_trade")
+        .allboardBoardNo(newPocketmonTradeSeq)
+        .build()
+    );
 
     // pocketmonTrade 테이블에 insert
     pocketmonTradeDao.insert(pocketmonTradeDto);
@@ -67,7 +65,7 @@ public class PocketmonTradeService {
 
   // 포켓몬 교환 게시물 업데이트
   public boolean update(PocketmonTradeDto pocketmonTradeDto, String promise)
-      throws ParseException {
+    throws ParseException {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
     Date parsedDate = dateFormat.parse(promise);
     java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
@@ -77,9 +75,15 @@ public class PocketmonTradeService {
 
   // 포켓몬 교환 게시물 삭제
   public String delete(int pocketmonTradeNo, HttpSession session) {
-    PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(pocketmonTradeNo);
-    if (pocketmonTradeDto.getPocketmonTradeWriter().equals(session.getAttribute("memberId"))
-        || "마스터".equals(session.getAttribute("memberLevel"))) {
+    PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
+      pocketmonTradeNo
+    );
+    if (
+      pocketmonTradeDto
+        .getPocketmonTradeWriter()
+        .equals(session.getAttribute("memberId")) ||
+      "마스터".equals(session.getAttribute("memberLevel"))
+    ) {
       pocketmonTradeDao.delete(pocketmonTradeNo);
       allboardDao.delete(pocketmonTradeDto.getAllboardNo());
       return "redirect:/pocketmonTrade";

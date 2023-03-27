@@ -43,7 +43,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               class="pocketmonTrade-a-link"
               href="/pocketmonTrade/${notice.getPocketmonTradeNo()}"
             >
-              <c:if test="${notice.getPocketmonTradeHead()!=''}">
+              <c:if test="${notice.getPocketmonTradeHead()!=null}">
                 [${notice.getPocketmonTradeHead()}]
               </c:if>
               ${notice.getPocketmonTradeTitle()}</a
@@ -70,7 +70,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               class="pocketmonTrade-a-link"
               href="/pocketmonTrade/${trade.getPocketmonTradeNo()}"
             >
-              <c:if test="${trade.getPocketmonTradeHead()!=''}">
+              <c:if test="${trade.getPocketmonTradeHead()!=null}">
                 [${trade.getPocketmonTradeHead()}]
               </c:if>
               ${trade.getPocketmonTradeTitle()}</a

@@ -1,12 +1,6 @@
 $(function () {
   // 좋아요 누른 member는 채운 하트
-  // loadReply();
-  const newReplyEle = $.parseHTML($("#pocketmontTrade-reply-template").html());
-  $("#pocketmonTrade-reply").prepend(newReplyEle);
-  console.log(
-    $("#pocketmonTrade-reply").prepend($("<div>").text("안녕하세요"))
-  );
-  console.log($("#pocketmonTrade-reply-template").html());
+  loadReply();
   $.ajax({
     url: "/rest/like/check",
     method: "post",
@@ -23,12 +17,30 @@ $(function () {
 
   // 댓글 목록 보이기
   function loadReply() {
-    const replyEle = $("#pocketmonTrade-reply");
     $.ajax({
-      url: "/rest/reply/",
+      url: "/rest/reply/" + String(allboardNo),
       method: "get",
       data: { allboardNo: allboardNo },
-      success: function (response) {},
+      success: function (response) {
+        console.log(response)
+        const replyContainer = $("#pocketmonTrade-replys");
+        replyContainer.empty();
+        for(let i = 0; i<response.length; i++){
+          const newReplyEle = $($.parseHTML($("#pocketmonTrade-reply-template").html()));
+          const replyBody = newReplyEle.eq(1).children();
+          // 댓글 작성자
+          $(replyBody[0]).text(response[i].replyWriter);
+          // 댓글 내용
+          $(replyBody[1]).text(response[i].replyContent);
+          // 시간
+          $(replyBody[2]).text(response[i].replyTime);
+          // console.log(newReplyEle)
+          replyContainer.append($($("<div>").append(newReplyEle).html()));
+        }
+
+        // 댓글 갯수 반영
+        $(".pocketmonTrade-replyCnt").text(response.length);
+      },
       error: function () {
         console.log("댓글 load 통신오류!!!!");
       },
@@ -75,9 +87,14 @@ $(function () {
     }
   });
 
+
   // 포켓몬 교환 댓글 적기
   $("#pocketmonTrade-reply-btn").click(function (e) {
     e.preventDefault();
+    if(memberId == ""){
+      alert("로그인을 해야만 댓글을 작성할 수 있습니다.");
+      return;
+    }
     const replyFormEle = $("#pocketmonTrade-reply").find("form");
     const data = replyFormEle.serialize();
     // 댓글 테이블에 데이터 생성
@@ -86,14 +103,15 @@ $(function () {
       method: "post",
       data: data,
       success: function () {
+        // 폼 초기화
         replyFormEle[0].reset();
-        const newReplyEle = $.parseHTML(
-          $("#pocketmontTrade-reply-template").html()
-        );
+        loadReply();
       },
       error: function () {},
     });
   });
+
+  // 
 
   // summernote 세팅
   $("textarea[name=replyContent]").summernote({

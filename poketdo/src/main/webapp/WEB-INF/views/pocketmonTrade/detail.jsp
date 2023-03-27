@@ -57,7 +57,7 @@
     <div class="row pocketmonTrade-info-head">
       <span>작성시간 <fmt:formatDate value="${pocketmonTradeDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m"/></span> 
       <span class="pocketmonTradeRead">&nbsp;&nbsp;조회수 ${pocketmonTradeDto.getPocketmonTradeRead()}</span>
-      <span class="pocketmonTradeReply">댓글 ${pocketmonTradeDto.getPocketmonTradeReply()}</span>
+      <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeDto.getPocketmonTradeReply()}</span></span>
     </div>
     <hr/>
     <div class="row pocketmonTradeContent">
@@ -76,7 +76,7 @@
       <span id="pocketmonTrade-like">
         <i class="fa-regular fa-heart fa-red" style="color:red"></i> 좋아요 <span id="pocketmonTrade-like-Cnt">${pocketmonTradeDto.getPocketmonTradeLike()}</span>
       </span>
-      <span class="pocketmonTradeReply">댓글 ${pocketmonTradeDto.getPocketmonTradeReply()}</span>
+      <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeDto.getPocketmonTradeReply()}</span></span>
     </div>
     <hr>
     </div>
@@ -93,7 +93,8 @@
     <!-- 댓글 -->
     <div class="row">
       <div id="pocketmonTrade-reply">
-        
+        <div class="row" id="pocketmonTrade-replys">
+        </div>
         <div class="row">
           <b>${sessionScope.memberId}</b>
         </div>

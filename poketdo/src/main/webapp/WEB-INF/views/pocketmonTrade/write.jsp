@@ -10,18 +10,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="/static/js/pocketmonTrade/pocketmonTradeWrite.js"></script>
-
+<script>
+  const memberId = "${sessionScope.memberId}";
+  console.log("memberId: " + memberId);
+  console.log("typeof memberId: " + typeof memberId);
+</script>
 <!-- section -->
 <section>
   <!-- aside -->
   <aside></aside>
   <!-- article -->
   <article class="container-800">
-    <form action="#" method="post" enctype="multipart/form-data" class="w-100">
+    <form action="/pocketmonTrade/write" method="post" enctype="multipart/form-data" class="w-100">
       <input
         type="hidden"
         name="pocketmonTradeWriter"
         value="${sessionScope.memberId}"
+        required
       />
       <div class="row center">
         <h1>포켓몬 교환</h1>
@@ -48,6 +53,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             name="pocketmonTradeTitle"
             type="text"
             placeholder="제목을 입력하세요"
+            required
           />
         </label>
       </div>
@@ -58,6 +64,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             class="summernote"
             name="pocketmonTradeContent"
             placeholder="내용을 입력하세요"
+            required
           ></textarea>
         </label>
       </div>
@@ -68,6 +75,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             type="datetime-local"
             class="form-input w-100"
             name="promise"
+            required
           />
         </label>
       </div>

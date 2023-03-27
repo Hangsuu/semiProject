@@ -46,7 +46,7 @@
     </div>
     <div class="row">
       <h1>
-        <c:if test="${pocketmonTradeDto.getPocketmonTradeHead() != ''}">
+        <c:if test="${pocketmonTradeDto.getPocketmonTradeHead() != null}">
           [${pocketmonTradeDto.getPocketmonTradeHead()}] 
         </c:if>
         ${pocketmonTradeDto.getPocketmonTradeTitle()}</h1>

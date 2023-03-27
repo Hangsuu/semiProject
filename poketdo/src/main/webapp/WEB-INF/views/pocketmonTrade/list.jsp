@@ -4,17 +4,6 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
 uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<style></style>
-<style>
-  .pocketmonTrade-notice {
-    background-color: #f9f9f8;
-    /* color: #ff4e59; */
-  }
-  .pocketmonTrade-notice a {
-    color: #ff4e59;
-    font-weight: bold;
-  }
-</style>
 
 <!-- section -->
 <section>
@@ -25,48 +14,64 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         >포켓몬교환 게시판</a
       >
     </div>
-    <hr />
+    <hr class="mg-0" />
     <div class="pocketmonTrade-list">
-      <div class="pocketmonTrade-row row">
-        <span>번호</span>
-        <span>제목</span>
-        <span>작성자</span>
-        <span>작성일</span>
-        <span>조회수</span>
+      <div class="bold pocketmonTrade-row h-2p5em">
+        <div class="flex-all-center">번호</div>
+        <div class="flex-all-center">제목</div>
+        <div class="flex-align-center">작성자</div>
+        <div class="flex-all-center">작성일</div>
+        <div class="flex-all-center">조회수</div>
       </div>
+
       <!-- 공지 -->
       <c:forEach var="notice" items="${notices}">
-        <div class="pocketmonTrade-row pocketmonTrade-notice">
-          <span>공지</span>
-          <span
-            ><a
+        <div class="pocketmonTrade-row w-100 pocketmonTrade-notice">
+          <div class="flex-all-center">공지</div>
+          <div class="flex-align-center">
+            <a
               class="pocketmonTrade-a-link"
               href="/pocketmonTrade/${notice.getPocketmonTradeNo()}"
             >
               <c:if test="${notice.getPocketmonTradeHead()!=null}">
                 [${notice.getPocketmonTradeHead()}]
               </c:if>
-              ${notice.getPocketmonTradeTitle()}</a
-            ><c:if test="${notice.getPocketmonTradeReply()}!=0"
-              >[${notice.getPocketmonTradeReply()}]</c:if
-            ></span
-          >
-          <span>${notice.getPocketmonTradeWriter()}</span>
-          <span>
-            <fmt:formatDate
-              value="${notice.getPocketmonTradeWrittenTime()}"
-              pattern="yyyy.MM.dd."
-            />
-          </span>
-          <span>${notice.getPocketmonTradeRead()}</span>
+              ${notice.getPocketmonTradeTitle()}
+              <c:if test="${notice.getPocketmonTradeReply()}!=0"
+                >[${notice.getPocketmonTradeReply()}]</c:if
+              >
+            </a>
+          </div>
+          <div class="flex-align-center">
+            ${notice.getPocketmonTradeWriter()}
+          </div>
+          <div class="flex-all-center">
+            <c:choose>
+              <c:when
+                test="${now-notice.getPocketmonTradeWrittenTime().getTime() > 60 * 60 * 24 * 1000}"
+              >
+                <fmt:formatDate
+                  value="${notice.getPocketmonTradeWrittenTime()}"
+                  pattern="yyyy.MM.dd."
+                />
+              </c:when>
+              <c:otherwise>
+                <fmt:formatDate
+                  value="${notice.getPocketmonTradeWrittenTime()}"
+                  pattern="hh:mm"
+                />
+              </c:otherwise>
+            </c:choose>
+          </div>
+          <div class="flex-all-center">${notice.getPocketmonTradeRead()}</div>
         </div>
       </c:forEach>
       <!-- 게시물 -->
       <c:forEach var="trade" items="${trades}">
         <div class="pocketmonTrade-row">
-          <span>${trade.getPocketmonTradeNo()}</span>
-          <span
-            ><a
+          <div class="flex-all-center">${trade.getPocketmonTradeNo()}</div>
+          <div class="flex-align-center">
+            <a
               class="pocketmonTrade-a-link"
               href="/pocketmonTrade/${trade.getPocketmonTradeNo()}"
             >
@@ -76,62 +81,83 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               ${trade.getPocketmonTradeTitle()}</a
             ><c:if test="${trade.getPocketmonTradeReply()}!=0"
               >[${trade.getPocketmonTradeReply()}]</c:if
-            ></span
-          >
-          <span>${trade.getPocketmonTradeWriter()}</span>
-          <span>
-            <fmt:formatDate
-              value="${trade.getPocketmonTradeWrittenTime()}"
-              pattern="yyyy.MM.dd."
-            />
-          </span>
-          <span>${trade.getPocketmonTradeRead()}</span>
+            >
+          </div>
+          <div class="flex-align-center">
+            ${trade.getPocketmonTradeWriter()}
+          </div>
+          <div class="flex-all-center">
+            <c:choose>
+              <c:when
+                test="${now-trade.getPocketmonTradeWrittenTime().getTime() > 60 * 60 * 24 * 1000}"
+              >
+                <fmt:formatDate
+                  value="${trade.getPocketmonTradeWrittenTime()}"
+                  pattern="yyyy.MM.dd."
+                />
+              </c:when>
+              <c:otherwise>
+                <fmt:formatDate
+                  value="${trade.getPocketmonTradeWrittenTime()}"
+                  pattern="hh:mm"
+                />
+              </c:otherwise>
+            </c:choose>
+          </div>
+          <div class="flex-all-center">${trade.getPocketmonTradeRead()}</div>
         </div>
+        <hr class="mg-0" />
       </c:forEach>
     </div>
-    <div class="row right">
-      <a class="pocketmonTrade-a-btn" href="pocketmonTrade/write">글쓰기</a>
+    <div class="row right mt-20">
+      <c:if test="${sessionScope.memberId != null}"
+        ><a class="pocketmonTrade-a-btn" href="/pocketmonTrade/write"
+          ><i class="fa-solid fa-pencil"></i> 글쓰기</a
+        ></c:if
+      >
     </div>
-    <div class="row center">
-      <div>
-        페이지네이션
-        <c:choose>
-          <c:when test="${pageVo.isFirst()}"> &laquo; </c:when>
-          <c:otherwise>
-            <a href="?page=1">&laquo</a>
-          </c:otherwise>
-        </c:choose>
-        <c:choose>
-          <c:when test="{pageVo.isPrev()}">
-            <a href="?page=${pageVo.getPrevPage()}">&lt;</a>
-          </c:when>
-          <c:otherwise> &lt; </c:otherwise>
-        </c:choose>
-        <c:forEach var="i" begin="1" end="${pageVo.getFinishBlock()}">
+    <div class="row center mt-30 back-gray pt-10">
+      <!-- 포켓몬교환 페이지네이션 -->
+      <div class="h-2p5em flex-all-center pocketmonTrade-pagination">
+        <c:if test="${!pageVo.isFirst()}">
+          <a href="?page=1${pageVo.getQueryString()}"
+            ><i class="fa-solid fa-angles-left"></i
+          ></a>
+        </c:if>
+        <c:if test="${pageVo.isPrev()}">
+          <a href="?page=${pageVo.getPrevPage()}${pageVo.getQueryString()}"
+            ><i class="fa-solid fa-less-than"></i
+          ></a>
+        </c:if>
+        <c:forEach
+          var="i"
+          begin="${pageVo.getStartBlock()}"
+          end="${pageVo.getFinishBlock()}"
+        >
           <c:choose>
-            <c:when test="${i == pageVo.getPage()}"> ${i} </c:when>
+            <c:when test="${i == pageVo.getPage()}"
+              ><div class="nowPage">${i}</div></c:when
+            >
             <c:otherwise>
-              <a href="?page=${i}">${i}</a>
+              <a href="?page=${i}${pageVo.getQueryString()}">${i}</a>
             </c:otherwise>
           </c:choose>
         </c:forEach>
-        <c:choose>
-          <c:when test="${pageVo.isNext()}">
-            <a href="?page=${pageVo.getNextPage()}">&gt;</a>
-          </c:when>
-          <c:otherwise> &gt; </c:otherwise>
-        </c:choose>
-        <c:choose>
-          <c:when test="${pageVo.isLast()}"> &raquo; </c:when>
-          <c:otherwise>
-            <a href="?page=${pageVo.getTotalPage()}">&raquo;</a>
-          </c:otherwise>
-        </c:choose>
+        <c:if test="${pageVo.isNext()}">
+          <a href="?page=${pageVo.getNextPage()}${pageVo.getQueryString()}"
+            ><i class="fa-solid fa-greater-than"></i
+          ></a>
+        </c:if>
+        <c:if test="${!pageVo.isLast()}"
+          ><a href="?page=${pageVo.getTotalPage()}${pageVo.getQueryString()}"
+            ><i class="fa-solid fa-angles-right"></i></a
+        ></c:if>
       </div>
       <hr />
-      <div class="row">
-        <form action="" method="get">
-          <select name="column">
+      <!-- 검색 -->
+      <div class="h-3em flex-all-center pb-10">
+        <form class="w-100 pocketmonTrade-search-form" action="" method="get">
+          <select class="w-20" name="column">
             <option value="pocketmon_trade_title">선택</option>
             <c:choose>
               <c:when test="${pageVo.getColumn()=='pocketmon_trade_title'}">

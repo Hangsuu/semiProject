@@ -33,7 +33,7 @@ footer {
 .favicon {
   height: 100%;
 }
-.favicon > *{
+.favicon > * {
   display: flex;
   height: 100%;
   align-items: end;
@@ -111,4 +111,44 @@ a:hover > *::after {
 /* [Component] section-w1000 */
 .section-w1000 {
   width: 1000px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.flex-all-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.back-gray {
+  background-color: #f9f9f9;
+}
+
+.h-2p5em {
+  height: 2.5em;
+}
+.h-3em {
+  height: 3em;
+}
+.h-2em {
+  height: 2em;
+}
+.mg-0 {
+  margin: 0;
+}
+
+.white-bold {
+  color: white !important;
+  font-weight: bold !important;
+}
+.back-sc {
+  background-color: #ffd400;
+  border: 1px transparent solid;
 }

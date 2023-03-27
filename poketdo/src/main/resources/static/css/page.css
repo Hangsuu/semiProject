@@ -184,22 +184,23 @@ section.member-login-section form {
   border: 1px solid black;
   color: black;
   text-decoration: none;
-  padding: 0.3em;
+  padding: 0.4em;
 }
 .pocketmonTrade-row {
   display: flex;
-  height: 2em;
+  height: 2.5em;
+  padding: 4px;
 }
 .pocketmonTrade-row > * {
   width: 10%;
-  text-align: center;
+  /* text-align: center; */
 }
 .pocketmonTrade-row > *:first-child {
   width: 13%;
 }
 .pocketmonTrade-row > *:nth-child(2) {
   width: 45%;
-  text-align: start;
+  /* text-align: start; */
 }
 .pocketmonTrade-row > *:nth-child(3) {
   width: 15%;
@@ -207,6 +208,44 @@ section.member-login-section form {
 }
 .pocketmonTrade-row > *:nth-child(4) {
   width: 17%;
+}
+.pocketmonTrade-pagination > * {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 3px;
+}
+.pocketmonTrade-pagination > *:hover {
+  text-decoration: underline;
+}
+.pocketmonTrade-pagination > *.nowPage {
+  color: #03c75a;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px black;
+  background-color: white;
+}
+.pocketmonTrade-pagination > a {
+  color: black;
+  text-decoration: none;
+}
+.pocketmonTrade-search-form > * {
+  height: 2.5em;
+}
+.pocketmonTrade-search-form > *:nth-child(2) {
+  width: 30%;
+}
+.pocketmonTrade-search-form > *:nth-child(3) {
+  width: 8%;
+  background-color: #ffd400;
+  font-weight: bold;
+  border: none;
+}
+.pocketmonTrade-notice {
+  background-color: #f9f9f8;
+  /* color: #ff4e59; */
+}
+.pocketmonTrade-notice a {
+  color: #ff4e59;
+  font-weight: bold;
 }
 
 /* # 포켓몬교환 디테일 */
@@ -249,9 +288,7 @@ textarea[name="replyContent"] {
 .message-nav {
   width: 200px;
 }
-.mg-0 {
-  margin: 0;
-}
+
 .message-row > * {
   width: 33.33%;
 }

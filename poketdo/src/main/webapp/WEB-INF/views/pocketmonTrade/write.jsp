@@ -12,8 +12,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="/static/js/pocketmonTrade/pocketmonTradeWrite.js"></script>
 <script>
   const memberId = "${sessionScope.memberId}";
-  console.log("memberId: " + memberId);
-  console.log("typeof memberId: " + typeof memberId);
 </script>
 <!-- section -->
 <section>
@@ -21,7 +19,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <aside></aside>
   <!-- article -->
   <article class="container-800">
-    <form action="/pocketmonTrade/write" method="post" enctype="multipart/form-data" class="w-100">
+    <form
+      action="/pocketmonTrade/write"
+      method="post"
+      enctype="multipart/form-data"
+      class="w-100"
+    >
       <input
         type="hidden"
         name="pocketmonTradeWriter"
@@ -68,24 +71,41 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           ></textarea>
         </label>
       </div>
-      <div class="row">
+      <div class="row flex-row">
         <label
-          >거래일
+          >거래시간
           <input
             type="datetime-local"
-            class="form-input w-100"
+            class="form-input w-50"
             name="promise"
             required
           />
         </label>
+        <button type="button" class="plus-1h-btn form-input">
+          <i class="fa-solid fa-plus"></i>1시간
+        </button>
+        <button type="button" class="plus-6h-btn form-input">
+          <i class="fa-solid fa-plus"></i>6시간
+        </button>
+        <button type="button" class="plus-1d-btn form-input">
+          <i class="fa-solid fa-plus"></i>1일
+        </button>
       </div>
-      <button
-        id="pocketmonTrade-insert-btn"
-        type="submit"
-        class="form-btn w-100 positive"
-      >
-        등록
-      </button>
+      <div class="w-100 right">
+        <button
+          class="white-bold pocketmonTrade-cancle-btn w-20 form-btn neutral"
+          type="button"
+        >
+          취소
+        </button>
+        <button
+          id="pocketmonTrade-insert-btn"
+          type="submit"
+          class="white-bold form-btn w-20 back-sc"
+        >
+          등록
+        </button>
+      </div>
     </form>
   </article>
 

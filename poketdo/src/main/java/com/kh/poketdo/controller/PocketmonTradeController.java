@@ -6,6 +6,7 @@ import com.kh.poketdo.service.PocketmonTradeService;
 import com.kh.poketdo.vo.PaginationVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class PocketmonTradeController {
     List<PocketmonTradeDto> pocketmonTradeNotices = pocketmonTradeDao.selectNotice();
     model.addAttribute("trades", pockmonTradelists);
     model.addAttribute("notices", pocketmonTradeNotices);
+    long now = new Date().getTime();
+    model.addAttribute("now", now);
     return "/WEB-INF/views/pocketmonTrade/list.jsp";
   }
 

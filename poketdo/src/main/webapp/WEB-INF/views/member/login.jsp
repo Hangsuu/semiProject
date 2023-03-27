@@ -3,8 +3,6 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script src="/static/js/memberLogin.js"></script>
-
 <!-- section -->
 <section class="member-login-section">
 
@@ -36,7 +34,7 @@
         </div>
         <div class="flex-row-grow">
           <div><a href="#">아이디 찾기</a></div>
-          <div><a href="#">회원가입</a></div>
+          <div><a href="/member/join">회원가입</a></div>
         </div>
       </div>
       <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">

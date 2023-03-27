@@ -43,7 +43,7 @@ public class PaginationVO {
 	//종료행 - 페이지에서 보여주는 게시판 마지막글 순서
 	public int getEnd() {
 		int lastBoard = page*size;
-		return Math.max(lastBoard, count);
+		return Math.min(lastBoard, count);
 	}
 	//전체페이지
 	public int getTotalPage() {

@@ -73,10 +73,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <div>
                 <a href="/trade"><span>포켓몬교환 게시판</span></a>
               </div>
+              <div>
+                <a href="/auction/list?page=1"><span>굿즈 경매 게시판</span></a>
+              </div>
             </div>
           </div>
           <div>
-            <a href="#"><span>레이드게시판</span></a>
+            <a href="/raid/list?page=1"><span>레이드게시판</span></a>
           </div>
           <div>
             <a href="#"><span>포켓몬소설</span></a>
@@ -95,7 +98,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </c:choose>
               </div>
               <div>
-                <a href="#"><span>마이페이지</span></a>
+                <a href="/member/mypage"><span>마이페이지</span></a>
               </div>
               <div>
                 <a href="#"><span>인장뽑기</span></a>

@@ -34,7 +34,7 @@
         </div>
         <div class="flex-row-grow">
           <div><a href="#">아이디 찾기</a></div>
-          <div><a href="#">회원가입</a></div>
+          <div><a href="/member/join">회원가입</a></div>
         </div>
       </div>
       <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">

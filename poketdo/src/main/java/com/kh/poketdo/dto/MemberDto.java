@@ -15,6 +15,7 @@ public class MemberDto {
     private String memberId;
     private String memberPw;
     private String memberNick;
+    private String memberBirth;
     private String memberCode;
     private String memberEmail;
     private String memberLevel;

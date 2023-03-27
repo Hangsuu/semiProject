@@ -91,7 +91,7 @@ pageEncoding="UTF-8"%>
                 </c:choose>
               </div>
               <div>
-                <a href="#"><span>마이페이지</span></a>
+                <a href="/member/mypage"><span>마이페이지</span></a>
               </div>
               <div>
                 <a href="#"><span>인장뽑기</span></a>

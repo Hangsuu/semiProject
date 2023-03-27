@@ -1,6 +1,7 @@
 package com.kh.poketdo.service;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 
@@ -34,30 +35,30 @@ public class MemberService {
 
 	
 	
-//	
-//	@PostConstruct
-//	public void init() {
-//		dir = new File(fileUploadProperties.getPath());
-//		dir.mkdirs();
-//	}
-//	
-//	public void join(MemberDto memberDto, MultipartFile attach) {
-//		memberDao.insert(memberDto);
-//		
-//		if(!attach.isEmpty()) {
-//			int attachmentNo = attachmentDao.sequence();
-//			
-//			File target = new File(dir, String.valueOf(attachmentNo));
-//			attach.transferTo(target);
-//			
-//			attachmentDao.insert(AttachmentDto.builder()
-//					.attachmentNo(attachmentNo)
-//					.attachmentName(attach.getOriginalFilename())
-//					.attachmentType(attach.getContentType())
-//					.attachmentSize(attach.getSize())
-//				.build());
-//		}
-//	}
+	
+	@PostConstruct
+	public void init() {
+		dir = new File(fileUploadProperties.getPath());
+		dir.mkdirs();
+	}
+	
+	public void join(MemberDto memberDto, MultipartFile attach) throws IllegalStateException, IOException {
+		memberDao.insert(memberDto);
+		
+		if(!attach.isEmpty()) {
+			int attachmentNo = attachmentDao.sequence();
+			
+			File target = new File(dir, String.valueOf(attachmentNo));
+			attach.transferTo(target);
+			
+			attachmentDao.insert(AttachmentDto.builder()
+					.attachmentNo(attachmentNo)
+					.attachmentName(attach.getOriginalFilename())
+					.attachmentType(attach.getContentType())
+					.attachmentSize(attach.getSize())
+				.build());
+		}
+	}
 	
 	
 	

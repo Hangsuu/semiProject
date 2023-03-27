@@ -98,6 +98,12 @@ public class SealController {
 		return "redirect:list";
 	}
 	
+	@GetMapping("/purchase")
+	public String purchase(Model model) {
+		List<SealWithImageDto> list = sealWithImageDao.selectList();
+		model.addAttribute("list" , list);
+		return "/WEB-INF/views/seal/purchase.jsp";
+	}
 	
 	
 }

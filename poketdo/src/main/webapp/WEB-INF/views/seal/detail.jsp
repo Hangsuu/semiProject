@@ -10,18 +10,20 @@
 			<th>이미지</th>
 			<th>인장 번호</th>
 			<th>인장 이름</th>
+			<th>가격</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 					<td>
-					<img width="200" height="200"
+					<img width="40" height="40"
 						src="/attachment/${sealWithImageDto.imageURL}">
 					</td>
 					<td>
 					${sealWithImageDto.sealNo}
 					</td>
 					<td>${sealWithImageDto.sealName}</td>
+					<td>${sealWithImageDto.sealPrice}</td>
 					<td>
 						<a href="edit?sealNo=${sealWithImageDto.sealNo}" >수정</a>
 						<a href="delete?sealNo=${sealWithImageDto.sealNo}" >삭제</a>

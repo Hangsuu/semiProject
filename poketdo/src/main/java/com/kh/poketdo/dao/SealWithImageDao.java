@@ -23,6 +23,7 @@ public class SealWithImageDao {
 			return SealWithImageDto.builder()
 								.sealNo(rs.getInt("seal_no"))
 								.sealName(rs.getString("seal_name"))
+								.sealPrice(rs.getInt("seal_price"))
 								.attachmentNo(rs.getObject("attachment_no")==null ?
 																												null : rs.getInt("attachment_no")
 									)

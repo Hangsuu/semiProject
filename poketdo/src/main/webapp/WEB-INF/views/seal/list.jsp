@@ -10,6 +10,8 @@
 				<th>이미지</th>
 				<th>번호</th>
 				<th>이름</th>
+				<th>가격</th>
+				<th>구매</th>
 				<th>관리</th>
 			</tr>
 		</thead>
@@ -17,7 +19,7 @@
 			<c:forEach var="sealWithImageDto" items="${list}">
 				<tr>
 					<td>
-						<img width="200" height="200"
+						<img width="96" height="96"
 							src="/attachment/${sealWithImageDto.imageURL}">
 					</td>
 					<td>
@@ -27,6 +29,12 @@
 						<a href="detail?sealNo=${sealWithImageDto.sealNo}">
 							${sealWithImageDto.sealName}
 						</a>
+					</td>
+					<td>
+						${sealWithImageDto.sealPrice}
+					</td>
+					<td>
+						<a href="purchase?sealNo=${sealWithImageDto.sealNo}">구매</a>
 					</td>
 					<td>
 						<a href="edit?sealNo=${sealWithImageDto.sealNo}">수정</a>

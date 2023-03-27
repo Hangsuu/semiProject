@@ -29,7 +29,7 @@ public class MessageRestController {
   }
 
   // 비동기 메세지 확인(받는사람 입력받아 받은 모든 메세지 출력)
-  @GetMapping("/")
+  @GetMapping("/receive")
   public List<MessageDto> select(String memberId) {
     return messageDao.selectList(memberId);
   }

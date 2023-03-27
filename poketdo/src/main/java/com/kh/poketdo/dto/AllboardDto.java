@@ -14,8 +14,4 @@ public class AllboardDto {
   private int allboardNo;
   private String allboardBoardType;
   private int allboardBoardNo;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch 'main' of local repository

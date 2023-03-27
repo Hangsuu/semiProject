@@ -36,4 +36,10 @@ public class MemberStatDao {
 		String sql = "select * from member_stat order by member_level asc";
 		return jdbcTemplate.query(sql, mapper);
 	}
+	
+	//(+추가) 정렬을 자유자재로 할 수 있는 리스트 구문
+		public List<MemberStatDto> selectList(String sort) {
+			String sql = "select * from member_stat order by " + sort;
+			return jdbcTemplate.query(sql, mapper);
+		}
 }

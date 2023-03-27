@@ -54,7 +54,7 @@
         <a href="write" class="form-btn positive">글쓰기</a>
     </div>
     <div class="row">
-        <table class="table table-border">
+        <table class="table table-slit">
             <thead>
             <tr>
                 <c:if test="${sessionScope.memberLevel == '마스터'}">

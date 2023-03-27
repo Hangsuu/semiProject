@@ -53,7 +53,7 @@
     	</c:if>
     </div>
     <div class="row">
-        <table class="table table-border">
+        <table class="table table-slit">
             <thead>
             <tr>
                 <c:if test="${sessionScope.memberLevel == '¸¶½ºÅÍ'}">

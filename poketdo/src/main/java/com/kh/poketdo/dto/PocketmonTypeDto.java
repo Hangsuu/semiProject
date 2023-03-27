@@ -9,12 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MonsterJoinTypeDto {
+// 몬스터타입Dto
+public class PocketmonTypeDto {
 
-	//포켓몬스터 기본 정보 + 타입 연결 테이블 DTO
-	
-	private int monsterJoinNo;
-	private int type_join_no;
-	
-	
+  private int pocketTypeNo;
+  private String pocketTypeName;
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.kh.poketdo.dao.MemberDao;
+import com.kh.poketdo.dao.MemberStatDao;
 import com.kh.poketdo.dto.MemberDto;
 
 @Controller @RequestMapping("/admin")
@@ -21,6 +22,9 @@ public class AdminController {
 
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private MemberStatDao memberStatDao;
 	
 	@GetMapping("/adminCheck")
 	public String adminCheck() {
@@ -45,7 +49,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/memberStat")
-	public String memberStat() {
+	public String memberStat(Model model,
+			@RequestParam(required = false, defaultValue = "member_level asc") String sort) {
+		model.addAttribute("list", memberStatDao.selectList(sort));
 		return "/WEB-INF/views/admin/memberStat.jsp";
 	}
 	

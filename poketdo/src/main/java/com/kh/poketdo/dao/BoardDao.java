@@ -126,17 +126,7 @@ public class BoardDao {
 					+ ") where rn between ? and ?";
 		Object[] param = {begin, end};
 		return jdbcTemplate.query(sql, mapper, param);
-	}
-	
-	
-	//조회수 증가
-	public boolean updateReadCount(int allboardNo) {
-		String sql = "update board set board_read=board_read+1 "
-					+ "where allboard_no = ?";
-		Object[] param = {allboardNo};
-		return jdbcTemplate.update(sql, param) > 0;
-	}
-	
+	}	
 	
 	// 페이징 적용된 조회 및 카운트 (게시글 총 개수)
 	public int selectCount(PaginationVO vo) {
@@ -152,6 +142,14 @@ public class BoardDao {
 		}
 	}
 	
+	//조회수 증가
+	public boolean updateReadCount(int allboardNo) {
+		String sql = "update board set board_read=board_read+1 "
+					+ "where allboard_no = ?";
+		Object[] param = {allboardNo};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 	// 좋아요 갯수 증가
 	public void updateLikecount(int count, int allboardNo) {
 		String sql = "update board set board_like = ? where allboard_no = ?";
@@ -160,12 +158,9 @@ public class BoardDao {
 	}
 	
 	// 댓글 갯수 갱신 기능
-	public void updateReplycount(int boardNo, int allboardNo) {
-		String sql = "update board set board_reply = ("
-					+ "select count(*) from reply where reply_origin = ?"
-					+ ") "
-					+ "where allboard_no = ?";
-		Object[] param = {boardNo, allboardNo};
+	public void updateReplycount(int count, int allboardNo) {
+		String sql = "update board set board_like = ? where allboard_no = ?";
+		Object[] param = {count, allboardNo};
 		jdbcTemplate.update(sql, param);
 	}
 	

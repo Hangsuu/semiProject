@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class LikeBoardDto {
-	private String memberId;
 	private int allboardNo;
+	private String memberId;
 }

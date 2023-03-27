@@ -103,6 +103,11 @@ pageEncoding="UTF-8"%>
               <div>
                 <a href="#"><span>내 활동</span></a>
               </div>
+              <c:if test="${sessionScope.memberLevel == '마스터'}">
+              <div>
+              	<a href="/admin/adminCheck"><span>관리 페이지</span></a>
+              </div>
+              </c:if>
             </div>
           </div>
         </div>

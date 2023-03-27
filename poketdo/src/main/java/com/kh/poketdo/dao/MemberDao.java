@@ -41,6 +41,25 @@ public class MemberDao {
         return jdbcTemplate.query(sql, mapper);
     }
 
+//	카운트 구하는 기능
+	public int selectCount() {
+		String sql = "select count(*) from member";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	
+// 페이지 번호
+	public List<MemberDto> selectListPaging(int page, int size){
+		int end = page * size;
+		int begin = end - (size-1);
+		String sql = "select * from ("
+				+ "select TMP.*, rownum RN from ("
+				+ "select * from member order by member_id asc"
+				+ ")TMP"
+				+ ") where rn between ? and ?";
+		Object[] param = {page, size};
+		return jdbcTemplate.query(sql, mapper ,param);
+	}
+    
     // ReadByPK
     public MemberDto selectOne(String memberId) {
         String sql = "select * from member where member_id = ?";

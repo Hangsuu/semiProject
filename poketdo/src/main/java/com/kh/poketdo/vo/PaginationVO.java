@@ -4,94 +4,82 @@ import lombok.Data;
 
 @Data
 public class PaginationVO {
-	private String column = "boardTitle";
-	private String keyword = "";
-	private int page = 1;	// 현재 페이지 번호
-	private int size = 18;	// 한 페이지에 보여줄 게시판 갯수
-	private int count;		// 전체 게시물 갯수
-	private int blockSize = 10;	// 한 페이지에 보여줄 페이지 수
+	private String column="";
+	private String keyword="";
+	//현재 페이지
+	private int page=1;
+	//페이지 마다 보여줄 게시글 수
+	private int size=15;
+	//전체 게시글 개수
+	private int count;
+	//블럭마다 보여줄 숫자 개수
+	private int blockSize=10;
 	
 	//검색 여부 판정
 	public boolean isSearch() {
-		return keyword.equals("") == false;
+		return !keyword.equals("");
 	}
 	public boolean isList() {
-		//return keyword.equals("");
 		return !isSearch();
 	}
-	
-	// 파라미터 생성 메소드
-	// - 목록 일 경우 size=ooo 형태의 문자열을 반환
-	// - 검색 일 경우 size=ooo&column=ooo&keyword=ooo 형태의 문자열을 반환
+	//파라미터 자동 생성
 	public String getParameter() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("size= ");
+		buffer.append("size=");
 		buffer.append(size);
-		
-		if(isSearch()) { // 검색이라면 항목을 더 추가한다.
-			buffer.append("column = ");
+		if(isSearch()) {
+			buffer.append("&column=");
 			buffer.append(column);
-			buffer.append("keyword = ");
+			buffer.append("&keyword=");
 			buffer.append(keyword);
 		}
-		
 		return buffer.toString();
 	}
 	
-	// 시작행번호 계산
+	//시작행 - 페이지에서 보여주는 게시판 첫글 순서
 	public int getBegin() {
-		return page * size - (size - 1);
+		return page*size-size+1;
 	}
-	
-	// 끝행번호 계산
+	//종료행 - 페이지에서 보여주는 게시판 마지막글 순서
 	public int getEnd() {
-		return page * size;
+		int lastBoard = page*size;
+		return Math.min(lastBoard, count);
 	}
-	
-	// 전체 페이지 계산
+	//전체페이지
 	public int getTotalPage() {
-		return (count + size - 1) / size;
+		return (count+size-1)/size;
 	}
-	
-	// 현재 페이지가 포함된 블록 시작 블록 번호 계산
+	//시작 블록 번호(번호판 시작)
 	public int getStartBlock() {
-		return (page - 1) / blockSize * blockSize + 1;
+		return (page-1)/blockSize*blockSize+1;
 	}
-	
-	// 현재 페이지가 포함된 종료 블록 번호 계산
+	//끝 블록 번호(번호판 끝)
 	public int getFinishBlock() {
-		int value = (page - 1) / blockSize * blockSize + blockSize;
-		//이 값이 너무 전체 페이지 수보다 크다면 getTotalPage로 전체 페이지를 구한 후 마지막 번호로 대체한다.
-		return Math.min(value, getTotalPage());
+		int value = (page-1)/blockSize*blockSize+blockSize;
+		return Math.min(getTotalPage(), value);
 	}
-	
 	//첫 페이지인가?
 	public boolean isFirst() {
-		return page == 1;
+		return page==1;
 	}
-	
-	//마지막 페이지인가?
+	//마지막페이지인가?
 	public boolean isLast() {
-		return page == getTotalPage();
+		return page==getTotalPage();
 	}
-	
-	//[이전]이 나올 조건 - 시작블록이 1보다 크면(page가 size보다 크면)
+	//[이전]이 나오는 조건 - 시작블록이 1보다 크면(페이지가 blockSize보다 크면)
 	public boolean isPrev() {
-		return getStartBlock() > 1;
+		return getStartBlock()>1;
 	}
-	
-	//[다음]이 나올 조건 - 종료 블록이 마지막 페이지보다 작으면
+	//[다음]이 나오는 조건 - 종료블록이 마지막페이지보다 작으면
 	public boolean isNext() {
-		return getFinishBlock() < getTotalPage();
+		return getFinishBlock()<getTotalPage();
 	}
-	
-	//[이전] 을 누르면 나올 페이지 번호
-	public int getPrevPage() {
-		return getStartBlock() - 1;
-	}
-	
-	//[다음] 을 누르면 나올 페이지 번호
+	//[다음]을 누르면 나올 페이지 번호
 	public int getNextPage() {
-		return getFinishBlock() + 1;
+		return getFinishBlock()+1;
+	}
+	//[이전]을 누르면 나올 페이지 번호
+	public int getPrevPage() {
+		return getStartBlock()-1;
 	}
 }

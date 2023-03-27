@@ -4,43 +4,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.poketdo.dto.AllboardDto;
 import com.kh.poketdo.dto.LikeBoardDto;
 
 @Repository
 public class LikeBoardDao {
-	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private AllboardDao allboardDao;
+	@Autowired
+	private BoardDao boardDao;
 	
-	//등록
-	public void insert(LikeBoardDto likeboardDto) {
-		String sql = "insert into like_table(member_id, allboard_no) values(?, ?)";
-		System.out.println("sql: " + sql);
-		Object[] param = {likeboardDto.getMemberId(),
-						  likeboardDto.getAllboardNo()
-						 };
-		jdbcTemplate.update(sql, param);
+	//좋아요/좋아요 해제 입력 및 결과값 반환
+	public boolean insert(LikeBoardDto likeTableDto) {
+		String countSql = "select count(*) from like_table where allboard_no=? and member_id=?";
+		Object[] param = {likeTableDto.getAllboardNo(), likeTableDto.getMemberId()};
+		int count = jdbcTemplate.queryForObject(countSql, int.class, param);
+		if(count==1) {
+			String deleteSql = "delete like_table where allboard_no=? and member_id=?";
+			jdbcTemplate.update(deleteSql, param);
+			likeInsert(likeTableDto.getAllboardNo());
+			return false;
+		}
+		else {
+			String insertSql = "insert into like_table(allboard_no, member_id) values(?,?)";
+			jdbcTemplate.update(insertSql, param);
+			likeInsert(likeTableDto.getAllboardNo());
+			return true;
+		}
+	}
+	//최초 좋아요 여부 판단
+	public boolean isLike(LikeBoardDto likeTableDto) {
+		String countSql = "select count(*) from like_table where allboard_no=? and member_id=?";
+		Object[] param = {likeTableDto.getAllboardNo(), likeTableDto.getMemberId()};
+		return jdbcTemplate.queryForObject(countSql, int.class, param)==1;
 	}
 	
-	//삭제
-	public void delete(LikeBoardDto likeboardDto) {
-		String sql = "delete like_table where allboard_no = ? and member_id = ?";
-		Object[] param = {likeboardDto.getAllboardNo(),
-						  likeboardDto.getMemberId()};
-		jdbcTemplate.update(sql, param);
-	}
-	//확인 - count
-	public boolean check(LikeBoardDto likeboardDto) {
-		String sql = "select count(*) from like_table where allboard_no = ? and member_id = ?";
-		Object[] param = {likeboardDto.getAllboardNo(),
-						  likeboardDto.getMemberId()};
-		int count = jdbcTemplate.queryForObject(sql, int.class, param);
-		return count == 1;
-	}
-	//글에 대한 좋아요 개수
-	public int count(int allboardNo) {
-		String sql = "select count(*) from like_table where allboard_no = ?";
+	//좋아요 개수 카운트 메서드
+	public int likeCount(int allboardNo) {
+		String sql = "select count(*) from like_table where allboard_no=?";
 		Object[] param = {allboardNo};
 		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
+	//좋아요 개수 입력 메서드
+	public void likeInsert(int allboardNo) {
+		AllboardDto allboardDto = allboardDao.selectOne(allboardNo);
+		int likeCount = likeCount(allboardNo);
+		String allboardType = allboardDto.getAllboardBoardType();
+		switch(allboardType) {
+			case "board" : boardDao.updateLikecount(likeCount, allboardNo);
+		}
+	}
+	
 }

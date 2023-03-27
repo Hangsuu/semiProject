@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.poketdo.dao.MemberJoinSealDao;
 import com.kh.poketdo.dao.PointDao;
 import com.kh.poketdo.dao.SealDao;
 import com.kh.poketdo.dao.SealWithImageDao;
+import com.kh.poketdo.dto.MemberJoinSealDto;
 import com.kh.poketdo.dto.SealDto;
 import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.service.SealService;
@@ -34,6 +36,9 @@ public class SealController {
 	private SealWithImageDao sealWithImageDao;
 	@Autowired
 	private PointDao pointDao;
+	@Autowired
+	private MemberJoinSealDao memberJoinSealDao;
+	
 	
 	//인장 정보 입력 페이지
 	@GetMapping("/insert")
@@ -103,16 +108,18 @@ public class SealController {
 	}
 	
 	//인장 구매 처리
-	@PostMapping("/list")
+	@PostMapping("/purchase")
 	public String purchase(
-			@RequestParam String member_id,
 			@RequestParam int point,
+			@RequestParam int sealNo,
 			HttpSession session
 			) {
-		pointDao.subPoint(member_id, point);
+		String memberId = (String) session.getAttribute("memberId");
+		pointDao.subPoint(point, memberId);
 		
+		memberJoinSealDao.insert(memberId, sealNo);
 		
-		return "redirect:home";
+		return "redirect:list";
 	}
 	
 	

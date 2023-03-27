@@ -1,6 +1,7 @@
 package com.kh.poketdo.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.MemberDao;
 import com.kh.poketdo.dao.MemberProfileDao;
+import com.kh.poketdo.dao.MemberSealWithImageDao;
 import com.kh.poketdo.dto.MemberDto;
+import com.kh.poketdo.dto.MemberSealWithImageDto;
 import com.kh.poketdo.service.MemberService;
 
 @Controller
@@ -33,6 +36,9 @@ public class MemberController {
     
     @Autowired
     private MemberProfileDao memberProfileDao;
+    
+    @Autowired
+    private MemberSealWithImageDao memberSealWithImageDao;
 
     @GetMapping("/login")
     public String login() {
@@ -96,6 +102,14 @@ public class MemberController {
     	return "/WEB-INF/views/member/mypage.jsp";
     }
     
+    //나의 인장
+    @GetMapping("/myseal")
+    public String myseal (HttpSession session, Model model) {
+    	String memberId = (String) session.getAttribute("memberId");
+    	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId);
+    	model.addAttribute("list",list);
+    	return "/WEB-INF/views/member/myseal.jsp";
+    }
     
    //개인정보수정 
     @GetMapping("/edit")

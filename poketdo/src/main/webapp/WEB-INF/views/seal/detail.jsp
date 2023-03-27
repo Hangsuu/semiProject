@@ -16,7 +16,7 @@
 	<tbody>
 		<tr>
 					<td>
-					<img width="40" height="40"
+					<img width="96" height="96"
 						src="/attachment/${sealWithImageDto.imageURL}">
 					</td>
 					<td>

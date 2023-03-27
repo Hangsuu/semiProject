@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-	<h1>인장 목록</h1>
+	<h1>인장 구매 목록</h1>
 	<table>
 		<thead>
 			<tr>
@@ -34,9 +34,11 @@
 						${sealWithImageDto.sealPrice}
 					</td>
 					<td>
-						<a href="list?sealNo=${sealWithImageDto.sealNo}&
-						sealPrice=${sealWithImageDto.sealPrice}&
-						memberId=${sessionScope.memberId}">구매</a>
+						<form action="purchase" method="post">
+							<input type="hidden" name="sealNo" value="${sealWithImageDto.sealNo}"> 
+							<input type="hidden" name="point" value="${sealWithImageDto.sealPrice}"> 
+							<button>구매</button>
+						</form>
 					</td>
 					<td>
 						<a href="edit?sealNo=${sealWithImageDto.sealNo}">수정</a>

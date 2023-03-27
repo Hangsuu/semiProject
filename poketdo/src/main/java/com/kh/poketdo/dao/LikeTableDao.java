@@ -17,6 +17,8 @@ public class LikeTableDao {
 	private AuctionDao auctionDao;
 	@Autowired
 	private RaidDao raidDao;
+	@Autowired
+	private CombinationDao combinationDao;
 	
 	//좋아요/좋아요 해제 입력 및 결과값 반환
 	public boolean insert(LikeTableDto likeTableDto) {
@@ -57,6 +59,7 @@ public class LikeTableDao {
 		switch(allboardType) {
 			case "auction" : auctionDao.likeSet(allboardNo, likeCount);
 			case "raid" : raidDao.likeSet(allboardNo, likeCount);
+			case "combination" : combinationDao.likeSet(allboardNo, likeCount);
 		}
 	}
 	

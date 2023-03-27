@@ -23,7 +23,7 @@ public class AuctionDto {
 	private int auctionDislike;
 	private int auctionReply;
 	private int auctionRead;
-	private int attachmentNo;
+	private Integer auctionMainImg;
 	
 	public String getTime() {
 		java.util.Date currentTime = new java.util.Date();
@@ -57,5 +57,10 @@ public class AuctionDto {
 		int maxPrice = this.auctionMaxPrice;
 		boolean bidComplete = maxPrice!=0 && minPrice==maxPrice;
 		return timeOver||bidComplete;
+	}
+	
+	public String getImageURL() {
+		if(auctionMainImg==null) return "https://via.placeholder.com/150x150?text=mainImg";
+		else return "/attachment/download?attachmentNo="+auctionMainImg;
 	}
 }

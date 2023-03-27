@@ -151,7 +151,7 @@ $(function(){
 		</td>
 		<td class="list-read"></td>
 		<td class="list-like"></td>
-		<td><i class="fa-solid fa-bookmark" data-bookmark-type="auction"></i></td>
+		<td><i class="fa-solid fa-bookmark" style="color:gray" data-bookmark-type="auction"></i></td>
 	</tr>
 </script>
 <div class="container-800 mt-50">

@@ -38,6 +38,7 @@ public class AuctionDao {
 					.auctionDislike(rs.getInt("auction_dislike"))
 					.auctionReply(rs.getInt("auction_reply"))
 					.auctionRead(rs.getInt("auction_read"))
+					.auctionMainImg(rs.getInt("auction_main_img"))
 					.build();
 		}
 	};
@@ -45,20 +46,32 @@ public class AuctionDao {
 		String sql = "select allboard_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
+	public int auctionSequence() {
+		String sql = "select auction_seq.nextval from dual";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
 	//등록(C)
 	public void insert(AuctionDto dto) {
 		String sql = "insert into auction(allboard_no, auction_no, auction_writer, auction_title, auction_content, "
 				+ "auction_finish_time, auction_min_price, auction_max_price)"
-				+ " values(?,auction_seq.nextval,?,?,?,?,?,?)";
-		Object[] param = {dto.getAllboardNo(), dto.getAuctionWriter(), dto.getAuctionTitle(), dto.getAuctionContent(), 
+				+ " values(?,?,?,?,?,?,?,?)";
+		int auctionSeq = auctionSequence();
+		dto.setAuctionNo(auctionSeq);
+		Object[] param = {dto.getAllboardNo(), dto.getAuctionNo(), dto.getAuctionWriter(), dto.getAuctionTitle(), dto.getAuctionContent(), 
 				dto.getAuctionFinishTime(),	dto.getAuctionMinPrice(), dto.getAuctionMaxPrice()};
-		jdbcTemplate.update(sql, param);
 		
 		AllboardDto allboardDto = new AllboardDto();
 		allboardDto.setAllboardNo(dto.getAllboardNo());
 		allboardDto.setAllboardBoardType("auction");
-		allboardDto.setAllboardBoardNo(selectOne(dto.getAllboardNo()).getAuctionNo());
+		allboardDto.setAllboardBoardNo(auctionSeq);
 		allboardDao.insert(allboardDto);
+		
+		jdbcTemplate.update(sql, param);
+	}
+	public void insertImg(int allboardNo, int auctionMainImg) {
+		String sql = "update auction set auction_main_img=? where allboard_No=?";
+		Object[] param = {auctionMainImg, allboardNo};
+		jdbcTemplate.update(sql, param);
 	}
 	//읽기(R) 통합
 	public List<AuctionDto> selectList(PaginationVO vo){

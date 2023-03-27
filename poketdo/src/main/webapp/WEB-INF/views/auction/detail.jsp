@@ -9,6 +9,9 @@
 </script>
 <script src="/static/js/timer.js"></script>
 <script src="/static/js/auction-bid.js"></script>
+<!-- 댓글창 summernote 사용을 위한 import -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="/static/js/reply.js"></script>
 <script type="text/template" id="reply-template">
 	<div class="row reply-box">
@@ -19,7 +22,7 @@
 </script>
 <script type="text/template" id="reply-edit-template">
 	<div class="row">
-		<textarea class="row reply-edit-content form-input w-100">수정</textarea>
+		<textarea class="row reply-edit-content form-input w-100 summernote-reply">수정</textarea>
 	</div>
 	<div class="row right">
 		<button class="form-btn neutral confirm-edit">수정</button>
@@ -61,7 +64,7 @@
 <!-- 좋아요 -->
 		<div class="right user-like"><i class="fa-regular fa-heart" style="color:red"></i></div>
 <!-- 즐겨찾기 -->
-		<div class="right user-bookmark"><i class="fa-regular fa-bookmark" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></div>
+		<div class="right user-bookmark"><i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></div>
 		<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
 	</div>
 	<div class="row">
@@ -84,7 +87,7 @@
 	<!-- 신청 -->
 	<div class="row">
 	<hr>
-		<textarea class="form-input w-100 reply-textarea"></textarea>
+		<textarea class="form-input w-100 summernote-reply"></textarea>
 		<div class="row right">
 			<button class="form-btn neutral reply-submit">댓글달기</button>
 		</div>

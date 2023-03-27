@@ -7,6 +7,9 @@
 	var memberId = "${sessionScope.memberId}";
 	var boardWriter = "${raidDto.raidWriter}";
 </script>
+<!-- 댓글창 summernote 사용을 위한 import -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="/static/js/reply.js"></script>
 <script type="text/template" id="reply-template">
 	<div class="row reply-box">
@@ -334,7 +337,7 @@ $(function(){
 	<!-- 신청 -->
 	<div class="row">
 	<hr>
-		<textarea class="form-input w-100 reply-textarea"></textarea>
+		<textarea class="form-input w-100 summernote-reply"></textarea>
 		<div class="row right">
 			<button class="form-btn neutral reply-submit">댓글달기</button>
 		</div>

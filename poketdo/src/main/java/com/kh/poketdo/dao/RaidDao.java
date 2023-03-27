@@ -45,20 +45,27 @@ public class RaidDao {
 		String sql = "select allboard_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
+	public int raidSequence() {
+		String sql = "select raid_seq.nextval from daul";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
 	//생성(C)
 	public void insert(RaidDto dto) {
 		String sql = "insert into raid(allboard_no, raid_no, raid_writer, raid_title, raid_content, "
 				+ "raid_monster, raid_start_time, raid_type) "
-				+ "values(?,raid_seq.nextval,?,?,?,?,?,?)";
-		Object[] param = {dto.getAllboardNo(), dto.getRaidWriter(), dto.getRaidTitle(), dto.getRaidContent(), 
+				+ "values(?,?,?,?,?,?,?,?)";
+		int raidSeq = raidSequence();
+		dto.setRaidNo(raidSeq);
+		Object[] param = {dto.getAllboardNo(),dto.getRaidNo(), dto.getRaidWriter(), dto.getRaidTitle(), dto.getRaidContent(), 
 				dto.getRaidMonster(), dto.getRaidStartTime(), dto.getRaidType()};
-		jdbcTemplate.update(sql, param);
 		
 		AllboardDto allboardDto = new AllboardDto();
 		allboardDto.setAllboardNo(dto.getAllboardNo());
 		allboardDto.setAllboardBoardType("raid");
-		allboardDto.setAllboardBoardNo(selectOne(dto.getAllboardNo()).getRaidNo());
+		allboardDto.setAllboardBoardNo(raidSeq);
 		allboardDao.insert(allboardDto);
+		
+		jdbcTemplate.update(sql, param);
 	}
 	//삭제(D)
 	public boolean delete(int allboardNo) {

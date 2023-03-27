@@ -2,29 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<script>
-	/* 전역변수 설정 */
-	var memberId = "${sessionScope.memberId}";
-</script>
-<script src="/static/js/timer.js"></script>
-<script src="/static/js/bookmark.js"></script>
 <div class="container-800 mt-50">
-	<div class="row"><h1 style="font-size:2em">경매</h1></div>
-<!-- 검색 -->
+	<div class="row"><h1 style="font-size:2em">레이드</h1></div>
 	<div class="row">
 		<form action="list" method="get" autocomplete="off">
 			<select name="column" class="form-input">
-				<option value="auction_title">제목</option>
-				<option value="auction_content">내용</option>
-				<option value="auction_writer">글쓴이</option>
+				<option value="combination_title">제목</option>
+				<option value="combination_type">타입</option>
+				<option value="combination_content">내용</option>
 			</select>
-			<input name="keyword" class="form-input" placeholder="검색">
+			<input name="keyword" class="form-input" placeholder="검색어">
 			<input name="page" type="hidden" value="${param.page}">
 			<button class="form-btn neutral">검색</button>
 		</form>
-		<a href="bookmark?page=1&keyword=&column=" class="form-btn neutral">즐겨찾기 보기</a> 
 	</div>
-<!-- 게시판 테이블 -->
+<!-- 테이블 시작 -->
 	<div class="row">
 		<table class="table table-slit center">
 			<thead>
@@ -32,40 +24,24 @@
 					<th>글번호</th>
 					<th class="w-40">제목</th>
 					<th>글쓴이</th>
-					<th>남은시간</th>
-					<th>조회수</th>
+					<th>게시시간</th>
 					<th>좋아요</th>
-					<th></th>
+					<th>조회수</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="auctionDto" items="${list}">
+				<c:forEach var="combinationDto" items="${list}">
 					<tr>
-						<td>${auctionDto.auctionNo}</td>
-						<td>
-							<a href="detail?allboardNo=${auctionDto.allboardNo}&page=${param.page}" class="link">
-								${auctionDto.auctionTitle}
-							</a>
-						</td>
-						<td>${auctionDto.auctionWriter}</td>
-						<td>
-							<c:choose>
-								<c:when test="${auctionDto.finish==true}">
-									<span>종료</span>
-								</c:when>
-								<c:otherwise>
-									<div class="rest-time" data-finish-time="${auctionDto.finishTime}" >
-										${auctionDto.time}
-									</div>
-								</c:otherwise>
-							</c:choose>
-						</td>
-						<td>${auctionDto.auctionRead}</td>
-						<td>${auctionDto.auctionLike}</td>
-<!-- 즐겨찾기 -->
-						<td><i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></td>
+						<td>${combinationDto.combinationNo}</td>
+						<td><a href="detail?allboardNo=${combinationDto.allboardNo}&page=${param.page}" class="link">
+							[${combinationDto.combinationType}] ${combinationDto.combinationTitle}
+						</a></td>
+						<td>${combinationDto.combinationWriter}</td>
+						<td>${combinationDto.combinationTime}</td>
+						<td>${combinationDto.combinationLike}</td>
+						<td>${combinationDto.combinationRead}</td>
 					</tr>
-				</c:forEach>
+				</c:forEach>				
 			</tbody>
 		</table>
 	</div>
@@ -78,13 +54,13 @@
 				<a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
 			</c:when>
 			<c:otherwise>
-				<a href="list?${vo.parameter}&page=1"><i class="fa-solid fa-angles-left"></i></a>
+				<a href="list?page=1"><i class="fa-solid fa-angles-left"></i></a>
 			</c:otherwise>
 		</c:choose>
 	<!-- 이전 페이지로 이동 -->
 		<c:choose>
 			<c:when test="${vo.prev}">
-				<a href="list?${vo.parameter}&page=${vo.prevPage}"><i class="fa-solid fa-angle-left"></i></a>
+				<a href="list?page=${vo.prevPage}"><i class="fa-solid fa-angle-left"></i></a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled"><i class="fa-solid fa-angle-left disabled"></i></a>
@@ -100,7 +76,7 @@
 	<!-- 다음 페이지 -->
 		<c:choose>
 			<c:when test="${vo.next}">
-				<a href="list?${vo.parameter}&page=${vo.nextPage}" class=""><i class="fa-solid fa-angle-right"></i></a>
+				<a href="list?page=${vo.nextPage}" class=""><i class="fa-solid fa-angle-right"></i></a>
 			</c:when>
 			<c:otherwise><a class="disabled">
 				<i class="fa-solid fa-angle-right"></i></a>
@@ -109,7 +85,7 @@
 	<!-- 마지막페이지로 -->
 		<c:choose>
 			<c:when test="${!vo.last}">
-				<a href="list?${vo.parameter}&page=${vo.totalPage}" class=""><i class="fa-solid fa-angles-right"></i></a>
+				<a href="list?page=${vo.totalPage}" class=""><i class="fa-solid fa-angles-right"></i></a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
@@ -118,7 +94,7 @@
 	</div>
 <!-- 페이지네이션 끝 -->
 	<div class="row">
-		<a href="write" class="form-btn neutral">글쓰기</a>
+	<a href="write" class="form-btn neutral">글쓰기</a>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

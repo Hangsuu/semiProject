@@ -1,5 +1,6 @@
 package com.kh.poketdo.controller;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,13 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.AuctionBidDao;
 import com.kh.poketdo.dao.AuctionDao;
-import com.kh.poketdo.dao.BookmarkDao;
 import com.kh.poketdo.dto.AuctionBidDto;
 import com.kh.poketdo.dto.AuctionDto;
+import com.kh.poketdo.service.AuctionService;
 import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
@@ -30,6 +32,8 @@ public class AuctionController {
 	private AuctionDao auctionDao;
 	@Autowired
 	private AuctionBidDao auctionBidDao;
+	@Autowired
+	private AuctionService auctionService;
 	
 	@GetMapping("/list")
 	public String list(Model model, 
@@ -46,7 +50,7 @@ public class AuctionController {
 	}
 	@PostMapping("/write")
 	public String write(@ModelAttribute AuctionDto dto, RedirectAttributes attr,
-			@RequestParam int lastDay) {
+			@RequestParam int lastDay, @RequestParam MultipartFile attach) throws IllegalStateException, IOException {
 		int allboardNo = auctionDao.sequence();
 		dto.setAllboardNo(allboardNo);
 		
@@ -58,6 +62,7 @@ public class AuctionController {
 		dto.setAuctionFinishTime(newTime);
 		
 		auctionDao.insert(dto);
+		auctionService.join(dto, attach);
 		attr.addAttribute("page", "1");
 		attr.addAttribute("allboardNo", allboardNo);
 		return "redirect:detail";

@@ -56,10 +56,18 @@ public class MessageDao {
   }
 
   // R 받은 메시지리스트 부르기
-  public List<MessageDto> selectList(String messageRecipient) {
+  public List<MessageDto> selectReceiveMessage(String messageRecipient) {
     String sql =
       "select * from message where message_recipient = ? and message_receiver_store = 1";
     Object[] param = { messageRecipient };
+    return jdbcTemplate.query(sql, mapper, param);
+  }
+
+  // R 보낸 메세지리스트 부르기
+  public List<MessageDto> selectSendMessage(String messageSender) {
+    String sql =
+      "select * from message where message_Sender = ? and message_receiver_store = 1";
+    Object[] param = { messageSender };
     return jdbcTemplate.query(sql, mapper, param);
   }
   // R

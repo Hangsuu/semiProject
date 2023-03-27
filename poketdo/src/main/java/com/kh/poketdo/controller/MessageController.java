@@ -19,10 +19,18 @@ public class MessageController {
 
   @GetMapping("/receive")
   public String receiveList(HttpSession session, Model model) {
-    String receiverId = (String) session.getAttribute("memberId");
-    List<MessageDto> lists = messageDao.selectList(receiverId);
+    String memberId = (String) session.getAttribute("memberId");
+    List<MessageDto> lists = messageDao.selectReceiveMessage(memberId);
     model.addAttribute("lists", lists);
     return "/WEB-INF/views/message/messageReceive.jsp";
+  }
+
+  @GetMapping("/send")
+  public String sendList(HttpSession session, Model model) {
+    String memberId = (String) session.getAttribute("memberId");
+    List<MessageDto> lists = messageDao.selectSendMessage(memberId);
+    model.addAttribute("lists", lists);
+    return "/WEB-INF/views/message/messageSend.jsp";
   }
 
   @GetMapping("/write")

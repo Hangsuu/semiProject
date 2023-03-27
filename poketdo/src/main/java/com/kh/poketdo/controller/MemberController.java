@@ -24,10 +24,6 @@ import com.kh.poketdo.service.MemberService;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-	
-
-    
-    
 
     @Autowired
     private MemberDao memberDao;

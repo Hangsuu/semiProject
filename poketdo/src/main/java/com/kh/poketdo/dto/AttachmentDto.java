@@ -14,4 +14,10 @@ public class AttachmentDto {
 	private String attachmentName;
 	private String attachmentType;
 	private long attachmentSize;
+<<<<<<< HEAD
 }
+=======
+	
+	
+}
+>>>>>>> branch 'main' of local repository

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,6 +15,7 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
+    <!-- font-awesome CDN -->
     <link
       rel="stylesheet"
       type="text/css"
@@ -25,7 +26,6 @@ pageEncoding="UTF-8"%>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
     <title>Document</title>
-
   </head>
   <body>
     <main class="container-1200">
@@ -71,12 +71,15 @@ pageEncoding="UTF-8"%>
                 <a href="/board/hot"><span>인기게시판</span></a>
               </div>
               <div>
-                <a href="#"><span>포켓몬교환 게시판</span></a>
+                <a href="/trade"><span>포켓몬교환 게시판</span></a>
+              </div>
+              <div>
+                <a href="/auction/list?page=1"><span>굿즈 경매 게시판</span></a>
               </div>
             </div>
           </div>
           <div>
-            <a href="#"><span>레이드게시판</span></a>
+            <a href="/raid/list?page=1"><span>레이드게시판</span></a>
           </div>
           <div>
             <a href="#"><span>포켓몬소설</span></a>
@@ -95,7 +98,7 @@ pageEncoding="UTF-8"%>
                 </c:choose>
               </div>
               <div>
-                <a href="#"><span>마이페이지</span></a>
+                <a href="/member/mypage"><span>마이페이지</span></a>
               </div>
               <div>
                 <a href="#"><span>인장뽑기</span></a>
@@ -112,3 +115,6 @@ pageEncoding="UTF-8"%>
           </div>
         </div>
       </nav>
+    </main>
+  </body>
+</html>

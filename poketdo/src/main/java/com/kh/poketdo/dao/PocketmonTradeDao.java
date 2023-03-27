@@ -134,6 +134,13 @@ public class PocketmonTradeDao {
     return jdbcTemplate.update(sql, param) > 0;
   }
 
+  // U 포켓몬교환 게시물 댓글 Cnt
+  public boolean replySet(int allboardNo, int replyCount) {
+    String sql = "update pocketmon_trade set pocketmon_trade_reply = ? where allboard_no = ?";
+    Object[] param = { replyCount, allboardNo };
+    return jdbcTemplate.update(sql, param) > 0;
+  }
+
   // D 포켓몬교환 게시물 삭제
   public boolean delete(int pocketmonTradeNo) {
     String sql = "delete from pocketmon_trade where pocketmon_trade_No = ?";

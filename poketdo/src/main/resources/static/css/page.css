@@ -283,7 +283,13 @@ section.member-login-section form {
 textarea[name="replyContent"] {
   resize: none;
 }
-
+.writer {
+  color: red;
+  margin-left: 10px;
+  border: 1px solid red;
+  border-radius: 45%;
+  padding: 2px;
+}
 /* # Message */
 .message-nav {
   width: 200px;

@@ -6,9 +6,12 @@
 <!-- summernote css, jQuery CDN -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<!-- 모먼트 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
     const memberId = "${sessionScope.memberId}";
     const allboardNo = parseInt("${pocketmonTradeDto.getAllboardNo()}");
+    const pocketmonTradeWriter = "${pocketmonTradeDto.getPocketmonTradeWriter()}";
     const likeTableDto = {
       memberId: memberId, 
       allboardNo: allboardNo
@@ -22,10 +25,16 @@
 <script src="/static/js/pocketmonTrade/pocketmonTrade.js"></script>
 <script type="text/template" id="pocketmonTrade-reply-template">
   <div class="row">
-    <div style="font-weight: bold;">댓글작성자</div>
-    <div>댓글 내용</div>
-    <div style="display: flex;">
-      <span style="color:#979797; margin-right: 1em;">댓글시간</span><span style="color:#979797">답글쓰기</span><span style="margin-left: auto; margin-right: 1em;">수정</span><span>삭제</span>
+    <div class="bold flex">
+      <div>댓글작성자</div>
+      <div class="writerTag">작성자</div>
+      <button class="pocketmonTrade-btn ml-auto" type="button">수정</button>
+      <button class="pocketmonTrade-btn" type="button">삭제</button>
+    </div>
+    <div></div>
+    <div style="color:#979797;" class="flex">
+      <div>댓글시간</div>
+      <div class="ms-10">답글쓰기</div>
     </div>
   </div>
   <hr/>
@@ -81,7 +90,9 @@
     <hr>
     </div>
     <div class="row pocketmonTrade-info-footer">
-      <a class="pocketmonTrade-btn" href="write">글쓰기</a>
+      <c:if test="${sessionScope.memberId != null}">
+        <a class="pocketmonTrade-btn" href="write">글쓰기</a>
+      </c:if>
       <c:if test="${sessionScope.memberId == pocketmonTradeDto.getPocketmonTradeWriter() || sessionScope.memberLevel == '마스터'}">
         <a class="pocketmonTrade-btn" href="/pocketmonTrade/${pocketmonTradeDto.getPocketmonTradeNo()}/edit">수정</a>
         <a class="pocketmonTrade-btn" id="pocketmonTrade-delete-btn" href="/pocketmonTrade/delete/${pocketmonTradeDto.getPocketmonTradeNo()}">삭제</a>
@@ -95,17 +106,19 @@
       <div id="pocketmonTrade-reply">
         <div class="row" id="pocketmonTrade-replys">
         </div>
-        <div class="row">
-          <b>${sessionScope.memberId}</b>
-        </div>
-        <div class="row">
-          <form action="#" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="replyOrigin" value="${pocketmonTradeDto.getAllboardNo()}">
-            <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
-            <textarea class="summernote" name="replyContent"></textarea>
-            <button id="pocketmonTrade-reply-btn" type="submit">등록</button>
-          </form>
-        </div>
+        <c:if test="${sessionScope.memberId != null}">
+          <div class="row">
+            <b>${sessionScope.memberId}</b>
+          </div>
+          <div class="row">
+            <form action="#" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="replyOrigin" value="${pocketmonTradeDto.getAllboardNo()}">
+              <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
+              <textarea class="summernote" name="replyContent"></textarea>
+              <button id="pocketmonTrade-reply-btn" type="submit">등록</button>
+            </form>
+          </div>
+        </c:if>
       </div>
     </div>
   </article>

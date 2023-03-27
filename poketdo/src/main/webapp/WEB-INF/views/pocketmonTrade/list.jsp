@@ -78,9 +78,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               <c:if test="${trade.getPocketmonTradeHead()!=null}">
                 [${trade.getPocketmonTradeHead()}]
               </c:if>
-              ${trade.getPocketmonTradeTitle()}</a
-            ><c:if test="${trade.getPocketmonTradeReply()}!=0"
-              >[${trade.getPocketmonTradeReply()}]</c:if
+              ${trade.getPocketmonTradeTitle()}
+              <c:if test="${trade.getPocketmonTradeReply()!=0}">
+                <span style="color: red; font-weight: 600"
+                  >[${trade.getPocketmonTradeReply()}]</span
+                ></c:if
+              ></a
             >
           </div>
           <div class="flex-align-center">

@@ -3,6 +3,31 @@ pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<script>
+  $.ajax({
+    url: "/rest/reply/test",
+    method: "get",
+    success: function (response) {
+      console.log(new Date(response));
+      $(".testClass").append(
+        $("<div>" + "<span>test</span>" + "</div>").html()
+      );
+    },
+  });
+  $(function () {
+    const newEle = $($.parseHTML($("#template").html()));
+    newEle.click(function () {
+      console.log("흐에!!!!!!");
+    });
+    $(".target").append(newEle);
+  });
+</script>
+<script type="text/template" id="template">
+  <div>
+    <div class="first">첫째줄</div>
+    <div class="second">둘째줄</div>
+  </div>
+</script>
 <style>
   .sample-aside {
     font-size: 40px;
@@ -37,6 +62,7 @@ pageEncoding="UTF-8"%>
     <div class="row">
       <div class="testClass">안녕</div>
     </div>
+    <div class="target"></div>
   </article>
 
   <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

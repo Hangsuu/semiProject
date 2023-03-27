@@ -22,22 +22,56 @@ $(function () {
       method: "get",
       data: { allboardNo: allboardNo },
       success: function (response) {
-        console.log(response)
-        const replyContainer = $("#pocketmonTrade-replys");
+        var replyContainer = $("#pocketmonTrade-replys");
         replyContainer.empty();
-        for(let i = 0; i<response.length; i++){
-          const newReplyEle = $($.parseHTML($("#pocketmonTrade-reply-template").html()));
-          const replyBody = newReplyEle.eq(1).children();
+        for (var i = 0; i < response.length; i++) {
+          var newReplyEle = $(
+            $.parseHTML($("#pocketmonTrade-reply-template").html())
+          );
+          var replyBody = newReplyEle.eq(1).children();
           // 댓글 작성자
-          $(replyBody[0]).text(response[i].replyWriter);
-          // 댓글 내용
-          $(replyBody[1]).text(response[i].replyContent);
-          // 시간
-          $(replyBody[2]).text(response[i].replyTime);
-          // console.log(newReplyEle)
-          replyContainer.append($($("<div>").append(newReplyEle).html()));
-        }
+          replyBody.eq(0).children().eq(0).text(response[i].replyWriter);
 
+          // 댓글 내용
+          replyBody
+            .eq(1)
+            .append($("<div>" + response[i].replyContent + "</div>").html());
+          // 시간
+          replyBody.eq(2).children().eq(0).text(response[i].replyTime);
+
+          var writerEle = replyBody.find(".writerTag");
+          if (response[i].replyWriter == pocketmonTradeWriter) {
+            writerEle.addClass("writer");
+          } else {
+            writerEle.remove();
+          }
+          // 댓글 작성자 본인이 아닐 경우 수정, 삭제 버튼 제거
+
+          if (response[i].replyWriter != memberId) {
+            replyBody.find(".pocketmonTrade-btn").remove();
+          } else {
+          }
+          var replyNo = response[i].replyNo;
+          replyBody
+            .eq(0)
+            .children()
+            .eq(2)
+            .click(function () {
+              if (confirm("답글을 삭제하시겠습니까?")) {
+                $.ajax({
+                  url: "/rest/reply/" + replyNo,
+                  method: "delete",
+                  success: function () {
+                    loadReply();
+                  },
+                  error: function () {
+                    console.log("댓글 삭제 통신 오류!!!!");
+                  },
+                });
+              }
+            });
+          replyContainer.append(newReplyEle);
+        }
         // 댓글 갯수 반영
         $(".pocketmonTrade-replyCnt").text(response.length);
       },
@@ -48,9 +82,19 @@ $(function () {
   }
 
   // 좋아요 누르면 rest/like/ 호출, 좋아요 여부 반환
-  $("#pocketmonTrade-like").click(function () {
-    const heartEle = $(this).children().first();
-    const likeCntEle = $(this).children().eq(1);
+  $("#pocketmonTrade-like").click(function (e) {
+    if (memberId == "") {
+      e.preventDefault();
+      if (
+        confirm(
+          "로그인을 한 회원만 사용할 수 있는 기능입니다. 로그인하시겠습니까?"
+        )
+      ) {
+        location.href = "/member/login";
+      }
+    }
+    var heartEle = $(this).children().first();
+    var likeCntEle = $(this).children().eq(1);
     // 좋아요일 때 하트 채우기, 아닐 때 비우기
     $.ajax({
       url: "/rest/like/",
@@ -81,22 +125,21 @@ $(function () {
     });
   });
 
-  $("#pocketmonTrade-delete-btn").click(function (e) {
+  $("#pocketmonTrade-devare-btn").click(function (e) {
     if (!confirm("정말 삭제하시겠습니까?")) {
       e.preventDefault();
     }
   });
 
-
   // 포켓몬 교환 댓글 적기
   $("#pocketmonTrade-reply-btn").click(function (e) {
     e.preventDefault();
-    if(memberId == ""){
+    if (memberId == "") {
       alert("로그인을 해야만 댓글을 작성할 수 있습니다.");
       return;
     }
-    const replyFormEle = $("#pocketmonTrade-reply").find("form");
-    const data = replyFormEle.serialize();
+    var replyFormEle = $("#pocketmonTrade-reply").find("form");
+    var data = replyFormEle.serialize();
     // 댓글 테이블에 데이터 생성
     $.ajax({
       url: "/rest/reply/",
@@ -111,7 +154,7 @@ $(function () {
     });
   });
 
-  // 
+  //
 
   // summernote 세팅
   $("textarea[name=replyContent]").summernote({

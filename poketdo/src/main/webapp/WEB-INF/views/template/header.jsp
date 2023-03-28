@@ -87,6 +87,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <div>
                 <a href="/combination/list?page=1"><span>레이드 공략</span></a>
               </div>
+              <div>
+                <a href="/combination/simulator?page=1&tagList="><span>조합시뮬레이터</span></a>
+              </div>
             </div>
           </div>
           <div>

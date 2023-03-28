@@ -56,7 +56,8 @@ $(function(){
 					var template = $("#list-template").html();
 					var html = $.parseHTML(template);
 					$(html).find(".list-no").text(response.list[i].auctionNo);
-					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page=${param.page}").text(response.list[i].auctionTitle);
+					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.parameter)
+							.text(response.list[i].auctionTitle);
 					$(html).find(".list-writer").text(response.list[i].auctionWriter);
 					if(response.list[i].finish){
 						$(html).find(".list-time").text("종료");

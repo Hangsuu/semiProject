@@ -20,6 +20,8 @@ public class CombinationDao {
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private AllboardDao allboardDao;
+	@Autowired
+	private TagDao tagDao;
 	
 	private RowMapper<CombinationDto> mapper = new RowMapper<CombinationDto>() {
 		@Override
@@ -37,6 +39,7 @@ public class CombinationDao {
 					.combinationRead(rs.getInt("combination_read")).build();
 		}
 	};
+	
 	public int sequence() {
 		String sql = "select allboard_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);
@@ -100,6 +103,69 @@ public class CombinationDao {
 		else {
 			String sql = "select count(*) from combination";
 			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
+	//태그 검색
+	public List<CombinationDto> tagSearchList(PaginationVO vo){
+		if(vo.tagList.length()==0) {
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"SELECT * FROM combination WHERE allboard_no IN"
+					+"(SELECT tag_origin FROM tag WHERE tag_name in(?) GROUP BY tag_origin HAVING count(DISTINCT tag_name)>0)"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			Object[] param = {vo.getKeyword(), vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		else {
+			String[] list = vo.getTagList().split(",");
+			int n = list.length;
+			String question = "?";
+			for(int i=1; i<n; i++) {
+				question+=",?";
+			}
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"SELECT * FROM combination WHERE allboard_no IN"
+					+ "(SELECT tag_origin FROM tag WHERE tag_name in("+question+") "
+					+ "GROUP BY tag_origin HAVING count(DISTINCT tag_name)=#1) "
+					+ "ORDER BY combination_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#1", n+"");
+			Object[] param = new Object[n+2];
+			for(int i=0; i<n; i++) {
+				param[i]=list[i];
+			}
+			param[n] = vo.getBegin();
+			param[n+1] = vo.getEnd();
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
+	public int tagListCount(PaginationVO vo) {
+		if(vo.tagList.length()==0) {
+			String sql = "SELECT count(*) FROM combination WHERE allboard_no IN"
+					+ "(SELECT tag_origin FROM tag WHERE tag_name in(?) GROUP BY tag_origin "
+					+ "HAVING count(DISTINCT tag_name)>0)";
+			Object[] param = {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String[] list = vo.getTagList().split(",");
+			int n = list.length;
+			String question = "?";
+			for(int i=1; i<n; i++) {
+				question+=",?";
+			}
+			String sql = "SELECT count(*) FROM combination WHERE allboard_no IN(SELECT tag_origin FROM tag "
+					+ "WHERE tag_name in("+question+")"
+					+ " GROUP BY tag_origin HAVING count(DISTINCT tag_name)=#1)";
+			sql = sql.replace("#1", n+"");
+			Object[] param = new Object[n];
+			for(int i=0; i<n; i++) {
+				param[i]=list[i];
+			}
+			return jdbcTemplate.queryForObject(sql, int.class, param);
 		}
 	}
 	

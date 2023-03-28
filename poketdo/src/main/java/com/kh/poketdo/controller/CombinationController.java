@@ -3,6 +3,7 @@ package com.kh.poketdo.controller;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.CombinationDao;
+import com.kh.poketdo.dao.TagDao;
 import com.kh.poketdo.dto.CombinationDto;
 import com.kh.poketdo.vo.PaginationVO;
 
@@ -24,16 +26,24 @@ import com.kh.poketdo.vo.PaginationVO;
 public class CombinationController {
 	@Autowired
 	private CombinationDao combinationDao;
+	@Autowired
+	private TagDao tagDao;
 	
 	@GetMapping("/write")
 	public String write() {
 		return "/WEB-INF/views/combination/write.jsp";
 	}
 	@PostMapping("/write")
-	public String write(@ModelAttribute CombinationDto combinationDto, RedirectAttributes attr) {
+	public String write(@ModelAttribute CombinationDto combinationDto, RedirectAttributes attr, 
+			HttpServletRequest request) {
 		int sequence = combinationDao.sequence();
 		combinationDto.setAllboardNo(sequence);
 		combinationDao.insert(combinationDto);
+		
+		//tagList 문자열을 배열로 반환
+		String[] values = request.getParameter("tagList").split(",");
+		//입력받은 태그를 db에 입력
+		tagDao.insertTags(sequence, values);
 		attr.addAttribute("page", 1);
 		attr.addAttribute("allboardNo", sequence);
 		return "redirect:detail";
@@ -41,9 +51,16 @@ public class CombinationController {
 	@GetMapping("/list")
 	public String list(Model model,
 			@ModelAttribute("vo") PaginationVO vo) {
-		vo.setCount(combinationDao.selectCount(vo));
-		model.addAttribute("list", combinationDao.selectList(vo));
-		return "/WEB-INF/views/combination/list.jsp";
+		if(vo.getColumn().equals("tag")) {
+			vo.setCount(combinationDao.tagListCount(vo));
+			model.addAttribute("list", combinationDao.tagSearchList(vo));
+			return "/WEB-INF/views/combination/list.jsp";
+		}
+		else {
+			vo.setCount(combinationDao.selectCount(vo));
+			model.addAttribute("list", combinationDao.selectList(vo));
+			return "/WEB-INF/views/combination/list.jsp";
+		}
 	}
 	@GetMapping("/detail")
 	public String detail(@RequestParam int allboardNo, Model model,
@@ -62,6 +79,7 @@ public class CombinationController {
 			session.setAttribute("memory", memory);
 		}
 		model.addAttribute("combinationDto", combinationDao.selectOne(allboardNo));
+		model.addAttribute("tagDto", tagDao.selectList(allboardNo));
 		return "/WEB-INF/views/combination/detail.jsp";
 	}
 	@GetMapping("/delete")
@@ -79,5 +97,10 @@ public class CombinationController {
 			attr.addAttribute("seqNo", allboardNo);
 			return "redirect:detail";
 		}
+	}
+	
+	@GetMapping("/simulator")
+	public String simulator() {
+		return "/WEB-INF/views/combination/simulator.jsp";
 	}
 }

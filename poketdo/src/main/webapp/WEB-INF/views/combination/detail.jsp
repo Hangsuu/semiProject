@@ -35,9 +35,15 @@
 	</div>
 	<div class="row">
 		<div class="float-box">
-			<div class="left">내용</div>
+			<div class="left" style="display:inline-block">내용</div>
 	<!-- 좋아요 -->
-			<div class="right user-like"><i class="fa-regular fa-heart"></i></div>
+			<div class="float-right user-like ms-30" style="display:inline-block"><i class="fa-regular fa-heart"></i></div>
+	<!-- 태그칸 -->
+			<div class="float-right tag-place" style="display:inline-block">
+				<c:forEach var="tags" items="${tagDto}">
+					<a href="list?page=1&column=tag&keyword=${tags.tagName}" class="link"><i class="form-input">${tags.tagName}</i></a>
+				</c:forEach>
+			</div>
 		</div>
 		<div class="row form-input w-100" style="min-height:150px">
 		${combinationDto.combinationContent}

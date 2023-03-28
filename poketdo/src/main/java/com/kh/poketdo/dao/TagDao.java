@@ -24,9 +24,18 @@ public class TagDao {
 		Object[] param = {tagDto.getTagName(), tagDto.getTagOrigin()};
 		jdbcTemplate.update(sql, param);
 	}
-	public List<TagDto> selectAllboard(String tagName){
-		String sql = "select * from tag where tag_name=?";
-		Object[] param = {tagName};
+	public List<TagDto> selectList(int allboardNo){
+		String sql = "select * from tag where tag_origin=?";
+		Object[] param = {allboardNo};
 		return jdbcTemplate.query(sql, mapper, param);
+	}
+	
+	public void insertTags(int allboardNo, String[] tagList) {
+		for(int i=0; i<tagList.length; i++) {
+			TagDto dto = new TagDto();
+			dto.setTagOrigin(allboardNo);
+			dto.setTagName(tagList[i]);
+			insert(dto);
+		}
 	}
 }

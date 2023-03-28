@@ -7,36 +7,74 @@
 <script src="/static/js/summernote.js"></script>
 <script>
 	$(function(){
-		var tagList=[];
+		var tagList= new Set();
 		var list=[];
+		//oninput과 onblur를 모두 사용하기 위한 방법
+		var preValue = $(".tag-input").val();
+		
 		$(".tag-input").on("input", function(){
 			var text = $(this).val();
-			var regex = /^#(.*?)#/;
-			var list = text.match(regex);
-			if(list!=null && list.length!=0){
-				tagList.push(list[1]);
-				list.length=0;
+			if(preValue!=text){
+				var regex = /^#(.*?)#/;
+				var list = text.match(regex);
+				
+				if(list!=null && list.length!=0){
+					tagList.add(list[1]);
+					//set을 전송 가능한 문자열 형태로 반환
+					var setList = Array.from(tagList);
+					var setListString = setList.join(",");
+					$("[name=tagList]").val(setListString);
+	
+					list.length=0;
+					$(this).val("#");
+					selectTag();
+				}
+			}
+			preValue = text;
+		})
+		$(".tag-input").change(function(){
+			var text = $(this).val();
+			text = text.replace("#", "").trim();
+			if(preValue!=text){
+				tagList.add(text);
+				//set을 전송 가능한 문자열 형태로 반환
+				var setList = Array.from(tagList);
+				var setListString = setList.join(",");
+				$("[name=tagList]").val(setListString);
+	
 				$(this).val("#");
 				selectTag();
 			}
+			preValue = text;
 		})
 		
 		function selectTag(){
 			var target = $(".tag-box")
 			target.empty();
-			for(var i=0; i<tagList.length; i++){
-				var inputTag = $("<span>").addClass("form-input").text(tagList[i]);
-				var xmark = $("<i>").addClass("fa-solid fa-xmark").click()
+			tagList.forEach(function(value){
+				var inputTag = $("<span>").addClass("form-input").text(value);
+				var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").css("color", "red").attr("data-tag-value", value).click(deleteTag)
+				inputTag.append(xmark);
 				target.append(inputTag);
-			}
+			})
 		};
+		function deleteTag(){
+			tagList.delete($(this).data("tag-value"));
+			//set을 전송 가능한 문자열 형태로 반환
+			var setList = Array.from(tagList);
+			var setListString = setList.join(",");
+			$("[name=tagList]").val(setListString);
+			$(this).parent().remove();
+		};
+		
 		
 		
 	});
 </script>
 <div class="container-800 mt-50">
 <form action="write" method="post" autocomplete="off">
-<input type="hidden" name="combinationWriter" value="${sessionScope.memberId}">
+	<input type="hidden" name="combinationWriter" value="${sessionScope.memberId}">
+	<input type="hidden" name="tagList">
 	<div class="row">
 		제목 : <input class="form-input" name="combinationTitle">
 	</div>

@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.reply-item {
+	font-size:20px;
+	padding:1em;
+}
+.reply-item:not(:last-child) {
+	border-bottom:1px solid gray;
+}
+.reply-item .replyWriter {
+	font-size: 1.25em;
+}
+.reply-item .replyContent {
+	font-size: 1em;
+	min-height: 3em;
+	padding: 0.5em 0;
+}
+.reply-item .replyTime {
+	font-size: 0.8em;
+	color:gray;
+}
+
+.reply-item .author {
+	font-size:0.75em;
+	padding:0.25em;
+	border:1px solid red;
+	color:red;
+	border-radius:1em;
+}
+
+.reply-item .fa-edit,
+.reply-item .fa-trash {
+	cursor:pointer;
+	color:#d63031;
+}
+.reply-item .fa-edit:hover,
+.reply-item .fa-trash:hover {
+	filter:brightness(0.85);
+} 

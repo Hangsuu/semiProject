@@ -15,5 +15,4 @@ public class AttachmentDto {
 	private String attachmentType;
 	private long attachmentSize;
 	
-	
 }

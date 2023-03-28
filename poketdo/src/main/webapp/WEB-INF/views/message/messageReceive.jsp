@@ -43,6 +43,7 @@ $(function(){
         for(var i = 0; i < response.list.length; i++){
           var message = messageList[i];
           var newReceiveMsgRow = $.parseHTML($("#receive-message-row").html());
+          $(newReceiveMsgRow).find("input.message-check-one").val(message.messageNo);
           $(newReceiveMsgRow).find(".message-sender-col").text(message.messageSender);
           $(newReceiveMsgRow).find(".message-title-col").text(message.messageTitle);
           $(newReceiveMsgRow).find(".message-send-time-col").text(sendTimeList[i]);
@@ -58,12 +59,39 @@ $(function(){
 
   // 메세지 삭제 버튼 클릭 event 등록
   $(".message-delete-btn").click(function(){
-    var checkedOneBtn = $(".message-check-one:checked");
-    if(checkedOneBtn.length==0){
+    var checkedOneBtn = $("input.message-check-one:checked");
+    var checkedCnt = checkedOneBtn.length;
+    if(checkedCnt==0){
       alert("삭제하실 쪽지를 선택하세요");
     } else {
+
+      // 확인
+      if(!confirm(checkedCnt + "개의 쪽지를 삭제하시겠습니까?")){
+        return;
+      }
+      // 배열
+      var checkedArr = [5, 5];
+      // var fd = new FormData();
+      // fd.append("list", '5');
+      // fd.append("list", '5');
+      checkedOneBtn.each(function(){
+        // fd.append("list", parseInt($(this).val()));
+        // fd.append("list", 5);
+      });
+
       $.ajax({
-        url: "/rest/message/",
+        url: "/rest/message/test",
+        method: "post",
+        data:JSON.stringify({list: [5, 5]}),
+        // processData: false,
+        // contentType: false,
+        dataType: 'json',      // 호출 했을 때 결과타입
+	contentType: "application/json",
+        success: function(){
+          loadList();
+        },
+        error: function(){
+        }
       })
     }
   })
@@ -78,7 +106,7 @@ $(function(){
 <script type="text/template" id="receive-message-row">
   <hr class="mg-0"/>
   <div class="flex-row-grow message-row">
-    <div class="flex-all-center message-check-column"><input class="message-check-one" type="checkbox"></div>
+    <div class="flex-all-center message-check-column"><input class="message-check-one" type="checkbox"/></div>
     <div><a class="link message-sender-col" href="/message/write?recipient=${messageDto.getMessageSender()}">${messageDto.getMessageSender()}</a></div>
      <a class="link message-title-col" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">${messageDto.getMessageTitle()}</a>
     <a class="link message-send-time-col" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">
@@ -109,7 +137,7 @@ $(function(){
         <div class="flex-align-center">날짜</div>
       </div>
       <div class="target">
-        <c:forEach var="messageDto" items="${lists}">
+        <%-- <c:forEach var="messageDto" items="${lists}">
           <hr class="mg-0"/>
           <div class="flex-row-grow message-row">
             <div class="flex-all-center message-check-column"><input class="message-check-one" type="checkbox"></div>
@@ -117,7 +145,7 @@ $(function(){
              <a class="link" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">${messageDto.getMessageTitle()}</a>
             <a class="link" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}"><fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/></a>
           </div>
-        </c:forEach>
+        </c:forEach> --%>
       </div>
     </div>
   </article>

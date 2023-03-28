@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +30,18 @@ public class MessageRestController {
 
   @Autowired
   private MessageService messageService;
+
+
+  // 오류 생기는 rest
+  @PostMapping("/test")
+  // public void test(@RequestParam("list") String[] list){
+  public void test(@RequestBody Map<String, Object> requestMap){
+    List<Integer> list = (List<Integer>) requestMap.get("list");
+   System.out.println(list);
+   // return "안녕하새x우";
+  }
+
+
 
   // 비동기 메세지 보내기(받는사람, 보내는사람, 제목, 내용을 입력받아 새로운 Message 생성)
   @PostMapping("/write")
@@ -78,8 +93,14 @@ public class MessageRestController {
     return Map.of("list", list, "sendTimeList", sendTimeList, "readTimeList", readTimeList);
   }
 
-  // @PutMapping("/rest/message")
-  // public List<Integer> update
+  @PutMapping("/receive")
+  public void update(List<Integer> list, HttpSession session){
+    // System.out.println(list);
+    String memberId = session.getAttribute("memberId") == null ? null :(String)session.getAttribute("memberId");
+    for(Integer messageNo : list){
+      messageDao.deleteReceiveMessage(messageNo, memberId);
+    }
+  }
 
   @GetMapping("/send")
   public List<MessageDto> selectSendMessage(String memberId) {

@@ -108,6 +108,9 @@ $(function(){
 			},
 		});
 	});
+
+});
+
 	
 	$(".summernote-reply").summernote({
 	  disableResizeEditor: true,
@@ -147,5 +150,4 @@ $(function(){
   	      });
   	    }
   	  }
-    });
 });

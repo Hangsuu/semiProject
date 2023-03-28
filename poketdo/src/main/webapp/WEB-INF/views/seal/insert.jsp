@@ -10,6 +10,9 @@
 		<label>인장 이름</label>
 		<input name="sealName">
 		<br>
+		<label>인장 가격</label>
+		<input name="sealPrice">
+		<br>
 		<label>인장 이미지(png, gif, jpg)</label>
 		<input type="file" name="attach" accept=".png, .gif, .jpg">
 		<br>

@@ -23,9 +23,9 @@ public class MemberDao {
 		String sql="insert into member("
 					+ "member_id, member_pw, member_nick, member_birth, "
 					+ "member_email, member_level, "
-					+ "member_point, member_join, member_deadline"
+					+ "member_point, member_join, member_deadline, member_seal_no"
 					+ ") values ("
-					+ "?,?,?,?,?,'일반회원', 0, sysdate, sysdate"
+					+ "?,?,?,?,?,'일반회원', 0, sysdate, sysdate, 0"
 					+ ")";
 		Object[] param = {
 				memberDto.getMemberId(), memberDto.getMemberPw(),
@@ -47,14 +47,15 @@ public class MemberDao {
             		.memberId(rs.getString("member_id"))
             		.memberPw(rs.getString("member_pw"))
                     .memberNick(rs.getString("member_nick"))
-                    .memberBirth(rs.getString("member_birth"))
+                    .memberBirth(rs.getDate("member_birth"))
                     .memberEmail(rs.getString("member_email"))
                     .memberLevel(rs.getString("member_level"))
                     .memberPoint(rs.getInt("member_point"))
-                    .memberjoin(rs.getDate("member_join"))
+                    .memberJoin(rs.getDate("member_join"))
                     .memberLogin(rs.getDate("member_login"))
                     .memberLoginCnt(rs.getInt("member_login_cnt"))
                     .memberDeadline(rs.getDate("member_deadline"))
+                    .memberSealNo(rs.getInt("member_seal_no"))
                     .build();
         }
 
@@ -67,6 +68,25 @@ public class MemberDao {
         return jdbcTemplate.query(sql, mapper);
     }
 
+//	카운트 구하는 기능
+	public int selectCount() {
+		String sql = "select count(*) from member";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	
+// 페이지 번호
+	public List<MemberDto> selectListPaging(int page, int size){
+		int end = page * size;
+		int begin = end - (size-1);
+		String sql = "select * from ("
+				+ "select TMP.*, rownum RN from ("
+				+ "select * from member order by member_id asc"
+				+ ")TMP"
+				+ ") where rn between ? and ?";
+		Object[] param = {page, size};
+		return jdbcTemplate.query(sql, mapper ,param);
+	}
+    
     // ReadByPK
     public MemberDto selectOne(String memberId) {
         String sql = "select * from member where member_id = ?";
@@ -97,6 +117,20 @@ public class MemberDao {
     	return jdbcTemplate.update(sql, param)>0;
     }
 
+	//selectSealNo 입력(나의 인장 이미지 선택)
+	public boolean insertMemberSealNo (int selectSealNo, String memberId) {
+		String sql ="update member set member_seal_no=? where member_id = ? ";
+		Object [] param = {selectSealNo, memberId};
+		return jdbcTemplate.update(sql,param)>0;
+	}
+	
+	//memberSealNo 조회
+	public String selectMemberSealNo (String memberId) {
+		String sql ="select member_seal_no from member where member_id = ?";
+		Object [] param = {memberId};
+		return jdbcTemplate.queryForObject(sql, String.class, param);
+	}
+
 
     //이메일로 아이디찾기
     public String findId(MemberDto memberDto) {
@@ -107,6 +141,7 @@ public class MemberDao {
     	};
     	return jdbcTemplate.queryForObject(sql, String.class, param);
     }
+
     
 
 }

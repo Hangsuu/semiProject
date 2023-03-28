@@ -18,7 +18,7 @@ public class MessageDto {
   private String messageTitle;
   private String messageContent;
   private Date messageSendTime;
-  private Date messageReceiveTime;
+  private Date messageReadTime;
   private int messageSenderStore;
   private int messageRecipientStore;
 }

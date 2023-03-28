@@ -3,6 +3,7 @@ package com.kh.poketdo.restcontroller;
 import com.kh.poketdo.dao.MessageDao;
 import com.kh.poketdo.dto.MessageDto;
 import com.kh.poketdo.service.MessageService;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,10 +29,19 @@ public class MessageRestController {
     messageService.insert(messageDto);
   }
 
-  // 비동기 메세지 확인(받는사람 입력받아 받은 모든 메세지 출력)
+  // 비동기 메세지 확인(받는사람 입력, 받은 모든 메세지 출력)
   @GetMapping("/receive")
   public List<MessageDto> selectReceiveMessage(String memberId) {
-    return messageDao.selectReceiveMessage(memberId);
+    List<MessageDto> list = messageDao.selectReceiveMessage(memberId);
+    for (int i = 0; i < list.size(); i++) {
+      java.util.Date utilDate = new java.util.Date(
+        list.get(i).getMessageSendTime().getTime()
+      );
+      SimpleDateFormat format = new SimpleDateFormat("YYYY.MM.dd. hh:mm");
+      String formattedDate = format.format(utilDate);
+      System.out.println(formattedDate);
+    }
+    return list;
   }
 
   @GetMapping("/send")

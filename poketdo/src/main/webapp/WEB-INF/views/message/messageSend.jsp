@@ -9,28 +9,15 @@
 </style>
 
 <!-- section -->
-<section test class="flex-row-justify-center">
+<section class="flex-row-justify-center">
 
   <!-- aside -->
-  <aside class="message-nav">
-    <div class="row flex-row-grow">
-        <a href="/message/write">쪽지쓰기</a>
-        <!-- <a href="/message/write">내게쓰기</a> -->
-    </div>
-    <a href="/message/receive" class="row">받은쪽지함</a>
-    <a href="/message/send" class="row">보낸쪽지함</a>
-  </aside>
+  <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
   
   <!-- article -->
   <article class="container-800 mg-0">
     <div class="row">
         <h1>보낸 쪽지함</h1>
-    </div>
-    <div class="row">
-      <a href="/message/write">쪽지쓰기</a>
-    </div>
-    <div class="row">
-      <a href="/message/send">보낸 편지함</a>
     </div>
     <div class="row">
       <div class="row flex-row-grow message-row">

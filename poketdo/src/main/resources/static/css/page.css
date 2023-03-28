@@ -295,6 +295,21 @@ textarea[name="replyContent"] {
   width: 200px;
 }
 
+.message-row:hover {
+  background-color: #F5F5F5;
+}
 .message-row > * {
-  width: 33.33%;
+  width: 31%;
+  padding: 0.5em;
+  
+}
+.message-check-column {
+  width: 7%;
+}
+.message-head {
+  background-color: #F5F5F5;
+  height: 2em;
+}
+.message-head > * {
+  box-shadow: 0 0 0 1px black;
 }

@@ -28,7 +28,7 @@ public class MessageDao {
         .messageTitle(rs.getString("message_title"))
         .messageContent(rs.getString("message_content"))
         .messageSendTime(rs.getDate("message_send_time"))
-        .messageReceiveTime(rs.getDate("message_receive_time"))
+        .messageReadTime(rs.getDate("message_read_time"))
         .messageSenderStore(rs.getInt("message_sender_store"))
         .messageRecipientStore(rs.getInt("message_recipient_store"))
         .build();
@@ -63,6 +63,14 @@ public class MessageDao {
     return jdbcTemplate.query(sql, mapper, param);
   }
 
+  // R 읽지 않은 메세지리스트 부르기
+  public List<MessageDto> selectNewReceiveMessage(String messageRecipient) {
+    String sql =
+      "select * from message where message_recipient = ? and message_recipient_store = 1 and message_read_time is null order by message_no desc";
+    Object[] param = { messageRecipient };
+    return jdbcTemplate.query(sql, mapper, param);
+  }
+
   // R 보낸 메세지리스트 부르기
   public List<MessageDto> selectSendMessage(String messageSender) {
     String sql =
@@ -89,10 +97,18 @@ public class MessageDao {
     return list.isEmpty() ? null : list.get(0);
   }
 
+  // R 받은 메세지 중 안 읽은 메세지 카운트
+  public int countNotRead(String memberId) {
+    String sql =
+      "select count(*) from message where message_recipient = ? and message_sender_store = 1 and message_read_time is null ";
+    Object[] param = { memberId };
+    return jdbcTemplate.queryForObject(sql, int.class, param);
+  }
+
   // U 받은 메세지 읽은시간 기록
   public boolean updateReceiveTime(int messageNo, String memberId) {
     String sql =
-      "update message set message_receive_time = sysdate where message_no = ? and message_recipient = ? and message_receive_time is null";
+      "update message set message_read_time = sysdate where message_no = ? and message_recipient = ? and message_read_time is null";
     Object[] param = { messageNo, memberId };
     return jdbcTemplate.update(sql, param) > 0;
   }

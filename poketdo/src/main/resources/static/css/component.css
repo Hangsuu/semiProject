@@ -58,6 +58,9 @@
 .back-gray {
   background-color: #f9f9f9;
 }
+.back-dark-gray {
+  background-color: #E5E5E5;
+}
 
 .h-2p5em {
   height: 2.5em;
@@ -83,4 +86,12 @@
 
 .ml-auto {
   margin-left: auto;
+}
+
+.deco-none {
+  text-decoration: none;
+}
+
+.black {
+  color: black;
 }

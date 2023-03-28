@@ -1,81 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>포켓몬스터 등록</title>
-</head>
-<body>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 	<h1>등록페이지 입니다~</h1>
-	<form action="insertProcess" method="post">
+	<form action="insertProcess" method="post" enctype="multipart/form-data">
 		<label>포켓몬스터 번호</label>
-		<input name="monsterNo">
+		<input name="pocketNo">
 		
 		<br>
 		
 		<label>포켓몬스터 이름</label>
-		<input name="monsterName">
+		<input name="pocketName">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (HP)</label>
-		<input name="monsterBaseHp">
+		<input name="pocketBaseHp">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (공격)</label>
-		<input name="monsterBaseAtk">
+		<input name="pocketBaseAtk">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (방어)</label>
-		<input name="monsterBaseDef">
+		<input name="pocketBaseDef">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (스피드)</label>
-		<input name="monsterBaseSpd">
+		<input name="pocketBaseSpd">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (특수공격)</label>
-		<input name="monsterBaseSatk">
+		<input name="pocketBaseSatk">
 		
 		<br>
 		
 		<label>포켓몬스터 기본 종족치 (특수방어)</label>
-		<input name="monsterBaseSdef">
+		<input name="pocketBaseSdef">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (HP)</label>
-		<input name="monsterEffortHp">
+		<input name="pocketEffortHp">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (공격)</label>
-		<input name="monsterEffortAtk">
+		<input name="pocketEffortAtk">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (방어)</label>
-		<input name="monsterEffortDef">
+		<input name="pocketEffortDef">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (스피드)</label>
-		<input name="monsterEffortSpd">
+		<input name="pocketEffortSpd">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (특수공격)</label>
-		<input name="monsterEffortSatk">
+		<input name="pocketEffortSatk">
 		
 		<br>
 		
 		<label>포켓몬스터 노력치 (특수방어)</label>
-		<input name="monsterEffortSdef">
+		<input name="pocketEffortSdef">
 		
 		<br>
 		
@@ -129,8 +124,10 @@
 		
 		<br>
 		
+		<label>포켓몬스터 이미지(png, gif, jpg)</label>
+		<input type="file" name="attach" accept=".png, .gif, .jpg">
+		<br>
 		<button>입력 완료</button>
 	</form>
 	
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

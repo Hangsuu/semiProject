@@ -1,0 +1,1 @@
+insert into pocketmon_trade values (pocketmon_trade_seq.nextval, '테스트이름', 'testuser1', sysdate, '내용1', )

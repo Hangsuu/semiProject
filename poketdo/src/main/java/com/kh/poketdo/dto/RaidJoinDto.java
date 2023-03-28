@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class RaidJoinDto {
 	private int raidJoinNo;
 	private int raidJoinOrigin;
-	private String raidJoinParticipant;
+	private String raidJoinMember;
 	private String raidJoinContent;
 	private int raidJoinConfirm;
 }

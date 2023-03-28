@@ -13,28 +13,27 @@ import com.kh.poketdo.dto.AttachmentDto;
 
 @Repository
 public class AttachmentDao {
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	private RowMapper<AttachmentDto> mapper = new RowMapper<AttachmentDto>() {
-		
 		@Override
-		public AttachmentDto mapRow(ResultSet rs, int rowNum) throws SQLException{
-			
+		public AttachmentDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return AttachmentDto.builder()
 					.attachmentNo(rs.getInt("attachment_no"))
 					.attachmentName(rs.getString("attachment_name"))
 					.attachmentType(rs.getString("attachment_type"))
 					.attachmentSize(rs.getLong("attachment_size"))
-				.build();
+					.build();
 		}
 	};
-		
+
 	public int sequence() {
 		String sql = "select attachment_seq.nextval from dual";
-		return jdbcTemplate.queryForObject(sql, int.class);	
+		return jdbcTemplate.queryForObject(sql, int.class);
 	}
+
 	public void insert(AttachmentDto attachmentDto) {
 		String sql = "insert into attachment("
 				+ "attachment_no, attachment_name, "
@@ -48,15 +47,14 @@ public class AttachmentDao {
 		};
 		jdbcTemplate.update(sql, param);
 	}
-	
-	//상세 조회 구현
+
+	// 상세 조회 구현
 	public AttachmentDto selectOne(int attachmentNo) {
 		String sql = "select * from attachment where attachment_no =?";
-		Object[] param = {attachmentNo};
+		Object[] param = { attachmentNo };
 		List<AttachmentDto> list = jdbcTemplate.query(sql, mapper, param);
-		
+
 		return list.isEmpty() ? null : list.get(0);
 	}
-	
-	
 }
+

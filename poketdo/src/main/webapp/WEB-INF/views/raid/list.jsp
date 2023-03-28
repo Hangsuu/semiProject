@@ -13,19 +13,30 @@
 			</select>
 			<input name="keyword" class="form-input" placeholder="검색어">
 			<input name="page" type="hidden" value="${param.page}">
+			<input name="item" type="hidden" value="${param.item}">
+			<input name="order" type="hidden" value="${param.order}">
+			<input name="special" type="hidden" value="${param.special}">
 			<button class="form-btn neutral">검색</button>
 		</form>
 	</div>
 <!-- 테이블 시작 -->
 	<div class="row">
-		<table class="table table-slit">
+		<table class="table table-slit center">
 			<thead>
 				<tr>
-					<th>글번호</th>
-					<th>제목</th>
-					<th>시작시간</th>
-					<th>참가자</th>
-					<th>타입</th>
+					<th><a class="link" href="list?page=1&${vo.parameter}">글번호</a></th>
+					<th class="w-40">제목</th>
+					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_start_time&order=asc&special=raid_start_time>sysdate and raid_count<4">시작시간</a></th>
+					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_count&order=asc, allboard_no desc&special=raid_start_time>sysdate and raid_count<4">참가자</a></th>
+					<c:choose>
+						<c:when test="${param.special.startsWith('raid_type=1')}">
+							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=0 and raid_start_time>sysdate and raid_count<4">타입</a></th>
+						</c:when>
+						<c:otherwise>
+							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=1 and raid_start_time>sysdate and raid_count<4">타입</a></th>
+						</c:otherwise>
+					</c:choose>
+					
 					<th>좋아요</th>
 					<th>조회수</th>
 				</tr>
@@ -34,11 +45,18 @@
 				<c:forEach var="raidDto" items="${list}">
 					<tr>
 						<td>${raidDto.raidNo}</td>
-						<td><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}" class="link">
+						<td><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
-						<td>${raidDto.raidStartTime}</td>
-						<td>${raidDto.raidParticipant}/4</td>
+						<td>${raidDto.time}</td>
+						<c:choose>
+							<c:when test="${raidDto.raidCount>=4}">
+								<td>모집종료</td>
+							</c:when>
+							<c:otherwise>
+								<td>${raidDto.raidCount}/4</td>
+							</c:otherwise>
+						</c:choose>
 						<c:choose>
 							<c:when test="${raidDto.raidType==0}">
 								<td>모집</td>
@@ -63,13 +81,13 @@
 				<a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
 			</c:when>
 			<c:otherwise>
-				<a href="list?page=1"><i class="fa-solid fa-angles-left"></i></a>
+				<a href="list?page=1&${vo.parameter}&${vo.addParameter}"><i class="fa-solid fa-angles-left"></i></a>
 			</c:otherwise>
 		</c:choose>
 	<!-- 이전 페이지로 이동 -->
 		<c:choose>
 			<c:when test="${vo.prev}">
-				<a href="list?page=${vo.prevPage}"><i class="fa-solid fa-angle-left"></i></a>
+				<a href="list?page=${vo.prevPage}&${vo.parameter}&${vo.addParameter}"><i class="fa-solid fa-angle-left"></i></a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled"><i class="fa-solid fa-angle-left disabled"></i></a>
@@ -79,13 +97,13 @@
 		<c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}" step="1">
 			<c:choose>
 				<c:when test="${vo.page==i}"><a class="on">${i}</a></c:when>
-				<c:otherwise><a href="list?${vo.parameter}&page=${i}" class="">${i}</a></c:otherwise>
+				<c:otherwise><a href="list?page=${i}&${vo.parameter}&${vo.addParameter}" class="">${i}</a></c:otherwise>
 			</c:choose>
 		</c:forEach>
 	<!-- 다음 페이지 -->
 		<c:choose>
 			<c:when test="${vo.next}">
-				<a href="list?page=${vo.nextPage}" class=""><i class="fa-solid fa-angle-right"></i></a>
+				<a href="list?page=${vo.nextPage}&${vo.parameter}&${vo.addParameter}" class=""><i class="fa-solid fa-angle-right"></i></a>
 			</c:when>
 			<c:otherwise><a class="disabled">
 				<i class="fa-solid fa-angle-right"></i></a>
@@ -94,7 +112,7 @@
 	<!-- 마지막페이지로 -->
 		<c:choose>
 			<c:when test="${!vo.last}">
-				<a href="list?page=${vo.totalPage}" class=""><i class="fa-solid fa-angles-right"></i></a>
+				<a href="list?page=${vo.totalPage}&${vo.parameter}&${vo.addParameter}" class=""><i class="fa-solid fa-angles-right"></i></a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled"><i class="fa-solid fa-angles-right"></i></a>

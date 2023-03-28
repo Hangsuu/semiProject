@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 $(function(){
 	var params = new URLSearchParams(location.search);
 	var allboardNo = params.get("allboardNo")
@@ -14,8 +12,9 @@ $(function(){
 				for(var i=0; i<response.length; i++){
 					var template = $("#reply-template").html();
 					var html = $.parseHTML(template);
+					var text = response[i].replyContent;
 					$(html).find(".reply-writer").text(response[i].replyWriter);
-					$(html).find(".reply-content").text(response[i].replyContent);
+					$(html).find(".reply-content").html(text);
 					$(html).find(".reply-time").text(response[i].replyTime);
 					
 					if(boardWriter==response[i].replyWriter){
@@ -89,7 +88,7 @@ $(function(){
 	};
 	
 	$(".reply-submit").click(function(){
-		var content = $(".reply-textarea").val();
+		var content = $(".summernote-reply").val();
 		if(content.trim().length==0) return;
 		$.ajax({
 			url:"/rest/reply/",
@@ -102,12 +101,53 @@ $(function(){
 			},
 			success:function(response){
 				loadList();
-				$(".reply-textarea").val("");
+				$(".summernote-reply").val("");
 			},
 			error:function(){
 				alert("통신오류")
 			},
 		});
 	});
+
 });
->>>>>>> branch 'main' of local repository
+
+	
+	$(".summernote-reply").summernote({
+	  disableResizeEditor: true,
+	  toolbarPosition:'bottom',
+      placeholder: "댓글 작성",
+      //탭키를 누르면 띄어쓰기 몇 번 할지(통상적으로 4 씀)
+      tabsize: 4,
+      //최초 표시될 높이(px)
+      height: 50,
+      //메뉴 설정
+      toolbar: [
+        ["insert", ["link", "picture"]],
+      ],
+	  callbacks: {
+  	    onImageUpload: function(files) {
+  	      //[1]FormData [2]processData [3]contentType
+  	      if(files.length!=1) return;
+  	      var fd = new FormData();
+  	      fd.append("attach", files[0]);//파일이 한개밖에 없어서 [0]
+  	      console.log(files);
+  	      console.log(files[0]);
+  	      $.ajax({
+  	    	 url:"/rest/attachment/upload",
+  	    	 method:"post",
+  	    	 data:fd,
+  	    	 processData:false,
+  	    	 contentType:false,
+  	    	 success:function(response){
+  	    		//서버로 전송할 이미지 번호 정보 생성
+  	    		var input = $("<input>").attr("type","hidden").attr("name","attachmentNo").val(response.attachmentNo);
+  	    		$("form").prepend(input);
+  	    		//에디터에 추가할 이미지 생성
+	     		var imgNode=$("<img>").attr("src", "/rest/attachment/download/"+response.attachmentNo);
+	     		$(".summernote").summernote('insertNode', imgNode.get(0));
+  	    	 },
+  	    	 error:function(){},
+  	      });
+  	    }
+  	  }
+});

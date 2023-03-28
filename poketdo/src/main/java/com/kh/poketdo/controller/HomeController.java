@@ -36,4 +36,10 @@ public class HomeController {
 	public String calculator() {
 		return "/WEB-INF/views/simulator/calc.jsp";
 	}
+
+	@GetMapping("/test")
+  public String test() {
+    return "/WEB-INF/views/test.jsp";
+  }
+
 }

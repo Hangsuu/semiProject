@@ -7,13 +7,23 @@
   <!-- aside -->
   <aside></aside>
   
-	
+  
+  
   
   <!-- article -->
   <article>
      <div class= "container-500 center">
-		<h1>다시 만나요~!</h1>
- 	</div>	
+    	<h1>아이디 찾기 결과</h1>
+
+		<h2>아이디: ${requestScope.findId}</h2>
+		<button>로그인하기</button>
+    </div>
+    
+    
+      <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
+ 		
+
+ 		
   </article>
 
 

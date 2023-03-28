@@ -202,5 +202,23 @@ public class MemberController {
     	return "redirect:exitFinish";
     }
     
+    @GetMapping("/find")
+    public String find() {
+    	return "/WEB-INF/views/member/find.jsp";
+    }
+    
+    @PostMapping("/find")
+    public String find(@ModelAttribute MemberDto memberDto,
+    		Model model, RedirectAttributes attr) {
+    	try {
+    		String memberId = memberDao.findId(memberDto);
+    		model.addAttribute("findId", memberId);
+    		return "/WEB-INF/views/member/findResult.jsp";
+    	}
+    	catch(Exception e) {
+    		attr.addAttribute("mode", "error");
+    		return "redirect:find";
+    	}
+    }
     
 }

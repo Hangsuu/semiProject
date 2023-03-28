@@ -723,3 +723,16 @@ input [name="memberPw"] {
   left: auto;
   right: 100%;
 }
+
+
+.valid-messga{
+	color: forestgreen;
+	display: none;
+}
+
+.invalid-message,
+.invalid-message2,
+.invalid-message3{
+	color:red;
+	display: none;
+}

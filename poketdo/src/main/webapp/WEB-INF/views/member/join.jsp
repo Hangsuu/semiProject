@@ -81,8 +81,8 @@
 		
 		 <script>
 		  function updatePreview() {
-		    var inputText = document.getElementById("input-text").value;
-		    var preview = document.getElementById("image1");
+		    var inputText = document.getElementById("input-code").value;
+		    var preview = document.getElementById("input-preview");
 		    preview.innerText = inputText;
 		  }
 		</script>
@@ -90,6 +90,7 @@
 <style>
     .image-container {
       position: relative;
+      display: inline-block;
     }
   
     .image-1 {
@@ -153,10 +154,124 @@
 	  z-index: 2;
 	}
 
-
+	.code-overlay {
+		position: absolute;
+		top: 33px;
+		left: 270px;
+		font-size: 25px;
+		color: white;
+		text-shadow: 2px 2px #000000;
+		pointer-events: none;
+		
+	}
+	
+	.nick-overlay {
+		position: absolute;
+		top: 33px;
+		left: 35px;
+		font-size: 25px;
+		color: white;
+		text-shadow: 2px 2px #000000;
+		pointer-events: none;
+		
+	}
+	
+	.com1-overlay {
+		position: absolute;
+		top: 233px;
+		left: 20px;
+		font-size: 25px;
+		color: white;
+		text-shadow: 2px 2px #000000;
+		pointer-events: none;
+		
+	}
+	
+	.com2-overlay {
+		position: absolute;
+		top: 260px;
+		left: 20px;
+		font-size: 25px;
+		color: white;
+		text-shadow: 2px 2px #000000;
+		pointer-events: none;
+		
+	}
+	
+	
+	#input-number {
+		display: block;
+		margin-top: 20px;
+		padding: 10px;
+		font-size: 18px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+				
+			}
+			
+			
+	#input-nick {
+		display: block;
+		margin-top: 20px;
+		padding: 10px;
+		font-size: 18px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+				
+			}		
+			
+	#input-com1 {
+	display: block;
+	margin-top: 20px;
+	padding: 10px;
+	font-size: 18px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+			
+		}	
+		
+		
+	#input-com2 {
+	display: block;
+	margin-top: 20px;
+	padding: 10px;
+	font-size: 18px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+			
+		}					
+			
+			
+			
   </style>
     
-   
+   <script>
+		function updateOverlay1(value) {
+			document.getElementById("overlay-number").innerHTML = value;
+		
+		}
+	</script>
+	
+	 <script>
+		function updateOverlay2(value) {
+			
+			document.getElementById("overlay-nick").innerHTML = value;
+		}
+	</script>
+	
+	 <script>
+		function updateOverlay3(value) {
+			
+			document.getElementById("overlay-com1").innerHTML = value;
+		}
+	</script>
+	
+	 <script>
+		function updateOverlay4(value) {
+			
+			document.getElementById("overlay-com2").innerHTML = value;
+		}
+	</script>
 
   <!-- aside -->
   <aside></aside>
@@ -210,8 +325,15 @@
         <h2>트레이너 카드 미리보기</h2>
     
         <div class="image-container" id="card-container">
+            
+           <div class="code-overlay" id="overlay-number"></div>
+           <div class="nick-overlay" id="overlay-nick"></div>
+           <div class="com1-overlay" id="overlay-com1"></div>
+           <div class="com2-overlay" id="overlay-com2"></div>
+            
             <img id="image1" src="https://via.placeholder.com/500x300" >
             <img id="image2" src="/static/image/B.png"  style= "display: none" >
+            
             
              <input type="file" accept="image/*" onchange="previewImg(this);" >
                 <img id="preview" width="150px" height="150px" class="image-container image-2">
@@ -223,20 +345,16 @@
              <img id="preview" name="cardSlot5" width="100px" height="60px" class="image-container slot-5">
              <img id="preview" name="cardSlot6" width="100px" height="60px" class="image-container slot-6">
          
-         	<span id="input-preview"></span>
+      
          
          
          	 <div>    
                 <label>트레이너 이름</label>
-                <input type="text" name="cardNick" autocomplete="off" 
-                	class="form-input w-100"  >
+                <input type="text" name="cardNick" id="input-nick" autocomplete="off" 
+                	class="form-input w-100"  oninput="updateOverlay2(this.value)">
             </div>
                 
-            <div>
-                <label>국가</label> 
-                <input type="text" name="cardNation" autocomplete="off"
-                class="form-input w-100">
-            </div>
+        
             <div>
                 <label>게임월드 선택</label>
                 <form>
@@ -252,15 +370,11 @@
             <div>
                 <label>친구코드</label>
                 <br>
-                <input class="form-input w-100" placeholder="0000-0000-0000" type="tel" id="input-code" maxlength="14" onkeyup="updatePreview()" />
+                <input class="form-input w-100" placeholder="0000-0000-0000" type="tel" id="input-number" 
+                	maxlength="14" oninput="updateOverlay1(this.value)" />
                
             </div>
             
-         
-        </div>
-
-
-           
             <div>
           
                 <label>포켓몬을 선택해주세요(최대6마리)</label>
@@ -270,21 +384,20 @@
                 
 			</div>
 
-	
-                
-             
-   		
-            
-            <div>
+			<div>
                 <label>트레이너 한마디</label>
                 <input type="text" name="card-firstLength" placeholder="첫번째줄" maxlength="30"
-                	class="form-input w-100" autocomplete="off" >
+                	class="form-input w-100" autocomplete="off"  id="input-com1" oninput="updateOverlay3(this.value)"> 
                 <input type="text" name="card-secondLength" placeholder="두번째줄" maxlength="30"
-                	class="form-input w-100" autocomplete="off" >
+                	class="form-input w-100" autocomplete="off"  id="input-com2" oninput="updateOverlay4(this.value)">
             </div>
    
+                
+         
+        </div>
 
 
+           
 	
     
     </div>

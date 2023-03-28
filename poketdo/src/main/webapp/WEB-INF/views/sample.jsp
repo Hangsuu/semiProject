@@ -3,12 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
-  .sample-aside {
-    font-size: 40px;
-  }
-  .sample-article {
-    font-size: 100px;
-  }
+
 </style>
 
 <!-- section -->

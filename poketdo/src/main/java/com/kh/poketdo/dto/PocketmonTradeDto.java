@@ -18,7 +18,8 @@ public class PocketmonTradeDto {
   private String pocketmonTradeWriter;
   private Date pocketmonTradeWrittenTime;
   private String pocketmonTradeContent;
-  private java.util.Date pocketmonTradeTradeTime;
+  private String pocketmonTradeHead;
+  private Date pocketmonTradeTradeTime;
   private int pocketmonTradeComplete;
   private int pocketmonTradeRead;
   private int pocketmonTradeReply;

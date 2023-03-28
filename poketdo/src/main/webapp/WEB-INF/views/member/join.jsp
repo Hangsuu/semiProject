@@ -8,7 +8,7 @@
 
 
   <script type="text/javascript">
-
+  
         function myFunction() {
        
             var checkbox = document.getElementById("checkcheck");
@@ -78,6 +78,14 @@
 		    });
 		  });
 		</script>
+		
+		 <script>
+		  function updatePreview() {
+		    var inputText = document.getElementById("input-text").value;
+		    var preview = document.getElementById("image1");
+		    preview.innerText = inputText;
+		  }
+		</script>
 
 <style>
     .image-container {
@@ -91,56 +99,64 @@
   
     .image-2 {
       position: absolute;
-      top: 360px;
+      top: 80px;
       left: 340px;
       z-index: 2;
     }
 
     .slot-1 {
       position: absolute;
-      top: 370px;
-      left: 20px;
+      top: 87px;
+      left: 10px;
       z-index: 2;
     }
 
     .slot-2 {
       position: absolute;
-      top: 370px;
-      left: 125px;
+      top: 87px;
+      left: 115px;
       z-index: 2;
     }
 
     .slot-3 {
       position: absolute;
-      top: 370px;
-      left: 230px;
+      top: 87px;
+      left: 220px;
       z-index: 2;
     }
 
     .slot-4 {
       position: absolute;
-      top: 445px;
-      left: 20px;
+      top: 160px;
+      left: 10px;
       z-index: 2;
     }
 
     .slot-5 {
       position: absolute;
-      top: 445px;
-      left: 125px;
+      top: 160px;
+      left: 115px;
       z-index: 2;
     }
 
     .slot-6 {
       position: absolute;
-      top: 445px;
-      left: 230px;
+      top: 160px;
+      left: 220px;
       z-index: 2;
     }
+
+	.input-code{
+	  position: absolute;
+	  top: 40px;
+	  left: 40px;
+	  z-index: 2;
+	}
 
 
   </style>
     
+   
 
   <!-- aside -->
   <aside></aside>
@@ -193,30 +209,33 @@
     <div id = "target" style= "display:none" class="row left">
         <h2>트레이너 카드 미리보기</h2>
     
-        <div>
-            <img id="image1" src="/static/image/A.png" class="image-container image-1">
-            <img id="image2" src="/static/image/B.png" class="image-container image-1" style= "display: none;" >
-          </div>
-
-             <div class="row">
-                
-                <input type="file" accept="image/*" onchange="previewImg(this);" >
+        <div class="image-container" id="card-container">
+            <img id="image1" src="https://via.placeholder.com/500x300" >
+            <img id="image2" src="/static/image/B.png"  style= "display: none" >
+            
+             <input type="file" accept="image/*" onchange="previewImg(this);" >
                 <img id="preview" width="150px" height="150px" class="image-container image-2">
-                
-
-            </div>
-
-
-            <div>    
+         
+        	 <img id="preview" name="cardSlot1" width="100px" height="60px" class="image-container slot-1">
+             <img id="preview" name="cardSlot2" width="100px" height="60px" class="image-container slot-2">
+             <img id="preview" name="cardSlot3" width="100px" height="60px" class="image-container slot-3">
+             <img id="preview" name="cardSlot4" width="100px" height="60px" class="image-container slot-4">
+             <img id="preview" name="cardSlot5" width="100px" height="60px" class="image-container slot-5">
+             <img id="preview" name="cardSlot6" width="100px" height="60px" class="image-container slot-6">
+         
+         	<span id="input-preview"></span>
+         
+         
+         	 <div>    
                 <label>트레이너 이름</label>
-                <input type="text" name="memberNick" autocomplete="off" 
+                <input type="text" name="cardNick" autocomplete="off" 
                 	class="form-input w-100"  >
             </div>
                 
             <div>
                 <label>국가</label> 
-                <input type="text" name="memberPw" autocomplete="off"
-                class="form-input w-100" >
+                <input type="text" name="cardNation" autocomplete="off"
+                class="form-input w-100">
             </div>
             <div>
                 <label>게임월드 선택</label>
@@ -233,33 +252,25 @@
             <div>
                 <label>친구코드</label>
                 <br>
-                <input class="form-input w-20" placeholder="0000" type="tel" name="Fcode" maxlength="4" />
-                    <span>
-                    <span>-</span>
-                    </span>
-                <input class="form-input w-20" placeholder="0000" type="tel" name="Fcode" maxlength="4" />
-                    <span>
-                    <span>-</span>
-                    </span>
-                <input class="form-input w-20" placeholder="0000" type="tel" name="Fcode" maxlength="4" />
+                <input class="form-input w-100" placeholder="0000-0000-0000" type="tel" id="input-code" maxlength="14" onkeyup="updatePreview()" />
+               
             </div>
             
+         
+        </div>
+
+
+           
             <div>
           
                 <label>포켓몬을 선택해주세요(최대6마리)</label>
                 <input type="number" name="cardNo" placeholder="포켓몬 이름">
   
                 <button class="card111" type="submit">검색</button>
-		
+                
 			</div>
 
 	
-                <img id="preview" name="cardSlot1" width="100px" height="60px" class="image-container slot-1">
-                <img id="preview" name="cardSlot2" width="100px" height="60px" class="image-container slot-2">
-                <img id="preview" name="cardSlot3" width="100px" height="60px" class="image-container slot-3">
-                <img id="preview" name="cardSlot4" width="100px" height="60px" class="image-container slot-4">
-                <img id="preview" name="cardSlot5" width="100px" height="60px" class="image-container slot-5">
-                <img id="preview" name="cardSlot6" width="100px" height="60px" class="image-container slot-6">
                 
              
    		
@@ -285,9 +296,6 @@
     </div>
  
     
-    
-    
-    </div>
     
     
     </form>

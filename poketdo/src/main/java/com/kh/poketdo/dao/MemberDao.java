@@ -98,7 +98,15 @@ public class MemberDao {
     }
 
 
-
+    //이메일로 아이디찾기
+    public String findId(MemberDto memberDto) {
+    	String sql = "select member_id from member "
+    			+ "where member_email=?";
+    	Object[] param = {
+    			memberDto.getMemberEmail()
+    	};
+    	return jdbcTemplate.queryForObject(sql, String.class, param);
+    }
     
 
 }

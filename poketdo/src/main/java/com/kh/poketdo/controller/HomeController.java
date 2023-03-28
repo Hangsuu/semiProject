@@ -13,7 +13,7 @@ import com.kh.poketdo.vo.SimulatorVO;
 public class HomeController {
 
   @GetMapping("/")
-  public String test() {
+  public String home() {
     return "/WEB-INF/views/home.jsp";
   }
 	@GetMapping("/sample")
@@ -36,4 +36,10 @@ public class HomeController {
 	public String calculator() {
 		return "/WEB-INF/views/simulator/calc.jsp";
 	}
+
+	@GetMapping("/test")
+  public String test() {
+    return "/WEB-INF/views/test.jsp";
+  }
+
 }

@@ -22,11 +22,9 @@ import com.kh.poketdo.dao.AuctionBidDao;
 import com.kh.poketdo.dao.AuctionDao;
 import com.kh.poketdo.dto.AuctionBidDto;
 import com.kh.poketdo.dto.AuctionDto;
-<<<<<<< HEAD
-import com.kh.poketdo.service.SealService;
-=======
+
 import com.kh.poketdo.service.AuctionService;
->>>>>>> refs/remotes/origin/main
+
 import com.kh.poketdo.vo.PaginationVO;
 
 @Controller

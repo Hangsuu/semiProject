@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
-	<h1>인장 구매 목록</h1>
+<h1>인장 목록</h1>
 	<table>
 		<thead>
 			<tr>
@@ -12,15 +11,14 @@
 				<th>이름</th>
 				<th>가격</th>
 				<th>구매</th>
-				<th>관리</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="sealWithImageDto" items="${list}" >
+			<c:forEach var="sealWithImageDto" items="${list}">
 				<tr>
 					<td>
 						<img width="96" height="96"
-							src="${sealWithImageDto.imageURL}">
+							src="/attachment/${sealWithImageDto.imageURL}">
 					</td>
 					<td>
 					${sealWithImageDto.sealNo}
@@ -34,20 +32,16 @@
 						${sealWithImageDto.sealPrice}
 					</td>
 					<td>
-						<form action="purchase" method="post">
-							<input type="hidden" name="sealNo" value="${sealWithImageDto.sealNo}"> 
-							<input type="hidden" name="point" value="${sealWithImageDto.sealPrice}"> 
-							<button>구매</button>
-						</form>
-					</td>
-					<td>
-						<a href="edit?sealNo=${sealWithImageDto.sealNo}">수정</a>
-						<a href="delete?sealNo=${sealWithImageDto.sealNo}">삭제</a>
+						<a href="list?sealNo=${sealWithImageDto.sealNo}&
+						sealPrice=${sealWithImageDto.sealPrice}&
+						memberId=${sessionScope.memberId}
+						">구매</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-	<a href="insert">인장 신규 등록</a>
+	<a href="list">인장 목록</a>
+
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

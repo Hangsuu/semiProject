@@ -17,9 +17,9 @@ public class PointDao {
 		return jdbcTemplate.update(sql,param)>0;
 	}
 	
-	public boolean subPoint(String memberId, int point) {
+	public boolean subPoint( int point, String memberId) {
 		String sql="update member set member_point = member_point - ? where member_id = ?";
-		Object [] param = {memberId, point};
+		Object [] param = {point, memberId};
 		return jdbcTemplate.update(sql,param)>0;
 	}
 	

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.configuration.FileUploadProperties;
 import com.kh.poketdo.dao.AttachmentDao;
+import com.kh.poketdo.dao.MemberDao;
+import com.kh.poketdo.dao.MemberSealWithImageDao;
 import com.kh.poketdo.dao.SealDao;
 import com.kh.poketdo.dao.SealImageDao;
+import com.kh.poketdo.dao.SealWithImageDao;
 import com.kh.poketdo.dto.AttachmentDto;
 import com.kh.poketdo.dto.SealDto;
 import com.kh.poketdo.dto.SealImageDto;
@@ -30,6 +34,12 @@ public class SealService {
 	private SealDao sealDao;
 	@Autowired
 	private SealImageDao sealImageDao;
+	@Autowired
+	private MemberDao memberDao;
+	@Autowired
+	private MemberSealWithImageDao memberSealWithImageDao;
+	@Autowired
+	private SealWithImageDao sealWithImageDao;
 	
 	
 	private File dir;
@@ -98,6 +108,26 @@ public class SealService {
 											.build());
 		}
 		attr.addAttribute("sealNo", sealDto.getSealNo());
+	}
+	
+	//내 인장 이미지 주소 검색
+	public String mySeal(HttpSession session) {
+		String memberId = (String) session.getAttribute("memberId");
+		String memberSealNo = memberDao.selectMemberSealNo(memberId);
+
+		if(memberSealNo.equals("0")) {
+			String basicSealNo = sealWithImageDao.selectBasicAttachNo();
+			return "/attachment/download?attachmentNo="+ basicSealNo;
+		}else {
+			String selectAttachNo = memberSealWithImageDao.selectAttachNo(memberId, memberSealNo);
+    		return "/attachment/download?attachmentNo="+ selectAttachNo;
+		}
+	}
+	
+	//기본 인장 이미지 정보 검색
+	public String basicSeal(HttpSession session) {
+		String basicSealNo = sealWithImageDao.selectBasicAttachNo();
+		return "/attachment/download?attachmentNo="+ basicSealNo;
 	}
 	
 }

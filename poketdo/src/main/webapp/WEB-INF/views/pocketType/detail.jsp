@@ -16,7 +16,7 @@
 		<tr>
 					<td style="background-color:gray;">
 					<img width="200" height="200"
-						src="/attachment/${pocketmonTypeWithImageDto.imageURL}">
+						src="${pocketmonTypeWithImageDto.imageURL}">
 					</td>
 					<td>
 					${pocketmonTypeWithImageDto.pocketTypeNo}

@@ -19,7 +19,7 @@
 				<tr>
 					<td>
 					<img width="200" height="200"
-						src="/attachment/${pocketmonWithImageDto.imageURL}">
+						src="${pocketmonWithImageDto.imageURL}">
 					</td>
 					<td>
 					${pocketmonWithImageDto.pocketNo}

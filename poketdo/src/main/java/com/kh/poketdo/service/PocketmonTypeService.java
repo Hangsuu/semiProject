@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,7 +41,7 @@ public class PocketmonTypeService {
 	}
 	
 	public void pocketmonTypeInsert(
-			PocketmonTypeDto pocketmonTypeDto,
+		 	@ModelAttribute PocketmonTypeDto pocketmonTypeDto,
 			MultipartFile attach
 			) throws IllegalStateException, IOException {
 		//1. 포켓몬 정보 등록
@@ -68,7 +69,7 @@ public class PocketmonTypeService {
 	}
 	
 	public void pocketmonEdit(
-			PocketmonTypeDto pocketmonTypeDto,
+			@ModelAttribute PocketmonTypeDto pocketmonTypeDto,
 			MultipartFile attach,
 			@RequestParam int pocketTypeNo,
 			RedirectAttributes attr

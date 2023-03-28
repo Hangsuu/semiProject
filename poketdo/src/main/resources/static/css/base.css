@@ -23,7 +23,7 @@ section {
 article {
   min-height: 1200px;
   padding: 1em;
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 footer {
   padding: 1em;
@@ -33,7 +33,7 @@ footer {
 .favicon {
   height: 100%;
 }
-.favicon > *{
+.favicon > * {
   display: flex;
   height: 100%;
   align-items: end;

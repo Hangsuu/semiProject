@@ -73,7 +73,12 @@
   width: 1200px;
   margin: 0 auto;
 }
-
+.container-800.mg-0 {
+  margin: 0;
+}
+.mg-0-auto {
+  margin: 0 auto;
+}
 /* row와 row 사이에는 일정한 간격을 설정 */
 .row {
   margin: 10px 0px;
@@ -727,7 +732,6 @@ input [name="memberPw"] {
   right: 100%;
 }
 
-
 .valid-messga{
 	color: forestgreen;
 	display: none;
@@ -738,4 +742,8 @@ input [name="memberPw"] {
 .invalid-message3{
 	color:red;
 	display: none;
+}
+
+main section article h1 {
+  font-size: 2em;
 }

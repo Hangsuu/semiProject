@@ -39,7 +39,7 @@ commit;
 create table allboard (
   allboard_no number primary key,
   allboard_board_type varchar2(30),
-  allboard_board_type_no number
+  allboard_board_no number
 );
 create sequence allboard_seq;
 
@@ -71,7 +71,7 @@ create table reply_attach(
 
 
 -- 좋아요 테이블
-create table nice(
+create table board_like(
   allboard_no references allboard(allboard_no),
   member_id references member(member_id)
 );

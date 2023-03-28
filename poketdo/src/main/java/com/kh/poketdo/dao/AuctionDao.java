@@ -38,6 +38,7 @@ public class AuctionDao {
 					.auctionDislike(rs.getInt("auction_dislike"))
 					.auctionReply(rs.getInt("auction_reply"))
 					.auctionRead(rs.getInt("auction_read"))
+					.auctionMainImg(rs.getInt("auction_main_img"))
 					.build();
 		}
 	};
@@ -45,52 +46,92 @@ public class AuctionDao {
 		String sql = "select allboard_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
+	public int auctionSequence() {
+		String sql = "select auction_seq.nextval from dual";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
 	//등록(C)
 	public void insert(AuctionDto dto) {
 		String sql = "insert into auction(allboard_no, auction_no, auction_writer, auction_title, auction_content, "
 				+ "auction_finish_time, auction_min_price, auction_max_price)"
-				+ " values(?,auction_seq.nextval,?,?,?,?,?,?)";
-		Object[] param = {dto.getAllboardNo(), dto.getAuctionWriter(), dto.getAuctionTitle(), dto.getAuctionContent(), 
+				+ " values(?,?,?,?,?,?,?,?)";
+		int auctionSeq = auctionSequence();
+		dto.setAuctionNo(auctionSeq);
+		Object[] param = {dto.getAllboardNo(), dto.getAuctionNo(), dto.getAuctionWriter(), dto.getAuctionTitle(), dto.getAuctionContent(), 
 				dto.getAuctionFinishTime(),	dto.getAuctionMinPrice(), dto.getAuctionMaxPrice()};
-		jdbcTemplate.update(sql, param);
 		
 		AllboardDto allboardDto = new AllboardDto();
 		allboardDto.setAllboardNo(dto.getAllboardNo());
 		allboardDto.setAllboardBoardType("auction");
-		allboardDto.setAllboardBoardNo(selectOne(dto.getAllboardNo()).getAuctionNo());
+		allboardDto.setAllboardBoardNo(auctionSeq);
 		allboardDao.insert(allboardDto);
+		
+		jdbcTemplate.update(sql, param);
+	}
+	public void insertImg(int allboardNo, int auctionMainImg) {
+		String sql = "update auction set auction_main_img=? where allboard_No=?";
+		Object[] param = {auctionMainImg, allboardNo};
+		jdbcTemplate.update(sql, param);
 	}
 	//읽기(R) 통합
 	public List<AuctionDto> selectList(PaginationVO vo){
 		if(vo.isSearch()) {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"select * from auction where instr(#1, ?)>0 order by auction_no desc"+
+					"select * from auction where instr(#1, ?)>0 #4 order by #2 #3"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
 			sql = sql.replace("#1", vo.getColumn());
+			sql = sql.replace("#2", vo.getItem());
+			sql = sql.replace("#3", vo.getOrder());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getKeyword(), vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 		else {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"select * from auction order by auction_no desc"+
+					"select * from auction #4 order by #2 #3"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#2", vo.getItem());
+			sql = sql.replace("#3", vo.getOrder());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 	}
 	public int selectCount(PaginationVO vo) {
 		if(vo.isSearch()) {
-			String sql = "select count(*) from auction where instr(#1, ?)>0";
+			String sql = "select count(*) from auction where instr(#1, ?)>0 #4";
 			sql = sql.replace("#1", vo.getColumn());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getKeyword()};
 			return jdbcTemplate.queryForObject(sql, int.class, param);
 		}
 		else {
-			String sql = "select count(*) from auction";
+			String sql = "select count(*) from auction #4";
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			return jdbcTemplate.queryForObject(sql, int.class);
 		}
 	}
@@ -110,16 +151,25 @@ public class AuctionDao {
 		Object[] param = {date, allboardNo};
 		jdbcTemplate.update(sql, param);
 	}
+	//종료 시간 얻기
+	public long getFinishTime(int allboardNo) {
+		String sql = "select auction_finish_time from auction where allboard_no=?";
+		Object[] param = {allboardNo};
+		return jdbcTemplate.queryForObject(sql, Date.class, param).getTime();
+	}
+	//최소 입찰금액 얻기
 	public int getMinPrice(int allboardNo) {
 		String sql = "select auction_min_price from auction where allboard_no=?";
 		Object[] param = {allboardNo};
 		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
+	//최대 입찰금액 얻기
 	public int getMaxPrice(int allboardNo) {
 		String sql = "select auction_max_price from auction where allboard_no=?";
 		Object[] param = {allboardNo};
 		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
+	//상위 입찰 시 최소 입찰금액 변경
 	public void changeMinPrice(int auctionMinPrice, int allboardNo) {
 		String sql = "update auction set auction_min_price=? where allboard_no=?";
 		Object[] param = {auctionMinPrice, allboardNo};
@@ -148,5 +198,41 @@ public class AuctionDao {
 		String sql = "update auction set auction_like=? where allboard_no=?";
 		Object[] param = {likeCount, allboardNo};
 		jdbcTemplate.update(sql, param);
+	}
+	
+	//북마크 읽기
+	public List<AuctionDto> bookmarkList(PaginationVO vo, String memberId){
+		if(vo.isSearch()) {
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"SELECT A.* FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=? where instr(#1, ?)>0 order by auction_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {memberId, vo.getKeyword(), vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		else {
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"SELECT A.* FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=? order by auction_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			Object[] param = {memberId, vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
+	public int bookmarkCount(PaginationVO vo, String memberId) {
+		if(vo.isSearch()) {
+			String sql = "SELECT count(*) FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=? where instr(#1, ?)>0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {memberId, vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String sql = "SELECT count(*) FROM auction A INNER JOIN bookmark B ON a.ALLBOARD_NO =b.allboard_no AND b.member_id=?";
+			Object[] param = {memberId};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
 	}
 }

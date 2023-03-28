@@ -79,7 +79,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </div>
           </div>
           <div>
-            <a href="/raid/list?page=1"><span>레이드게시판</span></a>
+            <a href="#"><span>레이드</span></a>
+            <div>
+              <div>
+                <a href="/raid/list?page=1"><span>레이드 참가</span></a>
+              </div>
+              <div>
+                <a href="/combination/list?page=1"><span>레이드 공략</span></a>
+              </div>
+              <div>
+                <a href="/combination/simulator?page=1&tagList="><span>조합시뮬레이터</span></a>
+              </div>
+            </div>
           </div>
           <div>
             <a href="#"><span>포켓몬소설</span></a>

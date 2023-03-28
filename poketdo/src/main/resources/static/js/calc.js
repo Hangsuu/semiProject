@@ -2,6 +2,7 @@ $(function () {
    $(".pocketmon-img").hide();
 
 $(".monster-search").click(function(){
+	if($("[name=pocketmonNumber]").val().trim().length==0) return;
 	$.ajax({
 		url:"https://pokeapi.co/api/v2/pokemon-species/" + $("[name=pocketmonNumber]").val() + "/",
 		method:"get",

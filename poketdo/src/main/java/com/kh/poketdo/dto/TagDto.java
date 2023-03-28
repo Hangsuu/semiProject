@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class RaidJoinDto {
-	private int raidJoinNo;
-	private int raidJoinOrigin;
-	private String raidJoinMember;
-	private String raidJoinContent;
-	private int raidJoinConfirm;
+public class TagDto {
+	private String tagName;
+	private int tagOrigin;
 }

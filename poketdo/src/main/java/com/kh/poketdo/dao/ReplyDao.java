@@ -22,6 +22,8 @@ public class ReplyDao {
 
   @Autowired
   private RaidDao raidDao;
+	@Autowired
+	private CombinationDao combinationDao;
 
   RowMapper<ReplyDto> mapper = (rs, index) -> {
     return ReplyDto
@@ -98,6 +100,7 @@ public class ReplyDao {
         auctionDao.replySet(allboardNo, replyCount);
       case "raid":
         raidDao.replySet(allboardNo, replyCount);
+			case "combination" : combinationDao.replySet(allboardNo, replyCount);
     }
   }
 

@@ -32,9 +32,8 @@ public class RaidDao {
 					.raidContent(rs.getString("raid_content"))
 					.raidMonster(rs.getString("raid_monster"))
 					.raidTime(rs.getDate("raid_time"))
-					.raidStartTime(rs.getDate("raid_start_time"))
-					.raidParticipant(rs.getInt("raid_participant"))
-					.raidComplete(rs.getInt("raid_complete"))
+					.raidStartTime(rs.getTimestamp("raid_start_time"))
+					.raidCount(rs.getInt("raid_count"))
 					.raidReply(rs.getInt("raid_reply"))
 					.raidLike(rs.getInt("raid_like"))
 					.raidDislike(rs.getInt("raid_dislike"))
@@ -46,20 +45,27 @@ public class RaidDao {
 		String sql = "select allboard_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
+	public int raidSequence() {
+		String sql = "select raid_seq.nextval from dual";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
 	//생성(C)
 	public void insert(RaidDto dto) {
 		String sql = "insert into raid(allboard_no, raid_no, raid_writer, raid_title, raid_content, "
 				+ "raid_monster, raid_start_time, raid_type) "
-				+ "values(?,raid_seq.nextval,?,?,?,?,?,?)";
-		Object[] param = {dto.getAllboardNo(), dto.getRaidWriter(), dto.getRaidTitle(), dto.getRaidContent(), 
+				+ "values(?,?,?,?,?,?,?,?)";
+		int raidSeq = raidSequence();
+		dto.setRaidNo(raidSeq);
+		Object[] param = {dto.getAllboardNo(),dto.getRaidNo(), dto.getRaidWriter(), dto.getRaidTitle(), dto.getRaidContent(), 
 				dto.getRaidMonster(), dto.getRaidStartTime(), dto.getRaidType()};
-		jdbcTemplate.update(sql, param);
 		
 		AllboardDto allboardDto = new AllboardDto();
 		allboardDto.setAllboardNo(dto.getAllboardNo());
 		allboardDto.setAllboardBoardType("raid");
-		allboardDto.setAllboardBoardNo(selectOne(dto.getAllboardNo()).getRaidNo());
+		allboardDto.setAllboardBoardNo(raidSeq);
 		allboardDao.insert(allboardDto);
+		
+		jdbcTemplate.update(sql, param);
 	}
 	//삭제(D)
 	public boolean delete(int allboardNo) {
@@ -72,32 +78,60 @@ public class RaidDao {
 		if(vo.isSearch()) {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"select * from raid where instr(#1, ?)>0 order by raid_no desc"+
+					"select * from raid where instr(#1, ?)>0 #4 order by #2 #3"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
 			sql = sql.replace("#1", vo.getColumn());
+			sql = sql.replace("#2", vo.getItem());
+			sql = sql.replace("#3", vo.getOrder());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getKeyword(), vo.getBegin(),vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 		else {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"select * from raid order by raid_no desc"+
+					"select * from raid #4 order by #2 #3"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#2", vo.getItem());
+			sql = sql.replace("#3", vo.getOrder());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 	}
 	public int selectCount(PaginationVO vo) {
 		if(vo.isSearch()) {
-			String sql = "select count(*) from raid where instr(#1, ?)>0";
+			String sql = "select count(*) from raid where instr(#1, ?)>0 #4";
 			sql = sql.replace("#1", vo.getColumn());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getKeyword()};
 			return jdbcTemplate.queryForObject(sql, int.class, param);
 		}
 		else {
-			String sql = "select count(*) from raid";
+			String sql = "select count(*) from raid #4";
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			return jdbcTemplate.queryForObject(sql, int.class);
 		}
 	}
@@ -129,6 +163,12 @@ public class RaidDao {
 	public void likeSet(int allboardNo, int likeCount) {
 		String sql = "update raid set raid_like=? where allboard_no=?";
 		Object[] param = {likeCount, allboardNo};
+		jdbcTemplate.update(sql, param);
+	}
+	//확정된 참가자 숫자를 입력
+	public void confirmedCount(int count, int allboardNo) {
+		String sql = "update raid set raid_count=? where allboard_no=?";
+		Object[] param = {count, allboardNo};
 		jdbcTemplate.update(sql, param);
 	}
 }

@@ -20,7 +20,8 @@
   	      if(files.length!=1) return;
   	      var fd = new FormData();
   	      fd.append("attach", files[0]);//파일이 한개밖에 없어서 [0]
-  	      
+  	      console.log(files);
+  	      console.log(files[0]);
   	      $.ajax({
   	    	 url:"/rest/attachment/upload",
   	    	 method:"post",

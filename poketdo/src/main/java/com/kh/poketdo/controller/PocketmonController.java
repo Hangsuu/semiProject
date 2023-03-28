@@ -18,6 +18,7 @@ import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
+import com.kh.poketdo.dto.PocketmonJoinTypeDto;
 import com.kh.poketdo.service.PocketmonService;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;
 
@@ -51,20 +52,17 @@ public class PocketmonController {
   @PostMapping("/insertProcess")
   public String insertProcess(
     @ModelAttribute PocketmonDto pocketmonDto, //포켓몬스터 기본 정보
-    @RequestParam List<Integer> typeJoinNo, //포켓몬스터 속성 번호
+    @RequestParam int typeJoinNo, //포켓몬스터 속성 번호1
+    @RequestParam int typeJoinNo2, //포켓몬스터 속성 번호2
     @RequestParam MultipartFile attach
   ) throws IllegalStateException, IOException {
     //포켓몬스터 기본 정보 입력
 	pocketmonService.pocketmonInsert(pocketmonDto, attach);
-//    pocketmonDao.insert(pocketmonDto);
     //포켓몬스터 번호 추출
     int pocketJoinNo = pocketmonDto.getPocketNo();
     //포켓몬스터 속성 번호 입력
-    for (Integer no : typeJoinNo) {
-      if (no != null) {
-    	 pocketmonJoinTypeDao.insert(pocketJoinNo, no);
-      }
-    }
+    pocketmonJoinTypeDao.insert(pocketJoinNo, typeJoinNo);
+    pocketmonJoinTypeDao.insert(pocketJoinNo, typeJoinNo2);
     return "redirect:insertFinish";
   }
 
@@ -91,8 +89,12 @@ public class PocketmonController {
 		  Model model,
 		  @RequestParam int pocketNo
 		  ) {
-	  model.addAttribute(pocketmonDao.selectOne(pocketNo));
+	  List<String> list = pocketmonService.pocketmonTypeSelectOne(pocketNo);
 	  
+	  model.addAttribute("typeJoinName", list.get(0));
+	  model.addAttribute("typeJoinName2", list.get(1));
+	  
+	  model.addAttribute(pocketmonDao.selectOne(pocketNo));
     return "/WEB-INF/views/pocketdex/edit.jsp";
   }
 
@@ -100,10 +102,17 @@ public class PocketmonController {
   	public String editProcess(
   			@ModelAttribute PocketmonDto pocketmonDto,
   			MultipartFile attach,
+  		    @RequestParam int typeJoinNo, //포켓몬스터 속성 번호1
+  		    @RequestParam int typeJoinNo2, //포켓몬스터 속성 번호2
 			@RequestParam int pocketNo,
 			RedirectAttributes attr
   			) throws IllegalStateException, IOException {
   		pocketmonService.pocketmonEdit(pocketmonDto, attach, pocketNo, attr);
+  		List<PocketmonJoinTypeDto> list = pocketmonJoinTypeDao.selectOne(pocketNo);
+  		int firstTypeNo = list.get(0).getTypeJoinNo();
+  		int secondTypeNo = list.get(1).getTypeJoinNo();
+		pocketmonJoinTypeDao.edit(typeJoinNo, pocketNo, firstTypeNo);
+		pocketmonJoinTypeDao.edit(typeJoinNo2, pocketNo, secondTypeNo);
   		return "redirect:detail";
   	}
 

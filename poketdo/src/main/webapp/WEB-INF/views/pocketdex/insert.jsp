@@ -76,7 +76,7 @@
 		
 		<label>포켓몬스터 속성 1</label>
 		<select name="typeJoinNo">
-			<option value="">선택하세요</option>
+			<option value="0">없음</option>
 			<option value="1">1. 노말</option>
 			<option value="2">2. 격투</option>
 			<option value="3">3. 비행</option>
@@ -100,8 +100,8 @@
 		<br>
 			
 		<label>포켓몬스터 속성 2</label>
-		<select name="typeJoinNo">
-			<option value="">선택하세요</option>
+		<select name="typeJoinNo2">
+			<option value="0">없음</option>
 			<option value="1">1. 노말</option>
 			<option value="2">2. 격투</option>
 			<option value="3">3. 비행</option>

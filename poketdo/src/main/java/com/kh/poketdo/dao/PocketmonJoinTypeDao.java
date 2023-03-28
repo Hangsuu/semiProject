@@ -40,6 +40,14 @@ public class PocketmonJoinTypeDao {
     jdbcTemplate.update(sql, param);
   }
 
+  //포켓몬스터 속성 수정
+  public boolean edit(int editTypeJoinNo, int pocketJoinNo, int typeJoinNo) {
+	  String sql = "update pocketmon_join_type set type_join_no = ? where  pocket_join_no = ? and type_join_no = ?";
+	  Object[] param = {editTypeJoinNo, pocketJoinNo, typeJoinNo};
+	  return jdbcTemplate.update(sql,param)>0;
+  }
+  
+  
   //포켓몬스터 번호로 포켓몬스터 속성 검색
   public List<PocketmonJoinTypeDto> selectOne(int pocketJoinNo) {
     String sql =

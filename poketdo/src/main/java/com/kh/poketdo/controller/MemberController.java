@@ -1,6 +1,7 @@
 package com.kh.poketdo.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,9 +18,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.MemberDao;
+import com.kh.poketdo.dao.MemberJoinSealDao;
 import com.kh.poketdo.dao.MemberProfileDao;
+import com.kh.poketdo.dao.MemberSealWithImageDao;
+import com.kh.poketdo.dao.SealWithImageDao;
 import com.kh.poketdo.dto.MemberDto;
+import com.kh.poketdo.dto.MemberSealWithImageDto;
+import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.service.MemberService;
+import com.kh.poketdo.service.SealService;
 
 @Controller
 @RequestMapping("/member")
@@ -33,6 +40,18 @@ public class MemberController {
     
     @Autowired
     private MemberProfileDao memberProfileDao;
+    
+    @Autowired
+    private MemberSealWithImageDao memberSealWithImageDao;
+    
+    @Autowired
+    private MemberJoinSealDao memberJoinSealDao;
+    
+    @Autowired
+    private SealService sealService;
+    
+    @Autowired
+    private SealWithImageDao sealWithImageDao;
 
     @GetMapping("/login")
     public String login() {
@@ -96,6 +115,24 @@ public class MemberController {
     	return "/WEB-INF/views/member/mypage.jsp";
     }
     
+    //나의 인장
+    @GetMapping("/myseal")
+    public String myseal (HttpSession session, Model model) {
+    	String memberId = (String) session.getAttribute("memberId");
+    	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId);
+    	model.addAttribute("list",list);
+    	SealWithImageDto basicSealDto = sealWithImageDao.selectBasicOne();
+    	model.addAttribute("basicSealDto" , basicSealDto);
+    	model.addAttribute("selectAttachNo" , sealService.mySeal(session));
+    	return "/WEB-INF/views/member/myseal.jsp";
+    }
+    
+    @PostMapping("/mysealSelect")
+    public String mysealSelect (HttpSession session, @RequestParam int mySealNo) {
+    	String memberId = (String) session.getAttribute("memberId");
+    	memberDao.insertMemberSealNo(mySealNo, memberId);
+    	return "redirect:myseal";
+    }
     
    //개인정보수정 
     @GetMapping("/edit")
@@ -165,5 +202,23 @@ public class MemberController {
     	return "redirect:exitFinish";
     }
     
+    @GetMapping("/find")
+    public String find() {
+    	return "/WEB-INF/views/member/find.jsp";
+    }
+    
+    @PostMapping("/find")
+    public String find(@ModelAttribute MemberDto memberDto,
+    		Model model, RedirectAttributes attr) {
+    	try {
+    		String memberId = memberDao.findId(memberDto);
+    		model.addAttribute("findId", memberId);
+    		return "/WEB-INF/views/member/findResult.jsp";
+    	}
+    	catch(Exception e) {
+    		attr.addAttribute("mode", "error");
+    		return "redirect:find";
+    	}
+    }
     
 }

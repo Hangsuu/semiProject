@@ -23,9 +23,9 @@ public class MemberDao {
 		String sql="insert into member("
 					+ "member_id, member_pw, member_nick, member_birth, "
 					+ "member_email, member_level, "
-					+ "member_point, member_join, member_deadline"
+					+ "member_point, member_join, member_deadline, member_seal_no"
 					+ ") values ("
-					+ "?,?,?,?,?,'일반회원', 0, sysdate, sysdate"
+					+ "?,?,?,?,?,'일반회원', 0, sysdate, sysdate, 0"
 					+ ")";
 		Object[] param = {
 				memberDto.getMemberId(), memberDto.getMemberPw(),
@@ -55,6 +55,7 @@ public class MemberDao {
                     .memberLogin(rs.getDate("member_login"))
                     .memberLoginCnt(rs.getInt("member_login_cnt"))
                     .memberDeadline(rs.getDate("member_deadline"))
+                    .memberSealNo(rs.getInt("member_seal_no"))
                     .build();
         }
 
@@ -116,7 +117,30 @@ public class MemberDao {
     	return jdbcTemplate.update(sql, param)>0;
     }
 
+	//selectSealNo 입력(나의 인장 이미지 선택)
+	public boolean insertMemberSealNo (int selectSealNo, String memberId) {
+		String sql ="update member set member_seal_no=? where member_id = ? ";
+		Object [] param = {selectSealNo, memberId};
+		return jdbcTemplate.update(sql,param)>0;
+	}
+	
+	//memberSealNo 조회
+	public String selectMemberSealNo (String memberId) {
+		String sql ="select member_seal_no from member where member_id = ?";
+		Object [] param = {memberId};
+		return jdbcTemplate.queryForObject(sql, String.class, param);
+	}
 
+
+    //이메일로 아이디찾기
+    public String findId(MemberDto memberDto) {
+    	String sql = "select member_id from member "
+    			+ "where member_email=?";
+    	Object[] param = {
+    			memberDto.getMemberEmail()
+    	};
+    	return jdbcTemplate.queryForObject(sql, String.class, param);
+    }
 
     
 

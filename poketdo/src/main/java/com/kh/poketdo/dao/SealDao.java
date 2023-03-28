@@ -24,6 +24,7 @@ public class SealDao {
 			return SealDto.builder()
 					.sealNo(rs.getInt("seal_no"))
 					.sealName(rs.getString("seal_name"))
+					.sealPrice(rs.getInt("seal_price"))
 					.build();
 		}
 	  };
@@ -31,11 +32,12 @@ public class SealDao {
 	  //인장 정보 입력
 	  public void insert(SealDto sealDto) {
 		  String sql = "insert into seal ( "
-		  		+ "seal_no, seal_name) "
-		  		+ "values(? , ?)";
+		  		+ "seal_no, seal_name, seal_price) "
+		  		+ "values(? , ?,?)";
 		  Object[] param = {
 				  sealDto.getSealNo(),
-				  sealDto.getSealName()
+				  sealDto.getSealName(),
+				  sealDto.getSealPrice()
 		  };
 		  jdbcTemplate.update(sql,param);
 	  }
@@ -48,8 +50,8 @@ public class SealDao {
 	  
 	  //인장 정보 수정
 	  public boolean edit(SealDto sealDto) {
-		  String sql = "update seal set seal_name=? where seal_no=?";
-		  Object[] param = {sealDto.getSealName(), sealDto.getSealNo()};
+		  String sql = "update seal set seal_name=?, seal_price=? where seal_no=?";
+		  Object[] param = {sealDto.getSealName(), sealDto.getSealPrice(),sealDto.getSealNo()};
 		  return jdbcTemplate.update(sql,param)>0;
 	  }
 	  

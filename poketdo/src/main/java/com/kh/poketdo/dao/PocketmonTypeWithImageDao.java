@@ -25,8 +25,7 @@ public class PocketmonTypeWithImageDao {
 								.pocketTypeNo(rs.getInt("pocket_type_no"))
 								.pocketTypeName(rs.getString("pocket_type_name"))
 								.attachmentNo(rs.getObject("attachment_no")==null ?
-																												null : rs.getInt("attachment_no")
-									)
+																												null : rs.getInt("attachment_no"))
 								.build();
 		}
 	};

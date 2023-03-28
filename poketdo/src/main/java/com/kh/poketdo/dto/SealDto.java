@@ -14,4 +14,5 @@ public class SealDto {
 	
 	  private int sealNo;
 	  private String sealName;
+	  private int sealPrice;
 }

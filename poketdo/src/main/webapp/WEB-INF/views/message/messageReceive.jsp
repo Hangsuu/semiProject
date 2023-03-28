@@ -9,6 +9,7 @@
 
 <script>
 $(function(){
+  loadList();
   // 메세지 모두 선택 체크박스
   var checkAllEle = $(".message-check-all");
   // 메세지 개별 선택 체크박스
@@ -28,16 +29,6 @@ $(function(){
     // 첫번 째 다 눌리면 check-all도 체크
   })
 
-  // 메세지 삭제 버튼 클릭 event 등록
-  $(".message-delete-btn").click(function(){
-    var checkedOneBtn = $(".message-check-one:checked");
-    if(checkedOneBtn.length==0){
-      alert("삭제하실 쪽지를 선택하세요");
-    } else {
-
-    }
-  })
-
   // 메세지 비동기 load
   function loadList(){
     $.ajax({
@@ -45,25 +36,52 @@ $(function(){
       method: "get",
       data: {memberId: memberId},
       success: function(response){
-        console.log(response);
-      },
-      // $(".target").append();
-      error: function(){
+        var messageList = response.list;
+        var sendTimeList = response.sendTimeList;
+        var readTimeList = response.readTimeList;
+        $(".target").empty();
+        for(var i = 0; i < response.list.length; i++){
+          var message = messageList[i];
+          var newReceiveMsgRow = $.parseHTML($("#receive-message-row").html());
+          $(newReceiveMsgRow).find(".message-sender-col").text(message.messageSender);
+          $(newReceiveMsgRow).find(".message-title-col").text(message.messageTitle);
+          $(newReceiveMsgRow).find(".message-send-time-col").text(sendTimeList[i]);
 
+          $(".target").append(newReceiveMsgRow);
+        }
+      },
+      error: function(){
+        console.log("메세지 비동기 list 통신에러!!!!!")
       }
     })
   }
-  loadList();
+
+  // 메세지 삭제 버튼 클릭 event 등록
+  $(".message-delete-btn").click(function(){
+    var checkedOneBtn = $(".message-check-one:checked");
+    if(checkedOneBtn.length==0){
+      alert("삭제하실 쪽지를 선택하세요");
+    } else {
+      $.ajax({
+        url: "/rest/message/",
+      })
+    }
+  })
+
+  // 새로고침 비동기 로드
+  $(".message-refresh-btn").click(loadList);
+  
+
 
 })
 </script>
-<script type="text/template" id="message">
+<script type="text/template" id="receive-message-row">
   <hr class="mg-0"/>
   <div class="flex-row-grow message-row">
     <div class="flex-all-center message-check-column"><input class="message-check-one" type="checkbox"></div>
     <div><a class="link message-sender-col" href="/message/write?recipient=${messageDto.getMessageSender()}">${messageDto.getMessageSender()}</a></div>
      <a class="link message-title-col" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">${messageDto.getMessageTitle()}</a>
-    <a class="link" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">
+    <a class="link message-send-time-col" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">
       <!-- <fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/> -->
     </a>
   </div>
@@ -83,22 +101,24 @@ $(function(){
     <div class="row flex">
       <div class="pocketmonTrade-btn message-delete-btn"><i class="fa-solid fa-xmark" style="color:red;"></i> 삭제</div><div class="pocketmonTrade-btn ml-auto message-refresh-btn"><i class="fa-solid fa-rotate-right" style="color: gray;"></i> 새로고침</div>
     </div>
-    <div class="row target">
+    <div class="row">
       <div class="flex-row-grow message-row message-head">
         <div class="flex-all-center message-check-column"><input class="message-check-all" type="checkbox"></div>
         <div class="flex-align-center">보낸사람</div>
         <div class="flex-align-center">제목</div>
         <div class="flex-align-center">날짜</div>
       </div>
-      <c:forEach var="messageDto" items="${lists}">
-        <hr class="mg-0"/>
-        <div class="flex-row-grow message-row">
-          <div class="flex-all-center message-check-column"><input class="message-check-one" type="checkbox"></div>
-          <div><a class="link" href="/message/write?recipient=${messageDto.getMessageSender()}">${messageDto.getMessageSender()}</a></div>
-           <a class="link" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">${messageDto.getMessageTitle()}</a>
-          <a class="link" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}"><fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/></a>
-        </div>
-      </c:forEach>
+      <div class="target">
+        <c:forEach var="messageDto" items="${lists}">
+          <hr class="mg-0"/>
+          <div class="flex-row-grow message-row">
+            <div class="flex-all-center message-check-column"><input class="message-check-one" type="checkbox"></div>
+            <div><a class="link" href="/message/write?recipient=${messageDto.getMessageSender()}">${messageDto.getMessageSender()}</a></div>
+             <a class="link" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}">${messageDto.getMessageTitle()}</a>
+            <a class="link" href="/message/receive/detail?messageNo=${messageDto.getMessageNo()}"><fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/></a>
+          </div>
+        </c:forEach>
+      </div>
     </div>
   </article>
 

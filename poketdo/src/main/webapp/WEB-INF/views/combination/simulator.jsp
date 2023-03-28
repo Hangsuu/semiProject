@@ -9,20 +9,32 @@
 <script src="/static/js/timer.js"></script>
 <script type="text/javascript">
 $(function(){
+	$(".table").hide();
 	var params = new URLSearchParams(location.search);
 	var paramTagList = params.get("tagList");
-	var page = params.get("page");
 	var tagList = new Set();
-	$(".table").hide();
-	
+	//파라미터에 tagList를 달고 왔을 시
+	if(paramTagList){
+		var arr = paramTagList.split(",");
+		$.each(arr, function(index, value){
+			tagList.add(value);
+		});
+		selectedTag();
+		listTag();
+		makeList();
+	}
+	var page = params.get("page");
+	//태그 버튼 누를 시
 	$(".tag-search-btn").click(function(){
 		var text = $(".tag-search-input").val();
+		if(!text) return;
 		$(".tag-search-input").val("");
 		//set에 추가하고 전송가능한 배열 형태로 변경
 		tagList.add(text);
 		selectedTag();
 		listTag();
 	});
+	//선택된 태그 창 생성
 	function selectedTag(){
 		$(".search-tag-target").empty();
 		tagList.forEach(function(value){
@@ -33,12 +45,13 @@ $(function(){
 			$(".search-tag-target").append(selectedTag);
 		});
 	}
+	//태그 검색 함수
 	function searchTag(){
 		tagList.add($(this).data("tag-name"));
 		selectedTag();
 		listTag();
 	}
-	
+	//태그 삭제 함수
 	function removeTag(){
 		tagList.delete($(this).data("tag-name"));
 		if(tagList.length==0) return;
@@ -47,7 +60,7 @@ $(function(){
 		selectedTag();
 		listTag();
 	}
-	
+	//추천 태그 목록 생성 함수
 	function listTag(){
 		$(".recommand-tag-target").empty();
 		var setList = Array.from(tagList);
@@ -74,12 +87,12 @@ $(function(){
 			},
 		});
 	}
-	
+	//리스트 검색 버튼 클릭 시
 	$(".select-list").click(function(){
-		checkList();
+		makeList();
 	});
-	
-	function checkList(){
+	//검색시 리스트 생성 함수
+	function makeList(){
 		$(".table").show();
 		var setList = Array.from(tagList);
 		var setListString = setList.join(",");
@@ -210,7 +223,7 @@ $(function(){
 		</div>
 	</div>
 <!-- 게시판 테이블 -->
-	<div class="row">
+	<div class="row mt-50">
 		<table class="table table-slit center">
 			<thead>
 				<tr>

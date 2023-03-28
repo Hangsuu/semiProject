@@ -69,7 +69,8 @@ public class AuctionController {
 	}
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam int allboardNo, Model model, HttpSession session) {
+	public String detail(@RequestParam int allboardNo, Model model, HttpSession session,
+			@ModelAttribute PaginationVO vo) {
 		AuctionDto auctionDto = auctionDao.selectOne(allboardNo);
 		String auctionWriter = auctionDto.getAuctionWriter();
 		String memberId = (String) session.getAttribute("memberId");
@@ -84,6 +85,7 @@ public class AuctionController {
 			session.setAttribute("memory", memory);
 		}
 		model.addAttribute("auctionDto", auctionDao.selectOne(allboardNo));
+		model.addAttribute("vo", vo);
 		return "/WEB-INF/views/auction/detail.jsp";
 	}
 	

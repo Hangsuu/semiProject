@@ -14,8 +14,14 @@ public class PaginationVO {
 	private int count;
 	//블럭마다 보여줄 숫자 개수
 	private int blockSize=10;
+	//정렬 항목
+	private String item="allboard_no";
+	//오름차순 내림차순
+	private String order="desc";
+	//특수조건
+	private String special="";
 	
-	//검색 여부 판정
+	//검색 여부 판단
 	public boolean isSearch() {
 		return !keyword.equals("");
 	}
@@ -48,6 +54,16 @@ public class PaginationVO {
 		else {
 			buffer.append("&column=&keyword=");
 		}
+		return buffer.toString();
+	}
+	public String getAddParameter() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("&item=");
+		buffer.append(item);
+		buffer.append("&order=");
+		buffer.append(order);
+		buffer.append("&special=");
+		buffer.append(special);
 		return buffer.toString();
 	}
 	

@@ -46,7 +46,7 @@ public class RaidDao {
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
 	public int raidSequence() {
-		String sql = "select raid_seq.nextval from daul";
+		String sql = "select raid_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
 	//생성(C)
@@ -78,32 +78,60 @@ public class RaidDao {
 		if(vo.isSearch()) {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"select * from raid where instr(#1, ?)>0 order by raid_no desc"+
+					"select * from raid where instr(#1, ?)>0 #4 order by #2 #3"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
 			sql = sql.replace("#1", vo.getColumn());
+			sql = sql.replace("#2", vo.getItem());
+			sql = sql.replace("#3", vo.getOrder());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getKeyword(), vo.getBegin(),vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 		else {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"select * from raid order by raid_no desc"+
+					"select * from raid #4 order by #2 #3"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#2", vo.getItem());
+			sql = sql.replace("#3", vo.getOrder());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 	}
 	public int selectCount(PaginationVO vo) {
 		if(vo.isSearch()) {
-			String sql = "select count(*) from raid where instr(#1, ?)>0";
+			String sql = "select count(*) from raid where instr(#1, ?)>0 #4";
 			sql = sql.replace("#1", vo.getColumn());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getKeyword()};
 			return jdbcTemplate.queryForObject(sql, int.class, param);
 		}
 		else {
-			String sql = "select count(*) from raid";
+			String sql = "select count(*) from raid #4";
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			return jdbcTemplate.queryForObject(sql, int.class);
 		}
 	}

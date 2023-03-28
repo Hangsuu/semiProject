@@ -78,32 +78,60 @@ public class AuctionDao {
 		if(vo.isSearch()) {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"select * from auction where instr(#1, ?)>0 order by auction_no desc"+
+					"select * from auction where instr(#1, ?)>0 #4 order by #2 #3"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
 			sql = sql.replace("#1", vo.getColumn());
+			sql = sql.replace("#2", vo.getItem());
+			sql = sql.replace("#3", vo.getOrder());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getKeyword(), vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 		else {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"select * from auction order by auction_no desc"+
+					"select * from auction #4 order by #2 #3"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#2", vo.getItem());
+			sql = sql.replace("#3", vo.getOrder());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 	}
 	public int selectCount(PaginationVO vo) {
 		if(vo.isSearch()) {
-			String sql = "select count(*) from auction where instr(#1, ?)>0";
+			String sql = "select count(*) from auction where instr(#1, ?)>0 #4";
 			sql = sql.replace("#1", vo.getColumn());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			Object[] param = {vo.getKeyword()};
 			return jdbcTemplate.queryForObject(sql, int.class, param);
 		}
 		else {
-			String sql = "select count(*) from auction";
+			String sql = "select count(*) from auction #4";
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
 			return jdbcTemplate.queryForObject(sql, int.class);
 		}
 	}

@@ -94,8 +94,10 @@
 	</div>
 <!-- 댓글 끝 -->
 	<div class="row">
-		<a href="delete?allboardNo=${auctionDto.allboardNo}&page=${param.page}" class="form-btn neutral">삭제</a>
-		<a href="list?page=${param.page}" class="form-btn neutral">목록</a>
+		<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
+			<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="form-btn neutral">삭제</a>
+		</c:if>
+		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="form-btn neutral">목록</a>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

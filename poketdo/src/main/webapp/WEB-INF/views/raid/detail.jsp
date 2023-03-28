@@ -22,7 +22,7 @@
 $(function(){
 	var params = new URLSearchParams(location.search);
 	var allboardNo = params.get("allboardNo");
-	
+	var participantCount = $(".participant-count");
 	//작성자일 경우 참가신청 숨기고 관리창 노출
 	if(memberId==boardWriter) {
 		$(".raid-join").hide();
@@ -36,7 +36,9 @@ $(function(){
 	
 	//참가 신청자는 취소버튼, 미신청자는 참가 버튼 노출
 	isJoiner();
-
+	finishedRaid();
+	
+	//참가버튼 누를 시
 	$(".raid-join-btn").click(function(){
 		if(memberId==boardWriter){
 			alert("작성자는 참가신청을 할 수 없습니다.");
@@ -54,16 +56,14 @@ $(function(){
 			success:function(response){
 				isJoiner();
 				$(".participant-count").text(response[0]);
-				if(response[0]==4){
-					$(".raid-join").hide();
-				}
-				else $(".raid-join").show();
+				finishedRaid();
 			},
 			error:function(){
 				alert("통신오류");
 			}
 		});			
 	});
+	//참가 취소 버튼 누를 시
 	$(".raid-join-cancle-btn").click(function(){
 		if(confirm("신청 취소하시겠습니까?")){
 			$.ajax({
@@ -73,10 +73,7 @@ $(function(){
 					isJoiner();
 					$("[name=raidJoinContent]").val("");
 					$(".participant-count").text(response[0]);
-					if(response[0]==4){
-						$(".raid-join").hide();
-					}
-					else $(".raid-join").show();
+					finishedRaid();
 				},
 				error:function(){
 					alert("삭제 안됨")
@@ -85,6 +82,7 @@ $(function(){
 		}
 		else return;
 	});
+	//수정 버튼 누를 시
 	$(".raid-join-edit-btn").click(function(){
 		if(confirm("수정하시겠습니까?")){
 			$.ajax({
@@ -107,7 +105,7 @@ $(function(){
 			return;
 		}
 	});
-	
+	//참가신청 상태인지 판단
 	function isJoiner(){
 		if(memberId){
 			$.ajax({
@@ -138,22 +136,25 @@ $(function(){
 			nonJoiner();
 		}
 	};
+	//참가신청자일 경우 노출될 것들을 판단
 	function joiner(){
 		$(".raid-join-btn").hide();
 		$(".raid-join-cancle-btn").show();
 		$(".raid-join-edit-btn").show();
 		$(".raid-join-status").show();
 	}
+	//참가신청자가 아닐 경우 노출될 것들을 판단
 	function nonJoiner(){
 		$(".raid-join-btn").show().val("");
 		$(".raid-join-cancle-btn").hide();
 		$(".raid-join-edit-btn").hide();
 		$(".raid-join-status").hide();
 	}
-	
+	//작성자가 참가자 정보를 보기 위한 함수
 	function joinerList(){
 		$(".raid-join-control").empty();
 		$(".raid-join-control-confirmed").empty();
+		//참가신청 신청자 창
 		$.ajax({
 			url:"/rest/raid/"+allboardNo,
 			method:"get",
@@ -172,6 +173,7 @@ $(function(){
 				alert("불러오기 오류");
 			},
 		});
+		//신청 확정된 유저 창
 		$.ajax({
 			url:"/rest/raid/confirmed/"+allboardNo,
 			method:"get",
@@ -189,6 +191,7 @@ $(function(){
 			},
 		});
 	}
+	//신청 수락 했을 때의 함수
 	function controlConfirm(){
 		var count = $(".participant-count").text()
 		if(count>=4){
@@ -206,12 +209,14 @@ $(function(){
 			success:function(response){
 				joinerList();
 				$(".participant-count").text(response[0]);
+				finishedRaid();
 			},
 			error:function(){
 				alert("확정 실패")
 			}
 		});
 	}
+	//신청 거절 했을 때의 함수
 	function controlRefuse(){
 		var raidJoinMember = $(this).data("join-member");
 		$.ajax({
@@ -224,12 +229,14 @@ $(function(){
 			success:function(response){
 				joinerList();
 				$(".participant-count").text(response[0]);
+				finishedRaid();
 			},
 			error:function(){
 				alert("거절 실패")
 			}
 		});
 	}
+	//확정된 참가자를 밴 했을 때의 함수
 	function controlBan(){
 		var raidJoinMember = $(this).data("join-member");
 		$.ajax({
@@ -242,11 +249,24 @@ $(function(){
 			success:function(response){
 				joinerList();
 				$(".participant-count").text(response[0]);
+				finishedRaid();
 			},
 			error:function(){
 				alert("추방 실패")
 			}
 		});
+	}
+	//확정 참가자가 4명이 됐을 때의 함수
+	function finishedRaid(){
+		var participant = $(".participant-count").text();
+		if(participant>=4){
+			$(".ing-raid").hide();
+			$(".finished-raid").show();
+		}
+		else{
+			$(".ing-raid").show();
+			$(".finished-raid").hide();
+		}
 	}
 });
 </script>
@@ -292,8 +312,11 @@ $(function(){
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<div class="row">
-		참가자 : <span class="participant-count">${raidDto.raidCount}</span>/4 
+	<div class="row ing-raid">
+		참가자 : <span class="participant-count">${raidDto.raidCount}</span>/4
+	</div>
+	<div class="row finished-raid">
+		모집 종료
 	</div>
 	<div class="row">
 		<div class="float-box">
@@ -344,8 +367,10 @@ $(function(){
 	</div>
 <!-- 댓글 끝 -->
 	<div class="row">
-		<a href="list?page=${param.page}" class="form-btn neutral">목록</a>
-		<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="form-btn neutral">삭제</a>
+		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="form-btn neutral">목록</a>
+		<c:if test="${sessionScope.memberId==raidDto.raidWriter}">
+			<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="form-btn neutral">삭제</a>
+		</c:if>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -16,7 +16,7 @@
        <div class="float-box">
            <div class="row float-left">
                <h1 style="font-size:2em">능력치 계산기</h1>
-               <input name="pocketmonNumber" class="form-input mt-70">
+               <input name="pocketmonNumber" class="form-input mt-70" placeholder="포켓몬 검색">
                <button type="button" class="form-btn neutral monster-search">검색</button>
                <span class="korean-name ms-20"></span>
            </div>
@@ -148,7 +148,7 @@
                    <option value='{"hp":1,"atk":1,"def":1.1,"spatk":1,"spdef":0.9,"spd":1}'>촐랑거리는</option>
                </select>
            </div>
-           <div class="row"><button class="form-btn neutral calc-btn">계산</button></div>
+           <div class="row"><button class="form-btn neutral calc-btn w-100">결과값 보기</button></div>
        <div class="row">
            <div class="row">예상 능력치값</div>
            <div class="row flex-box w-100"  Style="flex-wrap: wrap">

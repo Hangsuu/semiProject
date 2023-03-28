@@ -5,7 +5,25 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="/static/js/summernote.js"></script>
-
+<script>
+	$(function(){
+		$(".set-date").blur(function(){
+			console.log($(this).val());
+			checkTime();
+		});
+		$(".set-time").blur(function(){
+			console.log($(this).val());
+			checkTime();
+			console.log($("[name=raidStartTime]").val())
+		});
+		function checkTime(){
+			var correctTime = $(".set-date").val() && $(".set-time").val();
+			if(correctTime){
+				$("[name=raidStartTime]").val($(".set-date").val()+" "+$(".set-time").val()+":00.000");
+			}
+		}
+	});
+</script>
 <div class="container-800 mt-50">
 <form action="write" method="post" autocomplete="off">
 <input type="hidden" name="raidWriter" value="${sessionScope.memberId}">
@@ -16,7 +34,9 @@
 		몬스터 : <input class="form-input" name="raidMonster">
 	</div>
 	<div class="row">
-		날짜 : <input class="form-input" type="date" name="raidStartTime">
+		날짜 : <input class="form-input set-date" type="date" >
+		시간 : <input class="form-input set-time" type="time" >
+		<input type="hidden" name="raidStartTime">
 	</div>
 	<div class="row">
 		레이드타입 : <select class="form-input" name="raidType">

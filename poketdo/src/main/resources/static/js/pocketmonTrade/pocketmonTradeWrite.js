@@ -99,7 +99,6 @@ $(function () {
 
   // promise 1시간 추가
   $(".plus-1h-btn").click(function () {
-    console.log();
     var exTime = promiseEle.val();
     var plus1h = new Date(new Date(exTime).getTime() + 60 * 60 * 1000);
     var dateOffset = new Date(plus1h.getTime() - offset);
@@ -129,7 +128,6 @@ $(function () {
 
   // 포켓몬교환 write 취소 버튼
   $(".pocketmonTrade-cancle-btn").click(function () {
-    console.log("짜루짜루 진짜루?");
     if (confirm("글 작성을 취소하시겠습니까?")) {
       window.history.back();
     }

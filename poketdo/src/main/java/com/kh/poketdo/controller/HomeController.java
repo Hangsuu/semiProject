@@ -13,7 +13,7 @@ import com.kh.poketdo.vo.SimulatorVO;
 public class HomeController {
 
   @GetMapping("/")
-  public String test() {
+  public String home() {
     return "/WEB-INF/views/home.jsp";
   }
 	@GetMapping("/sample")

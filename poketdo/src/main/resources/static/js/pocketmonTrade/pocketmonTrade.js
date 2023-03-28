@@ -62,7 +62,6 @@ $(function () {
             .children()
             .eq(2)
             .click(function () {
-              console.log(response[i].replyNo);
               $("#pocketmonTrade-reply-write2");
               // const newEditEle = $.parseHTML(
               //   $("#pocketmonTrade-reply-write").html()

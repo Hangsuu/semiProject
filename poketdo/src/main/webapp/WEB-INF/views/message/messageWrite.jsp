@@ -8,7 +8,6 @@
 <script>
     $(function(){
         var messageSendForm = $("#message-send-form");
-        console.log()
         $("#message-send-btn").click(function(e){
             e.preventDefault();
             var isLogin = messageSendForm.find("input[name='messageSender']").val()!="";

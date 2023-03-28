@@ -48,7 +48,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <a href="/"><span>홈</span></a>
           </div>
           <div>
-            <a href="#"><span>포켓몬도감</span></a>
+            <a href="/pocketdex/list"><span>포켓몬도감</span></a>
             <div>
               <div>
                 <a href="#"><span>포켓몬리스트</span></a>

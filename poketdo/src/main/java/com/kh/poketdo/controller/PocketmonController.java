@@ -22,7 +22,7 @@ import com.kh.poketdo.service.PocketmonService;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;
 
 @Controller
-@RequestMapping("/pocketDex")
+@RequestMapping("/pocketdex")
 public class PocketmonController {
 
   @Autowired

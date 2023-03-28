@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.kh.poketdo.dto.MemberSealWithImageDto;
 import com.kh.poketdo.dto.SealWithImageDto;
 
 @Repository
@@ -53,5 +54,19 @@ public class SealWithImageDao {
 				List<SealWithImageDto> list = jdbcTemplate.query(sql,  mapper, param);
 				return list.isEmpty() ? null : list.get(0); 
 			}
+			
+			//기본 인장 정보 검색
+			public SealWithImageDto selectBasicOne() {
+				String sql ="select * from seal_with_image where seal_no=0";
+				List<SealWithImageDto> list = jdbcTemplate.query(sql,  mapper);
+				return list.isEmpty() ? null : list.get(0); 
+			}
 	
+			
+			
+			public String selectBasicAttachNo () {
+				String sql ="select attachment_no from seal_with_image where seal_no = 0";
+				return jdbcTemplate.queryForObject(sql, String.class);
+			}
+			
 }

@@ -16,11 +16,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="sealWithImageDto" items="${list}">
+			<c:forEach var="sealWithImageDto" items="${list}" >
 				<tr>
 					<td>
 						<img width="96" height="96"
-							src="/attachment/${sealWithImageDto.imageURL}">
+							src="${sealWithImageDto.imageURL}">
 					</td>
 					<td>
 					${sealWithImageDto.sealNo}

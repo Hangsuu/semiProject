@@ -32,11 +32,12 @@ public class SealDao {
 	  //인장 정보 입력
 	  public void insert(SealDto sealDto) {
 		  String sql = "insert into seal ( "
-		  		+ "seal_no, seal_name) "
-		  		+ "values(? , ?)";
+		  		+ "seal_no, seal_name, seal_price) "
+		  		+ "values(? , ?,?)";
 		  Object[] param = {
 				  sealDto.getSealNo(),
-				  sealDto.getSealName()
+				  sealDto.getSealName(),
+				  sealDto.getSealPrice()
 		  };
 		  jdbcTemplate.update(sql,param);
 	  }

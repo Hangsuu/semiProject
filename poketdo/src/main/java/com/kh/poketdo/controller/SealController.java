@@ -116,7 +116,6 @@ public class SealController {
 			) {
 		String memberId = (String) session.getAttribute("memberId");
 		pointDao.subPoint(point, memberId);
-		
 		memberJoinSealDao.insert(memberId, sealNo);
 		
 		return "redirect:list";

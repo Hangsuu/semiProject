@@ -71,7 +71,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 <a href="#"><span>인기게시판</span></a>
               </div>
               <div>
-                <a href="/trade"><span>포켓몬교환 게시판</span></a>
+                <a href="/pocketmonTrade"><span>포켓몬교환 게시판</span></a>
               </div>
               <div>
                 <a href="/auction/list?page=1"><span>굿즈 경매 게시판</span></a>
@@ -117,10 +117,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <div>
                 <a href="#"><span>내 활동</span></a>
               </div>
+              <div>
+                <c:if test="${sessionScope.memberId != null}">
+                  <a href="/message/receive"><span>쪽지</span></a>
+                </c:if>
+              </div>
             </div>
           </div>
         </div>
       </nav>
-    </main>
-  </body>
-</html>

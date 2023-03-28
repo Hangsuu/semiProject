@@ -10,16 +10,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
-import com.kh.poketdo.dto.MemberDto;
-
+import com.kh.poketdo.dto.MemberWithImageDto;
 @Repository
-public class MemberDao {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    
-    
-	public void insert(MemberDto memberDto) {
+public class MemberWithImageDao {
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	public void insert(MemberWithImageDto memberWithImageDto) {
 		String sql="insert into member("
 					+ "member_id, member_pw, member_nick, member_birth, "
 					+ "member_email, member_level, "
@@ -28,22 +26,22 @@ public class MemberDao {
 					+ "?,?,?,?,?,'일반회원', 0, sysdate, sysdate"
 					+ ")";
 		Object[] param = {
-				memberDto.getMemberId(), memberDto.getMemberPw(),
-				memberDto.getMemberNick(), memberDto.getMemberBirth(), 
-				memberDto.getMemberEmail(), memberDto.getMemberLevel(),
-				memberDto.getMemberPoint(), memberDto.getMemberDeadline()
+				memberWithImageDto.getMemberId(), memberWithImageDto.getMemberPw(),
+				memberWithImageDto.getMemberNick(), memberWithImageDto.getMemberBirth(), 
+				memberWithImageDto.getMemberEmail(), memberWithImageDto.getMemberLevel(),
+				memberWithImageDto.getMemberPoint(), memberWithImageDto.getMemberDeadline()
 		};
 		jdbcTemplate.update(sql,param);
 		
 	}
 
 
-    private RowMapper<MemberDto> mapper = new RowMapper<MemberDto>() {
+    private RowMapper<MemberWithImageDto> mapper = new RowMapper<MemberWithImageDto>() {
 
         @Override
         @Nullable
-        public MemberDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return MemberDto.builder()
+        public MemberWithImageDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return MemberWithImageDto.builder()
             		.memberId(rs.getString("member_id"))
             		.memberPw(rs.getString("member_pw"))
                     .memberNick(rs.getString("member_nick"))
@@ -62,7 +60,7 @@ public class MemberDao {
 
     // C
     // ReadAll
-    public List<MemberDto> selectAll() {
+    public List<MemberWithImageDto> selectAll() {
         String sql = "select * from member";
         return jdbcTemplate.query(sql, mapper);
     }
@@ -74,7 +72,7 @@ public class MemberDao {
 	}
 	
 // 페이지 번호
-	public List<MemberDto> selectListPaging(int page, int size){
+	public List<MemberWithImageDto> selectListPaging(int page, int size){
 		int end = page * size;
 		int begin = end - (size-1);
 		String sql = "select * from ("
@@ -87,15 +85,15 @@ public class MemberDao {
 	}
     
     // ReadByPK
-    public MemberDto selectOne(String memberId) {
+    public MemberWithImageDto selectOne(String memberId) {
         String sql = "select * from member where member_id = ?";
         Object[] param = {memberId};
-        List<MemberDto> list = jdbcTemplate.query(sql, mapper, param);
+        List<MemberWithImageDto> list = jdbcTemplate.query(sql, mapper, param);
         return list.isEmpty() ? null : list.get(0);
     }
     // U
     
-    public boolean changeInformation(MemberDto memberDto) {
+    public boolean changeInformation(MemberWithImageDto memberDto) {
     	String sql = "update member set "
     			+ "member_nick=?, "
     			+ "member_birth=? "
@@ -116,8 +114,20 @@ public class MemberDao {
     	return jdbcTemplate.update(sql, param)>0;
     }
 
-
-
+	//관리자용 회원정보 변경
+    public boolean changeInformationByAdmin(MemberWithImageDto memberWithImageDto) {
+    	String sql =  "update member set "
+    				+ "member_nick=?, member_email=?, member_level=?, "
+    				+ "member_point=? "
+    				+ "where member_id = ?";
+    	Object[] param = {memberWithImageDto.getMemberNick(),memberWithImageDto.getMemberEmail(),
+    			memberWithImageDto.getMemberLevel(),memberWithImageDto.getMemberPoint(),
+    			memberWithImageDto.getMemberId()
+    	};
+    	return jdbcTemplate.update(sql, param) > 0;
+    }
     
-
+    
+    
 }
+

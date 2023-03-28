@@ -15,11 +15,11 @@ public class MemberDto {
     private String memberId;
     private String memberPw;
     private String memberNick;
-    private String memberBirth;
+    private Date memberBirth;
     private String memberEmail;
     private String memberLevel;
     private int memberPoint;
-    private Date memberjoin;
+    private Date memberJoin;
     private Date memberLogin;
     private int memberLoginCnt;
     private Date memberDeadline;

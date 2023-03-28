@@ -116,15 +116,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </div>
       </nav>
       <section>
-      	<aside style="border-right:1px solid gray;"></aside>
+      	<aside style="border-right:1px solid gray;">
       		<!-- 관리 메뉴는 수직으로 배치(List-group 형태) -->
       		<div class="flex-box flex-vertical">
       			<div class="p-10">
       				<h2>관리자 메뉴</h2>
       			</div>
-      			<div class="p-10"><a href="/admin/member/memberManage" class="link">회원 목록</a></div>
+      				<div class="p-10"><a href="/admin/memberStat" class="link">홈으로</a></div>
+      				<div class="p-10"><a href="/admin/member/memberManage" class="link">회원 목록</a></div>
              </div>
-      </section>
-    </main>
-  </body>
-</html>
+             </aside>
+             <article>

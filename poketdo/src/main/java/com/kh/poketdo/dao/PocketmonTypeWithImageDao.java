@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.PocketmonTypeWithImageDto;
-import com.kh.poketdo.vo.PocketTypePaginationVO;
+import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Repository
 public class PocketmonTypeWithImageDao {
@@ -55,7 +55,7 @@ public class PocketmonTypeWithImageDao {
 		}
 		
 		//페이징 적용된 조회 및 카운트
-				public int selectCount(PocketTypePaginationVO vo) {
+				public int selectCount(PocketPaginationVO vo) {
 					
 					if(vo.isSearch()) {
 						String sql = "select count(*) from pocketmon_type_with_image where instr(#1,?)>0";
@@ -71,7 +71,7 @@ public class PocketmonTypeWithImageDao {
 				}
 		
 //		목록
-		public List<PocketmonTypeWithImageDto> selectList(PocketTypePaginationVO vo){
+		public List<PocketmonTypeWithImageDto> selectList(PocketPaginationVO vo){
 			if(vo.isSearch()) {
 				String sql="select*from("
 						+ "select rownum rn, TMP.*from ("

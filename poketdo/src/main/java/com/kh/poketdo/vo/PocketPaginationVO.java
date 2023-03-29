@@ -15,7 +15,7 @@ public class PocketPaginationVO {
   // 전체 게시글 개수
   private int count;
   // 블럭마다 보여줄 숫자 개수
-  private int blockSize = 10;
+  private int blockSize = 5;
 //	//정렬 항목
 //	private String item="allboard_no";
 //	//오름차순 내림차순

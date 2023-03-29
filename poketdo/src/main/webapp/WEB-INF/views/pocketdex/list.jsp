@@ -124,6 +124,6 @@
 				<button type="submit" class="form-btn neutral">검색</button>
 	
 			</form>
-	
+		</div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

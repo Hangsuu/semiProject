@@ -19,7 +19,7 @@ import com.kh.poketdo.dao.PocketmonTypeWithImageDao;
 import com.kh.poketdo.dto.PocketmonTypeDto;
 import com.kh.poketdo.dto.PocketmonTypeWithImageDto;
 import com.kh.poketdo.service.PocketmonTypeService;
-import com.kh.poketdo.vo.PocketTypePaginationVO;
+import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Controller
 @RequestMapping("/pockettype")
@@ -57,7 +57,7 @@ public class PocketTypeController {
 	@GetMapping("/list")
 	public String pocketTypeList(
 			Model model,
-			@ModelAttribute("vo") PocketTypePaginationVO vo
+			@ModelAttribute("vo") PocketPaginationVO vo
 			) {
 		int totalCount = pocketmonTypeWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);

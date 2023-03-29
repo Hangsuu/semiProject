@@ -23,6 +23,7 @@ import com.kh.poketdo.dao.SealWithImageDao;
 import com.kh.poketdo.dto.SealDto;
 import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.service.SealService;
+import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Controller
 @RequestMapping("/seal")
@@ -63,8 +64,15 @@ public class SealController {
 	
 	//인장 정보 목록
 	@GetMapping("/list")
-	public String sealList(Model model) {
-		List<SealWithImageDto> list = sealWithImageDao.selectList();
+	public String sealList(
+			Model model,
+			@ModelAttribute("vo") PocketPaginationVO vo
+			) {
+		int totalCount = sealWithImageDao.selectCount(vo);
+		vo.setCount(totalCount);
+		vo.setBlockSize(15);
+		System.out.println(totalCount);
+		List<SealWithImageDto> list = sealWithImageDao.selectList(vo);
 		model.addAttribute("list" , list);
 		return "/WEB-INF/views/seal/list.jsp";
 	}

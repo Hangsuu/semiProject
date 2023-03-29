@@ -110,8 +110,7 @@
 				<input type="search" name="keyword" placeholder="검색어" required
 					value="${vo.keyword}" class="form-input">
 				<button type="submit" class="form-btn neutral">검색</button>
-	
 			</form>
-		
+		</div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -34,11 +34,13 @@
     </div>
     
     
-      <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
+     
  		
 
  		
   </article>
+  
+   <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

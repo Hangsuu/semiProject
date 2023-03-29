@@ -1,6 +1,5 @@
 package com.kh.poketdo.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.MemberDao;
@@ -52,6 +50,8 @@ public class MemberController {
     
     @Autowired
     private SealWithImageDao sealWithImageDao;
+    
+ 
 
     @GetMapping("/login")
     public String login() {
@@ -79,7 +79,7 @@ public class MemberController {
         session.removeAttribute("memberLevel");
         return "redirect:" + request.getHeader("Referer");
     }
-        
+    
     
     
     
@@ -91,10 +91,9 @@ public class MemberController {
     }
     
     @PostMapping("/join")
-    public String join(@ModelAttribute MemberDto memberDto,
-    		@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-    		memberService.join(memberDto, attach);
-    	
+    public String join(@ModelAttribute MemberDto memberDto) {
+    		memberService.join(memberDto);
+ 
     	return "redirect:joinFinish";
     }
         
@@ -170,6 +169,11 @@ public class MemberController {
 	}
 
     		
+    @GetMapping("/editFinish")
+    public String editFinish() {
+    	return ("/WEB-INF/views/member/editFinish.jsp");
+    }
+    
     		
     //회원 탈퇴
     
@@ -201,6 +205,15 @@ public class MemberController {
     	
     	return "redirect:exitFinish";
     }
+    
+    
+	
+	@GetMapping("/exitFinish")
+	public String exitFinish() {
+		return ("/WEB-INF/views/member/exitFinish.jsp");
+	}
+
+    
     
     @GetMapping("/find")
     public String find() {

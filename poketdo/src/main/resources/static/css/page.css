@@ -269,6 +269,9 @@ section.member-login-section form {
   text-decoration: none;
   border: 1px black solid;
 }
+.pocketmonTrade-btn:hover {
+  cursor: pointer;
+}
 #pocketmonTrade-like {
   font-weight: bold;
 }
@@ -290,10 +293,29 @@ textarea[name="replyContent"] {
   border-radius: 45%;
   padding: 2px;
 }
-/* # Message */
+
+/* # Message receive */
 .message-nav {
   width: 200px;
 }
+
+.message-delete-btn,
+  .message-refresh-btn {
+    cursor: pointer;
+  }
+  .message-check-one,
+  .message-check-all {
+    transform: scale(1.2);
+  }
+  a.link:hover {
+    text-decoration: underline;
+  }
+
+  .custom-spin {
+    -webkit-animation: fa-spin 0.5s infinite linear;
+    animation: fa-spin 0.5s infinite linear;
+  }
+
 
 .message-row:hover {
   background-color: #F5F5F5;

@@ -25,6 +25,7 @@ import com.kh.poketdo.dto.MemberSealWithImageDto;
 import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.service.MemberService;
 import com.kh.poketdo.service.SealService;
+import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Controller
 @RequestMapping("/member")
@@ -116,7 +117,13 @@ public class MemberController {
     
     //나의 인장
     @GetMapping("/myseal")
-    public String myseal (HttpSession session, Model model) {
+    public String myseal (
+    		HttpSession session, 
+    		Model model,
+    		@ModelAttribute("vo") PocketPaginationVO vo
+    		) {
+    	int totalCount = sealWithImageDao.selectCount(vo);
+    	vo.setCount(totalCount);
     	String memberId = (String) session.getAttribute("memberId");
     	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId);
     	model.addAttribute("list",list);

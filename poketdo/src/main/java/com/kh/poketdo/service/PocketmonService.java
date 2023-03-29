@@ -26,6 +26,7 @@ import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonImageDto;
 import com.kh.poketdo.dto.PocketmonJoinTypeDto;
 import com.kh.poketdo.dto.PocketmonWithImageDto;
+import com.kh.poketdo.vo.PocketPaginationVO;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;
 
 @Service
@@ -116,15 +117,17 @@ public class PocketmonService {
 	}
 	
 	//포켓몬 전체 속성 불러오기
-	public List<PocketmonWithTypesVO> pocketmonTypeSelect(){
+	public List<PocketmonWithTypesVO> pocketmonTypeSelect(
+			@ModelAttribute("vo") PocketPaginationVO vo
+			){
 		
 		// 포켓몬들이 전부 들어있는 list
-	    List<PocketmonDto> list = pocketmonDao.selectList();
+	    List<PocketmonWithImageDto> list = pocketmonWithImageDao.selectList(vo);
 	    
 	    // 타입이 포함된 pocketmonWithType들이 담긴 list(model에 첨부)
 	    List<PocketmonWithTypesVO> list3 = new ArrayList<>();
 	 
-	    for (PocketmonDto dto : list) {
+	    for (PocketmonWithImageDto dto : list) {
 	      // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
 	      List<PocketmonJoinTypeDto> list2 = 
 	    		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
@@ -161,6 +164,7 @@ public class PocketmonService {
 	          .build()
 	      );
 	    }
+	    
 	    return list3;
 	}
 	

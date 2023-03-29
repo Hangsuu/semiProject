@@ -19,7 +19,9 @@ import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonJoinTypeDto;
+import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.service.PocketmonService;
+import com.kh.poketdo.vo.PocketPaginationVO;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;
 
 @Controller
@@ -75,10 +77,13 @@ public class PocketmonController {
   //포켓몬스터 목록
   @GetMapping("/list")
   public String pocketDexList(
-    Model model
+    Model model,
+    @ModelAttribute("vo") PocketPaginationVO vo
   ) {
-   
-	List<PocketmonWithTypesVO> list3 = pocketmonService.pocketmonTypeSelect();
+	int totalCount = pocketmonWithImageDao.selectCount(vo);
+	vo.setCount(totalCount);
+	List<PocketmonWithTypesVO> list3 = pocketmonService.pocketmonTypeSelect(vo);
+	
     model.addAttribute("list3", list3);
     return "/WEB-INF/views/pocketdex/list.jsp";
   }

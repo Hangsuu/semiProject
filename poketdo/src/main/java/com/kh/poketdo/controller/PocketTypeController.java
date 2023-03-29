@@ -19,6 +19,7 @@ import com.kh.poketdo.dao.PocketmonTypeWithImageDao;
 import com.kh.poketdo.dto.PocketmonTypeDto;
 import com.kh.poketdo.dto.PocketmonTypeWithImageDto;
 import com.kh.poketdo.service.PocketmonTypeService;
+import com.kh.poketdo.vo.PocketTypePaginationVO;
 
 @Controller
 @RequestMapping("/pockettype")
@@ -29,6 +30,7 @@ public class PocketTypeController {
 	private PocketmonTypeService pocketmonTypeService;
 	@Autowired
 	private PocketmonTypeWithImageDao pocketmonTypeWithImageDao;
+	
 
 	//포켓몬스터 속성 정보 입력 페이지
 	@GetMapping("/insert")
@@ -54,9 +56,13 @@ public class PocketTypeController {
 	//포켓몬스터 속성 정보 목록
 	@GetMapping("/list")
 	public String pocketTypeList(
-			Model model
+			Model model,
+			@ModelAttribute("vo") PocketTypePaginationVO vo
 			) {
-		List<PocketmonTypeWithImageDto> list = pocketmonTypeWithImageDao.selectList();
+		int totalCount = pocketmonTypeWithImageDao.selectCount(vo);
+		vo.setCount(totalCount);
+		
+		List<PocketmonTypeWithImageDto> list = pocketmonTypeWithImageDao.selectList(vo);
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/pocketType/list.jsp";
 	}
@@ -96,5 +102,7 @@ public class PocketTypeController {
 		pocketmonTypeDao.delete(pocketTypeNo);
 		return "redirect:list";
 	}
+	
+
 	
 }

@@ -27,6 +27,7 @@ public class PocketmonJoinTypeDao {
       return PocketmonJoinTypeDto
         .builder()
         .pocketJoinNo(rs.getInt("pocket_join_no"))
+        .joinNo(rs.getInt("join_no"))
         .typeJoinNo(rs.getInt("type_join_no"))
         .build();
     }
@@ -35,16 +36,26 @@ public class PocketmonJoinTypeDao {
   //포켓몬스터 번호 + 속성 번호 입력
   public void insert(int pocketJoinNo, int typeJoinNo) {
     String sql =
-      "insert into pocketmon_join_type (pocket_join_no, type_join_no) values(?, ?)";
+      "insert into pocketmon_join_type (join_no, pocket_join_no, type_join_no) values(pocketmon_join_type_seq.nextval ,?, ?)";
     Object[] param = { pocketJoinNo, typeJoinNo };
     jdbcTemplate.update(sql, param);
   }
 
+  //포켓몬스터 속성 수정
+  public boolean edit(int editTypeJoinNo,  int JoinNo) {
+	  String sql = "update pocketmon_join_type set type_join_no = ? where  join_no = ?";
+	  Object[] param = {editTypeJoinNo, JoinNo};
+	  return jdbcTemplate.update(sql,param)>0;
+  }
+  
+  
   //포켓몬스터 번호로 포켓몬스터 속성 검색
   public List<PocketmonJoinTypeDto> selectOne(int pocketJoinNo) {
     String sql =
-      "select * from pocketmon_join_type where pocket_join_no = ? order by type_join_no asc";
+      "select * from pocketmon_join_type where pocket_join_no = ? order by type_join_no desc";
     Object[] param = { pocketJoinNo };
     return jdbcTemplate.query(sql, mapper, param);
   }
+  
+  
 }

@@ -17,8 +17,8 @@ public class AuctionDto {
 	private String auctionContent;
 	private Date auctionTime;
 	private Date auctionFinishTime;
-	private int auctionMinPrice;
-	private int auctionMaxPrice;
+	private Integer auctionMinPrice;
+	private Integer auctionMaxPrice;
 	private int auctionLike;
 	private int auctionDislike;
 	private int auctionReply;

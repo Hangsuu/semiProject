@@ -31,16 +31,16 @@
 						</a>
 					</td>
 					<td>
-						<c:forEach var="i" begin="0" end="${pocketmonDto.getPocketTypes().size()-1}">
-							<c:choose>
-								<c:when test="${i==pocketmonDto.getPocketTypes().size()-1}">
-									${pocketmonDto.getPocketTypes().get(i)}
-								</c:when>
-								<c:otherwise>
-									${pocketmonDto.getPocketTypes().get(i)},
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
+<%-- 						<c:forEach var="i" begin="0" end="${pocketmonDto.getPocketTypes().size()-1}"> --%>
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${i==pocketmonDto.getPocketTypes().size()-1}"> --%>
+<%-- 									${pocketmonDto.getPocketTypes().get(i)} --%>
+<%-- 								</c:when> --%>
+<%-- 								<c:otherwise> --%>
+<%-- 									${pocketmonDto.getPocketTypes().get(i)}, --%>
+<%-- 								</c:otherwise> --%>
+<%-- 							</c:choose> --%>
+<%-- 						</c:forEach> --%>
 					</td>
 					<td>
 						<a href="edit?pocketNo=${pocketmonDto.pocketNo}" >수정</a>

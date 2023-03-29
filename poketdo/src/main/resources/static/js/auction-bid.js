@@ -39,7 +39,12 @@ $(function(){
 			url:"/rest/auction/max/"+allboardNo,
 			method:"get",
 			success:function(response){
-				$(".max-bid-price").text(response);
+				if(response==0){
+					$(".max-bid-price").text("무제한");
+				}
+				else{
+					$(".max-bid-price").text(response);
+				}
 			}
 		});			
 	};

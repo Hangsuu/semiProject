@@ -732,7 +732,8 @@ input [name="memberPw"] {
   right: 100%;
 }
 
-.valid-messga{
+/* valid invalid 메세지 스타일 */
+.valid-messsage{
 	color: forestgreen;
 	display: none;
 }
@@ -742,6 +743,18 @@ input [name="memberPw"] {
 .invalid-message3{
 	color:red;
 	display: none;
+}
+.valid ~ .valid-message {
+  display: block;
+}
+.invalid ~ .invalid-message {
+  display: block;
+}
+.invalid2 ~ .invalid-message2 {
+  display: block;
+}
+.invalid3 ~ .invalid-message3 {
+  display: block;
 }
 
 main section article h1 {

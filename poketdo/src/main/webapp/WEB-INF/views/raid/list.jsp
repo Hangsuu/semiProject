@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 	<div class="row"><h1 style="font-size:2em">레이드</h1></div>
 	<div class="row">
 		<form action="list" method="get" autocomplete="off">
@@ -96,7 +96,7 @@
 	<!-- 번호들 -->
 		<c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}" step="1">
 			<c:choose>
-				<c:when test="${vo.page==i}"><a class="on">${i}</a></c:when>
+				<c:when test="${vo.page==i}"><a class="on disabled">${i}</a></c:when>
 				<c:otherwise><a href="list?page=${i}&${vo.parameter}&${vo.addParameter}" class="">${i}</a></c:otherwise>
 			</c:choose>
 		</c:forEach>

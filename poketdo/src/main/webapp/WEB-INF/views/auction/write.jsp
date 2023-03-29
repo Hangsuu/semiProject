@@ -124,7 +124,7 @@
 		});
 	});
 </script>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 <form action="write" method="post" autocomplete="off" enctype="multipart/form-data">
 <input type="hidden" name="auctionWriter" value="${sessionScope.memberId}">
 	<div class="row">

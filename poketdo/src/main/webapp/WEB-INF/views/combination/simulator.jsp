@@ -199,7 +199,7 @@ $(function(){
 		<td class="list-read"></td>
 	</tr>
 </script>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 	<div class="row"><h1 style="font-size:2em">조합 시뮬레이터</h1></div>
 <!-- 검색 -->
 	<div class="row">

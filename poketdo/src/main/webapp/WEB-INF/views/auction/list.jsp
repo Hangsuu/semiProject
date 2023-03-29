@@ -8,7 +8,7 @@
 </script>
 <script src="/static/js/timer.js"></script>
 <script src="/static/js/bookmark.js"></script>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 	<div class="row"><h1 style="font-size:2em">경매</h1></div>
 <!-- 검색 -->
 	<div class="row">
@@ -96,7 +96,7 @@
 	<!-- 번호들 -->
 		<c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}" step="1">
 			<c:choose>
-				<c:when test="${vo.page==i}"><a class="on">${i}</a></c:when>
+				<c:when test="${vo.page==i}"><a class="on disabled">${i}</a></c:when>
 				<c:otherwise><a href="list?${vo.parameter}&page=${i}&${vo.addParameter}" class="">${i}</a></c:otherwise>
 			</c:choose>
 		</c:forEach>

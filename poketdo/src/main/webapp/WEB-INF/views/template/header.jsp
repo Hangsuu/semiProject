@@ -65,11 +65,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			<div style="display:inline-block">
 				<a href="/member/mypage"><span>마이페이지</span></a>
 			</div>
+			<div style="display:inline-block">
+				<a href="/message/receive">쪽지</a>
+			</div>
         </div>
       </header>
 
       <!-- nav -->
-      <div class="row">
+      <div class="row" style="margin-bottom: 0px;">
 	      <nav>
 	        <%-- base.css --%>
 	        <div class="nav-bar">
@@ -124,8 +127,5 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	        </div>
 	      </nav>
       </div>
-	</div>
-	
-	<div class="row" style="width:100%; margin-top:0px">
-		<hr style="border-color:gray">
+	  <hr class="mg-0"/>
 	</div>

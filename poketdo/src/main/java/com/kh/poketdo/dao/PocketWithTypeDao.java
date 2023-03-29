@@ -25,6 +25,7 @@ public class PocketWithTypeDao {
       return PocketWithTypeDto
         .builder()
         .pocketNo(rs.getInt("pocket_no"))
+        .joinNo(rs.getInt("join_no"))
         .pocketName(rs.getString("pocket_name"))
         .pocketTypeNo(rs.getInt("pocket_type_no"))
         .pocketTypeName(rs.getString("pocket_type_name"))

@@ -21,7 +21,7 @@ import com.kh.poketdo.dto.PocketmonTypeWithImageDto;
 import com.kh.poketdo.service.PocketmonTypeService;
 
 @Controller
-@RequestMapping("/pocketType")
+@RequestMapping("/pockettype")
 public class PocketTypeController {
 	@Autowired
 	private PocketmonTypeDao pocketmonTypeDao;

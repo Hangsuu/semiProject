@@ -93,7 +93,6 @@ public class PocketmonController {
 	  
 	  model.addAttribute("typeJoinName", list.get(0));
 	  model.addAttribute("typeJoinName2", list.get(1));
-	  
 	  model.addAttribute(pocketmonDao.selectOne(pocketNo));
     return "/WEB-INF/views/pocketdex/edit.jsp";
   }
@@ -109,10 +108,10 @@ public class PocketmonController {
   			) throws IllegalStateException, IOException {
   		pocketmonService.pocketmonEdit(pocketmonDto, attach, pocketNo, attr);
   		List<PocketmonJoinTypeDto> list = pocketmonJoinTypeDao.selectOne(pocketNo);
-  		int firstTypeNo = list.get(0).getTypeJoinNo();
-  		int secondTypeNo = list.get(1).getTypeJoinNo();
-		pocketmonJoinTypeDao.edit(typeJoinNo, pocketNo, firstTypeNo);
-		pocketmonJoinTypeDao.edit(typeJoinNo2, pocketNo, secondTypeNo);
+  		int firstTypeNo = list.get(0).getJoinNo();
+  		int secondTypeNo = list.get(1).getJoinNo();
+		pocketmonJoinTypeDao.edit(typeJoinNo, firstTypeNo);
+		pocketmonJoinTypeDao.edit(typeJoinNo2, secondTypeNo);
   		return "redirect:detail";
   	}
 

@@ -28,11 +28,17 @@
 					<td>
 						<c:forEach var="i" begin="0" end="${pocketmonTypes.size()-1}">
 							<c:choose>
-								<c:when test="${i==pocketmonTypes.size()-1}">
-									${pocketmonTypes.get(i)}
+								<c:when test="${i>=pocketmonTypes.size()-1}">
+											<c:choose>
+												<c:when test="${pocketmonTypes.get(i).equals('없음')}">
+												</c:when>
+												<c:otherwise>
+													${pocketmonTypes.get(i)}
+												</c:otherwise>
+											</c:choose>
 								</c:when>
 								<c:otherwise>
-									${pocketmonTypes.get(i)},
+											${pocketmonTypes.get(i)}
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>

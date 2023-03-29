@@ -57,6 +57,8 @@ public class AuctionDao {
 				+ " values(?,?,?,?,?,?,?,?)";
 		int auctionSeq = auctionSequence();
 		dto.setAuctionNo(auctionSeq);
+		if(dto.getAuctionMaxPrice()==null) dto.setAuctionMaxPrice(0);
+		if(dto.getAuctionMinPrice()==null) dto.setAuctionMinPrice(0);
 		Object[] param = {dto.getAllboardNo(), dto.getAuctionNo(), dto.getAuctionWriter(), dto.getAuctionTitle(), dto.getAuctionContent(), 
 				dto.getAuctionFinishTime(),	dto.getAuctionMinPrice(), dto.getAuctionMaxPrice()};
 		

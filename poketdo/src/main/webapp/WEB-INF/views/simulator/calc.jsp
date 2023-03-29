@@ -12,15 +12,14 @@
 <script src="/static/js/calc.js"></script>
  </head>
  <body>
-   <div class="container-600 mt-50">
+   <div class="container-900 mt-50 mb-50">
        <div class="float-box">
            <div class="row float-left">
                <h1 style="font-size:2em">능력치 계산기</h1>
                <input name="pocketmonNumber" class="form-input mt-70" placeholder="포켓몬 검색">
                <button type="button" class="form-btn neutral monster-search">검색</button>
-               <span class="korean-name ms-20"></span>
            </div>
-           <img class="pocketmon-img float-right" src="" width=150 height=150>
+           <img class="pocketmon-img float-right me-50" src="" width=180 height=180>
        </div>
            <div class="row">
 

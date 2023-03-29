@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.PocketmonDto;
+import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Repository
 public class PocketmonDao {
@@ -133,6 +134,7 @@ public class PocketmonDao {
 		Object[] param = {pocketNo};
 		return jdbcTemplate.update(sql,param)>0;
 	}
+
 	//포켓몬스터 정보 이름 빼고 수정(오행서)
 	public boolean statEdit(PocketmonDto pocketmonDto) {
 		String sql = "update pocketmon set "
@@ -160,4 +162,5 @@ public class PocketmonDao {
 										};
 		return jdbcTemplate.update(sql,param)>0;
 		}
+
 }

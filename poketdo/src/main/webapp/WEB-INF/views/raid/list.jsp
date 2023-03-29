@@ -24,16 +24,16 @@
 		<table class="table table-slit center">
 			<thead>
 				<tr>
-					<th><a class="link" href="list?page=1&${vo.parameter}">글번호</a></th>
+					<th><a class="link" href="list?page=1&${vo.parameter}">글번호<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<th class="w-40">제목</th>
-					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_start_time&order=asc&special=raid_start_time>sysdate and raid_count<4">시작시간</a></th>
-					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_count&order=asc, allboard_no desc&special=raid_start_time>sysdate and raid_count<4">참가자</a></th>
+					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_start_time&order=asc&special=raid_start_time>sysdate and raid_count<4">시작시간<i class="fa-solid fa-sort ms-10"></i></a></th>
+					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_count&order=asc, allboard_no desc&special=raid_start_time>sysdate and raid_count<4">참가자<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<c:choose>
 						<c:when test="${param.special.startsWith('raid_type=1')}">
-							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=0 and raid_start_time>sysdate and raid_count<4">타입</a></th>
+							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=0 and raid_start_time>sysdate and raid_count<4">타입<i class="fa-solid fa-sort ms-10"></i></a></th>
 						</c:when>
 						<c:otherwise>
-							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=1 and raid_start_time>sysdate and raid_count<4">타입</a></th>
+							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=1 and raid_start_time>sysdate and raid_count<4">타입<i class="fa-solid fa-sort ms-10"></i></a></th>
 						</c:otherwise>
 					</c:choose>
 					

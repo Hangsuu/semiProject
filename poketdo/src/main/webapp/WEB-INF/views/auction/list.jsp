@@ -32,10 +32,10 @@
 		<table class="table table-slit center">
 			<thead>
 				<tr>
-					<th><a class="link" href="list?page=1&${vo.parameter}">글번호</a></th>
+					<th><a class="link" href="list?page=1&${vo.parameter}">글번호<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<th class="w-40">제목</th>
 					<th>글쓴이</th>
-					<th><a class="link" href="list?page=1&${vo.parameter}&item=auction_finish_time&order=asc&special=auction_finish_time>sysdate and auction_min_price<auction_max_price">남은시간</a></th>
+					<th><a class="link" href="list?page=1&${vo.parameter}&item=auction_finish_time&order=asc&special=auction_finish_time>sysdate and auction_min_price<auction_max_price">남은시간<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<th>조회수</th>
 					<th>좋아요</th>
 					<th></th>

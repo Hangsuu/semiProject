@@ -149,7 +149,7 @@ $(function(){
 						target.append(a);
 					}
 					else{
-						var a = $("<a>").attr("href", "simulator?page="+n+"&"+response.vo.tagParameter);
+						var a = $("<a>").attr("href", "simulator?page="+n+"&"+response.vo.tagParameter).text(n);
 						target.append(a);
 					}
 				}

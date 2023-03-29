@@ -3,7 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script>
 $(function(){
-	var index=1;
+	var index=301;
 	var pocketNo=0;
 	var pocketBaseHp=0;
 	var pocketBaseAtk=0;
@@ -101,7 +101,8 @@ $(function(){
 		});
 	};
 	$(".auto-btn").click(function(){
-		autoInsert();
+		setInterval(autoInsert, 1000+Math.floor(Math.random()*500));
+		if(index==1009) return;
 	});
 });
 </script>

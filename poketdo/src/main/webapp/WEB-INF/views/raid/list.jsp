@@ -121,7 +121,9 @@
 	</div>
 <!-- 페이지네이션 끝 -->
 	<div class="row">
-	<a href="write" class="form-btn neutral">글쓰기</a>
+		<c:if test="${sessionScope.memberId!=null}">
+			<a href="write" class="form-btn neutral">글쓰기</a>
+		</c:if>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

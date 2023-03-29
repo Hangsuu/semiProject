@@ -18,24 +18,24 @@
 				</tr>
 			</thead>
 			<tbody>
-					<tr>
-						<td>
-							0
-						</td>
-						<td>
-							<input type="checkbox" name="mySealNo" value="0">
-						</td>
-						<td>
-							<img width="96" height="96"
-									src="${basicSealDto.imageURL}">
-						</td>
-						<td>
-							${basicSealDto.sealNo}
-						</td>
-						<td>
-							${basicSealDto.sealName}
-						</td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<td> -->
+<!-- 							0 -->
+<!-- 						</td> -->
+<!-- 						<td> -->
+<!-- 							<input type="checkbox" name="mySealNo" value="0"> -->
+<!-- 						</td> -->
+<!-- 						<td> -->
+<!-- 							<img width="96" height="96" -->
+<%-- 									src="${basicSealDto.imageURL}"> --%>
+<!-- 						</td> -->
+<!-- 						<td> -->
+<%-- 							${basicSealDto.sealNo} --%>
+<!-- 						</td> -->
+<!-- 						<td> -->
+<%-- 							${basicSealDto.sealName} --%>
+<!-- 						</td> -->
+<!-- 					</tr> -->
 			
 				<c:forEach var="mySeal" items="${list}"  varStatus="status"> 
 					<tr>
@@ -70,7 +70,7 @@
 					<a class="disabled">&laquo;</a>
 				</c:when>
 				<c:otherwise>
-					<a href="list?page=1">&laquo;</a>
+					<a href="myseal?page=1">&laquo;</a>
 				</c:otherwise>
 			</c:choose>
 
@@ -79,7 +79,7 @@
 					<a class="disabled"> &lt;</a>
 				</c:when>
 				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${vo.prevPage}"> &lt; </a>
+					<a href="myseal?${vo.parameter}&page=${vo.prevPage}"> &lt; </a>
 				</c:otherwise>
 			</c:choose>
 
@@ -89,7 +89,7 @@
 						<a class="on">${i}</a>
 					</c:when>
 					<c:otherwise>
-						<a href="list?${vo.parameter}&page=${i}">${i}</a>
+						<a href="myseal?${vo.parameter}&page=${i}">${i}</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -99,7 +99,7 @@
 					<a class="disabled">&gt;</a>
 				</c:when>
 				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${vo.nextPage }"> &gt;</a>
+					<a href="myseal?${vo.parameter}&page=${vo.nextPage }"> &gt;</a>
 				</c:otherwise>
 			</c:choose>
 
@@ -108,14 +108,14 @@
 					<a class="disabled">&raquo;</a>
 				</c:when>
 				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${vo.totalPage}"> &raquo;</a>
+					<a href="myseal?${vo.parameter}&page=${vo.totalPage}"> &raquo;</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
 		
 		<!-- 검색창  -->
 		<div class="row center mb-30">
-			<form action="list" method="get">
+			<form action="myseal" method="get">
 				<c:choose>
 					<c:when test="${vo.column =='seal_name'}">
 						<select name="column" class="form-input">

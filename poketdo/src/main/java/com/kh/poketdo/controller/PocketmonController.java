@@ -19,7 +19,6 @@ import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonJoinTypeDto;
-import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.service.PocketmonService;
 import com.kh.poketdo.vo.PocketPaginationVO;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;

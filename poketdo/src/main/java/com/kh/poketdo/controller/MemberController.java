@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.MemberDao;
-import com.kh.poketdo.dao.MemberJoinSealDao;
 import com.kh.poketdo.dao.MemberProfileDao;
 import com.kh.poketdo.dao.MemberSealWithImageDao;
 import com.kh.poketdo.dao.SealWithImageDao;
@@ -42,9 +41,6 @@ public class MemberController {
     
     @Autowired
     private MemberSealWithImageDao memberSealWithImageDao;
-    
-    @Autowired
-    private MemberJoinSealDao memberJoinSealDao;
     
     @Autowired
     private SealService sealService;
@@ -122,9 +118,9 @@ public class MemberController {
     		Model model,
     		@ModelAttribute("vo") PocketPaginationVO vo
     		) {
-    	int totalCount = sealWithImageDao.selectCount(vo);
-    	vo.setCount(totalCount);
     	String memberId = (String) session.getAttribute("memberId");
+    	int totalCount = memberSealWithImageDao.mySelectCount(memberId, vo);
+    	vo.setCount(totalCount);
     	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
     	model.addAttribute("list",list);
     	SealWithImageDto basicSealDto = sealWithImageDao.selectBasicOne();

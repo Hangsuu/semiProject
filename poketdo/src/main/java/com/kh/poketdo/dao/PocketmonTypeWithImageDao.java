@@ -53,6 +53,12 @@ public class PocketmonTypeWithImageDao {
 			return list.isEmpty() ? null : list.get(0); 
 		}
 		
+		//pocketName으로 attachmentNo검색
+		public String selectName (String pocketName) {
+			String sql ="select attachment_no from pocketmon_type_with_image where pocket_name=?";
+			Object[] param = {pocketName};
+			return jdbcTemplate.queryForObject(sql, String.class, param);
+		}
 	
 	
 }

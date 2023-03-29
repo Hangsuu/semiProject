@@ -22,20 +22,8 @@ public class MessageController {
   // 받은메세지 리스트
   @GetMapping("/receive")
   public String receiveList(
-    HttpSession session,
-    Model model,
     @RequestParam(required = false, defaultValue = "") String mode
   ) {
-    String memberId = (String) session.getAttribute("memberId");
-    // session memberId가 받은 메세지
-    List<MessageDto> lists = "new".equals(mode)
-      ? messageDao.selectNewReceiveMessage(memberId)
-      : messageDao.selectReceiveMessage(memberId);
-    // session memberId가 읽지않은 메세지 개수
-    int notReadCnt = messageDao.countNotRead(memberId);
-
-    model.addAttribute("lists", lists);
-    model.addAttribute("notReadCnt", notReadCnt);
     return "/WEB-INF/views/message/messageReceive.jsp";
   }
 
@@ -84,7 +72,7 @@ public class MessageController {
     String memberId = (String) session.getAttribute("memberId");
     MessageDto messageDto = messageDao.selectSendOne(messageNo, memberId);
     model.addAttribute("messageDto", messageDto);
-    return "/WEB-INF/views/message/messageReceiveDetail.jsp";
+    return "/WEB-INF/views/message/messageSendDetail.jsp";
   }
 
   // 받은메세지 삭제

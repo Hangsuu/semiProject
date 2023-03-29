@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 
@@ -75,53 +76,36 @@
 		
 		<br>
 		
-		<label>포켓몬스터 속성 1(기존:${typeJoinName})</label>
+		<label>포켓몬스터 속성 1</label>
+
 		<select name="typeJoinNo">
-			<option value="0">없음</option>
-			<option value="1">1. 노말</option>
-			<option value="2">2. 격투</option>
-			<option value="3">3. 비행</option>
-			<option value="4">4. 독</option>
-			<option value="5">5. 땅</option>
-			<option value="6">6. 바위</option>
-			<option value="7">7. 벌레</option>
-			<option value="8">8. 고스트</option>
-			<option value="9">9. 강철</option>
-			<option value="10">10. 불꽃</option>
-			<option value="11">11. 물</option>
-			<option value="12">12. 풀</option>
-			<option value="13">13. 전기</option>
-			<option value="14">14. 에스퍼</option>
-			<option value="15">15. 얼음</option>
-			<option value="16">16. 드래곤</option>
-			<option value="17">17. 악</option>
-			<option value="18">18. 페어리</option>
+			<c:forEach items="${typeList}" var="type">
+				<c:choose>
+					<c:when test="${type.pocketTypeName eq typeJoinName}">
+						<option value="${type.pocketTypeNo}" selected>${type.pocketTypeName}</option>
+					</c:when>
+					<c:otherwise>
+						<option value="${type.pocketTypeNo}">${type.pocketTypeName}</option>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 		</select>
 		
 		<br>
 			
-		<label>포켓몬스터 속성 2(기존:${typeJoinName2})</label>
-		<select name="typeJoinNo2">
-			<option value="0">없음</option>
-			<option value="1">1. 노말</option>
-			<option value="2">2. 격투</option>
-			<option value="3">3. 비행</option>
-			<option value="4">4. 독</option>
-			<option value="5">5. 땅</option>
-			<option value="6">6. 바위</option>
-			<option value="7">7. 벌레</option>
-			<option value="8">8. 고스트</option>
-			<option value="9">9. 강철</option>
-			<option value="10">10. 불꽃</option>
-			<option value="11">11. 물</option>
-			<option value="12">12. 풀</option>
-			<option value="13">13. 전기</option>
-			<option value="14">14. 에스퍼</option>
-			<option value="15">15. 얼음</option>
-			<option value="16">16. 드래곤</option>
-			<option value="17">17. 악</option>
-			<option value="18">18. 페어리</option>
-		</select>
+		<label>포켓몬스터 속성 2</label>
+			<select name="typeJoinNo2">
+				<c:forEach items="${typeList}" var="type">
+					<c:choose>
+						<c:when test="${type.pocketTypeName eq typeJoinName2}">
+							<option value="${type.pocketTypeNo}" selected>${type.pocketTypeName}</option>
+						</c:when>
+						<c:otherwise>
+							<option value="${type.pocketTypeNo}">${type.pocketTypeName}</option>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</select>
 		
 		<br>
 		

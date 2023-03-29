@@ -16,9 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
+import com.kh.poketdo.dao.PocketmonTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonJoinTypeDto;
+import com.kh.poketdo.dto.PocketmonTypeDto;
 import com.kh.poketdo.service.PocketmonService;
 import com.kh.poketdo.vo.PocketPaginationVO;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;
@@ -35,7 +37,9 @@ public class PocketmonController {
   
   @Autowired
   private PocketmonWithImageDao pocketmonWithImageDao;
-  
+ 
+  @Autowired
+  private PocketmonTypeDao pocketmonTypeDao;
  
   @Autowired
   private PocketmonService pocketmonService;
@@ -95,10 +99,17 @@ public class PocketmonController {
 		  @RequestParam int pocketNo
 		  ) {
 	  List<String> list = pocketmonService.pocketmonTypeSelectOne(pocketNo);
-	  
-	  model.addAttribute("typeJoinName", list.get(0));
-	  model.addAttribute("typeJoinName2", list.get(1));
+	  List<PocketmonTypeDto> typeList = pocketmonTypeDao.selectList();
+	  if(list.size()==1) {
+		  model.addAttribute("typeJoinName", list.get(0));
+	  }
+	  else{
+		  model.addAttribute("typeJoinName", list.get(0));
+		  model.addAttribute("typeJoinName2", list.get(1));
+	  }
+		  
 	  model.addAttribute(pocketmonDao.selectOne(pocketNo));
+	  model.addAttribute("typeList", typeList);
     return "/WEB-INF/views/pocketdex/edit.jsp";
   }
 
@@ -111,13 +122,14 @@ public class PocketmonController {
 			@RequestParam int pocketNo,
 			RedirectAttributes attr
   			) throws IllegalStateException, IOException {
-  		pocketmonService.pocketmonEdit(pocketmonDto, attach, pocketNo, attr);
-  		List<PocketmonJoinTypeDto> list = pocketmonJoinTypeDao.selectOne(pocketNo);
-  		int firstTypeNo = list.get(0).getJoinNo();
-  		int secondTypeNo = list.get(1).getJoinNo();
-		pocketmonJoinTypeDao.edit(typeJoinNo, firstTypeNo);
-		pocketmonJoinTypeDao.edit(typeJoinNo2, secondTypeNo);
-  		return "redirect:detail";
+	  		pocketmonService.pocketmonEdit(pocketmonDto, attach, pocketNo, attr);
+	  		List<PocketmonJoinTypeDto> list = pocketmonJoinTypeDao.selectOne(pocketNo);
+  			int firstTypeNo = list.get(0).getJoinNo();
+  			int secondTypeNo = list.get(1).getJoinNo();
+  			pocketmonJoinTypeDao.edit(typeJoinNo, firstTypeNo);
+  			pocketmonJoinTypeDao.edit(typeJoinNo2, secondTypeNo);
+  			
+  			return "redirect:detail";
   	}
 
   //포켓몬스터 정보 상세

@@ -18,25 +18,6 @@
 				</tr>
 			</thead>
 			<tbody>
-<!-- 					<tr> -->
-<!-- 						<td> -->
-<!-- 							0 -->
-<!-- 						</td> -->
-<!-- 						<td> -->
-<!-- 							<input type="checkbox" name="mySealNo" value="0"> -->
-<!-- 						</td> -->
-<!-- 						<td> -->
-<!-- 							<img width="96" height="96" -->
-<%-- 									src="${basicSealDto.imageURL}"> --%>
-<!-- 						</td> -->
-<!-- 						<td> -->
-<%-- 							${basicSealDto.sealNo} --%>
-<!-- 						</td> -->
-<!-- 						<td> -->
-<%-- 							${basicSealDto.sealName} --%>
-<!-- 						</td> -->
-<!-- 					</tr> -->
-			
 				<c:forEach var="mySeal" items="${list}"  varStatus="status"> 
 					<tr>
 						<td>

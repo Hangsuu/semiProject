@@ -71,7 +71,6 @@ public class SealController {
 		int totalCount = sealWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);
 		vo.setBlockSize(15);
-		System.out.println(totalCount);
 		List<SealWithImageDto> list = sealWithImageDao.selectList(vo);
 		model.addAttribute("list" , list);
 		return "/WEB-INF/views/seal/list.jsp";

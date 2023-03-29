@@ -125,7 +125,7 @@ public class MemberController {
     	int totalCount = sealWithImageDao.selectCount(vo);
     	vo.setCount(totalCount);
     	String memberId = (String) session.getAttribute("memberId");
-    	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId);
+    	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
     	model.addAttribute("list",list);
     	SealWithImageDto basicSealDto = sealWithImageDao.selectBasicOne();
     	model.addAttribute("basicSealDto" , basicSealDto);

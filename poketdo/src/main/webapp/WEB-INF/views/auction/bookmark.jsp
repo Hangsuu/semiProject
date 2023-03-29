@@ -101,7 +101,7 @@ $(function(){
 						target.append(a);
 					}
 					else{
-						var a = $("<a>").attr("href", "bookmark?page="+n+"&"+response.vo.parameter);
+						var a = $("<a>").attr("href", "bookmark?page="+n+"&"+response.vo.parameter).text(n);
 						target.append(a);
 					}
 				}

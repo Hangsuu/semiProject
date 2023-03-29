@@ -1,6 +1,111 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<script>
+$(function(){
+	var index=301;
+	var pocketNo=0;
+	var pocketBaseHp=0;
+	var pocketBaseAtk=0;
+	var pocketBaseDef=0;
+	var pocketBaseSatk=0;
+	var pocketBaseSdef=0;
+	var pocketBaseSpd=0;
+	var pocketEffortHp=0;
+	var pocketEffortAtk=0;
+	var pocketEffortDef=0;
+	var pocketEffortSatk=0;
+	var pocketEffortSdef=0;
+	var pocketEffortSpd=0;
+	var type1="";
+	var type2="";
+	function autoInsert(){
+		var url = "https://pokeapi.co/api/v2/pokemon/"+index+"/";
+		$.ajax({
+			url:url,
+			method:"get",
+			success:function(response){
+				pocketNo = index;
+				pocketBaseHp = response.stats[0].base_stat;
+				pocketBaseAtk = response.stats[1].base_stat;
+				pocketBaseDef = response.stats[2].base_stat;
+				pocketBaseSatk = response.stats[3].base_stat;
+				pocketBaseSdef = response.stats[4].base_stat;
+				pocketBaseSpd = response.stats[5].base_stat;
+				pocketEffortHp = response.stats[0].effort;
+				pocketEffortAtk = response.stats[1].effort;
+				pocketEffortDef = response.stats[2].effort;
+				pocketEffortSatk = response.stats[3].effort;
+				pocketEffortSdef = response.stats[4].effort;
+				pocketEffortSpd = response.stats[5].effort;
+				type1 = response.types[0].type.url;
+				type1 = type1.replace("https://pokeapi.co/api/v2/type/","")
+				type1 = type1.replace("/","");
+				if(response.types[1]!=null){
+					type2 = response.types[1].type.url;
+					type2 = type2.replace("https://pokeapi.co/api/v2/type/","")
+					type2 = type2.replace("/","");
+				}
+				else{
+					type2="";
+				}	
+				setTimeout(function(){
+			 		$.ajax({
+						url:"/rest/pocketmon/",
+						method:"post",
+						data:{
+							pocketNo:pocketNo,
+							pocketBaseHp:pocketBaseHp,
+							pocketBaseAtk:pocketBaseAtk,
+							pocketBaseDef:pocketBaseDef,
+							pocketBaseSatk:pocketBaseSatk,
+							pocketBaseSdef:pocketBaseSdef,
+							pocketBaseSpd:pocketBaseSpd,
+							pocketEffortHp:pocketEffortHp,
+							pocketEffortAtk:pocketEffortAtk,
+							pocketEffortDef:pocketEffortDef,
+							pocketEffortSatk:pocketEffortSatk,
+							pocketEffortSdef:pocketEffortSdef,
+							pocketEffortSpd:pocketEffortSpd,
+							typeJoinNo1:type1,
+							typeJoinNo2:type2,
+						},
+						success:function(response){
+							pocketNo=0;
+							pocketBaseHp=0;
+							pocketBaseAtk=0;
+							pocketBaseDef=0;
+							pocketBaseSatk=0;
+							pocketBaseSdef=0;
+							pocketBaseSpd=0;
+							pocketEffortHp=0;
+							pocketEffortAtk=0;
+							pocketEffortDef=0;
+							pocketEffortSatk=0;
+							pocketEffortSdef=0;
+							pocketEffortSpd=0;
+							type1="";
+							type2="";
+							console.log(index)
+							index++;
+						},
+						error:function(){
+							alert("에러");
+						}
+					});
+				}, 1000)
+			},
+			error:function(){
+				alert("api에러");
+			},
+		});
+	};
+	$(".auto-btn").click(function(){
+		setInterval(autoInsert, 1000+Math.floor(Math.random()*500));
+		if(index==1009) return;
+	});
+});
+</script>
 	<h1>등록페이지 입니다~</h1>
 	<form action="insertProcess" method="post" enctype="multipart/form-data" class="form">
 		<label>포켓몬스터 번호</label>
@@ -74,8 +179,8 @@
 		<br>
 		
 		<label>포켓몬스터 속성 1</label>
-		<select name="typeJoinNo">
-			<option value="0">없음</option>
+		<select name="typeJoinNo1" class="type1">
+			<option value="">선택하세요</option>
 			<option value="1">1. 노말</option>
 			<option value="2">2. 격투</option>
 			<option value="3">3. 비행</option>
@@ -99,8 +204,8 @@
 		<br>
 			
 		<label>포켓몬스터 속성 2</label>
-		<select name="typeJoinNo2">
-			<option value="0">없음</option>
+		<select name="typeJoinNo2" class="type2">
+			<option value="">선택하세요</option>
 			<option value="1">1. 노말</option>
 			<option value="2">2. 격투</option>
 			<option value="3">3. 비행</option>

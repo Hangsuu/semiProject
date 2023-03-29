@@ -95,5 +95,6 @@ public class PocketmonTypeWithImageDao {
 				return jdbcTemplate.query(sql, mapper, param);
 			}
 		}
+
 	
 }

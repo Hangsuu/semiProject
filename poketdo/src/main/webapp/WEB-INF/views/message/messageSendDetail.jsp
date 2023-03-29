@@ -64,7 +64,7 @@
     </div>
     <div class="row">
       <b>받은사람</b> 
-      ${messageDto.getMessageRecipient()} [<fmt:formatDate value="${messageDto.getMessageReadTime()}" pattern="yyyy.MM.dd. H:m"/>]
+      ${messageDto.getMessageRecipient()} <c:if test="${messageDto.getMessageReadTime()!=null}">[<fmt:formatDate value="${messageDto.getMessageReadTime()}" pattern="yyyy.MM.dd. H:m"/>]</c:if>
     </div>
     <hr/>
     <div class="row message-content">

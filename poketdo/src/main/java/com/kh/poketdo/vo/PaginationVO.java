@@ -10,7 +10,7 @@ public class PaginationVO {
   // 현재 페이지
   private int page = 1;
   // 페이지 마다 보여줄 게시글 수
-  private int size = 15;
+  private int size = 1;
   // 전체 게시글 개수
   private int count;
   // 블럭마다 보여줄 숫자 개수

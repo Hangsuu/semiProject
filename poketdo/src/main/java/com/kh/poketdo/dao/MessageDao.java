@@ -74,7 +74,7 @@ public class MessageDao {
   // R 보낸 메세지리스트 부르기
   public List<MessageDto> selectSendMessage(String messageSender) {
     String sql =
-      "select * from message where message_Sender = ? and message_recipient_store = 1 order by message_no desc";
+      "select * from message where message_Sender = ? and message_sender_store = 1 order by message_no desc";
     Object[] param = { messageSender };
     return jdbcTemplate.query(sql, mapper, param);
   }
@@ -100,7 +100,7 @@ public class MessageDao {
   // R 받은 메세지 중 안 읽은 메세지 카운트
   public int countNotRead(String memberId) {
     String sql =
-      "select count(*) from message where message_recipient = ? and message_sender_store = 1 and message_read_time is null ";
+      "select count(*) from message where message_recipient = ? and message_recipient_store = 1 and message_read_time is null ";
     Object[] param = { memberId };
     return jdbcTemplate.queryForObject(sql, int.class, param);
   }
@@ -124,17 +124,22 @@ public class MessageDao {
   // U 보낸 메세지 삭제
   public boolean deleteSendMessage(int messageNo, String memberId) {
     String sql =
-      "update message set message_sender_store = 0 where message_no = ? and message_recipient = ?";
+      "update message set message_sender_store = 0 where message_no = ? and message_sender = ?";
     Object[] param = { messageNo, memberId };
     return jdbcTemplate.update(sql, param) > 0;
   }
 
-  // D 받은 사람, 메세지 삭제
+  // D store 확인 후 메세지 삭제
   public boolean deleteMessage(int messageNo) {
     String sql =
       "delete from message where message_no = ? and message_sender_store = 0 and message_recipient_store = 0";
     Object[] param = { messageNo };
     return jdbcTemplate.update(sql, param) > 0;
   }
-  //
+  // D 메세지 발송취소 삭제
+  public boolean deleteSendCancle(int messageNo, String messageSender) {
+    String sql = "delete from message where message_no = ? and message_sender = ?";
+    Object[] param = {messageNo, messageSender};
+    return jdbcTemplate.update(sql, param) > 0;
+  }
 }

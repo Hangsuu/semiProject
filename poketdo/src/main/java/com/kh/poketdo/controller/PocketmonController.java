@@ -131,4 +131,10 @@ public class PocketmonController {
     pocketmonDao.delete(pocketNo);
     return "redirect:list";
   }
+  
+  //자동 입력
+  @GetMapping("/auto")
+  public String auto() {
+	  return "/WEB-INF/views/pocketdex/autoInsert.jsp";
+  }
 }

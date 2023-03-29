@@ -30,8 +30,7 @@ public class MemberDao {
 		Object[] param = {
 				memberDto.getMemberId(), memberDto.getMemberPw(),
 				memberDto.getMemberNick(), memberDto.getMemberBirth(), 
-				memberDto.getMemberEmail(), memberDto.getMemberLevel(),
-				memberDto.getMemberPoint(), memberDto.getMemberDeadline()
+				memberDto.getMemberEmail()
 		};
 		jdbcTemplate.update(sql,param);
 		
@@ -99,18 +98,21 @@ public class MemberDao {
     public boolean changeInformation(MemberDto memberDto) {
     	String sql = "update member set "
     			+ "member_nick=?, "
-    			+ "member_birth=? "
+    			+ "member_birth=?, "
+    			+ "member_email=? "
     			+ "where member_id=?";
     	Object[] param = {
     			memberDto.getMemberNick(),
-    			memberDto.getMemberBirth()
+    			memberDto.getMemberBirth(),
+    			memberDto.getMemberEmail(),
+    			memberDto.getMemberId()
     	};
     	return jdbcTemplate.update(sql, param)>0;
     
     }
     
     
-    // D
+    // D 회원탈퇴
     public boolean delete(String memberId) {
     	String sql = "delete member where member_id=?";
     	Object[] param = {memberId};

@@ -50,7 +50,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				</c:choose>
         	</div>
 			<div style="display:inline-block">
-				<a href="#"><span>인장뽑기</span></a>
+				<a href="/seal/list"><span>인장뽑기</span></a>
 			</div>
 			<div style="display:inline-block">
 				<c:if test="${sessionScope.memberId != null}">

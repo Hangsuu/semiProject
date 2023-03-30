@@ -124,10 +124,4 @@ public class SealService {
 		}
 	}
 	
-	//기본 인장 이미지 정보 검색
-	public String basicSeal(HttpSession session) {
-		String basicSealNo = sealWithImageDao.selectBasicAttachNo();
-		return "/attachment/download?attachmentNo="+ basicSealNo;
-	}
-	
 }

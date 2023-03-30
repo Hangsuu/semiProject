@@ -1,20 +1,21 @@
 package com.kh.poketdo.restcontroller;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
+import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.service.PocketmonService;
 
 @RestController
@@ -51,4 +52,9 @@ public class PocketmonRestController {
 	    }
 	    return "redirect:insertFinish";
 	  }
+	  
+	  @GetMapping("/{pocketmonName}")
+	  public PocketmonWithImageDto selectOne(@PathVariable String pocketmonName) {
+		  return pocketmonWithImageDao.selectName(pocketmonName);
+	  };
 }

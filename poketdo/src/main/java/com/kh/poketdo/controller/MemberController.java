@@ -19,10 +19,8 @@ import com.kh.poketdo.dao.MemberDao;
 import com.kh.poketdo.dao.MemberJoinSealDao;
 import com.kh.poketdo.dao.MemberProfileDao;
 import com.kh.poketdo.dao.MemberSealWithImageDao;
-import com.kh.poketdo.dao.SealWithImageDao;
 import com.kh.poketdo.dto.MemberDto;
 import com.kh.poketdo.dto.MemberSealWithImageDto;
-import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.service.MemberService;
 import com.kh.poketdo.service.SealService;
 import com.kh.poketdo.vo.PocketPaginationVO;
@@ -44,13 +42,10 @@ public class MemberController {
     private MemberSealWithImageDao memberSealWithImageDao;
     
     @Autowired
-    private MemberJoinSealDao memberJoinSealDao;
-    
-    @Autowired
     private SealService sealService;
     
     @Autowired
-    private SealWithImageDao sealWithImageDao;
+    private MemberJoinSealDao memberJoinSealDao;
     
  
 
@@ -82,10 +77,6 @@ public class MemberController {
     }
     
     
-    
-    
-    
-    
     @GetMapping("/join")
     public String join() {
     	return "/WEB-INF/views/member/join.jsp";
@@ -94,7 +85,7 @@ public class MemberController {
     @PostMapping("/join")
     public String join(@ModelAttribute MemberDto memberDto) {
     		memberService.join(memberDto);
- 
+    		memberJoinSealDao.basicSealInsert(memberDto.getMemberId());
     	return "redirect:joinFinish";
     }
         
@@ -105,7 +96,6 @@ public class MemberController {
     
     
     //마이페이지
-    
     @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model) {
     	String memberId = (String) session.getAttribute("memberId");
@@ -122,13 +112,11 @@ public class MemberController {
     		Model model,
     		@ModelAttribute("vo") PocketPaginationVO vo
     		) {
-    	int totalCount = sealWithImageDao.selectCount(vo);
-    	vo.setCount(totalCount);
     	String memberId = (String) session.getAttribute("memberId");
-    	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId);
+    	int totalCount = memberSealWithImageDao.mySelectCount(memberId, vo);
+    	vo.setCount(totalCount);
+    	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
     	model.addAttribute("list",list);
-    	SealWithImageDto basicSealDto = sealWithImageDao.selectBasicOne();
-    	model.addAttribute("basicSealDto" , basicSealDto);
     	model.addAttribute("selectAttachNo" , sealService.mySeal(session));
     	return "/WEB-INF/views/member/myseal.jsp";
     }

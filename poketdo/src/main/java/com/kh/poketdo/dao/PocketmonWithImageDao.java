@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.vo.PocketPaginationVO;
 
@@ -109,6 +108,11 @@ public class PocketmonWithImageDao {
 		}
 	}
 	
-	
-	
+	//이름으로 검색
+	public PocketmonWithImageDto selectName(String pocketmonName) {
+		String sql = "select * from pocketmon_with_image where pocket_name=?";
+		Object[] param = {pocketmonName};
+		List<PocketmonWithImageDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty()? null: list.get(0);
+	}
 }

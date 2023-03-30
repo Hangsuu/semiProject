@@ -29,7 +29,7 @@
 	</div>
 </script>
 <script src="/static/js/like.js"></script>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 	<div class="row">
 	제목 : [${combinationDto.combinationType}]${combinationDto.combinationTitle}
 	</div>

@@ -143,7 +143,5 @@ public class MemberDao {
     	};
     	return jdbcTemplate.queryForObject(sql, String.class, param);
     }
-
     
-
 }

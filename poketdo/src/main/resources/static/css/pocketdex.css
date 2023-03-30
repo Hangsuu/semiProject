@@ -1,33 +1,43 @@
+/* 자식 요소 우측 여백 (4,8,12,16...제외) */
+.pocket-ul > :not(:nth-child(4n)) {
+ 	margin-right: 50px;
+}
+/* 자식 요소 1,5,9,13... 좌측 여백*/
+.pocket-ul > :nth-child(4n-3) {
+ 	margin-left:10px;
+}
+/* a태그 효과 */
 .pocket-box-a{
 	text-decoration: none; 
  	color: inherit; 
 }
-
+/* 포켓몬 박스 ul */
 .pocket-ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
+/* 포켓몬 박스 li */
 .pocket-li {
-  width: 250px;
   display: flex;
+  width: 250px;
   flex-direction: column;
   margin-bottom: 2em;
 }
+/* 포켓몬 이름 글씨 */
 .pocket-data > h3{
 	margin-left : 1.3em;
 }
-
+/* 포켓몬 번호 글씨 */
 .pocket-data > h4 {
 	font-weight: 300;
 	color: #808080; 
 	margin-left : 1.5em;
 }
-
+/* 포켓몬박스 */
 .pocket-box {
   width: 100%;
   height: 250px;
@@ -36,12 +46,14 @@
   overflow: hidden;
   position: relative;
   margin-bottom: 1em;
+  transition: transform 0.2s ease-in-out;
 }
-
-.pocket-box:hover {
+/* 호버 효과 */
+.pocket-box-a:hover > li > .pocket-box{
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
 }
-
+/* 포켓몬박스 위쪽 테두리 부분 */
 .pocket-box > div:first-child {
   width: 100%;
   height: 48%;
@@ -49,7 +61,7 @@
   top: 0;
   background-color: #e53935;
 }
-
+/* 포켓몬 박스 아래쪽 테두리 부분*/
 .pocket-box > div:nth-child(2) {
   width: 100%;
   height: 48%;
@@ -57,7 +69,7 @@
   position: absolute;
   bottom: 0;
 }
-
+/* 포켓몬 박스 흰색 부분 */
 .pocket-box > div:last-child {
   position: absolute;
   top: 50%;
@@ -68,7 +80,7 @@
   background-color: white;
   border-radius: 20px;
 }
-
+/* 포켓몬 이미지 */
 .pocket-box > div:nth-child(3) > img {
   display: inline-block;
   width: 100%;
@@ -77,7 +89,7 @@
   object-fit: cover;
   border-radius: 20px;
 }
-
+/* 포켓몬 데이터 자리 */
 .pocket-data {
   width: 100%;
   height: 100px;
@@ -86,30 +98,36 @@
   display: block;
 }
 
+/* 속성 글자 */
 .pocket-data span {
 	padding: 0.5em;
 	display: block;
 	line-height: 0.8em;
 	color: white;
 }
-
+/* 	속성 데이터 div */
 .pocket-data > div {
-	display: flex;
+  display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 5%;
 }
 
+/* 
+	속성 배경 모깍기
+ */
 .pocket-data > div div {
 	display: inline-block;
 	text-align: center;
 	width:48%;
 	height: 30px;
 	padding: 0px;
-		
 	clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+	
 }
-
+/* 
+	pocketdex list 속성 배경 색
+ */
 .type-back-color1 {
 	background-color:#999999;
 }
@@ -165,4 +183,111 @@
 	background-color:#FFB1FF;
 }
 
+/* 포켓몬 상세 컨테이너 */
+.pocket-detail-article {
+  display: flex;
+  justify-content: center;
+  width:100%;
+}
 
+.pocket-detail-container {
+	position: relative;
+  width: 1200px;
+  height: 1200px;
+  border-radius:25px;
+  background-color:#CCEBFF;
+}
+
+.pocket-detail-container > div {
+  position:absolute;
+  background-color:#F9FDFF;
+  border-radius:25px;
+  display:flex;
+  width:98%;
+  height:98%;
+  top:1%;
+  left:1%;
+  z-index:2;
+}
+
+
+.pocket-detail-container > div > .left {
+ position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  left: 0;
+  transform: translate(100%, -50%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+   background-color:white;
+}
+
+.pocket-detail-container > div > .right {
+ position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  right: 0;
+  transform: translate(-100%, -50%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-color:white;
+}
+
+.pocket-detail-container > div > .left > i,
+.pocket-detail-container > div > .right > i{
+	color: #65C4FF;;
+	font-size:4em;
+}
+
+.pocket-detail-container > div > .detail-image {
+	position: absolute;
+	width: 450px;
+	height: 600px;
+	left :350px;
+	top : 50px;
+	border-radius:25px;
+	background-color:white;
+	border : 2px solid #E5E5E5;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+	display:flex;
+	padding : 5%;
+	overflow: hidden;
+	flex-direction: column;
+}
+
+.pocket-detail-container > div > .detail-image > img {
+	margin-bottom:50px;
+}
+
+.pocket-detail-container > div > .detail-data {
+  position: absolute;
+	width: 900px;
+	height: 350px;
+	left :125px;
+	top : 750px;
+	border : 2px solid #E5E5E5;
+	border-radius:25px;
+	background-color:white;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+	display:flex;
+	flex-direction: column; /* span이 세로로 나열되도록 추가 */
+}
+
+.detail-image > .name{
+	font-weight: 500;
+	font-size: 50px;
+ 	display: block;
+  	text-align: center;
+}
+
+.detail-image > .no {
+	font-weight: 300;
+	font-size: 35px;
+	display:block;
+	color: #808080; 
+	text-align: center;
+}

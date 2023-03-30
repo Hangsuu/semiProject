@@ -3,53 +3,34 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<h1>상세 페이지~</h1>
-<table>
-	<thead>
-		<tr>
-			<th>이미지</th>
-			<th>번호</th>
-			<th>이름</th>
-			<th>속성</th>
-			<th>관리</th>
-		</tr>
-	</thead>
-		<tbody>
-			
-				<tr>
-					<td>
-					<img width="200" height="200"
-						src="${pocketmonWithImageDto.imageURL}">
-					</td>
-					<td>
-					${pocketmonWithImageDto.pocketNo}
-					</td>
-					<td>${pocketmonWithImageDto.pocketName}</td>
-					<td>
-						<c:forEach var="i" begin="0" end="${pocketmonTypes.size()-1}">
-							<c:choose>
-								<c:when test="${i>=pocketmonTypes.size()-1}">
-											<c:choose>
-												<c:when test="${pocketmonTypes.get(i).equals('없음')}">
-												</c:when>
-												<c:otherwise>
-													${pocketmonTypes.get(i)}
-												</c:otherwise>
-											</c:choose>
-								</c:when>
-								<c:otherwise>
-											${pocketmonTypes.get(i)}
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</td>
-					<td>
-						<a href="edit?pocketNo=${pocketmonWithImageDto.pocketNo}" >수정</a>
-						<a href="delete?pocketNo=${pocketmonWithImageDto.pocketNo}" >삭제</a>
-					</td>
-				</tr>
-		</tbody>
-	</table>
-	<a href="list">목록으로 이동</a>		
+
+<section class="container-1200 flex-box">
+
+	<aside></aside>
+	
+	<article class="mt-50 pocket-detail-article">
+		<div class="pocket-detail-container">
+			<div class="detail-image-container">
+				<div class="left">
+					<i class="fa-solid fa-circle-chevron-left fa-2xl" ></i>
+				</div>
+				<div class="right">
+					<i class="fa-solid fa-circle-chevron-right fa-2xl" ></i>
+				</div>
+				<div class="detail-image">
+					<img src="${pocketmonWithImageDto.imageURL}">
+					<span class="no">No.0${pocketmonWithImageDto.pocketNo}</span>
+					<span class="name">${pocketmonWithImageDto.pocketName}</span>
+				</div>
+				<div class="detail-data">
+				</div>
+				<div class="detail-list-icon">
+					<i class="fa-solid fa-bars fa-2xs" style="color: #0077c2; font-size:4em;"></i>
+				</div>
+			</div>
+		</div>
+	</article>
+	
+</section>	
 	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -8,22 +8,23 @@
 
 	<aside></aside>
 	
-	<article class="container-1200 mt-50 align-center">
+	<article class="mt-50">
 
 		<!-- 검색창  -->
 			<div class="row center mb-30" >
+			<h1 class="mb-20">포켓몬 도감</h1>
 				<form action="list" method="get">
 					<c:choose>
 						<c:when test="${vo.column =='pocket_name'}">
 							<select name="column" class="form-input">
-								<option value="pocket_name" selected >이름</option>
-								<option value="pocket_no" >번호</option>
+								<option value="pocket_name"  >이름</option>
+								<option value="pocket_no" selected>번호</option>
 							</select>
 						</c:when>
 						<c:otherwise>
 							<select name="column" class="form-input">
-								<option value="pocket_name" >이름</option>
-								<option value="pocket_no" selected>번호</option>
+								<option value="pocket_name" selected >이름</option>
+								<option value="pocket_no" >번호</option>
 							</select>
 						</c:otherwise>
 					</c:choose>
@@ -102,12 +103,12 @@
 			    <div class="pocket-box">
 			      <div></div>
 			      <div></div>
-			      <div>
+			      <div class="image-container">
 			          <img src="${pocketmonDto.imageURL}">
 			      </div>
 			    </div>
 			    <div class="pocket-data">
-			      <h4>No.${pocketmonDto.pocketNo}</h4>
+			      <h4>No.0${pocketmonDto.pocketNo}</h4>
 			      <h3>${pocketmonDto.pocketName}</h3>
 			   		   <div>
 	    					<c:forEach var="i" begin="0" end="${pocketmonDto.getPocketTypes().size()-1}">
@@ -197,14 +198,14 @@
 					<c:choose>
 						<c:when test="${vo.column =='pocket_name'}">
 							<select name="column" class="form-input">
-								<option value="pocket_name" selected >이름</option>
-								<option value="pocket_no" >번호</option>
+								<option value="pocket_name"  >이름</option>
+								<option value="pocket_no" selected>번호</option>
 							</select>
 						</c:when>
 						<c:otherwise>
 							<select name="column" class="form-input">
-								<option value="pocket_name" >이름</option>
-								<option value="pocket_no" selected>번호</option>
+								<option value="pocket_name" selected >이름</option>
+								<option value="pocket_no" >번호</option>
 							</select>
 						</c:otherwise>
 					</c:choose>

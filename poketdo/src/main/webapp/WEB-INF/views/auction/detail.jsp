@@ -35,11 +35,7 @@ $(function(){
 </script>
 <script type="text/template" id="reply-edit-template">
 	<div class="row">
-		<textarea class="row reply-edit-content form-input w-100 summernote-reply"></textarea>
-	</div>
-	<div class="row right">
-		<button class="form-btn neutral confirm-edit">수정</button>
-		<button class="form-btn neutral cancle-edit">취소</button>
+		<textarea class="row reply-edit-content form-input w-100 summernote-reply-edit"></textarea>
 	</div>
 </script>
 <script type="text/template" id="reply-child-template">

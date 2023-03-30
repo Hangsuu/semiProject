@@ -726,29 +726,39 @@ input [name="memberPw"] {
   right: 100%;
 }
 
-/* valid invalid 메세지 스타일 */
-.valid-messsage{
-	color: forestgreen;
-	display: none;
+.valid-message {
+    color: forestgreen;
+    font-style: bold;
+    font-size :13px;
+    display: none;
 }
-
 .invalid-message,
 .invalid-message2,
-.invalid-message3{
-	color:red;
-	display: none;
+.invalid-message3 {
+    color: red;
+    font-style: bold;
+    font-size :13px;
+    display: none;
 }
+/* 
+    입력창이 성공상태(.valid)일 경우 
+    뒤에 있는 성공메세지(.valid-message)를 표시 
+*/
 .valid ~ .valid-message {
-  display: block;
+    display: block;
 }
+/* 
+    입력창이 실패상태(.invalid)일 경우 
+    뒤에 있는 실패메세지(.invalid-message)를 표시 
+*/
 .invalid ~ .invalid-message {
-  display: block;
+    display: block;
 }
 .invalid2 ~ .invalid-message2 {
-  display: block;
+    display: block;
 }
 .invalid3 ~ .invalid-message3 {
-  display: block;
+    display: block;
 }
 
 main section article h1 {

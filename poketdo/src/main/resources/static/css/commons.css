@@ -15,13 +15,6 @@
 
     - div는 기본적으로 폭이 100%이므로 원하는 크기로 변경해야함
 */
-
-/* (주의)reset.css로 이동하였으므로 향후 제거 */
-* {
-  box-sizing: border-box;
-  font-family: "빙그레 메로나체";
-}
-
 /* 
     container는 표시될 폭과 정렬방식을 가운데로 설정 
     가운데라고만 하면 너무 애매하므로 다음과 같이 세분화
@@ -91,22 +84,23 @@
     같은 형태로 쓰기 때문에 색상 등을 제외한 나머지 크기가 동일해야함
 */
 .form-input {
-  font-size: 20px;
-  padding: 0.5em;
+  font-size:16px;
+  padding: 0.4em;
   outline: none; /*선택 시 강조 효과 제거*/
-  border: 1px solid #a4b0be;
+  border: 1px solid #EEF2F6;
   border-radius: 0.1em;
 }
 .form-input:focus {
   /*커서가 위치했을 때*/
   border-color: black;
 }
+/*
 input.form-input,
 select.form-input,
 .form-btn {
   height: 2.5em;
 }
-
+*/
 /*
     textarea는 리사이즈(resize)에 대한 설정이 필요하다
     - resize:vertical 은 수직 변경만 가능
@@ -134,8 +128,8 @@ input[type="file"].form-input {
     - 중립 버튼은 흑백 계열
 */
 .form-btn {
-  font-size: 20px;
-  padding: 0.5em;
+  font-size: 16px;
+  padding: 0.4em;
   border-width: 1px;
   border-style: solid;
   border-radius: 0.1em;
@@ -167,9 +161,9 @@ a.form-btn {
   color: white;
 }
 .form-btn.neutral {
-  background-color: #ced6e0;
-  border-color: #ced6e0;
-  color: black;
+  background-color: #EEF2F6;
+  border-color: #EEF2F6;
+  color: #2d3436;
 }
 
 .form-btn:hover {
@@ -504,7 +498,7 @@ a.link {
   text-decoration: none;
 }
 a.link:hover {
-  color: #ff4757;
+  color: #b2bec3;
 }
 
 /*
@@ -763,4 +757,19 @@ input [name="memberPw"] {
 
 main section article h1 {
   font-size: 2em;
+}
+.hash-tag{
+	background-color:white;
+	border:2px solid lightgray;
+	margin-left:10px;
+	border-radius:0.4em;
+	padding:0.4em;
+	text-decoration:none;
+	
+}
+.hash-tag :hover{
+	text-decoration:none;
+}
+.hash-tag>.fa-xmark{
+	color:#eb4d4b;
 }

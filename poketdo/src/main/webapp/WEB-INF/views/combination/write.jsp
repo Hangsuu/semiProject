@@ -11,6 +11,7 @@
 </script>
 <script src="/static/js/summernote.js"></script>
 <script>
+//-------------------전송할 수 있는 상태인지 판단-------------------------
 	$(function(){
 		var valid={
 				titleValid:false,
@@ -55,11 +56,15 @@
 			}
 			checkAllValid();
 		});
-		
+//-------------------------------태그기능 -------------------------------------		
 		var tagList= new Set();
 		var list=[];
 		//oninput과 onblur를 모두 사용하기 위한 방법
 		var preValue = $(".tag-input").val();
+		
+		//색깔
+		var tagColor = ["#F6FAFD", "#FFE5E5", "#FCF8E2", "#E4FBEB", "#E5EEFF"];
+		var tagBorderColor = ["2px solid #D2EAF8", "2px solid #FFC6C6", "2px solid #FAF1C6", "2px solid #BBF5CE", "2px solid #DBE7FF"];
 		
 		$(".tag-input").on("input", function(){
 			var text = $(this).val();
@@ -68,15 +73,27 @@
 				var list = text.match(regex);
 				
 				if(list!=null && list.length!=0){
-					tagList.add(list[1]);
-					//set을 전송 가능한 문자열 형태로 반환
-					var setList = Array.from(tagList);
-					var setListString = setList.join(",");
-					$("[name=tagList]").val(setListString);
-	
-					list.length=0;
-					$(this).val("#");
-					selectTag();
+					var text = list[1];
+					if(!tagList.has(text)){
+						tagList.add(text);
+						//set을 전송 가능한 문자열 형태로 반환
+						var setList = Array.from(tagList);
+						var setListString = setList.join(",");
+						$("[name=tagList]").val(setListString);
+		
+						list.length=0;
+						$(this).val("#");
+						var target = $(".tag-box")
+						var index = Math.floor(Math.random()*5);
+						var inputTag = $("<span>").addClass("hash-tag").css("background-color", tagColor[index]).css("border", tagBorderColor[index]).text(text);
+						var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-value", text).click(deleteTag)
+						inputTag.append(xmark);
+						target.append(inputTag);
+					}
+					else{
+						list.length=0;
+						$(this).val("#");
+					}
 				}
 			}
 			preValue = text;
@@ -85,28 +102,24 @@
 			var text = $(this).val();
 			text = text.replace("#", "").trim();
 			if(preValue!=text){
-				tagList.add(text);
-				//set을 전송 가능한 문자열 형태로 반환
-				var setList = Array.from(tagList);
-				var setListString = setList.join(",");
-				$("[name=tagList]").val(setListString);
-	
-				$(this).val("#");
-				selectTag();
+				if(!tagList.has(text)){
+					tagList.add(text);
+					//set을 전송 가능한 문자열 형태로 반환
+					var setList = Array.from(tagList);
+					var setListString = setList.join(",");
+					$("[name=tagList]").val(setListString);
+		
+					$(this).val("#");
+					var target = $(".tag-box")
+					var index = Math.floor(Math.random()*5);
+					var inputTag = $("<span>").addClass("hash-tag").css("background-color", tagColor[index]).css("border", tagBorderColor[index]).text(text);
+					var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-value", text).click(deleteTag)
+					inputTag.append(xmark);
+					target.append(inputTag);
+				}
 			}
 			preValue = text;
 		})
-		
-		function selectTag(){
-			var target = $(".tag-box")
-			target.empty();
-			tagList.forEach(function(value){
-				var inputTag = $("<span>").addClass("form-input").text(value);
-				var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").css("color", "red").attr("data-tag-value", value).click(deleteTag)
-				inputTag.append(xmark);
-				target.append(inputTag);
-			})
-		};
 		function deleteTag(){
 			tagList.delete($(this).data("tag-value"));
 			//set을 전송 가능한 문자열 형태로 반환

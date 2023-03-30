@@ -66,13 +66,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				<a href="/member/mypage"><span>마이페이지</span></a>
 			</div>
 			<div style="display:inline-block">
-				<a href="/message/receive">쪽지</a>
+				<c:if test="${sessionScope.memberId != null}">
+					<a href="/message/receive"><span>쪽지</span></a>
+				</c:if>
 			</div>
         </div>
       </header>
 
       <!-- nav -->
-      <div class="row" style="margin-bottom: 0px;">
+      <div class="row">
 	      <nav>
 	        <%-- base.css --%>
 	        <div class="nav-bar">
@@ -127,5 +129,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	        </div>
 	      </nav>
       </div>
-	  <hr class="mg-0"/>
+	</div>
+	
+	<div class="row mg-0" style="width:100%; margin-top:0px">
+		<hr class="mg-0" style="border-color:gray">
 	</div>

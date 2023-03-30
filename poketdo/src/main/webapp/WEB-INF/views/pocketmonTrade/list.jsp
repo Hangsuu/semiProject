@@ -8,8 +8,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- section -->
 <section>
   <!-- article -->
-  <article class="container-800">
-    <div class="row">
+  <article class="container-800 pt-50">
+    <div class="row mb-30">
       <a class="pocketmonTrade-list-banner" href="/pocketmonTrade"
         >포켓몬교환 게시판</a
       >

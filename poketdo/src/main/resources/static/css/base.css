@@ -4,10 +4,6 @@
 main {
   width: 100%;
   margin: 0 auto;
-  background-color: #E7EEE7;
-}
-main > * {
-  background-color: white;
 }
 header {
   height: 50px;
@@ -16,8 +12,9 @@ nav {
   height: 60px;
 }
 section {
-  width: 100%;
+  width: 1200px;
   display: flex;
+  margin: 0 auto;
 }
 .aside {
   width: 220px;

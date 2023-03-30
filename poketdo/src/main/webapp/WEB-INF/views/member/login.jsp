@@ -37,7 +37,7 @@
           <div><a href="/member/join">회원가입</a></div>
         </div>
       </div>
-      <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
+      <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : (header.referer.endsWith('/member/joinFinish') ? '/' : header.referer)}">
     </form>
   </article>
 

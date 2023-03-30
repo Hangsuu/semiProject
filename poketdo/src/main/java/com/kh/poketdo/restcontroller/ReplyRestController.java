@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.poketdo.dao.AllboardDao;
-import com.kh.poketdo.dao.AuctionDao;
-import com.kh.poketdo.dao.CombinationDao;
-import com.kh.poketdo.dao.PocketmonTradeDao;
-import com.kh.poketdo.dao.RaidDao;
 import com.kh.poketdo.dao.ReplyDao;
 import com.kh.poketdo.dto.ReplyDto;
 

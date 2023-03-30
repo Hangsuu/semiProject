@@ -24,6 +24,8 @@ public class ReplyDao {
   private RaidDao raidDao;
 	@Autowired
 	private CombinationDao combinationDao;
+  @Autowired
+  private PocketmonTradeDao pocketmonTradeDao;
 
   RowMapper<ReplyDto> mapper = (rs, index) -> {
     return ReplyDto
@@ -101,7 +103,9 @@ public class ReplyDao {
       case "raid":
         raidDao.replySet(allboardNo, replyCount);
       case "combination" : 
-    	combinationDao.replySet(allboardNo, replyCount);
+    	  combinationDao.replySet(allboardNo, replyCount);
+      case "pocketmon_trade" :
+        pocketmonTradeDao.replySet(allboardNo, replyCount);
     }
   }
 

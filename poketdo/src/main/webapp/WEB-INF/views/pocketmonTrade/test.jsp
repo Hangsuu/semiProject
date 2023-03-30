@@ -11,7 +11,81 @@ pageEncoding="UTF-8"%>
 
 <script>
   $(function(){
-    .
+    $(".select-btn").click(function(){
+      const replyNo = $("input[name=selectReplyNo]").val();
+      $.ajax({
+        url: "/rest/message/test",
+        method: "get",
+        data: { replyNo: replyNo },
+        success: function(response){
+          console.log(response);
+          const newReplyEle = $(
+            $.parseHTML($("#pocketmonTrade-reply-template").html())
+          );
+          let replyBody = newReplyEle.eq(1).children();
+          // 댓글 작성자
+          replyBody.eq(0).children().eq(0).text(response.replyWriter);
+          // 댓글 내용
+          replyBody
+            .eq(1)
+            .append($("<div>" + response.replyContent + "</div>").html());
+          // 시간
+          replyBody.eq(2).children().eq(0).text(response.replyTime);
+
+          let writerEle = replyBody.find(".writerTag");
+          if (response.replyWriter == pocketmonTradeWriter) {
+            writerEle.addClass("writer");
+          } else {
+            writerEle.remove();
+          }
+          // 댓글 작성자 본인이 아닐 경우 수정, 삭제 버튼 제거
+          if (response.replyWriter != memberId) {
+            replyBody.find(".pocketmonTrade-btn").remove();
+          } else {
+          }
+          let replyNo = response.replyNo;
+
+          // 수정 버튼 처리
+          let replyConent = response.replyContent;
+          replyBody
+            .eq(0)
+            .children()
+            .eq(2)
+            .click(function () {
+              $("#pocketmonTrade-reply-write2");
+              // const newEditEle = $.parseHTML(
+              //   $("#pocketmonTrade-reply-write").html()
+              // );
+              // $(newEditEle).find("[name='replyContent']").val(replyConent);
+              // newReplyEle.html(newEditEle);
+              // newReplyEle.hide().after($("<div>").append($(newEditEle)).html());
+            });
+          // 삭제 버튼 처리
+          replyBody
+            .eq(0)
+            .children()
+            .eq(3)
+            .click(function () {
+              if (confirm("답글을 삭제하시겠습니까?")) {
+                $.ajax({
+                  url: "/rest/reply/" + replyNo,
+                  method: "delete",
+                  success: function () {
+                    loadReply();
+                  },
+                  error: function () {
+                    console.log("댓글 삭제 통신 오류!!!!");
+                  },
+                });
+              }
+            });
+          replyContainer.append(newReplyEle);
+        },
+        error: function(){
+          console.log("테스트 통신 에러");
+        }
+      })
+    });
     $("[name=pocketmonTradeContent]").summernote({
       placeholder: "내용을 작성하세요",
       tabsize: 4,
@@ -104,17 +178,12 @@ pageEncoding="UTF-8"%>
 
   <!-- article -->
   <article>
-    <div class="target">
+    <div class="row">
       <div class="row">
-        <label
-          >내용
-          <textarea
-            class="summernote"
-            name="pocketmonTradeContent"
-            placeholder="내용을 입력하세요"
-            required
-          ></textarea>
-        </label>
+        <input type="text" name="selectReplyNo">
+        <button class="select-btn">조회버튼</button>
+      </div>
+      <div class="row target">
       </div>
     </div>
   </article>

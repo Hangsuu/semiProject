@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.MessageDao;
+import com.kh.poketdo.dao.ReplyDao;
 import com.kh.poketdo.dto.MessageDto;
+import com.kh.poketdo.dto.ReplyDto;
 import com.kh.poketdo.service.MessageService;
 
 @CrossOrigin
@@ -32,6 +34,10 @@ public class MessageRestController {
 
   @Autowired
   private MessageService messageService;
+
+  // [테스트]
+  @Autowired
+  private ReplyDao replyDao;
 
   // 비동기 메세지 보내기(받는사람, 보내는사람, 제목, 내용을 입력받아 새로운 Message 생성)
   @PostMapping("/write")
@@ -126,5 +132,11 @@ public class MessageRestController {
   public boolean deleteMessage(@PathVariable int messageNo, HttpSession session){
     String memberId = (String)session.getAttribute("memberId") == null ? null : (String)session.getAttribute("memberId");
     return messageDao.deleteSendCancle(messageNo, memberId);
+  }
+
+  // [테스트]
+  @GetMapping("/test")
+  public ReplyDto test(@RequestParam int replyNo){
+    return replyDao.selectOne(replyNo);
   }
 }

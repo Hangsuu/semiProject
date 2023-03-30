@@ -11,7 +11,7 @@
   
   <!-- article -->
   <article>
-    <form action="login" method="post">
+    <form action="login" method="post" autocomplete="off">
       <div class="login-form">
         <div>
           <a href="/">

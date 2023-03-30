@@ -4,11 +4,25 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
 uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<script>
+  const queryString = new URLSearchParams(location.search);
+  console.log(queryString);
+  $.ajax({
+    url: "/rest/pocketmonTrade/list",
+    method: "get",
+    data: queryString,
+    success: function(){
 
+    },
+    error: function(){
+
+    }
+  })
+</script>
 <!-- section -->
 <section>
   <!-- article -->
-  <article class="container-800 pt-50">
+  <article class="container-1000 pt-50">
     <div class="row mb-30">
       <a class="pocketmonTrade-list-banner" href="/pocketmonTrade"
         >포켓몬교환 게시판</a

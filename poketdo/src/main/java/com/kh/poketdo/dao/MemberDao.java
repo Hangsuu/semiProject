@@ -145,5 +145,12 @@ public class MemberDao {
     }
 
     
+    public MemberDto selectByNickname(String memberNick) {
+    	String sql = "select * from memebr where member_nick = ?";
+    	Object[] param = {memberNick};
+    	List<MemberDto> list = jdbcTemplate.query(sql, mapper, param);
+    	return list.isEmpty() ? null : list.get(0);
+    }
+    
 
 }

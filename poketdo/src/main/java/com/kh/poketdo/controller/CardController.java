@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class CardController {
 
-	
-	
-    
+
     @GetMapping("/cardGenerator")
     public String cardGenerator() {
     	return "/WEB-INF/views/member/cardGenerator.jsp";

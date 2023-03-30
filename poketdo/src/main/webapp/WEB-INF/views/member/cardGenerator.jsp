@@ -7,7 +7,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
+    <script src="/js/calc.js"></script>
     
+	
     
     <script>
 
@@ -104,6 +106,7 @@
 	
 	
 	<script>
+	
 		function saveImage() {
 		  // 저장하려는 div의 id 가져오기
 		  const divId = "myDiv";
@@ -113,7 +116,6 @@
 		
 		  // div 요소 가져오기
 		  const div = document.getElementById(divId);
-		  
 		  
 		  // div를 이미지로 변환하기
 		  html2canvas(div).then(function(canvas) {
@@ -126,134 +128,157 @@
 		    document.body.removeChild(link);
 		  });
 		}
-		</script>
-
-
-
-<style>
-    .image-container {
-      position: relative;
-      display: inline-block;
-    }
-  
-    .image-1 {
-        
-      z-index: 1;
-    }
-  
-    .image-2 {
-      position: absolute;
-      top: 80px;
-      left: 340px;
-      z-index: 2;
-    }
-
-    .slot-1 {
-      position: absolute;
-      top: 87px;
-      left: 10px;
-      z-index: 2;
-    }
-
-    .slot-2 {
-      position: absolute;
-      top: 87px;
-      left: 115px;
-      z-index: 2;
-    }
-
-    .slot-3 {
-      position: absolute;
-      top: 87px;
-      left: 220px;
-      z-index: 2;
-    }
-
-    .slot-4 {
-      position: absolute;
-      top: 160px;
-      left: 10px;
-      z-index: 2;
-    }
-
-    .slot-5 {
-      position: absolute;
-      top: 160px;
-      left: 115px;
-      z-index: 2;
-    }
-
-    .slot-6 {
-      position: absolute;
-      top: 160px;
-      left: 220px;
-      z-index: 2;
-    }
-
-	.input-code{
-	  position: absolute;
-	  top: 40px;
-	  left: 40px;
-	  z-index: 2;
-	}
-
-	.code-overlay {
-		position: absolute;
-		top: 37px;
-		left: 277px;
-		font-size: 25px;
-		color: white;
-		text-shadow: 2px 2px #000000;
-		pointer-events: none;
 		
-	}
 	
-	.nick-overlay {
-		position: absolute;
-		top: 38px;
-		left: 33px;
-		font-size: 22px;
-		color: white;
-		text-shadow: 2px 2px #000000;
-		pointer-events: none;
+	</script>
+
+
+
+	<style>
+	    .image-container {
+	      position: relative;
+	      display: inline-block;
+	    }
+	  
+	    .image-1 {
+	        
+	      z-index: 1;
+	    }
+	  
+	    .image-2 {
+	      position: absolute;
+	      top: 80px;
+	      left: 340px;
+	      z-index: 2;
+	    }
+	
+	    .slot-1 {
+	      position: absolute;
+	      top: 87px;
+	      left: 10px;
+	      z-index: 2;
+	    }
+	
+	    .slot-2 {
+	      position: absolute;
+	      top: 87px;
+	      left: 115px;
+	      z-index: 2;
+	    }
+	
+	    .slot-3 {
+	      position: absolute;
+	      top: 87px;
+	      left: 220px;
+	      z-index: 2;
+	    }
+	
+	    .slot-4 {
+	      position: absolute;
+	      top: 160px;
+	      left: 10px;
+	      z-index: 2;
+	    }
+	
+	    .slot-5 {
+	      position: absolute;
+	      top: 160px;
+	      left: 115px;
+	      z-index: 2;
+	    }
+	
+	    .slot-6 {
+	      position: absolute;
+	      top: 160px;
+	      left: 220px;
+	      z-index: 2;
+	    }
+	
+		.input-code{
+		  position: absolute;
+		  top: 40px;
+		  left: 40px;
+		  z-index: 2;
+		}
+	
+		.code-overlay {
+			position: absolute;
+			top: 37px;
+			left: 277px;
+			font-size: 25px;
+			color: white;
+			text-shadow: 2px 2px #000000;
+			pointer-events: none;
+			
+		}
 		
-	}
-	
-	.com1-overlay {
-		position: absolute;
-		top: 240px;
-		left: 33px;
-		font-size: 20px;
-		color: white;
-		text-shadow: 2px 2px #000000;
-		pointer-events: none;
+		.nick-overlay {
+			position: absolute;
+			top: 38px;
+			left: 33px;
+			font-size: 22px;
+			color: white;
+			text-shadow: 2px 2px #000000;
+			pointer-events: none;
+			
+		}
 		
-	}
-	
-	.com2-overlay {
-		position: absolute;
-		top: 265px;
-		left: 33px;
-		font-size: 20px;
-		color: white;
-		text-shadow: 2px 2px #000000;
-		pointer-events: none;
+		.com1-overlay {
+			position: absolute;
+			top: 240px;
+			left: 33px;
+			font-size: 20px;
+			color: white;
+			text-shadow: 2px 2px #000000;
+			pointer-events: none;
+			
+		}
 		
-	}
-	
-	
-	#input-number {
+		.com2-overlay {
+			position: absolute;
+			top: 265px;
+			left: 33px;
+			font-size: 20px;
+			color: white;
+			text-shadow: 2px 2px #000000;
+			pointer-events: none;
+			
+		}
+		
+		
+		#input-number {
+			display: block;
+		
+			padding: 10px;
+			font-size: 15px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+					
+				}
+				
+				
+		#input-nick {
+			display: block;
+			
+			padding: 10px;
+			font-size: 15px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+					
+				}		
+				
+		#input-com1 {
 		display: block;
-	
+		
 		padding: 10px;
 		font-size: 15px;
 		border-radius: 5px;
 		border: 1px solid #ccc;
 				
-			}
+			}	
 			
 			
-	#input-nick {
+		#input-com2 {
 		display: block;
 		
 		padding: 10px;
@@ -261,32 +286,11 @@
 		border-radius: 5px;
 		border: 1px solid #ccc;
 				
-			}		
-			
-	#input-com1 {
-	display: block;
-	
-	padding: 10px;
-	font-size: 15px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-			
-		}	
-		
-		
-	#input-com2 {
-	display: block;
-	
-	padding: 10px;
-	font-size: 15px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-			
-		}					
-			
-			
-			
-  </style>
+			}					
+				
+				
+				
+	  </style>
     
   
 

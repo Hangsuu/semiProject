@@ -3,9 +3,10 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
+    <div class= "container-1000"> 
 
   <!-- aside -->
-  <aside></aside>
+  <aside>
   
   <div>
   <a href="#">내활동</a>
@@ -19,6 +20,8 @@
   <div>
   <a href="/member/exit">회원탈퇴</a>
   </div>
+  
+  </aside>
   
   <!-- article -->
   <article>
@@ -39,5 +42,7 @@
  	</div>	
   </article>
 
+
+</div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -5,11 +5,23 @@
 <script>
 	$(function(){
 		$(".search-btn").click(function(){
-			var number = $(".search-input").val();
-			searchList();
-			$(".target .monster-image").each(function(){
-				var imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+number+".png";
-				$(this).attr("src", imageUrl);
+			var name = $(".search-input").val();
+			var index=0;
+			$.ajax({
+				url:"/rest/pocketmon/"+name,
+				method:"get",
+				success:function(response){
+					index = response.pocketNo;
+					console.log(index);
+					searchList();
+					var imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+index+".png";
+					$(".target .monster-image").each(function(){
+						$(this).attr("src", imageUrl);
+					});
+				},
+				error:function(){
+					alert("잘못된 이름입니다.")
+				}
 			});
 		});
 		$(".search-random").click(function(){
@@ -55,15 +67,15 @@
 	});
 </script>
 
-    <div class="container-900 mt-50">
-    	<div class="row">
-    		<input class="form-input search-input" placeholder="포켓몬 번호 입력">
+    <div class="container-1200 mt-50">
+    	<div class="row mb-30">
+    		<input class="form-input search-input" placeholder="포켓몬 검색">
     		<button class="form-btn neutral search-btn">찾기</button>
     		<button class="form-btn neutral search-random">랜덤</button>
     	</div>
-        <div class="row flex-box align-center center target" style="flex-wrap: wrap;">
+        <div class="row flex-box align-center center target mb-50" style="flex-wrap: wrap;">
         	<c:forEach var="statList" items="${list}">
-        	<table class="table table-border" style="font-size:13px; width:25%">
+        	<table class="table table-border" style="font-size:13px; width:20%">
                 <tr><td colspan="4" style="height:180px">
                 	<img class="monster-image" width="180px" height="180px" src="/static/image/leaf.png">
 				</td></tr>

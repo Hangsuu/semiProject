@@ -120,7 +120,7 @@
 		
 	});
 </script>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 <form action="write" method="post" autocomplete="off">
 	<input type="hidden" name="combinationWriter" value="${sessionScope.memberId}">
 	<input type="hidden" name="tagList">

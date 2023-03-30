@@ -1,6 +1,7 @@
 package com.kh.poketdo.restcontroller;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
+import com.kh.poketdo.dao.PocketmonNameImageDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
-import com.kh.poketdo.dto.PocketmonWithImageDto;
+import com.kh.poketdo.dto.PocketmonNameImageDto;
 import com.kh.poketdo.service.PocketmonService;
 
 @RestController
@@ -26,6 +28,9 @@ public class PocketmonRestController {
 	  private PocketmonDao pocketmonDao;
 	  @Autowired
 	  private PocketmonJoinTypeDao pocketmonJoinTypeDao;
+	  
+	  @Autowired
+	  private PocketmonNameImageDao pocketmonNameImageDao;
 	  
 	  @Autowired
 	  private PocketmonWithImageDao pocketmonWithImageDao;
@@ -53,8 +58,18 @@ public class PocketmonRestController {
 	    return "redirect:insertFinish";
 	  }
 	  
-	  @GetMapping("/{pocketmonName}")
-	  public PocketmonWithImageDto selectOne(@PathVariable String pocketmonName) {
-		  return pocketmonWithImageDao.selectName(pocketmonName);
-	  };
+//	  @GetMapping("/{pocketmonName}")
+//	  public PocketmonWithImageDto selectOne(@PathVariable String pocketmonName) {
+//		  return pocketmonWithImageDao.selectName(pocketmonName);
+//	  };
+
+	@GetMapping("/{pocketName}")
+	public PocketmonNameImageDto findId(@PathVariable String pocketName) {
+		PocketmonNameImageDto dto = pocketmonNameImageDao.selectOne(pocketName);
+		if(dto == null) throw new NoSuchElementException();
+		return dto;
+	}
+
+
+
 }

@@ -131,10 +131,11 @@ public class PocketmonService {
 	      // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
 	      List<PocketmonJoinTypeDto> list2 = 
 	    		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
-	      
+	      List<Integer> typeNoList = new ArrayList<>();
 	      List<String> typeList = new ArrayList<>();  
 	      for (PocketmonJoinTypeDto joinDto : list2) {
 	        typeList.add(pocketmonTypeDao.selectOneForTypeName(joinDto.getTypeJoinNo()));
+	        typeNoList.add(joinDto.getTypeJoinNo());
 	      }
 	      
 	      //포켓몬스터 이미지 URL List
@@ -160,6 +161,7 @@ public class PocketmonService {
 	          .pocketEffortSatk(dto.getPocketEffortSatk())
 	          .pocketBaseSdef(dto.getPocketEffortSdef())
 	          .pocketTypes(typeList)
+	          .pocketTypeNoes(typeNoList)
 	          .imageURL(imageDto.getImageURL())
 	          .build()
 	      );

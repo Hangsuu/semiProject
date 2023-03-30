@@ -6,7 +6,7 @@
 .pocket-ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -36,6 +36,7 @@
   overflow: hidden;
   position: relative;
   margin-bottom: 1em;
+  margin-right:20px;
 }
 
 .pocket-box:hover {
@@ -106,9 +107,63 @@
 	width:48%;
 	height: 30px;
 	padding: 0px;
-	background-color:gray;	
+		
 	clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
 
+.type-back-color1 {
+	background-color:#999999;
+}
+.type-back-color2 {
+	background-color:#FFA202;
+}
+.type-back-color3 {
+	background-color:#95C9FF;
+}
+.type-back-color4 {
+	background-color:#994DCF ;
+}
+.type-back-color5 {
+	background-color:#AB7939;
+}
+.type-back-color6 {
+	background-color:#BCB889;
+}
+.type-back-color7 {
+	background-color:#9FA424;
+}
+.type-back-color8 {
+	background-color:#6E4570;
+}
+.type-back-color9 {
+	background-color:#6AAED3;
+}
+.type-back-color10 {
+	background-color:#FF612C;
+}
+.type-back-color11 {
+	background-color:#2992FF;
+}
+.type-back-color12 {
+	background-color:#42BF24;
+}
+.type-back-color13 {
+	background-color:#FFDB00;
+}
+.type-back-color14 {
+	background-color:#FF637F;
+}
+.type-back-color15 {
+	background-color:#42D8FF;
+}
+.type-back-color16 {
+	background-color:#5462D6;
+}
+.type-back-color17 {
+	background-color:#4F4747;
+}
+.type-back-color18 {
+	background-color:#FFB1FF;
+}
 
 

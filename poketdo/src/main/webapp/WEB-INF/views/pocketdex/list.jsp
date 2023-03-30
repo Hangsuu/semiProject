@@ -115,7 +115,7 @@
 									<c:when test="${pocketmonDto.getPocketTypes().get(i).equals('없음')}">
 									</c:when>
 									<c:otherwise>
-										<div>
+										<div class="type-back-color${pocketmonDto.getPocketTypeNoes().get(i)} ">
 											<span>
 												${pocketmonDto.getPocketTypes().get(i)}
 											</span>

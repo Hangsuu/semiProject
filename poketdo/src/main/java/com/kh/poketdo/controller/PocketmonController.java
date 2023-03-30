@@ -88,7 +88,6 @@ public class PocketmonController {
 	vo.setSize(12);
 	vo.setBlockSize(10);
 	List<PocketmonWithTypesVO> list3 = pocketmonService.pocketmonTypeSelect(vo);
-	
     model.addAttribute("list3", list3);
     return "/WEB-INF/views/pocketdex/list.jsp";
   }

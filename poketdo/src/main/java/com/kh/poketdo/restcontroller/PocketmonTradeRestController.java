@@ -16,13 +16,13 @@ import com.kh.poketdo.vo.PaginationVO;
 @RestController
 @RequestMapping("/rest/pocketmonTrade")
 public class PocketmonTradeRestController {
-    
+
     @Autowired
     private PocketmonTradeDao pocketmonTradeDao;
-    
+
     @GetMapping("/list")
-    public List<PocketmonTradeDto> selectList(PaginationVO vo) {
-        System.out.println(vo);
-        return pocketmonTradeDao.selectList(vo);
+    public List<PocketmonTradeDto> selectList(PaginationVO pageVo) {
+        pageVo.setCount(pocketmonTradeDao.getCount(pageVo));
+        return pocketmonTradeDao.selectList(pageVo);
     }
 }

@@ -6,18 +6,22 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script>
   const queryString = new URLSearchParams(location.search);
-  console.log(queryString);
+  const page = queryString.get("page") == null ? 1 : queryString.get("page");
+  const column = queryString.get("column");
+  const keyword = queryString.get("keyword");
+  const pageVo = { page: page, column: column, keyword: keyword };
+
   $.ajax({
     url: "/rest/pocketmonTrade/list",
     method: "get",
-    data: queryString,
-    success: function(){
-
+    data: pageVo,
+    success: function (response) {
+      console.log(response);
     },
-    error: function(){
-
-    }
-  })
+    error: function () {
+      console.log(pageVo);
+    },
+  });
 </script>
 <!-- section -->
 <section>

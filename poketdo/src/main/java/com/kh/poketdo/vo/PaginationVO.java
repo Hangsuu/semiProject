@@ -15,12 +15,12 @@ public class PaginationVO {
   private int count;
   // 블럭마다 보여줄 숫자 개수
   private int blockSize = 10;
-	//정렬 항목
-	private String item="allboard_no";
-	//오름차순 내림차순
-	private String order="desc";
-	//특수조건
-	private String special="";
+  // 정렬 항목
+  private String item = "allboard_no";
+  // 오름차순 내림차순
+  private String order = "desc";
+  // 특수조건
+  private String special = "";
 
   // 검색 여부 판단
   public boolean isSearch() {
@@ -30,18 +30,19 @@ public class PaginationVO {
   public boolean isList() {
     return !isSearch();
   }
-	//태그 검색을 위한 문자열 입력
-	public String tagList="";
-	//태그 검색용 파라미터 자동 생성
-	public String getTagParameter() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("size=");
-		buffer.append(size);
-		buffer.append("&tagList=");
-		buffer.append(tagList);
-		return buffer.toString();
-	}
-	
+
+  // 태그 검색을 위한 문자열 입력
+  public String tagList = "";
+
+  // 태그 검색용 파라미터 자동 생성
+  public String getTagParameter() {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("size=");
+    buffer.append(size);
+    buffer.append("&tagList=");
+    buffer.append(tagList);
+    return buffer.toString();
+  }
 
   // 파라미터 자동 생성
   public String getParameter() {
@@ -53,20 +54,20 @@ public class PaginationVO {
       buffer.append(column);
       buffer.append("&keyword=");
       buffer.append(keyword);
+    } else {
+      buffer.append("&column=&keyword=");
     }
-		else {
-			buffer.append("&column=&keyword=");
-		}
-		return buffer.toString();
-	}
-	public String getAddParameter() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("&item=");
-		buffer.append(item);
-		buffer.append("&order=");
-		buffer.append(order);
-		buffer.append("&special=");
-		buffer.append(special);
+    return buffer.toString();
+  }
+
+  public String getAddParameter() {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("&item=");
+    buffer.append(item);
+    buffer.append("&order=");
+    buffer.append(order);
+    buffer.append("&special=");
+    buffer.append(special);
     return buffer.toString();
   }
 
@@ -127,7 +128,7 @@ public class PaginationVO {
     return getStartBlock() - 1;
   }
 
-  // 쿼리스트링(query string 생성)
+  // 쿼리스트링(column + keyword) 생성
   public String getQueryString() {
     return this.keyword.equals("") ? "" : "&column=" + this.column + "&keyword=" + this.keyword;
   }

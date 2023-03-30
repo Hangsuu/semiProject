@@ -11,13 +11,6 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="/static/js/reply.js"></script>
-<script type="text/template" id="reply-template">
-	<div class="row reply-box">
-		<div class="row reply-writer"></div>
-		<div class="row reply-time"></div>
-		<div class="row reply-content form-input"></div>
-	</div>
-</script>
 <script>
 $(function(){
 	var params = new URLSearchParams(location.search);
@@ -271,13 +264,27 @@ $(function(){
 });
 </script>
 <!-- 댓글창 템플릿 -->
-<script type="text/template" id="reply-edit-template">
-	<div class="row">
-		<textarea class="row reply-edit-content form-input w-100">수정</textarea>
+<script type="text/template" id="reply-template">
+	<div class="row reply-box float-box" style="border-bottom:1px solid lightgray; margin:0">
+		<div class="float-left remove-box" style="min-height:100px; width:5%">
+			<div class="align-center"><i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i></div>
+		</div>
+		<div class="float-right remain-box" style="width:95%">
+			<div class="row reply-writer"></div>
+			<div class="row reply-time"></div>
+			<div class="row reply-content"></div>
+		</div>
 	</div>
-	<div class="row right">
-		<button class="form-btn neutral confirm-edit">수정</button>
-		<button class="form-btn neutral cancle-edit">취소</button>
+</script>
+<script type="text/template" id="reply-edit-template">
+	<div class="row reply-edit">
+		<textarea class="row reply-edit-content form-input w-100 summernote-reply-edit"></textarea>
+	</div>
+</script>
+<script type="text/template" id="reply-child-template">
+	<div class="row reply-child">
+	<hr>
+		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
 <!-- 레이드 신청 컨트롤 템플릿 -->
@@ -359,11 +366,7 @@ $(function(){
 	</div>
 	<!-- 신청 -->
 	<div class="row">
-	<hr>
-		<textarea class="form-input w-100 summernote-reply"></textarea>
-		<div class="row right">
-			<button class="form-btn neutral reply-submit">댓글달기</button>
-		</div>
+		<textarea class="form-input w-100 summernote-reply reply-textarea"></textarea>
 	</div>
 <!-- 댓글 끝 -->
 	<div class="row">

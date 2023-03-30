@@ -8,8 +8,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
 	
+	
+<script src="/static/js/calc.js"></script>
+	
     
-    <script>
+    <script type="text/javascript">
 
     $(document).ready(function() {
         $('input[name="color"]').on('change', function() {
@@ -81,26 +84,8 @@
 		</script>
 		
 	
-	<script type="text/javascript">
-		  $(function(){
-		    var $cardInput = $(".cardInput");
-		    var currentInputName = 0;
-		    $card111.on("click", function(){
-		      var inputName = $("[name=pocketName]").val();
-		      if(inputName.length > 3) {
-		        alert("포켓몬 이름은 6글자까지만 입력 가능합니다.");
-		        return;
-		      }
-		      if(currentInputName >= 6) {
-		        alert("모든 칸이 채워졌습니다.");
-		        return;
-		      }
-		      currentInputNo++;
-		      $("[name=cardName]").val("");
-		      $("[name=cardSlot" + currentInputName + "]").attr("src", "D:/upload" + attachmentNo + ".png");
-		    });
-		  });
-		</script>
+	
+		
 	
 	
 	<script>
@@ -128,6 +113,42 @@
 		}
 		
 	
+	</script>
+
+
+	<script type="text/javascript">
+		
+	 $(function(){
+	    var $card111 = $(".card111");
+	    var currentInputNo = 0;
+
+		  // "입력" 버튼 클릭 시 실행되는 함수
+		  $card111.on("click", function(){
+		    var pocketName = $("[name=pocketName1]").val(); // 입력창에서 포켓몬 이름 가져오기
+		   
+		    $.ajax({
+		    	  url: "/rest/pocketmon/" + pocketName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
+		    	  method: "get", // HTTP 요청 방식을 선택합니다.
+		    	  success: function(response) { // 요청이 성공했을 때 실행될 콜백 함수입니다.
+		    	    var attachmentNo = response.attachmentNo; // attachmentNo 값을 가져옵니다.
+		    	    console.log("attachmentNo: " + attachmentNo); // attachmentNo 값을 콘솔에 출력합니다.
+		    	 	
+	       	$("[name=cardSlot" + currentInputNo + "]").attr("src", "/attachment/download?attachmentNo=" + attachmentNo);
+		    	  },
+		    	  error: function(xhr, status, error) { // 요청이 실패했을 때 실행될 콜백 함수입니다.
+		    	    console.log("error: " + error); // 오류 메시지를 콘솔에 출력합니다.
+		    	  }
+		    	});
+		    
+		    if(currentInputNo >= 6) {
+		        alert("모든 칸이 채워졌습니다.");
+		        return;
+		      }
+		    currentInputNo++; // 다음 슬롯으로 이동
+
+		    $("[name=pocketName1]").val("");
+    		});
+		});
 	</script>
 
 
@@ -297,13 +318,12 @@
   
   <!-- article -->
   <article>
-<!--     <form method="post" enctype="multipart/form-data" autocomplete="off"> -->
+<!--     <form action= "card" method="get" enctype="multipart/form-data" autocomplete="off"> -->
         
-      <div class= "container-500 center">
+      <div class= "container-500 center" enctype="multipart/form-data" autocomplete="off">
       
     
 	        <h2 class="row center mt-10 mb-10">트레이너 카드 생성기</h2>
-	    
 	        <div class="image-container row left" id="card-container">
 	             <div id="myDiv">
 		           <div class="code-overlay" id="overlay-number"></div>
@@ -315,8 +335,8 @@
 		            <img id="image1" src="/static/image/A.png" >
 		            <img id="image2" src="/static/image/B.png" style= "display: none">
 		            
-		    	</div>  
 		                <img id="preview" width="150px" height="150px" class="image-container image-2">
+		    	  
 		       
 		        	 <img id="preview" name="cardSlot1" width="100px" height="60px" class="image-container slot-1">
 		             <img id="preview" name="cardSlot2" width="100px" height="60px" class="image-container slot-2">
@@ -325,7 +345,7 @@
 		             <img id="preview" name="cardSlot5" width="100px" height="60px" class="image-container slot-5">
 		             <img id="preview" name="cardSlot6" width="100px" height="60px" class="image-container slot-6">
 	         
-     		
+     			</div>
      		
      			프로필 사진 업로드<input type="file" accept="image/*" onchange="previewImg(this);" >
      			
@@ -363,9 +383,9 @@
           
                 <label>포켓몬을 선택해주세요(최대6마리)</label>
                 <br>
-                <input type="number" name="pocketName" placeholder="포켓몬 이름을 입력하세요">
+                <input type="text" name="pocketName1" placeholder="포켓몬 이름을 입력하세요">
   
-                <button class="cardInput" type="submit">검색</button>
+                <button class="card111" type="submit">검색</button>
                 
 			</div>
 
@@ -399,7 +419,7 @@
         
     
          <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
-           
+       
   </article>
 
 

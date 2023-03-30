@@ -46,7 +46,7 @@ public class MemberDao {
             		.memberId(rs.getString("member_id"))
             		.memberPw(rs.getString("member_pw"))
                     .memberNick(rs.getString("member_nick"))
-                    .memberBirth(rs.getDate("member_birth"))
+                    .memberBirth(rs.getString("member_birth"))
                     .memberEmail(rs.getString("member_email"))
                     .memberLevel(rs.getString("member_level"))
                     .memberPoint(rs.getInt("member_point"))
@@ -146,7 +146,7 @@ public class MemberDao {
     
 
     public MemberDto selectByNickname(String memberNick) {
-    	String sql = "select * from memebr where member_nick = ?";
+    	String sql = "select * from member where member_nick = ?";
     	Object[] param = {memberNick};
     	List<MemberDto> list = jdbcTemplate.query(sql, mapper, param);
     	return list.isEmpty() ? null : list.get(0);

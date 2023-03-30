@@ -1,4 +1,4 @@
-package com.kh.poketdo.controller;
+package com.kh.poketdo.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.MemberDao;
 
-@CrossOrigin(origins= {"http://127.0.0.1:5500"})
+@CrossOrigin
 @RestController
 @RequestMapping("/rest/member")
 public class MemberRestController {

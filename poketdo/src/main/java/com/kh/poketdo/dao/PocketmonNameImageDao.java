@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.poketdo.dto.PocketmonNameImageDto;
 
 @Repository
-public class PocketNameImageDao {
+public class PocketmonNameImageDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

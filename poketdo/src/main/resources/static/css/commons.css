@@ -520,35 +520,29 @@ a.link:hover {
 
     box-shadow: x위치 y위치 번짐 퍼짐 색상;
 */
+/* 페이지네이션 스타일 */
 .pagination {
   text-align: center;
 }
 .pagination > a {
-  display: inline-flex;
-  color: black;
+  /* border: 1px solid transparent; */
+  display: inline-block;
+  color: #2d3436;
   text-decoration: none;
-  font-size: 16;
-  min-width: 3em;
-  height: 100%;
-  text-align: center;
-  border: 1px solid transparent;
-  justify-content: center;
-  align-items: center;
+  font-size: 16px;
+  min-width: 2em;
+  height: 2em;
+  padding: 0.3em;
 }
-.pagination > a.on {
-  color: red;
+.pagination > a.on,
+.pagination > a:hover:not(.disabled) {
+  /* border: 1px solid #dfe6e9; */
+  box-shadow: 0 0 0 1px #dfe6e9;
+  color: #74b9ff;
   font-weight: bold;
 }
-
-.pagination > a:hover {
-  /* border-color: black; */
-  color: red;
-  font-weight: bold;
-  box-shadow: 0 0 0 1px black;
-}
-
 .pagination > a.disabled {
-  cursor: not-allowed;
+  cursor: default;
 }
 
 .image {
@@ -732,7 +726,8 @@ input [name="memberPw"] {
   right: 100%;
 }
 
-.valid-messga{
+/* valid invalid 메세지 스타일 */
+.valid-messsage{
 	color: forestgreen;
 	display: none;
 }
@@ -742,6 +737,18 @@ input [name="memberPw"] {
 .invalid-message3{
 	color:red;
 	display: none;
+}
+.valid ~ .valid-message {
+  display: block;
+}
+.invalid ~ .invalid-message {
+  display: block;
+}
+.invalid2 ~ .invalid-message2 {
+  display: block;
+}
+.invalid3 ~ .invalid-message3 {
+  display: block;
 }
 
 main section article h1 {

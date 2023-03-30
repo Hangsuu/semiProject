@@ -84,4 +84,9 @@ public class PocketmonTypeDao {
 	 List<PocketmonTypeDto> list = jdbcTemplate.query(sql,  mapper, param);
 	 return list.isEmpty() ? null : list.get(0);
   }
+  
+
+		
+
+
 }

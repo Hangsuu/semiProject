@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 	<div class="row"><h1 style="font-size:2em">레이드</h1></div>
 	<div class="row">
 		<form action="list" method="get" autocomplete="off">
@@ -24,16 +24,17 @@
 		<table class="table table-slit center">
 			<thead>
 				<tr>
-					<th><a class="link" href="list?page=1&${vo.parameter}">글번호</a></th>
+					<th><a class="link" href="list?page=1&${vo.parameter}">글번호<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<th class="w-40">제목</th>
-					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_start_time&order=asc&special=raid_start_time>sysdate and raid_count<4">시작시간</a></th>
-					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_count&order=asc, allboard_no desc&special=raid_start_time>sysdate and raid_count<4">참가자</a></th>
+					<th>닉네임</th>
+					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_start_time&order=asc&special=raid_start_time>sysdate and raid_count<4">시작시간<i class="fa-solid fa-sort ms-10"></i></a></th>
+					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_count&order=asc, allboard_no desc&special=raid_start_time>sysdate and raid_count<4">참가자<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<c:choose>
 						<c:when test="${param.special.startsWith('raid_type=1')}">
-							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=0 and raid_start_time>sysdate and raid_count<4">타입</a></th>
+							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=0 and raid_start_time>sysdate and raid_count<4">타입<i class="fa-solid fa-sort ms-10"></i></a></th>
 						</c:when>
 						<c:otherwise>
-							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=1 and raid_start_time>sysdate and raid_count<4">타입</a></th>
+							<th><a class="link" href="list?page=1&item=allboard_no&order=desc&special=raid_type=1 and raid_start_time>sysdate and raid_count<4">타입<i class="fa-solid fa-sort ms-10"></i></a></th>
 						</c:otherwise>
 					</c:choose>
 					
@@ -48,6 +49,7 @@
 						<td><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
+						<td>${raidDto.raidWriter}</td>
 						<td>${raidDto.time}</td>
 						<c:choose>
 							<c:when test="${raidDto.raidCount>=4}">
@@ -96,7 +98,7 @@
 	<!-- 번호들 -->
 		<c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}" step="1">
 			<c:choose>
-				<c:when test="${vo.page==i}"><a class="on">${i}</a></c:when>
+				<c:when test="${vo.page==i}"><a class="on disabled">${i}</a></c:when>
 				<c:otherwise><a href="list?page=${i}&${vo.parameter}&${vo.addParameter}" class="">${i}</a></c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -121,7 +123,9 @@
 	</div>
 <!-- 페이지네이션 끝 -->
 	<div class="row">
-	<a href="write" class="form-btn neutral">글쓰기</a>
+		<c:if test="${sessionScope.memberId!=null}">
+			<a href="write" class="form-btn neutral">글쓰기</a>
+		</c:if>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

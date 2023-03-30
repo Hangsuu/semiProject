@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.PocketmonWithImageDto;
+import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Repository
 public class PocketmonWithImageDao {
@@ -65,6 +66,53 @@ public class PocketmonWithImageDao {
 		return list.isEmpty() ? null : list.get(0); 
 	}
 	
+	//페이징 적용된 조회 및 카운트
+	public int selectCount(PocketPaginationVO vo) {
+		
+		if(vo.isSearch()) {
+			String sql = "select count(*) from pocketmon_with_image where instr(#1,?)>0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[]param =  {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+			
+		}
+		else {
+			String sql = "select count(*) from pocketmon";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
 	
+//	목록
+	public List<PocketmonWithImageDto> selectList(PocketPaginationVO vo){
+		if(vo.isSearch()) {
+			String sql="select*from("
+					+ "select rownum rn, TMP.*from ("
+					+ " select * from pocketmon_with_image "
+					+ " where instr(#1,?)>0"
+					+ " order by pocket_no asc"
+					+ " )TMP"
+					+ ")where rn between ? and ?";
+			sql=sql.replace("#1", vo.getColumn());
+			Object[]param = {vo.getKeyword(), vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		else {
+			String sql="select * from( "
+					+ "select TMP.*, rownum RN from ( "
+					+ "select * from pocketmon_with_image "
+					+ " order by pocket_no asc "
+					+ ") TMP ) "
+					+ "where RN between ? and ? ";
+			Object[]param = {vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
 	
+	//이름으로 검색
+	public PocketmonWithImageDto selectName(String pocketmonName) {
+		String sql = "select * from pocketmon_with_image where pocket_name=?";
+		Object[] param = {pocketmonName};
+		List<PocketmonWithImageDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty()? null: list.get(0);
+	}
 }

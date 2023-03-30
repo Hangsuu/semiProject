@@ -133,5 +133,33 @@ public class PocketmonDao {
 		Object[] param = {pocketNo};
 		return jdbcTemplate.update(sql,param)>0;
 	}
-		
+
+	//포켓몬스터 정보 이름 빼고 수정(오행서)
+	public boolean statEdit(PocketmonDto pocketmonDto) {
+		String sql = "update pocketmon set "
+							+ "pocket_base_hp=?, pocket_base_atk=?, "
+							+ "pocket_base_def=?, pocket_base_spd=?, "
+							+ "pocket_base_satk=?, pocket_base_sdef=?, "
+							+ "pocket_effort_hp=?, pocket_effort_atk=?, "
+							+ "pocket_effort_def=?, pocket_effort_spd=?, "
+							+ "pocket_effort_satk=?, pocket_effort_sdef=? "
+							+ "where pocket_no=?";
+		Object[] param = {
+										pocketmonDto.getPocketBaseHp(), 
+										pocketmonDto.getPocketBaseAtk(),
+										pocketmonDto.getPocketBaseDef(),
+										pocketmonDto.getPocketBaseSpd(),
+										pocketmonDto.getPocketBaseSatk(),
+										pocketmonDto.getPocketBaseSdef(),
+										pocketmonDto.getPocketEffortHp(),
+										pocketmonDto.getPocketEffortAtk(),
+										pocketmonDto.getPocketEffortDef(),
+										pocketmonDto.getPocketEffortSpd(),
+										pocketmonDto.getPocketEffortSatk(),
+										pocketmonDto.getPocketEffortSdef(),
+										pocketmonDto.getPocketNo()
+										};
+		return jdbcTemplate.update(sql,param)>0;
+		}
+
 }

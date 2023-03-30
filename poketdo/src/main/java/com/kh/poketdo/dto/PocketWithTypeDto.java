@@ -33,6 +33,7 @@ public class PocketWithTypeDto {
   private String pocketTypeName;
 
   //포켓몬 속성 연결 데이터
+  private int joinNo;
   private int pocketJoinNo;
   private int typeJoinNo;
 }

@@ -22,9 +22,7 @@ import com.kh.poketdo.dao.AuctionBidDao;
 import com.kh.poketdo.dao.AuctionDao;
 import com.kh.poketdo.dto.AuctionBidDto;
 import com.kh.poketdo.dto.AuctionDto;
-
 import com.kh.poketdo.service.AuctionService;
-
 import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
@@ -135,5 +133,19 @@ public class AuctionController {
 	@GetMapping("/bookmark")
 	public String bookmark() {
 		return "/WEB-INF/views/auction/bookmark.jsp";
+	}
+	@GetMapping("/edit")
+	public String edit(@ModelAttribute PaginationVO vo, @RequestParam int allboardNo, Model model) {
+		model.addAttribute("vo", vo.getParameter());
+		model.addAttribute("auctionDto", auctionDao.selectOne(allboardNo));
+		return "/WEB-INF/views/auction/edit.jsp";
+	}
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute PaginationVO vo, @ModelAttribute AuctionDto auctionDto,
+			RedirectAttributes attr) {
+		auctionDao.edit(auctionDto);
+		attr.addAttribute("allboardNo", auctionDto.getAllboardNo());
+		attr.addAttribute("vo",vo.getParameter());
+		return "redirect:detail";
 	}
 }

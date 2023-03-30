@@ -101,7 +101,7 @@ $(function(){
 						target.append(a);
 					}
 					else{
-						var a = $("<a>").attr("href", "bookmark?page="+n+"&"+response.vo.parameter);
+						var a = $("<a>").attr("href", "bookmark?page="+n+"&"+response.vo.parameter).text(n);
 						target.append(a);
 					}
 				}
@@ -155,7 +155,7 @@ $(function(){
 		<td><i class="fa-solid fa-bookmark" style="color:gray" data-bookmark-type="auction"></i></td>
 	</tr>
 </script>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 	<div class="row"><h1 style="font-size:2em">경매</h1></div>
 <!-- 검색 -->
 	<div class="row">

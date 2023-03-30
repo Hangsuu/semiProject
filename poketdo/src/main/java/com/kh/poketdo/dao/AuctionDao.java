@@ -57,6 +57,8 @@ public class AuctionDao {
 				+ " values(?,?,?,?,?,?,?,?)";
 		int auctionSeq = auctionSequence();
 		dto.setAuctionNo(auctionSeq);
+		if(dto.getAuctionMaxPrice()==null) dto.setAuctionMaxPrice(0);
+		if(dto.getAuctionMinPrice()==null) dto.setAuctionMinPrice(0);
 		Object[] param = {dto.getAllboardNo(), dto.getAuctionNo(), dto.getAuctionWriter(), dto.getAuctionTitle(), dto.getAuctionContent(), 
 				dto.getAuctionFinishTime(),	dto.getAuctionMinPrice(), dto.getAuctionMaxPrice()};
 		
@@ -177,8 +179,9 @@ public class AuctionDao {
 	}
 	//수정(U)
 	public boolean edit(AuctionDto auctionDto) {
-		String sql = "update auction set auction_title=?, auction_content=? where allboard_no=?";
-		Object[] param = {auctionDto.getAuctionTitle(), auctionDto.getAuctionContent(), auctionDto.getAllboardNo()};
+		String sql = "update auction set auction_title=?, auction_content=?, auction_min_price=?, auction_max_price=? where allboard_no=?";
+		Object[] param = {auctionDto.getAuctionTitle(), auctionDto.getAuctionContent(), 
+				auctionDto.getAuctionMinPrice(), auctionDto.getAuctionMaxPrice(), auctionDto.getAllboardNo()};
 		return jdbcTemplate.update(sql, param)>0;
 	}
 	//삭제(D)

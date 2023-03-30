@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 	<div class="row"><h1 style="font-size:2em">추천 조합 게시판</h1></div>
 	<div class="row">
 		<form action="list" method="get" autocomplete="off">
@@ -69,7 +69,7 @@
 	<!-- 번호들 -->
 		<c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}" step="1">
 			<c:choose>
-				<c:when test="${vo.page==i}"><a class="on">${i}</a></c:when>
+				<c:when test="${vo.page==i}"><a class="on disabled">${i}</a></c:when>
 				<c:otherwise><a href="list?${vo.parameter}&page=${i}" class="">${i}</a></c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -94,7 +94,9 @@
 	</div>
 <!-- 페이지네이션 끝 -->
 	<div class="row">
-	<a href="write" class="form-btn neutral">글쓰기</a>
+		<c:if test="${sessionScope.memberId!=null}">
+			<a href="write" class="form-btn neutral">글쓰기</a>
+		</c:if>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

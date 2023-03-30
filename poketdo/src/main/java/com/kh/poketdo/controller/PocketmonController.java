@@ -16,13 +16,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
+import com.kh.poketdo.dao.PocketmonTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
+import com.kh.poketdo.dto.PocketmonJoinTypeDto;
+import com.kh.poketdo.dto.PocketmonTypeDto;
 import com.kh.poketdo.service.PocketmonService;
+import com.kh.poketdo.vo.PocketPaginationVO;
 import com.kh.poketdo.vo.PocketmonWithTypesVO;
 
 @Controller
-@RequestMapping("/pocketDex")
+@RequestMapping("/pocketdex")
 public class PocketmonController {
 
   @Autowired
@@ -33,7 +37,9 @@ public class PocketmonController {
   
   @Autowired
   private PocketmonWithImageDao pocketmonWithImageDao;
-  
+ 
+  @Autowired
+  private PocketmonTypeDao pocketmonTypeDao;
  
   @Autowired
   private PocketmonService pocketmonService;
@@ -51,20 +57,17 @@ public class PocketmonController {
   @PostMapping("/insertProcess")
   public String insertProcess(
     @ModelAttribute PocketmonDto pocketmonDto, //포켓몬스터 기본 정보
-    @RequestParam List<Integer> typeJoinNo, //포켓몬스터 속성 번호
+    @RequestParam int typeJoinNo, //포켓몬스터 속성 번호1
+    @RequestParam int typeJoinNo2, //포켓몬스터 속성 번호2
     @RequestParam MultipartFile attach
   ) throws IllegalStateException, IOException {
     //포켓몬스터 기본 정보 입력
 	pocketmonService.pocketmonInsert(pocketmonDto, attach);
-//    pocketmonDao.insert(pocketmonDto);
     //포켓몬스터 번호 추출
     int pocketJoinNo = pocketmonDto.getPocketNo();
     //포켓몬스터 속성 번호 입력
-    for (Integer no : typeJoinNo) {
-      if (no != null) {
-    	 pocketmonJoinTypeDao.insert(pocketJoinNo, no);
-      }
-    }
+    pocketmonJoinTypeDao.insert(pocketJoinNo, typeJoinNo);
+    pocketmonJoinTypeDao.insert(pocketJoinNo, typeJoinNo2);
     return "redirect:insertFinish";
   }
 
@@ -77,10 +80,15 @@ public class PocketmonController {
   //포켓몬스터 목록
   @GetMapping("/list")
   public String pocketDexList(
-    Model model
+    Model model,
+    @ModelAttribute("vo") PocketPaginationVO vo
   ) {
-   
-	List<PocketmonWithTypesVO> list3 = pocketmonService.pocketmonTypeSelect();
+	int totalCount = pocketmonWithImageDao.selectCount(vo);
+	vo.setCount(totalCount);
+	vo.setSize(16);
+	vo.setBlockSize(10);
+	List<PocketmonWithTypesVO> list3 = pocketmonService.pocketmonTypeSelect(vo);
+	
     model.addAttribute("list3", list3);
     return "/WEB-INF/views/pocketdex/list.jsp";
   }
@@ -91,8 +99,18 @@ public class PocketmonController {
 		  Model model,
 		  @RequestParam int pocketNo
 		  ) {
+	  List<String> list = pocketmonService.pocketmonTypeSelectOne(pocketNo);
+	  List<PocketmonTypeDto> typeList = pocketmonTypeDao.selectList();
+	  if(list.size()==1) {
+		  model.addAttribute("typeJoinName", list.get(0));
+	  }
+	  else{
+		  model.addAttribute("typeJoinName", list.get(0));
+		  model.addAttribute("typeJoinName2", list.get(1));
+	  }
+		  
 	  model.addAttribute(pocketmonDao.selectOne(pocketNo));
-	  
+	  model.addAttribute("typeList", typeList);
     return "/WEB-INF/views/pocketdex/edit.jsp";
   }
 
@@ -100,11 +118,19 @@ public class PocketmonController {
   	public String editProcess(
   			@ModelAttribute PocketmonDto pocketmonDto,
   			MultipartFile attach,
+  		    @RequestParam int typeJoinNo, //포켓몬스터 속성 번호1
+  		    @RequestParam int typeJoinNo2, //포켓몬스터 속성 번호2
 			@RequestParam int pocketNo,
 			RedirectAttributes attr
   			) throws IllegalStateException, IOException {
-  		pocketmonService.pocketmonEdit(pocketmonDto, attach, pocketNo, attr);
-  		return "redirect:detail";
+	  		pocketmonService.pocketmonEdit(pocketmonDto, attach, pocketNo, attr);
+	  		List<PocketmonJoinTypeDto> list = pocketmonJoinTypeDao.selectOne(pocketNo);
+  			int firstTypeNo = list.get(0).getJoinNo();
+  			int secondTypeNo = list.get(1).getJoinNo();
+  			pocketmonJoinTypeDao.edit(typeJoinNo, firstTypeNo);
+  			pocketmonJoinTypeDao.edit(typeJoinNo2, secondTypeNo);
+  			
+  			return "redirect:detail";
   	}
 
   //포켓몬스터 정보 상세
@@ -122,5 +148,11 @@ public class PocketmonController {
   public String delete(@RequestParam int pocketNo) {
     pocketmonDao.delete(pocketNo);
     return "redirect:list";
+  }
+  
+  //자동 입력
+  @GetMapping("/auto")
+  public String auto() {
+	  return "/WEB-INF/views/pocketdex/autoInsert.jsp";
   }
 }

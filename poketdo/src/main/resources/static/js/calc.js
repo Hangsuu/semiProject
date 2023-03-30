@@ -2,34 +2,35 @@ $(function () {
    $(".pocketmon-img").hide();
 
 $(".monster-search").click(function(){
-	if($("[name=pocketmonNumber]").val().trim().length==0) return;
+	var name =$("[name=pocketmonNumber]").val().trim(); 
+	if(name.length==0) {
+		alert("이름을 입력하세요")
+		return;
+	}
 	$.ajax({
-		url:"https://pokeapi.co/api/v2/pokemon-species/" + $("[name=pocketmonNumber]").val() + "/",
+		url:"/rest/pocketmon/"+name,
 		method:"get",
 		success:function(response){
-			$(".korean-name").text(response.names[2].name);
+			$("[name=baseHp]").val(response.pocketBaseHp);
+			$("[name=baseAtk]").val(response.pocketBaseAtk);
+			$("[name=baseDef]").val(response.pocketBaseDef);
+			$("[name=baseSpAtk]").val(response.pocketBaseSatk);
+			$("[name=baseSpDef]").val(response.pocketBaseSdef);
+			$("[name=baseSpd]").val(response.pocketBaseSpd);
+			$("[name=effortHp]").val(response.pocketEffortHp);
+			$("[name=effortAtk]").val(response.pocketEffortAtk);
+			$("[name=effortDef]").val(response.pocketEffortDef);
+			$("[name=effortSpAtk]").val(response.pocketEffortSatk);
+			$("[name=effortSpDef]").val(response.pocketEffortSdef);
+			$("[name=effortSpd]").val(response.pocketEffortSpd);
+			var index = response.pocketNo;
+		    $(".pocketmon-img").attr("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+index+".png").show();
 		},
+		error:function(){
+			alert("잘못된 이름입니다.")
+		}
 	});
-	$.ajax({
-		url:"https://pokeapi.co/api/v2/pokemon/" + $("[name=pocketmonNumber]").val() + "/",
-		method:"get",
-		success:function(response){
-			$("[name=baseHp]").val(response.stats[0].base_stat);
-			$("[name=baseAtk]").val(response.stats[1].base_stat);
-			$("[name=baseDef]").val(response.stats[2].base_stat);
-			$("[name=baseSpAtk]").val(response.stats[3].base_stat);
-			$("[name=baseSpDef]").val(response.stats[4].base_stat);
-			$("[name=baseSpd]").val(response.stats[5].base_stat);
-			$("[name=effortHp]").val(response.stats[0].effort);
-			$("[name=effortAtk]").val(response.stats[1].effort);
-			$("[name=effortDef]").val(response.stats[2].effort);
-			$("[name=effortSpAtk]").val(response.stats[3].effort);
-			$("[name=effortSpDef]").val(response.stats[4].effort);
-			$("[name=effortSpd]").val(response.stats[5].effort);
-
-               $(".pocketmon-img").attr("src", response["sprites"]["other"]["official-artwork"]["front_default"]).show();
-		},
-	});
+	
 });
 
    $(".calc-btn").click(function(){

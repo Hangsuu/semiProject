@@ -4,18 +4,65 @@
 
 <!-- section -->
 <%-- base.css --%>
-<section class="section-w1000">
+<section class="container-1200 flex-box align-center">
   <!-- aside -->
   <aside></aside>
 
-  <!-- article -->
-  <article>
+  <!-- 본문(article) -->
+  <article class="container-1200 mt-50">
+
+<%-- 인기글, 오늘의 포켓몬--%>
     <%-- home.css / component.css --%>
-    <div class="home-raid-board title-body">
+    <div class="flex-row-grow w-100" style="min-height:400px">
+      <%-- home.css / component.css --%>
+      <div class="home-cool-monster title-body w-50">
+        <%-- home.css --%>
+        <div class="home-board-title">
+          <h2>오늘의 인기글</h2>
+          <a href="#">+더보기</a>
+        </div>
+        <div>내용</div>
+      </div>
+      <%-- home.css / component.css --%>
+      <div class="home-cool-board title-body w-50">
+        <%-- home.css --%>
+        <div class="home-board-title">
+          <h2>오늘의 포켓몬</h2>
+          <a href="#">+더보기</a>
+        </div>
+        <div>내용</div>
+      </div>
+    </div>
+    
+<%-- 인기글, 오늘의 포켓몬--%>
+    <%-- home.css / component.css --%>
+    <div class="home-cool flex-row-grow w-100" style="min-height:400px">
+      <%-- home.css / component.css --%>
+      <div class="home-cool-monster title-body w-50">
+        <%-- home.css --%>
+        <div class="home-board-title">
+          <h2>레이드 모집</h2>
+          <a href="/raid/list?page=1">+더보기</a>
+        </div>
+        <div>내용</div>
+      </div>
+      <%-- home.css / component.css --%>
+      <div class="home-cool-board title-body w-50">
+        <%-- home.css --%>
+        <div class="home-board-title">
+          <h2>포켓몬 교환</h2>
+          <a href="#">+더보기</a>
+        </div>
+        <div>내용</div>
+      </div>
+    </div>
+<%-- 경매 --%>
+    <%-- home.css / component.css --%>
+    <div class="home-raid-board title-body"  style="min-height:300px">
       <%-- home.css --%>
       <div class="home-board-title">
-        <h2>오늘의 레이드</h2>
-        <a href="#">+더보기</a>
+        <h2>hot 경매</h2>
+        <a href="/auction/list?page=1">+더보기</a>
       </div>
       <div>
         <div>
@@ -84,27 +131,6 @@
         </div>
       </div>
     </div>
-    <%-- home.css / component.css --%>
-    <div class="home-cool flex-row-grow">
-      <%-- home.css / component.css --%>
-      <div class="home-cool-monster title-body">
-        <%-- home.css --%>
-        <div class="home-board-title">
-          <h2>주간 인기 포켓몬</h2>
-          <a href="#">+더보기</a>
-        </div>
-        <div>내용</div>
-      </div>
-      <%-- home.css / component.css --%>
-      <div class="home-cool-board title-body">
-        <%-- home.css --%>
-        <div class="home-board-title">
-          <h2>커뮤니티의 인기글</h2>
-          <a href="#">+더보기</a>
-        </div>
-        <div>내용</div>
-      </div>
-    </div>
   </article>
-
+</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

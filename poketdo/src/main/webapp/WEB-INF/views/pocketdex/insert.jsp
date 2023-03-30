@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
 	<h1>등록페이지 입니다~</h1>
-	<form action="insertProcess" method="post" enctype="multipart/form-data">
+	<form action="insertProcess" method="post" enctype="multipart/form-data" class="form">
 		<label>포켓몬스터 번호</label>
 		<input name="pocketNo">
 		
@@ -76,7 +75,7 @@
 		
 		<label>포켓몬스터 속성 1</label>
 		<select name="typeJoinNo">
-			<option value="">선택하세요</option>
+			<option value="0">없음</option>
 			<option value="1">1. 노말</option>
 			<option value="2">2. 격투</option>
 			<option value="3">3. 비행</option>
@@ -100,8 +99,8 @@
 		<br>
 			
 		<label>포켓몬스터 속성 2</label>
-		<select name="typeJoinNo">
-			<option value="">선택하세요</option>
+		<select name="typeJoinNo2">
+			<option value="0">없음</option>
 			<option value="1">1. 노말</option>
 			<option value="2">2. 격투</option>
 			<option value="3">3. 비행</option>
@@ -129,5 +128,6 @@
 		<br>
 		<button>입력 완료</button>
 	</form>
+	<button class="auto-btn">자동입력</button>
 	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -13,6 +13,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" type="text/css" href="/static/css/test.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/pocketdex.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
     <!-- font-awesome CDN -->
@@ -28,106 +29,104 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <title>Document</title>
   </head>
   <body>
-    <main class="container-1200">
+    <main>
+    <div class="container-1200">
       <!-- header -->
-      <header>
+      <header class="float-box" style="min-height:70px">
         <%-- base.css --%>
-        <div class="favicon">
+        <div class="float-left">
           <a href="/">
-            <img src="/static/image/monsterball.png" />
-            <div>1조 홈페이지</div>
+            <img src="/static/image/main.jpg" style="width:300px; height:auto"/>
           </a>
+        </div>
+        <div class="float-right mt-40">
+        	<div style="display:inline-block">
+				<c:choose>
+					<c:when test="${empty sessionScope.memberId}">
+						<a href="/member/login"><span>로그인</span></a>
+					</c:when>
+					<c:otherwise>
+						<a href="/member/logout"><span>로그아웃</span></a>
+					</c:otherwise>
+				</c:choose>
+        	</div>
+			<div style="display:inline-block">
+				<a href="/seal/list"><span>인장뽑기</span></a>
+			</div>
+			<div style="display:inline-block">
+				<c:if test="${sessionScope.memberId != null}">
+					<a href="/message/receive"><span>쪽지</span></a>
+				</c:if>
+			</div>
+			<div style="display:inline-block">
+				<c:if test="${sessionScope.memberLevel == '마스터'}">
+					<a href="/admin/adminCheck"><span>관리 페이지</span></a>
+				</c:if>
+			</div>
+			<div style="display:inline-block">
+				<a href="/member/mypage"><span>마이페이지</span></a>
+			</div>
         </div>
       </header>
 
       <!-- nav -->
-      <nav>
-        <%-- base.css --%>
-        <div class="nav-bar">
-          <div>
-            <a href="/"><span>홈</span></a>
-          </div>
-          <div>
-            <a href="#"><span>포켓몬도감</span></a>
-            <div>
-              <div>
-                <a href="#"><span>포켓몬리스트</span></a>
-              </div>
-              <div>
-                <a href="/simulator"><span>개체값 시뮬레이터</span></a>
-              </div>
-              <div>
-                <a href="/calculator"><span>개체값 계산</span></a>
-              </div>
-            </div>
-          </div>
-          <div>
-            <a href="/board/list"><span>게시판</span></a>
-            <div>
-              <div>
-                <a href="/board/list"><span>자유게시판</span></a>
-              </div>
-              <div>
-                <a href="/board/hot"><span>인기게시판</span></a>
-              </div>
-              <div>
-                <a href="/pocketmonTrade"><span>포켓몬교환 게시판</span></a>
-              </div>
-              <div>
-                <a href="/auction/list?page=1"><span>굿즈 경매 게시판</span></a>
-              </div>
-            </div>
-          </div>
-          <div>
-            <a href="#"><span>레이드</span></a>
-            <div>
-              <div>
-                <a href="/raid/list?page=1"><span>레이드 참가</span></a>
-              </div>
-              <div>
-                <a href="/combination/list?page=1"><span>레이드 공략</span></a>
-              </div>
-              <div>
-                <a href="/combination/simulator?page=1&tagList="><span>조합시뮬레이터</span></a>
-              </div>
-            </div>
-          </div>
-          <div>
-            <a href="#"><span>포켓몬소설</span></a>
-          </div>
-          <div>
-            <a href="#"><span>회원</span></a>
-            <div>
-              <div>
-                <c:choose>
-                  <c:when test="${empty sessionScope.memberId}">
-                    <a href="/member/login"><span>로그인</span></a>
-                  </c:when>
-                  <c:otherwise>
-                    <a href="/member/logout"><span>로그아웃</span></a>
-                  </c:otherwise>
-                </c:choose>
-              </div>
-              <div>
-                <a href="/member/mypage"><span>마이페이지</span></a>
-              </div>
-              <div>
-                <a href="#"><span>인장뽑기</span></a>
-              </div>
-              <div>
-                <a href="#"><span>내 활동</span></a>
-              </div>
-              <c:if test="${sessionScope.memberLevel == '마스터'}">
-              <div>
-              	<a href="/admin/adminCheck"><span>관리 페이지</span></a>
-              </div>
-              </c:if>
-              <div>
-                <c:if test="${sessionScope.memberId != null}">
-                  <a href="/message/receive"><span>쪽지</span></a>
-                </c:if>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <div class="row">
+	      <nav>
+	        <%-- base.css --%>
+	        <div class="nav-bar">
+	          <div>
+	            <a href="/"><span>커뮤니티</span></a>
+	            <div>
+					<div>
+					  <a href="/board/list"><span>자유 게시판</span></a>
+					</div>
+					<div>
+					  <a href="/board/hot"><span>인기 게시판</span></a>
+					</div>
+					<div>
+					  <a href="/auction/list?page=1"><span>굿즈 경매 게시판</span></a>
+					</div>
+					<div>
+		              <a href="/combination/list?page=1"><span>공략 게시판</span></a>
+		            </div>
+				</div>
+	          </div>
+	          <div>
+	            <a href="/pocketdex/list"><span>포켓몬도감</span></a>
+	          </div>
+	          <div>
+	            <a href="/board/list"><span>연구실</span></a>
+	            <div>
+	              <div>
+	                <a href="/simulator"><span>개체값 시뮬레이터</span></a>
+	              </div>
+	              <div>
+	                <a href="/calculator"><span>스탯 계산기</span></a>
+	              </div>
+	              <div>
+	                <a href="/combination/simulator?page=1&tagList="><span>조합시뮬레이터</span></a>
+	              </div>
+	            </div>
+	          </div>
+	          <div>
+	            <a href="#"><span>포켓몬 게임</span></a>
+	            <div>
+	              <div>
+	                <a href="/raid/list?page=1"><span>레이드 참가</span></a>
+	              </div>
+	              <div>
+	                <a href="/pocketmonTrade"><span>포켓몬교환 게시판</span></a>
+	              </div>
+	            </div>
+	          </div>
+	          <div>
+	            <a href="#"><span>트레이너카드</span></a>
+	          </div>
+	        </div>
+	      </nav>
+      </div>
+	</div>
+	
+	<div class="row" style="width:100%; margin-top:0px">
+		<hr style="border-color:gray">
+	</div>

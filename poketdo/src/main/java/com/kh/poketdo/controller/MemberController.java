@@ -1,6 +1,5 @@
 package com.kh.poketdo.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,19 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.MemberDao;
 import com.kh.poketdo.dao.MemberJoinSealDao;
 import com.kh.poketdo.dao.MemberProfileDao;
 import com.kh.poketdo.dao.MemberSealWithImageDao;
-import com.kh.poketdo.dao.SealWithImageDao;
 import com.kh.poketdo.dto.MemberDto;
 import com.kh.poketdo.dto.MemberSealWithImageDto;
-import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.service.MemberService;
 import com.kh.poketdo.service.SealService;
+import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Controller
 @RequestMapping("/member")
@@ -45,13 +42,12 @@ public class MemberController {
     private MemberSealWithImageDao memberSealWithImageDao;
     
     @Autowired
-    private MemberJoinSealDao memberJoinSealDao;
-    
-    @Autowired
     private SealService sealService;
     
     @Autowired
-    private SealWithImageDao sealWithImageDao;
+    private MemberJoinSealDao memberJoinSealDao;
+    
+ 
 
     @GetMapping("/login")
     public String login() {
@@ -79,10 +75,6 @@ public class MemberController {
         session.removeAttribute("memberLevel");
         return "redirect:" + request.getHeader("Referer");
     }
-        
-    
-    
-    
     
     
     @GetMapping("/join")
@@ -91,10 +83,9 @@ public class MemberController {
     }
     
     @PostMapping("/join")
-    public String join(@ModelAttribute MemberDto memberDto,
-    		@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-    		memberService.join(memberDto, attach);
-    	
+    public String join(@ModelAttribute MemberDto memberDto) {
+    		memberService.join(memberDto);
+    		memberJoinSealDao.basicSealInsert(memberDto.getMemberId());
     	return "redirect:joinFinish";
     }
         
@@ -105,7 +96,6 @@ public class MemberController {
     
     
     //마이페이지
-    
     @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model) {
     	String memberId = (String) session.getAttribute("memberId");
@@ -117,12 +107,16 @@ public class MemberController {
     
     //나의 인장
     @GetMapping("/myseal")
-    public String myseal (HttpSession session, Model model) {
+    public String myseal (
+    		HttpSession session, 
+    		Model model,
+    		@ModelAttribute("vo") PocketPaginationVO vo
+    		) {
     	String memberId = (String) session.getAttribute("memberId");
-    	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId);
+    	int totalCount = memberSealWithImageDao.mySelectCount(memberId, vo);
+    	vo.setCount(totalCount);
+    	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
     	model.addAttribute("list",list);
-    	SealWithImageDto basicSealDto = sealWithImageDao.selectBasicOne();
-    	model.addAttribute("basicSealDto" , basicSealDto);
     	model.addAttribute("selectAttachNo" , sealService.mySeal(session));
     	return "/WEB-INF/views/member/myseal.jsp";
     }
@@ -170,6 +164,11 @@ public class MemberController {
 	}
 
     		
+    @GetMapping("/editFinish")
+    public String editFinish() {
+    	return ("/WEB-INF/views/member/editFinish.jsp");
+    }
+    
     		
     //회원 탈퇴
     
@@ -201,6 +200,15 @@ public class MemberController {
     	
     	return "redirect:exitFinish";
     }
+    
+    
+	
+	@GetMapping("/exitFinish")
+	public String exitFinish() {
+		return ("/WEB-INF/views/member/exitFinish.jsp");
+	}
+
+    
     
     @GetMapping("/find")
     public String find() {

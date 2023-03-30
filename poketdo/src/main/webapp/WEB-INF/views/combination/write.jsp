@@ -4,9 +4,58 @@
 <!-- summernote cdn-->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+	/* 전역변수 설정 */
+	var memberId = "${sessionScope.memberId}";
+	var boardWriter = "${combinationDto.combinationWriter}";
+</script>
 <script src="/static/js/summernote.js"></script>
 <script>
 	$(function(){
+		var valid={
+				titleValid:false,
+				contentValid:false,
+				memberIdValid:memberId.length>0,
+				isAllValid:function(){
+					return this.titleValid && this.contentValid && this.memberIdValid
+				}
+		};
+		function checkAllValid(){
+			if(valid.isAllValid()){
+				$(".submit-btn").attr("type", "submit");
+			}
+			else {
+				$(".submit-btn").attr("type", "button");
+			}
+		}
+		//제목이 입력되었을 때
+		$("[name=combinationTitle]").blur(function(){
+			$(this).removeClass("invalid valid");
+			var text =$(this).val().trim();
+			if(text){
+				$(this).addClass("valid");
+				valid.titleValid=true;
+			}
+			else{
+				$(this).addClass("invalid");
+				valid.titleValid=false;
+			}
+			checkAllValid();
+		});
+		//내용이 입력되었을 때
+		$('[name=combinationContent]').on('summernote.change', function(we, contents, $editable) {
+			$(this).removeClass("invalid valid");
+			if(contents=="<p><br></p>" || contents=="<br>"){
+				$(this).addClass("invalid");
+				valid.contentValid=false;
+			}
+			else{
+				$(this).addClass("valid");
+				valid.contentValid=true;
+			}
+			checkAllValid();
+		});
+		
 		var tagList= new Set();
 		var list=[];
 		//oninput과 onblur를 모두 사용하기 위한 방법
@@ -71,12 +120,13 @@
 		
 	});
 </script>
-<div class="container-800 mt-50">
+<div class="container-1200 mt-50">
 <form action="write" method="post" autocomplete="off">
 	<input type="hidden" name="combinationWriter" value="${sessionScope.memberId}">
 	<input type="hidden" name="tagList">
 	<div class="row">
 		제목 : <input class="form-input" name="combinationTitle">
+		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
 	<div class="row">
 		타입 : <select class="form-input" name="combinationType">
@@ -92,11 +142,12 @@
 	</div>
 	<div class="row w-100">
 		<textarea name="combinationContent" rows="10" class="form-input w-100 summernote"></textarea>
+		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
 	<div class="row">
 		<input class="form-input w-100 tag-input" value="#" placeholder="#태그 입력">
 	</div>
-	<button class="form-btn neutral">작성</button>
+	<button class="form-btn neutral submit-btn" type="button">작성</button>
 </form>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

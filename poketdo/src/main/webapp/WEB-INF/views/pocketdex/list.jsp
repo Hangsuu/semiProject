@@ -39,11 +39,11 @@
 			<c:choose>
 			
 				<c:when test="${vo.first }">
-					<a class="disabled">&laquo;</a>
+					<a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
 				</c:when>
 				
 				<c:otherwise>
-					<a href="list?page=1">&laquo;</a>
+					<a href="list?page=1"><i class="fa-solid fa-angles-left"></i></a>
 				</c:otherwise>
 				
 			</c:choose>
@@ -51,11 +51,11 @@
 			<c:choose>
 			
 				<c:when test="${!vo.prev }">
-					<a class="disabled"> &lt;</a>
+					<a class="disabled"> <i class="fa-solid fa-angle-left"></i></a>
 				</c:when>
 				
 				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${vo.prevPage}"> &lt; </a>
+					<a href="list?${vo.parameter}&page=${vo.prevPage}"> <i class="fa-solid fa-angle-left"></i> </a>
 				</c:otherwise>
 				
 			</c:choose>
@@ -76,49 +76,49 @@
 	
 				<c:choose>
 					<c:when test="${!vo.next }">
-						<a class="disabled">&gt;</a>
+						<a class="disabled"><i class="fa-solid fa-angle-right"></i></a>
 					</c:when>
 					<c:otherwise>
-						<a href="list?${vo.parameter}&page=${vo.nextPage }"> &gt;</a>
+						<a href="list?${vo.parameter}&page=${vo.nextPage }"> <i class="fa-solid fa-angle-right"></i></a>
 					</c:otherwise>
 				</c:choose>
 	
 				<c:choose>
 					<c:when test="${vo.last }">
-						<a class="disabled">&raquo;</a>
+						<a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
 					</c:when>
 					<c:otherwise>
-						<a href="list?${vo.parameter}&page=${vo.totalPage}"> &raquo;</a>
+						<a href="list?${vo.parameter}&page=${vo.totalPage}"> <i class="fa-solid fa-angles-right"></i></a>
 					</c:otherwise>
 				</c:choose>
 			</div>
 
-		<div class="row center">
-			<c:forEach var="pocketmonDto"  items="${list3}">
-			
-			    <div class="pocket-box row">
-			        <div></div>
-			        <div></div>
-			        <div>
-			        	<a href="detail?pocketNo=${pocketmonDto.pocketNo}">
-			        		<img src="${pocketmonDto.imageURL}">
-			        	</a>
-			        </div>
-		      </div>
-		      
-			</c:forEach>
-		</div>
+	
+		<c:forEach var="pocketmonDto"  items="${list3}">
+		
+		    <div class="pocket-box row">
+		        <div></div>
+		        <div></div>
+		        <div>
+		        	<a href="detail?pocketNo=${pocketmonDto.pocketNo}">
+		        		<img src="${pocketmonDto.imageURL}">
+		        	</a>
+		        </div>
+	      </div>
+	      
+		</c:forEach>
+
 	
 		<div class="row pagination mb-30 mt-50" >
 		
 			<c:choose>
 			
 				<c:when test="${vo.first }">
-					<a class="disabled">&laquo;</a>
+					<a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
 				</c:when>
 				
 				<c:otherwise>
-					<a href="list?page=1">&laquo;</a>
+					<a href="list?page=1"><i class="fa-solid fa-angles-left"></i></a>
 				</c:otherwise>
 				
 			</c:choose>
@@ -126,11 +126,11 @@
 			<c:choose>
 			
 				<c:when test="${!vo.prev }">
-					<a class="disabled"> &lt;</a>
+					<a class="disabled"> <i class="fa-solid fa-angle-left"></i></a>
 				</c:when>
 				
 				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${vo.prevPage}"> &lt; </a>
+					<a href="list?${vo.parameter}&page=${vo.prevPage}"> <i class="fa-solid fa-angle-left"></i> </a>
 				</c:otherwise>
 				
 			</c:choose>
@@ -151,19 +151,19 @@
 	
 				<c:choose>
 					<c:when test="${!vo.next }">
-						<a class="disabled">&gt;</a>
+						<a class="disabled"><i class="fa-solid fa-angle-right"></i></a>
 					</c:when>
 					<c:otherwise>
-						<a href="list?${vo.parameter}&page=${vo.nextPage }"> &gt;</a>
+						<a href="list?${vo.parameter}&page=${vo.nextPage }"> <i class="fa-solid fa-angle-right"></i></a>
 					</c:otherwise>
 				</c:choose>
 	
 				<c:choose>
 					<c:when test="${vo.last }">
-						<a class="disabled">&raquo;</a>
+						<a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
 					</c:when>
 					<c:otherwise>
-						<a href="list?${vo.parameter}&page=${vo.totalPage}"> &raquo;</a>
+						<a href="list?${vo.parameter}&page=${vo.totalPage}"> <i class="fa-solid fa-angles-right"></i></a>
 					</c:otherwise>
 				</c:choose>
 			</div>

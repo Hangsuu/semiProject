@@ -18,25 +18,6 @@
 				</tr>
 			</thead>
 			<tbody>
-					<tr>
-						<td>
-							0
-						</td>
-						<td>
-							<input type="checkbox" name="mySealNo" value="0">
-						</td>
-						<td>
-							<img width="96" height="96"
-									src="${basicSealDto.imageURL}">
-						</td>
-						<td>
-							${basicSealDto.sealNo}
-						</td>
-						<td>
-							${basicSealDto.sealName}
-						</td>
-					</tr>
-			
 				<c:forEach var="mySeal" items="${list}"  varStatus="status"> 
 					<tr>
 						<td>
@@ -67,19 +48,19 @@
 
 			<c:choose>
 				<c:when test="${vo.first }">
-					<a class="disabled">&laquo;</a>
+					<a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
 				</c:when>
 				<c:otherwise>
-					<a href="list?page=1">&laquo;</a>
+					<a href="myseal?page=1"><i class="fa-solid fa-angles-left"></i></a>
 				</c:otherwise>
 			</c:choose>
 
 			<c:choose>
 				<c:when test="${!vo.prev }">
-					<a class="disabled"> &lt;</a>
+					<a class="disabled"> <i class="fa-solid fa-angle-left"></i></a>
 				</c:when>
 				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${vo.prevPage}"> &lt; </a>
+					<a href="myseal?${vo.parameter}&page=${vo.prevPage}"> <i class="fa-solid fa-angle-left"></i> </a>
 				</c:otherwise>
 			</c:choose>
 
@@ -89,33 +70,33 @@
 						<a class="on">${i}</a>
 					</c:when>
 					<c:otherwise>
-						<a href="list?${vo.parameter}&page=${i}">${i}</a>
+						<a href="myseal?${vo.parameter}&page=${i}">${i}</a>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 
 			<c:choose>
 				<c:when test="${!vo.next }">
-					<a class="disabled">&gt;</a>
+					<a class="disabled"><i class="fa-solid fa-angle-right"></i></a>
 				</c:when>
 				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${vo.nextPage }"> &gt;</a>
+					<a href="myseal?${vo.parameter}&page=${vo.nextPage }"> <i class="fa-solid fa-angle-right"></i></a>
 				</c:otherwise>
 			</c:choose>
 
 			<c:choose>
 				<c:when test="${vo.last }">
-					<a class="disabled">&raquo;</a>
+					<a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
 				</c:when>
 				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${vo.totalPage}"> &raquo;</a>
+					<a href="myseal?${vo.parameter}&page=${vo.totalPage}"> <i class="fa-solid fa-angles-right"></i></a>
 				</c:otherwise>
 			</c:choose>
 		</div>
 		
 		<!-- 검색창  -->
 		<div class="row center mb-30">
-			<form action="list" method="get">
+			<form action="myseal" method="get">
 				<c:choose>
 					<c:when test="${vo.column =='seal_name'}">
 						<select name="column" class="form-input">

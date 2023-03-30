@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.MemberSealWithImageDto;
+import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Repository
 public class MemberSealWithImageDao {
@@ -48,6 +49,66 @@ public class MemberSealWithImageDao {
 		return jdbcTemplate.queryForObject(sql, String.class, param);
 	}
 	
+	//페이징 적용된 조회 및 카운트
+	public int selectCount(PocketPaginationVO vo) {
+		
+		if(vo.isSearch()) {
+			String sql = "select count(*) from seal_with_image where instr(#1,?)>0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[]param =  {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+			
+		}
+		else {
+			String sql = "select count(*) from seal_with_image";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
+	
+	//페이징 적용된 조회 및 카운트
+	public int mySelectCount(String memberId, PocketPaginationVO vo) {
+		
+		if(vo.isSearch()) {
+			String sql = "select count(*) from member_seal_with_image where instr(#1,?)>0 and member_join_id = ?" ;
+			sql = sql.replace("#1", vo.getColumn());
+			Object[]param =  {vo.getKeyword(), memberId};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+			
+		}
+		else {
+			String sql = "select count(*) from member_seal_with_image where member_join_id=?";
+			Object[] param = {memberId};
+			return jdbcTemplate.queryForObject(sql, int.class,param);
+		}
+	}
+	
+//	목록
+	public List<MemberSealWithImageDto> selectOne(String memberId, PocketPaginationVO vo){
+		if(vo.isSearch()) {
+			String sql="select*from( "
+					+ "select TMP.*, rownum RN from (  "
+					+ " select * from member_seal_with_image "
+					+ " where instr(#1,?)>0 "
+					+ " and member_join_id = ?"
+					+ " order by seal_no asc "
+					+ " ) TMP ) "
+					+ " where RN between ? and ?";
+			sql=sql.replace("#1", vo.getColumn());
+			Object[]param = { vo.getKeyword(), memberId, vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		else {
+			String sql="select * from( "
+					+ "select TMP.*, rownum RN from ( "
+					+ "select * from member_seal_with_image "
+					+ " where member_join_id = ? "
+					+ " order by seal_no asc "
+					+ ") TMP ) "
+					+ "where RN between ? and ? ";
+			Object[]param = {memberId, vo.getBegin(), vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
 
 	
 }

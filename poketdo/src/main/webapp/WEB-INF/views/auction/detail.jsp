@@ -13,25 +13,47 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="/static/js/reply.js"></script>
+<script>
+$(function(){
+	$(".delete-btn").click(function(event){
+		if(!confirm("정말 삭제하시겠습니까?\n삭제 후에는 복구할 수 없습니다.")) {
+			event.preventDefault();
+			return;
+		}
+		else{
+			window.location.href=$(this).attr("href");
+		}
+	})	
+})
+</script>
 <script type="text/template" id="reply-template">
-	<div class="row reply-box">
+	<div class="row reply-box" style="border-bottom:1px solid lightgray">
 		<div class="row reply-writer"></div>
 		<div class="row reply-time"></div>
-		<div class="row reply-content form-input"></div>
+		<div class="row reply-content"></div>
 	</div>
 </script>
 <script type="text/template" id="reply-edit-template">
 	<div class="row">
-		<textarea class="row reply-edit-content form-input w-100 summernote-reply">수정</textarea>
+		<textarea class="row reply-edit-content form-input w-100 summernote-reply"></textarea>
 	</div>
 	<div class="row right">
 		<button class="form-btn neutral confirm-edit">수정</button>
 		<button class="form-btn neutral cancle-edit">취소</button>
 	</div>
 </script>
+<script type="text/template" id="reply-child-template">
+	<div class="row">
+	<hr>
+		<textarea class="form-input w-100 summernote-reply"></textarea>
+		<div class="row right">
+			<button class="form-btn neutral reply-submit">댓글달기</button>
+		</div>
+	</div>
+</script>
 <script src="/static/js/like.js"></script>
 <script src="/static/js/bookmark.js"></script>
-<div class="container-1200 mt-50">
+<div class="container-900 mt-50">
 	<div class="row">
 	제목 : ${auctionDto.auctionTitle}
 	</div>
@@ -86,16 +108,13 @@
 	</div>
 	<!-- 신청 -->
 	<div class="row">
-	<hr>
 		<textarea class="form-input w-100 summernote-reply"></textarea>
-		<div class="row right">
-			<button class="form-btn neutral reply-submit">댓글달기</button>
-		</div>
 	</div>
 <!-- 댓글 끝 -->
 	<div class="row">
 		<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-			<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="form-btn neutral">삭제</a>
+			<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="form-btn neutral delete-btn">삭제</a>
+			<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="form-btn neutral">수정</a>
 		</c:if>
 		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="form-btn neutral">목록</a>
 	</div>

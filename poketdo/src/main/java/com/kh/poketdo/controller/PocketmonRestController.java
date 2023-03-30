@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.poketdo.dao.MemberDao;
+import com.kh.poketdo.dao.PocketNameImageDao;
 
 
 @CrossOrigin(origins= {"http://127.0.0.1:5500"})

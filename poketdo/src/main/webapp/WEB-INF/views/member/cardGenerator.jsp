@@ -7,8 +7,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
-    <script src="/js/calc.js"></script>
-    
 	
     
     <script>
@@ -85,21 +83,21 @@
 	
 	<script type="text/javascript">
 		  $(function(){
-		    var $card111 = $(".card111");
-		    var currentInputNo = 0;
+		    var $cardInput = $(".cardInput");
+		    var currentInputName = 0;
 		    $card111.on("click", function(){
-		      var inputNo = $("[name=cardNo]").val();
-		      if(inputNo.length > 3) {
-		        alert("숫자는 3자리수까지만 입력 가능합니다.");
+		      var inputName = $("[name=pocketName]").val();
+		      if(inputName.length > 3) {
+		        alert("포켓몬 이름은 6글자까지만 입력 가능합니다.");
 		        return;
 		      }
-		      if(currentInputNo >= 6) {
+		      if(currentInputName >= 6) {
 		        alert("모든 칸이 채워졌습니다.");
 		        return;
 		      }
 		      currentInputNo++;
-		      $("[name=cardNo]").val("");
-		      $("[name=cardSlot" + currentInputNo + "]").attr("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + inputNo + ".png");
+		      $("[name=cardName]").val("");
+		      $("[name=cardSlot" + currentInputName + "]").attr("src", "D:/upload" + attachmentNo + ".png");
 		    });
 		  });
 		</script>
@@ -365,9 +363,9 @@
           
                 <label>포켓몬을 선택해주세요(최대6마리)</label>
                 <br>
-                <input type="number" name="cardNo" placeholder="포켓몬 번호">
+                <input type="number" name="pocketName" placeholder="포켓몬 이름을 입력하세요">
   
-                <button class="card111" type="submit">검색</button>
+                <button class="cardInput" type="submit">검색</button>
                 
 			</div>
 

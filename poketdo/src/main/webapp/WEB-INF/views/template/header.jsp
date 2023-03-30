@@ -13,6 +13,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" type="text/css" href="/static/css/test.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/pocketdex.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
     <!-- font-awesome CDN -->
@@ -50,7 +51,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				</c:choose>
         	</div>
 			<div style="display:inline-block">
-				<a href="#"><span>인장뽑기</span></a>
+				<a href="/seal/list"><span>인장뽑기</span></a>
 			</div>
 			<div style="display:inline-block">
 				<c:if test="${sessionScope.memberId != null}">

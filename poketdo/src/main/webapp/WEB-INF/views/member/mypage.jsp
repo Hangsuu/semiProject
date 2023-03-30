@@ -18,6 +18,9 @@
   <a href="#">트레이너카드</a>
   </div>
   <div>
+  <a href="/member/myseal">나의 인장</a>
+  </div>
+  <div>
   <a href="/member/exit">회원탈퇴</a>
   </div>
   

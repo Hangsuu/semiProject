@@ -143,8 +143,8 @@ public class MemberDao {
     	};
     	return jdbcTemplate.queryForObject(sql, String.class, param);
     }
-
     
+
     public MemberDto selectByNickname(String memberNick) {
     	String sql = "select * from memebr where member_nick = ?";
     	Object[] param = {memberNick};
@@ -152,5 +152,4 @@ public class MemberDao {
     	return list.isEmpty() ? null : list.get(0);
     }
     
-
 }

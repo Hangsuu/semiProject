@@ -9,8 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.kh.poketdo.dto.MemberSealWithImageDto;
-import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.vo.PocketPaginationVO;
 
@@ -75,7 +73,7 @@ public class SealWithImageDao {
 			public int selectCount(PocketPaginationVO vo) {
 				
 				if(vo.isSearch()) {
-					String sql = "select count(*) from seal_with_image where instr(#1,?)>0";
+					String sql = "select count(*) from seal_with_image where instr(#1,?)>0 ";
 					sql = sql.replace("#1", vo.getColumn());
 					Object[]param =  {vo.getKeyword()};
 					return jdbcTemplate.queryForObject(sql, int.class, param);
@@ -87,6 +85,7 @@ public class SealWithImageDao {
 				}
 			}
 			
+		
 //			목록
 			public List<SealWithImageDto> selectList(PocketPaginationVO vo){
 				if(vo.isSearch()) {
@@ -96,7 +95,7 @@ public class SealWithImageDao {
 							+ " where instr(#1,?)>0"
 							+ " order by seal_no asc"
 							+ " )TMP"
-							+ ")where RN between ? and ?";
+							+ ") where RN between ? and ?";
 					sql=sql.replace("#1", vo.getColumn());
 					Object[]param = {vo.getKeyword(), vo.getBegin(), vo.getEnd()};
 					return jdbcTemplate.query(sql, mapper, param);

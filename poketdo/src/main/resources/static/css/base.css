@@ -55,9 +55,13 @@ footer {
 /* 1차메뉴 */
 .nav-bar > div {
   height: 100%;
+  width: 25%; /*23_3_30 종권 수정내역_2*/
   position: relative;
   flex-grow: 1;
+  
 }
+
+
 /* 1차 메뉴 글씨 */
 .nav-bar > div > a {
   width: 100%;
@@ -71,6 +75,7 @@ footer {
   color: black;
   font-size: 20px;
 }
+
 /* 2차 메뉴 글씨 */
 .nav-bar > div > div > div> a {
   width: 100%;
@@ -106,13 +111,17 @@ a:hover > *::after {
 }
 
 /* 2차메뉴 */
+
 .nav-bar > div > div {
   text-align:center;
   width: 100%;
   background-color: white;
   position: absolute;
   display: none;
+  z-index: 100;
 }
+
+
 .nav-bar > div:hover > div {
   display: flex;
   flex-direction: column;

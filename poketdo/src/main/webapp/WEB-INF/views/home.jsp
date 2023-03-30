@@ -9,7 +9,7 @@
   <aside></aside>
 
   <!-- 본문(article) -->
-  <article class="container-1200">
+  <article class="container-1200 mt-50">
 
 <%-- 인기글, 오늘의 포켓몬--%>
     <%-- home.css / component.css --%>

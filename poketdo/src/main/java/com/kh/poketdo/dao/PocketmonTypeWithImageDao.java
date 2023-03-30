@@ -62,7 +62,6 @@ public class PocketmonTypeWithImageDao {
 						sql = sql.replace("#1", vo.getColumn());
 						Object[]param =  {vo.getKeyword()};
 						return jdbcTemplate.queryForObject(sql, int.class, param);
-						
 					}
 					else {
 						String sql = "select count(*) from pocketmon_type";

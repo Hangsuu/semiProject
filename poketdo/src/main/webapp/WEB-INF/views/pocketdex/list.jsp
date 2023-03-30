@@ -92,21 +92,44 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-
-	
+			
+			
+		    <ul class="pocket-ul">
 		<c:forEach var="pocketmonDto"  items="${list3}">
-		
-		    <div class="pocket-box row">
-		        <div></div>
-		        <div></div>
-		        <div>
-		        	<a href="detail?pocketNo=${pocketmonDto.pocketNo}">
-		        		<img src="${pocketmonDto.imageURL}">
-		        	</a>
-		        </div>
-	      </div>
-	      
+			
+			 <a href="detail?pocketNo=${pocketmonDto.pocketNo}" class="pocket-box-a">
+			  <li class="pocket-li row">
+			    <div class="pocket-box">
+			      <div></div>
+			      <div></div>
+			      <div>
+			          <img src="${pocketmonDto.imageURL}">
+			      </div>
+			    </div>
+			    <div class="pocket-data">
+			      <h4>No.${pocketmonDto.pocketNo}</h4>
+			      <h3>${pocketmonDto.pocketName}</h3>
+			   		   <div>
+	    					<c:forEach var="i" begin="0" end="${pocketmonDto.getPocketTypes().size()-1}">
+								<c:choose>
+									<c:when test="${pocketmonDto.getPocketTypes().get(i).equals('없음')}">
+									</c:when>
+									<c:otherwise>
+										<div>
+											<span>
+												${pocketmonDto.getPocketTypes().get(i)}
+											</span>
+										</div>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</div>
+			    </div>
+			  </li>
+			  </a>
+			  
 		</c:forEach>
+	        </ul>
 
 	
 		<div class="row pagination mb-30 mt-50" >

@@ -1,4 +1,4 @@
-package com.kh.poketdo.controller;
+package com.kh.poketdo.restcontroller;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.poketdo.dao.BoardDao;
-import com.kh.poketdo.dao.LikeBoardDao;
-import com.kh.poketdo.dto.DislikeBoardDto;
-import com.kh.poketdo.dto.LikeBoardDto;
+import com.kh.poketdo.dao.BoardWithImageDao;
+import com.kh.poketdo.dao.LikeTableDao;
+import com.kh.poketdo.dto.LikeTableDto;
 import com.kh.poketdo.vo.BoardLikeVO;
 
 @RestController
@@ -19,41 +18,42 @@ import com.kh.poketdo.vo.BoardLikeVO;
 public class BoardRestController {
 	
 	@Autowired
-	private LikeBoardDao likeboardDao;
+	private LikeTableDao liketableDao;
 	
 	@Autowired
-	private BoardDao boardDao; 
+	private BoardWithImageDao boardWithImageDao; 
+	
 	
 	@PostMapping("/like")
 	public BoardLikeVO like(HttpSession session,
-			@ModelAttribute LikeBoardDto likeboardDto) {
+			@ModelAttribute LikeTableDto liketableDto) {
 		String memberId = (String)session.getAttribute("memberId");
-		likeboardDto.setMemberId(memberId);
+		liketableDto.setMemberId(memberId);
 		
-		boolean current = likeboardDao.isLike(likeboardDto);
+		boolean current = liketableDao.check(liketableDto);
 		if(current) {
-			likeboardDao.insert(likeboardDto);
+			liketableDao.delete(liketableDto);
 		}
 		else {
-			likeboardDao.insert(likeboardDto);
-		}
+			int boardNo = liketableDto.getAllboardNo();
+			liketableDao.insert(LikeTableDto.builder().memberId(memberId).allboardNo(boardNo).build());
+	    }
 		
 		//좋아요 개수
-		int count = likeboardDao.likeCount(likeboardDto.getAllboardNo());
+		int count = liketableDao.likeCount(liketableDto.getAllboardNo());
 		
 		// 게시글의 좋아요 개수를 업데이트
-		boardDao.updateLikecount(likeboardDto.getAllboardNo(), count);
+		boardWithImageDao.likeSet(liketableDto.getAllboardNo(), count);
 		
 		return BoardLikeVO.builder().result(!current).count(count).build();
 	}
 	
 	@PostMapping("/check")
 	public boolean check(HttpSession session,
-			@ModelAttribute LikeBoardDto likeboardDto) {
+			@ModelAttribute LikeTableDto liketableDto) {
 		String memberId = (String)session.getAttribute("memberId");
-		likeboardDto.setMemberId(memberId);
+		liketableDto.setMemberId(memberId);
 		
-		return likeboardDao.isLike(likeboardDto);
+		return liketableDao.check(liketableDto);
 	}
-	
 }

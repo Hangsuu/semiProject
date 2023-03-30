@@ -44,13 +44,13 @@
 									<c:when test="${memberWithImageDto.memberLevel == '일반회원'}">
 										<select name="memberLevel" class="form-input">
 											<option selected>일반회원</option>
-											<option>마스터</option>
+											<option>관리자</option>
 										</select>
 									</c:when>
-									<c:when test="${memberWithImageDto.memberLevel == '마스터'}">
+									<c:when test="${memberWithImageDto.memberLevel == '관리자'}">
 										<select name="memberLevel" class="form-input">
 											<option>일반회원</option>
-											<option selected>마스터</option>
+											<option selected>관리자</option>
 										</select>
 									</c:when>
 								</c:choose>

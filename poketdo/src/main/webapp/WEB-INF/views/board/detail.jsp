@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
@@ -8,16 +8,16 @@
 
 <c:if test="${sessionScope.memberId != null}">
 <link rel="stylesheet" type="text/css" href="/static/css/board-like.css">
-<link rel="stylesheet" type="text/css" href="/static/css/board-dislike.css">
-<script src="/static/js/board-like.js"></script>
-<script src="/static/js/board-dislike.js"></script>
+
 </c:if>
 
 <link rel="stylesheet" type="text/css" href="/static/css/reply.css">
 <script>
 	var memberId = "${sessionScope.memberId}";
-	var boardWriter = "${boardDto.boardWriter}";
+	var boardWriter = "${boardWithImageDto.boardWriter}";
+	var allboardNo = "${boardWithImageDto.getAllboardNo()}";
 </script>
+<script src="/static/js/board-like.js"></script>
 <script src="/static/js/reply.js"></script>
 <script type="text/template" id="reply-template">
 	<div class="reply-item">
@@ -29,78 +29,68 @@
     
 	<div class="container-800">
         <div class="row center">
-            <h2>${boardDto.boardNo}π¯ ∞‘Ω√±€</h2>
+            <h2>${boardWithImageDto.boardNo}Î≤à Í≤åÏãúÍ∏Ä</h2>
         </div>
         
         <div class="row">
-            <h3 style="color:gray;">${boardDto.boardHead}</h3>
+            <h3 style="color:gray;">${boardWithImageDto.boardHead}</h3>
         </div>
         
         <div class="row">
-            <h3>${boardDto.boardTitle}</h3>
+            <h3>${boardWithImageDto.boardTitle}</h3>
         </div>
         <hr>
         <div class="row">
-            ${boardDto.boardWriter}
+            ${boardWithImageDto.boardWriter}
         </div>
         <hr>
         <div class="row">
-            <fmt:formatDate value="${boardDto.boardTime}" 
-                                            pattern="y≥‚ Mø˘ d¿œ HΩ√ m∫– s√ "/>
-                    ¡∂»∏ ${boardDto.boardRead}
+            <fmt:formatDate value="${boardWithImageDto.boardTime}" 
+                                            pattern="yÎÖÑ MÏõî dÏùº HÏãú mÎ∂Ñ sÏ¥à"/>
+                    Ï°∞Ìöå ${boardWithImageDto.boardRead}
         </div>
         <hr>
         <div class="row" style="min-height:200px;">
-            ${boardDto.boardContent}
+            ${boardWithImageDto.boardContent}
         </div>
         <hr>
         <div class="row">
-  			¡¡æ∆ø‰ 
-  			<span class="heart-count">${boardDto.boardLike}</span>
+  			Ï¢ãÏïÑÏöî 
+  			<span class="heart-count">${boardWithImageDto.boardLike}</span>
 
   			<c:if test="${sessionScope.memberId != null}">
-    		<!-- ¡¡æ∆ø‰ πˆ∆∞ -->
-    		<i class="fa-heart"></i>
+    		<!-- Ï¢ãÏïÑÏöî Î≤ÑÌäº -->
+    		<i class="fa-heart fa-regular"></i>
   			</c:if>
-
-  			Ω»æÓø‰
-  			<span class="bad-count">${boardDto.boardDislike}</span>
-
-  			<c:if test="${sessionScope.memberId != null}">
-    		<!-- Ω»æÓø‰ πˆ∆∞ -->
-    		<i class="fa-thumbs-down"></i>
-  			</c:if>
-
-
-            
-            ¥Ò±€ 
-            <span class="reply-count">${boardDto.boardReply}</span>
+           
+            ÎåìÍ∏Ä 
+            <span class="reply-count">${boardWithImageDto.boardReply}</span>
         </div>
         <hr>
         <div class="row reply-list">
-            ¥Ò±€∏Ò∑œ ¿ßƒ°
+            ÎåìÍ∏ÄÎ™©Î°ù ÏúÑÏπò
         </div>
         <hr>
         
-        <!-- ¥Ò±€ ¿€º∫∂ı -->
+        <!-- ÎåìÍ∏Ä ÏûëÏÑ±ÎûÄ -->
         <div class="row">
             
             <div class="row">
                 <c:choose>
                     <c:when test="${sessionScope.memberId != null}">
                         <textarea name="replyContent" class="form-input w-100"
-                                placeholder="¥Ò±€ ≥ªøÎ¿ª ¿€º∫«œººø‰"></textarea>	
+                                placeholder="ÎåìÍ∏Ä ÎÇ¥Ïö©ÏùÑ ÏûëÏÑ±ÌïòÏÑ∏Ïöî"></textarea>	
                     </c:when>
                     <c:otherwise>
                         <textarea name="replyContent" class="form-input w-100"
-                                placeholder="∑Œ±◊¿Œ »ƒø° ¥Ò±€ ¿€º∫¿Ã ∞°¥…«’¥œ¥Ÿ" disabled></textarea>	
+                                placeholder="Î°úÍ∑∏Ïù∏ ÌõÑÏóê ÎåìÍ∏Ä ÏûëÏÑ±Ïù¥ Í∞ÄÎä•Ìï©ÎãàÎã§" disabled></textarea>	
                     </c:otherwise>
                 </c:choose>
                 
             </div>
             <c:if test="${sessionScope.memberId != null}">		
             <div class="row right">
-                <button type="submit" class="form-btn positive reply-insert-btn">¥Ò±€ ¿€º∫</button>
+                <button type="submit" class="form-btn positive reply-insert-btn">ÎåìÍ∏Ä ÏûëÏÑ±</button>
             </div>
             </c:if>
     
@@ -109,20 +99,20 @@
         <hr>
         
         <div class="row right">
-            <a class="form-btn positive" href="/board/write">±€æ≤±‚</a>
+            <a class="form-btn positive" href="/board/write">Í∏ÄÏì∞Í∏∞</a>
             
             <c:if test="${owner}">
-            <!-- ≥ª∞° ¿€º∫«— ±€¿Ã∂Û∏È ºˆ¡§∞˙ ªË¡¶ ∏ﬁ¥∫∏¶ √‚∑¬ -->
-            <a class="form-btn negative" href="/board/edit?boardNo=${boardDto.boardNo}">ºˆ¡§</a>
+            <!-- ÎÇ¥Í∞Ä ÏûëÏÑ±Ìïú Í∏ÄÏù¥ÎùºÎ©¥ ÏàòÏ†ïÍ≥º ÏÇ≠Ï†ú Î©îÎâ¥Î•º Ï∂úÎ†• -->
+            <a class="form-btn negative" href="/board/edit?boardNo=${boardWithImageDto.boardNo}">ÏàòÏ†ï</a>
             </c:if>
             
             <c:if test="${owner || admin}">
-            <!-- ∆ƒ∂ÛπÃ≈Õ πÊΩƒ¿œ ∞ÊøÏ¿« ∏µ≈© -->
-            <a class="form-btn negative" href="/board/delete?boardNo=${boardDto.boardNo}">ªË¡¶</a>
-            <!-- ∞Ê∑Œ ∫Øºˆ πÊΩƒ¿œ ∞ÊøÏ¿« ∏µ≈© -->
-        <%-- 				<a href="/board/delete/${boardDto.boardNo}">ªË¡¶</a> --%>
+            <!-- ÌååÎùºÎØ∏ÌÑ∞ Î∞©ÏãùÏùº Í≤ΩÏö∞Ïùò ÎßÅÌÅ¨ -->
+            <a class="form-btn negative" href="/board/delete?boardNo=${boardWithImageDto.boardNo}">ÏÇ≠Ï†ú</a>
+            <!-- Í≤ΩÎ°ú Î≥ÄÏàò Î∞©ÏãùÏùº Í≤ΩÏö∞Ïùò ÎßÅÌÅ¨ -->
+        <%-- 				<a href="/board/delete/${boardWithImageDto.boardNo}">ÏÇ≠Ï†ú</a> --%>
             </c:if>
-            <a class="form-btn neutral" href="/board/list">∏Ò∑œ∫∏±‚</a>
+            <a class="form-btn neutral" href="/board/list">Î™©Î°ùÎ≥¥Í∏∞</a>
         </div>
         
     </div>

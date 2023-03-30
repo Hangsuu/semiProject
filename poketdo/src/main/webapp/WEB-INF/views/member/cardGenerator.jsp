@@ -7,9 +7,12 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
+	
+	
+<script src="/static/js/calc.js"></script>
+	
     
-    
-    <script>
+    <script type="text/javascript">
 
     $(document).ready(function() {
         $('input[name="color"]').on('change', function() {
@@ -81,29 +84,12 @@
 		</script>
 		
 	
-	<script type="text/javascript">
-		  $(function(){
-		    var $card111 = $(".card111");
-		    var currentInputNo = 0;
-		    $card111.on("click", function(){
-		      var inputNo = $("[name=cardNo]").val();
-		      if(inputNo.length > 3) {
-		        alert("숫자는 3자리수까지만 입력 가능합니다.");
-		        return;
-		      }
-		      if(currentInputNo >= 6) {
-		        alert("모든 칸이 채워졌습니다.");
-		        return;
-		      }
-		      currentInputNo++;
-		      $("[name=cardNo]").val("");
-		      $("[name=cardSlot" + currentInputNo + "]").attr("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + inputNo + ".png");
-		    });
-		  });
-		</script>
+	
+		
 	
 	
 	<script>
+	
 		function saveImage() {
 		  // 저장하려는 div의 id 가져오기
 		  const divId = "myDiv";
@@ -113,7 +99,6 @@
 		
 		  // div 요소 가져오기
 		  const div = document.getElementById(divId);
-		  
 		  
 		  // div를 이미지로 변환하기
 		  html2canvas(div).then(function(canvas) {
@@ -126,134 +111,193 @@
 		    document.body.removeChild(link);
 		  });
 		}
-		</script>
-
-
-
-<style>
-    .image-container {
-      position: relative;
-      display: inline-block;
-    }
-  
-    .image-1 {
-        
-      z-index: 1;
-    }
-  
-    .image-2 {
-      position: absolute;
-      top: 80px;
-      left: 340px;
-      z-index: 2;
-    }
-
-    .slot-1 {
-      position: absolute;
-      top: 87px;
-      left: 10px;
-      z-index: 2;
-    }
-
-    .slot-2 {
-      position: absolute;
-      top: 87px;
-      left: 115px;
-      z-index: 2;
-    }
-
-    .slot-3 {
-      position: absolute;
-      top: 87px;
-      left: 220px;
-      z-index: 2;
-    }
-
-    .slot-4 {
-      position: absolute;
-      top: 160px;
-      left: 10px;
-      z-index: 2;
-    }
-
-    .slot-5 {
-      position: absolute;
-      top: 160px;
-      left: 115px;
-      z-index: 2;
-    }
-
-    .slot-6 {
-      position: absolute;
-      top: 160px;
-      left: 220px;
-      z-index: 2;
-    }
-
-	.input-code{
-	  position: absolute;
-	  top: 40px;
-	  left: 40px;
-	  z-index: 2;
-	}
-
-	.code-overlay {
-		position: absolute;
-		top: 37px;
-		left: 277px;
-		font-size: 25px;
-		color: white;
-		text-shadow: 2px 2px #000000;
-		pointer-events: none;
 		
-	}
 	
-	.nick-overlay {
-		position: absolute;
-		top: 38px;
-		left: 33px;
-		font-size: 22px;
-		color: white;
-		text-shadow: 2px 2px #000000;
-		pointer-events: none;
+	</script>
+
+
+	<script type="text/javascript">
 		
-	}
+	 $(function(){
+	    var $card111 = $(".card111");
+	    var currentInputNo = 0;
+
+		  // "입력" 버튼 클릭 시 실행되는 함수
+		  $card111.on("click", function(){
+		    var pocketName = $("[name=pocketName1]").val(); // 입력창에서 포켓몬 이름 가져오기
+		   
+		    $.ajax({
+		    	  url: "/rest/pocketmon/" + pocketName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
+		    	  method: "get", // HTTP 요청 방식을 선택합니다.
+		    	  success: function(response) { // 요청이 성공했을 때 실행될 콜백 함수입니다.
+		    	    var attachmentNo = response.attachmentNo; // attachmentNo 값을 가져옵니다.
+		    	    console.log("attachmentNo: " + attachmentNo); // attachmentNo 값을 콘솔에 출력합니다.
+		    	 	
+	       	$("[name=cardSlot" + currentInputNo + "]").attr("src", "/attachment/download?attachmentNo=" + attachmentNo);
+		    	  },
+		    	  error: function(xhr, status, error) { // 요청이 실패했을 때 실행될 콜백 함수입니다.
+		    	    console.log("error: " + error); // 오류 메시지를 콘솔에 출력합니다.
+		    	  }
+		    	});
+		    
+		    if(currentInputNo >= 6) {
+		        alert("모든 칸이 채워졌습니다.");
+		        return;
+		      }
+		    currentInputNo++; // 다음 슬롯으로 이동
+
+		    $("[name=pocketName1]").val("");
+    		});
+		});
+	</script>
+
+
+
+	<style>
+	    .image-container {
+	      position: relative;
+	      display: inline-block;
+	    }
+	  
+	    .image-1 {
+	        
+	      z-index: 1;
+	    }
+	  
+	    .image-2 {
+	      position: absolute;
+	      top: 80px;
+	      left: 340px;
+	      z-index: 2;
+	    }
 	
-	.com1-overlay {
-		position: absolute;
-		top: 240px;
-		left: 33px;
-		font-size: 20px;
-		color: white;
-		text-shadow: 2px 2px #000000;
-		pointer-events: none;
+	    .slot-1 {
+	      position: absolute;
+	      top: 87px;
+	      left: 10px;
+	      z-index: 2;
+	    }
+	
+	    .slot-2 {
+	      position: absolute;
+	      top: 87px;
+	      left: 115px;
+	      z-index: 2;
+	    }
+	
+	    .slot-3 {
+	      position: absolute;
+	      top: 87px;
+	      left: 220px;
+	      z-index: 2;
+	    }
+	
+	    .slot-4 {
+	      position: absolute;
+	      top: 160px;
+	      left: 10px;
+	      z-index: 2;
+	    }
+	
+	    .slot-5 {
+	      position: absolute;
+	      top: 160px;
+	      left: 115px;
+	      z-index: 2;
+	    }
+	
+	    .slot-6 {
+	      position: absolute;
+	      top: 160px;
+	      left: 220px;
+	      z-index: 2;
+	    }
+	
+		.input-code{
+		  position: absolute;
+		  top: 40px;
+		  left: 40px;
+		  z-index: 2;
+		}
+	
+		.code-overlay {
+			position: absolute;
+			top: 37px;
+			left: 277px;
+			font-size: 25px;
+			color: white;
+			text-shadow: 2px 2px #000000;
+			pointer-events: none;
+			
+		}
 		
-	}
-	
-	.com2-overlay {
-		position: absolute;
-		top: 265px;
-		left: 33px;
-		font-size: 20px;
-		color: white;
-		text-shadow: 2px 2px #000000;
-		pointer-events: none;
+		.nick-overlay {
+			position: absolute;
+			top: 38px;
+			left: 33px;
+			font-size: 22px;
+			color: white;
+			text-shadow: 2px 2px #000000;
+			pointer-events: none;
+			
+		}
 		
-	}
-	
-	
-	#input-number {
+		.com1-overlay {
+			position: absolute;
+			top: 240px;
+			left: 33px;
+			font-size: 20px;
+			color: white;
+			text-shadow: 2px 2px #000000;
+			pointer-events: none;
+			
+		}
+		
+		.com2-overlay {
+			position: absolute;
+			top: 265px;
+			left: 33px;
+			font-size: 20px;
+			color: white;
+			text-shadow: 2px 2px #000000;
+			pointer-events: none;
+			
+		}
+		
+		
+		#input-number {
+			display: block;
+		
+			padding: 10px;
+			font-size: 15px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+					
+				}
+				
+				
+		#input-nick {
+			display: block;
+			
+			padding: 10px;
+			font-size: 15px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+					
+				}		
+				
+		#input-com1 {
 		display: block;
-	
+		
 		padding: 10px;
 		font-size: 15px;
 		border-radius: 5px;
 		border: 1px solid #ccc;
 				
-			}
+			}	
 			
 			
-	#input-nick {
+		#input-com2 {
 		display: block;
 		
 		padding: 10px;
@@ -261,32 +305,11 @@
 		border-radius: 5px;
 		border: 1px solid #ccc;
 				
-			}		
-			
-	#input-com1 {
-	display: block;
-	
-	padding: 10px;
-	font-size: 15px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-			
-		}	
-		
-		
-	#input-com2 {
-	display: block;
-	
-	padding: 10px;
-	font-size: 15px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-			
-		}					
-			
-			
-			
-  </style>
+			}					
+				
+				
+				
+	  </style>
     
   
 
@@ -295,13 +318,12 @@
   
   <!-- article -->
   <article>
-<!--     <form method="post" enctype="multipart/form-data" autocomplete="off"> -->
+<!--     <form action= "card" method="get" enctype="multipart/form-data" autocomplete="off"> -->
         
-      <div class= "container-500 center">
+      <div class= "container-500 center" enctype="multipart/form-data" autocomplete="off">
       
     
 	        <h2 class="row center mt-10 mb-10">트레이너 카드 생성기</h2>
-	    
 	        <div class="image-container row left" id="card-container">
 	             <div id="myDiv">
 		           <div class="code-overlay" id="overlay-number"></div>
@@ -313,8 +335,8 @@
 		            <img id="image1" src="/static/image/A.png" >
 		            <img id="image2" src="/static/image/B.png" style= "display: none">
 		            
-		    	</div>  
 		                <img id="preview" width="150px" height="150px" class="image-container image-2">
+		    	  
 		       
 		        	 <img id="preview" name="cardSlot1" width="100px" height="60px" class="image-container slot-1">
 		             <img id="preview" name="cardSlot2" width="100px" height="60px" class="image-container slot-2">
@@ -323,7 +345,7 @@
 		             <img id="preview" name="cardSlot5" width="100px" height="60px" class="image-container slot-5">
 		             <img id="preview" name="cardSlot6" width="100px" height="60px" class="image-container slot-6">
 	         
-     		
+     			</div>
      		
      			프로필 사진 업로드<input type="file" accept="image/*" onchange="previewImg(this);" >
      			
@@ -361,7 +383,7 @@
           
                 <label>포켓몬을 선택해주세요(최대6마리)</label>
                 <br>
-                <input type="number" name="cardNo" placeholder="포켓몬 번호">
+                <input type="text" name="pocketName1" placeholder="포켓몬 이름을 입력하세요">
   
                 <button class="card111" type="submit">검색</button>
                 
@@ -397,7 +419,7 @@
         
     
          <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
-           
+       
   </article>
 
 

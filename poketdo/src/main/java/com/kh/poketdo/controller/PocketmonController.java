@@ -85,6 +85,7 @@ public class PocketmonController {
   ) {
 	int totalCount = pocketmonWithImageDao.selectCount(vo);
 	vo.setCount(totalCount);
+	vo.setSize(16);
 	vo.setBlockSize(10);
 	List<PocketmonWithTypesVO> list3 = pocketmonService.pocketmonTypeSelect(vo);
 	

@@ -41,9 +41,12 @@ public class CombinationController {
 		combinationDao.insert(combinationDto);
 		
 		//tagList 문자열을 배열로 반환
-		String[] values = request.getParameter("tagList").split(",");
+		String value = request.getParameter("tagList");
+		if(value.length()>0) {
+			String[] values = value.split(",");
 		//입력받은 태그를 db에 입력
-		tagDao.insertTags(sequence, values);
+			tagDao.insertTags(sequence, values);
+		}
 		attr.addAttribute("page", 1);
 		attr.addAttribute("allboardNo", sequence);
 		return "redirect:detail";

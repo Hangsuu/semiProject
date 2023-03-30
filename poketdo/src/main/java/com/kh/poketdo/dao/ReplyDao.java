@@ -100,7 +100,8 @@ public class ReplyDao {
         auctionDao.replySet(allboardNo, replyCount);
       case "raid":
         raidDao.replySet(allboardNo, replyCount);
-			case "combination" : combinationDao.replySet(allboardNo, replyCount);
+      case "combination" : 
+    	combinationDao.replySet(allboardNo, replyCount);
     }
   }
 

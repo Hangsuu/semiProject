@@ -26,6 +26,7 @@
 				<tr>
 					<th><a class="link" href="list?page=1&${vo.parameter}">글번호<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<th class="w-40">제목</th>
+					<th>닉네임</th>
 					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_start_time&order=asc&special=raid_start_time>sysdate and raid_count<4">시작시간<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_count&order=asc, allboard_no desc&special=raid_start_time>sysdate and raid_count<4">참가자<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<c:choose>
@@ -48,6 +49,7 @@
 						<td><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
+						<td>${raidDto.raidWriter}</td>
 						<td>${raidDto.time}</td>
 						<c:choose>
 							<c:when test="${raidDto.raidCount>=4}">

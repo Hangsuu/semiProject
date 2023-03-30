@@ -38,7 +38,7 @@ $(function(){
 	function selectedTag(){
 		$(".search-tag-target").empty();
 		tagList.forEach(function(value){
-			var selectedTag = $("<span>").addClass("form-input me-10").text(value)
+			var selectedTag = $("<span>").addClass("form-input me-10 hash-tag").text(value)
 			var cancle = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-name", value)
 					.click(removeTag);
 			selectedTag.append(cancle);
@@ -76,7 +76,7 @@ $(function(){
 				}
 				else{
 					for(var i=0; i<response.length; i++){
-						var tagSpan = $("<span>").addClass("form-input me-10").attr("data-tag-name", response[i].tagName)
+						var tagSpan = $("<span>").addClass("form-input me-10 hash-tag").attr("data-tag-name", response[i].tagName)
 								.text(response[i].tagName+"("+response[i].tagCount+")").click(searchTag);
 						$(".recommand-tag-target").append(tagSpan);
 					}
@@ -199,7 +199,7 @@ $(function(){
 		<td class="list-read"></td>
 	</tr>
 </script>
-<div class="container-1200 mt-50">
+<div class="container-1200 mt-50" style="min-height:1200px">
 	<div class="row"><h1 style="font-size:2em">조합 시뮬레이터</h1></div>
 <!-- 검색 -->
 	<div class="row">
@@ -215,8 +215,8 @@ $(function(){
 		</div>
 	</div>
 <!-- 추천 태그 들어가는 자리 -->
-	<div class="row recommand-tag-box mt-50">
-		<div class="row ">
+	<div class="row recommand-tag-box mt-50" style="line-height:4em">
+		<div class="row">
 			추천 몬스터(선택)
 		</div>
 		<div class="row recommand-tag-target mt-30">

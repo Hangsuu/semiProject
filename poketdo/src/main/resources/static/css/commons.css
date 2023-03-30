@@ -15,13 +15,6 @@
 
     - div는 기본적으로 폭이 100%이므로 원하는 크기로 변경해야함
 */
-
-/* (주의)reset.css로 이동하였으므로 향후 제거 */
-* {
-  box-sizing: border-box;
-  font-family: "빙그레 메로나체";
-}
-
 /* 
     container는 표시될 폭과 정렬방식을 가운데로 설정 
     가운데라고만 하면 너무 애매하므로 다음과 같이 세분화
@@ -753,4 +746,12 @@ input [name="memberPw"] {
 
 main section article h1 {
   font-size: 2em;
+}
+.hash-tag{
+	margin-left:10px;
+	border-radius:0.4em;
+	padding:0.4em;
+}
+.hash-tag>.fa-xmark{
+	color:#eb4d4b;
 }

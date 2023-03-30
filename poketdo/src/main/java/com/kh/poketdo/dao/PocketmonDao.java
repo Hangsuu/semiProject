@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.PocketmonDto;
-import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Repository
 public class PocketmonDao {

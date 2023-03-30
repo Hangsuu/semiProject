@@ -10,18 +10,11 @@ public class PocketPaginationVO {
   // 현재 페이지
   private int page = 1;
   // 페이지 마다 보여줄 사진 수
-//  private int size = 1;
   private int size = 4;
   // 전체 게시글 개수
   private int count;
   // 블럭마다 보여줄 숫자 개수
   private int blockSize = 5;
-//	//정렬 항목
-//	private String item="allboard_no";
-//	//오름차순 내림차순
-//	private String order="desc";
-//	//특수조건
-//	private String special="";
 
   // 검색 여부 판단
   public boolean isSearch() {
@@ -32,57 +25,28 @@ public class PocketPaginationVO {
     return !isSearch();
   }
   
-//	//태그 검색을 위한 문자열 입력
-//	public String tagList="";
-//	//태그 검색용 파라미터 자동 생성
-//	public String getTagParameter() {
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append("size=");
-//		buffer.append(size);
-//		buffer.append("&tagList=");
-//		buffer.append(tagList);
-//		return buffer.toString();
-//	}
-	
 
   // 파라미터 자동 생성
   public String getParameter() {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("size=");
-    buffer.append(size);
-    if (isSearch()) {//검색이라면 항목을 추가
-      buffer.append("&column=");
-      buffer.append(column);
-      buffer.append("&keyword=");
-      buffer.append(keyword);
-    }
-//		else {
-//			buffer.append("&column=&keyword=");
-//		}
+	    StringBuffer buffer = new StringBuffer();
+	    buffer.append("size=");
+	    buffer.append(size);
+	    if (isSearch()) {//검색이라면 항목을 추가
+	      buffer.append("&column=");
+	      buffer.append(column);
+	      buffer.append("&keyword=");
+	      buffer.append(keyword);
+	    }
 		return buffer.toString();
 	}
   
-//	public String getAddParameter() {
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append("&item=");
-//		buffer.append(item);
-//		buffer.append("&order=");
-//		buffer.append(order);
-//		buffer.append("&special=");
-//		buffer.append(special);
-//    return buffer.toString();
-//  }
-
   // 시작행 - 페이지에서 보여주는 게시판 첫글 순서
   public int getBegin() {
-//    return page * size - size + 1;
 	  return page*size-(size-1);
   }
 
   // 종료행 - 페이지에서 보여주는 게시판 마지막글 순서
   public int getEnd() {
-//    int lastBoard = page * size;
-//    return Math.min(lastBoard, count);
 	  return page * size;
   }
 
@@ -131,9 +95,4 @@ public class PocketPaginationVO {
   public int getPrevPage() {
     return getStartBlock() - 1;
   }
-
-//  // 쿼리스트링(query string 생성)
-//  public String getQueryString() {
-//    return this.keyword.equals("") ? "" : "&column=" + this.column + "&keyword=" + this.keyword;
-//  }
 }

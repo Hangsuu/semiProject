@@ -33,7 +33,7 @@
           </c:choose>
         </div>
         <div class="flex-row-grow">
-          <div><a href="#">아이디 찾기</a></div>
+          <div><a href="/member/find">아이디 찾기</a></div>
           <div><a href="/member/join">회원가입</a></div>
         </div>
       </div>

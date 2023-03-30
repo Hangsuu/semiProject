@@ -15,6 +15,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/reply.css" />
     <!-- font-awesome CDN -->
     <link
       rel="stylesheet"

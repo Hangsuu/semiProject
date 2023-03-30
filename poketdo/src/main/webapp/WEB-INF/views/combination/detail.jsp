@@ -48,7 +48,7 @@
 	<!-- 태그칸 -->
 			<div class="float-right tag-place" style="display:inline-block">
 				<c:forEach var="tags" items="${tagDto}">
-					<a href="list?page=1&column=tag&keyword=${tags.tagName}" class="link"><span class="hash-tag">${tags.tagName}</span></a>
+					<a href="list?page=1&column=tag&keyword=${tags.tagName}" class="hash-tag">${tags.tagName}</a>
 				</c:forEach>
 			</div>
 		</div>

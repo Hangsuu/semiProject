@@ -110,32 +110,8 @@ a:hover > *::after {
   transform: scaleX(1);
 }
 
-/*
-<----
-23_3_30 종권 수정 내역_2
-내역: 2차 메뉴바 테두리 색상, 라운드 설정 
- */
-.nav-bar > div > div {
-	border : 3px solid #faec9f; 
-	border-radius:15px;
-	text-align:center;
-  	width: 100%;
-  	position: absolute;
-  	display: none;
-	background: rgb(255,253,215);
-	background: linear-gradient(180deg, rgba(255,253,215,1) 0%, rgba(252,234,128,1) 100%);
-}
-
-/* 
-노란계열
-background: rgb(255,253,215);
-background: linear-gradient(180deg, rgba(255,253,215,1) 0%, rgba(252,234,128,1) 100%);
-초록계열 #41c47c; #c7f7dd
-background: rgb(222,255,237);
-background: linear-gradient(180deg, rgba(222,255,237,1) 0%, rgba(124,255,183,1) 100%);
-*/
 /* 2차메뉴 */
-/* 수정전
+
 .nav-bar > div > div {
   text-align:center;
   width: 100%;
@@ -143,10 +119,7 @@ background: linear-gradient(180deg, rgba(222,255,237,1) 0%, rgba(124,255,183,1) 
   position: absolute;
   display: none;
 }
-*/
-/*
----->
-*/
+
 
 .nav-bar > div:hover > div {
   display: flex;

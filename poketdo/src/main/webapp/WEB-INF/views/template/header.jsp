@@ -120,7 +120,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	            </div>
 	          </div>
 	          <div>
-	            <a href="#"><span>트레이너카드</span></a>
+	            <a href="/cardGenerator"><span>트레이너카드</span></a>
 	          </div>
 	        </div>
 	      </nav>

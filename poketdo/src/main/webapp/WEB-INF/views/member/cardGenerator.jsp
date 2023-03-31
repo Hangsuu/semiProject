@@ -95,7 +95,7 @@
 		  const divId = "myDiv";
 		
 		  // 저장할 이미지 파일 이름
-		  const fileName = "myImage.png";
+		  const fileName = "TrainerCard.png";
 		
 		  // div 요소 가져오기
 		  const div = document.getElementById(divId);
@@ -114,6 +114,16 @@
 		
 	
 	</script>
+	
+	
+	
+	<script>
+	
+		
+	
+	</script>
+	
+	
 
 
 	<script type="text/javascript">
@@ -136,7 +146,11 @@
 	       	$("[name=cardSlot" + currentInputNo + "]").attr("src", "/attachment/download?attachmentNo=" + attachmentNo);
 		    	  },
 		    	  error: function(xhr, status, error) { // 요청이 실패했을 때 실행될 콜백 함수입니다.
-		    	    console.log("error: " + error); // 오류 메시지를 콘솔에 출력합니다.
+		                if(xhr.status == 500) {
+		                    alert("정확한 포켓몬 이름을 입력해주세요");
+		                    return;
+		                }
+		    		  console.log("error: " + error); // 오류 메시지를 콘솔에 출력합니다.
 		    	  }
 		    	});
 		    
@@ -150,6 +164,7 @@
     		});
 		});
 	</script>
+
 
 
 
@@ -403,8 +418,11 @@
 	
 		
 		<div class="row center">
-			<button type="button" onclick="saveImage()">트레이너 카드 저장</button>
-		
+			
+			<button class= "form-btn w-100" type="button" onclick="saveImage2()" name="attach">내 정보에 저장</button> //회원 일경우 
+			
+			<button class= "form-btn w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
+			
 	
 	    </div>	       
 		

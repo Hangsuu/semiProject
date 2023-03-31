@@ -145,17 +145,17 @@
     
 <%-- 경매 --%>
     <%-- home.css / component.css --%>
-    <div class="row w-100"  style="min-height:300px">
+    <div class="row w-100"  style="min-height:300px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); padding:1.5em">
       <%-- home.css --%>
       <div class="home-board-title">
         <h2>hot 경매</h2>
         <a href="/auction/list?page=1">+더보기</a>
       </div>
 	<!-- 게시판 테이블(swiper) -->
-		<div class="swiper">
+		<div class="swiper mt-20">
 			<div class="swiper-wrapper">
 				<c:forEach var="auctionDto" items="${auctionList}">
-					<div class="swiper-slide" style="padding:1em; border:1px solid #F2F4FB; border-radious:2em; margin:10px">
+					<div class="swiper-slide" style="padding:1em; border:1px solid #F2F4FB; border-radious:2em; margin:10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05)">
 						<div style="width:200px; height:200px" class="flex-box align-center">
 							<c:choose>
 								<c:when test="${auctionDto.auctionMainImg>0}">

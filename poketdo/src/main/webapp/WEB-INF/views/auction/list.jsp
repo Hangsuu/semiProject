@@ -28,13 +28,13 @@
 			</form>
 		</div>
 		<div class="flex-box align-right"><a class="form-btn neutral" href="list?page=1">전체보기<i class="fa-solid fa-sort ms-10"></i></a></div>
-		<div class="flex-box ms-10"><a class="form-btn neutral" href="list?page=1&${vo.parameter}&item=auction_finish_time&order=asc&special=auction_finish_time>sysdate and auction_min_price<auction_max_price">종료임박<i class="fa-solid fa-sort ms-10"></i></a></div>
+		<div class="flex-box ms-10"><a class="form-btn neutral" href="list?page=1&${vo.parameter}&item=auction_finish_time&order=asc&special=auction_finish_time>sysdate and (auction_max_price=0 or auction_min_price<auction_max_price)">종료임박<i class="fa-solid fa-sort ms-10"></i></a></div>
 		<div class="flex-box ms-10"><a href="bookmark?page=1&keyword=&column=" class="form-btn neutral">즐겨찾기 보기</a></div> 
 	</div>
 <!-- 게시판 테이블 -->
 	<div class="row flex-box" style="flex-wrap:wrap">
 		<c:forEach var="auctionDto" items="${list}">
-			<div style="padding:1em; border:1px solid #F2F4FB; border-radius:0.5em; margin:10px" class="center">
+			<div style="padding:1em; border:1px solid #F2F4FB; border-radius:0.5em; margin:10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05)" class="center">
 				<div style="width:185px; height:185px" class="flex-box align-center">
 					<c:choose>
 						<c:when test="${auctionDto.auctionMainImg>0}">

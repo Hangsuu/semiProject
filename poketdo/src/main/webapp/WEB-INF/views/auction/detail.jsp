@@ -61,7 +61,7 @@ $(function(){
 				<span>종료된 경매</span>
 			</div>
 			<div class="row">
-			낙찰 가격 : <span class="min-bid-price"></span>
+			낙찰 가격 : <span class="final-price"></span>
 			</div>			
 		</div>
 		<div class="row ing-auction">
@@ -91,14 +91,16 @@ $(function(){
 	글쓴이 : <span class="auction-writer">${auctionDto.auctionWriter}</span>
 	</div>
 <!-- 입찰기능 -->
-	<div class="row bid-form">
-		<form class="form-bid">
-			<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
-			<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
-			<input class="form-input" name="auctionBidPrice">
-			<button type="button" class="form-btn neutral bid-btn">입찰</button>
-		</form>
-	</div>
+	<c:if test="${sessionScope.memberId!=auctionDto.auctionWriter}">
+		<div class="row bid-form">
+			<form class="form-bid">
+				<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
+				<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
+				<input class="form-input" name="auctionBidPrice">
+				<button type="button" class="form-btn neutral bid-btn">입찰</button>
+			</form>
+		</div>
+	</c:if>
 <!-- 입찰기능 끝 -->
 <!-- 댓글 -->
 	<!-- 표시 -->

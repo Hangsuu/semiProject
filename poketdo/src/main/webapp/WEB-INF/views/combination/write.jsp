@@ -73,9 +73,9 @@
 				var list = text.match(regex);
 				
 				if(list!=null && list.length!=0){
-					var text = list[1];
-					if(!tagList.has(text)){
-						tagList.add(text);
+					var textVal = list[1];
+					if(!tagList.has(textVal)&&textVal){
+						tagList.add(textVal);
 						//set을 전송 가능한 문자열 형태로 반환
 						var setList = Array.from(tagList);
 						var setListString = setList.join(",");
@@ -85,8 +85,8 @@
 						$(this).val("#");
 						var target = $(".tag-box")
 						var index = Math.floor(Math.random()*5);
-						var inputTag = $("<span>").addClass("hash-tag").css("background-color", tagColor[index]).css("border", tagBorderColor[index]).text(text);
-						var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-value", text).click(deleteTag)
+						var inputTag = $("<span>").addClass("hash-tag").css("background-color", tagColor[index]).css("border", tagBorderColor[index]).text(textVal);
+						var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-value", textVal).click(deleteTag)
 						inputTag.append(xmark);
 						target.append(inputTag);
 					}

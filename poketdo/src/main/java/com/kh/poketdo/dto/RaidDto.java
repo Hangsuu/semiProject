@@ -19,6 +19,7 @@ public class RaidDto {
 	private String raidMonster;
 	private Date raidTime;
 	private Timestamp raidStartTime;
+	private String raidCode;
 	private int raidCount;
 	private int raidReply;
 	private int raidLike;

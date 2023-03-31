@@ -51,10 +51,10 @@
         <i class="fa-solid fa-xmark" style="color:red;"></i> 삭제
       </div>
       <div class="pocketmonTrade-btn message-reply-btn">
-        <i class="fa-solid fa-reply" style="color: #ffd400;"></i> 답장
+        <i class="fa-solid fa-reply" style="color: #9DACE4;"></i> 답장
       </div>
       <a href="/message/receive" class="pocketmonTrade-btn message-list-btn ml-auto">
-        <i class="fa-solid fa-list" style="color: #ffd400;"></i> 목록
+        <i class="fa-solid fa-list" style="color: #9DACE4;"></i> 목록
       </a>
     </div>
     <hr/>

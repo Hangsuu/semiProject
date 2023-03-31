@@ -21,14 +21,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     <a class="link message-send-time-col">메세지 보낸 시간</a>
   </div>
 </script>
-<!-- section -->
-<section class="container-1200">
+
 
   <!-- aside -->
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
 
-  <!-- article -->
-  <article class="container-1000 mg-0">
+
     <div class="mb-30">
         <h1>받은 쪽지함 <a class="deco-none message-not-read-cnt" href="/message/receive?mode=new" style="color:#5E78D3">${notReadCnt}</a>/<a class="deco-none message-receive-cnt" style="color:black" href="/message/receive"></a></h1>
     </div>
@@ -54,12 +52,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     <!-- 페이지네이션 -->
     <div class="row center pagination">
       <!-- 1페이지로 이동 -->
-      <c:choose>
+      <%-- <c:choose>
         <c:when test="${vo.first}">
           <a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
         </c:when>
         <c:otherwise>
-          <a href="list?${vo.parameter}&page=1&${vo.addParameter}"
+          <a href="/message/receive?${vo.parameter}&page=1&${vo.addParameter}"
             ><i class="fa-solid fa-angles-left"></i
           ></a>
         </c:otherwise>
@@ -67,7 +65,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       <!-- 이전 페이지로 이동 -->
       <c:choose>
         <c:when test="${vo.prev}">
-          <a href="list?${vo.parameter}&page=${vo.prevPage}&${vo.addParameter}"
+          <a href="/message/receive?${vo.parameter}&page=${vo.prevPage}&${vo.addParameter}"
             ><i class="fa-solid fa-angle-left"></i
           ></a>
         </c:when>
@@ -88,7 +86,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <c:when test="${vo.page==i}"><a class="on disabled">${i}</a></c:when>
           <c:otherwise
             ><a
-              href="list?${vo.parameter}&page=${i}&${vo.addParameter}"
+              href="/message/receive?${vo.parameter}&page=${i}&${vo.addParameter}"
               class=""
               >${i}</a
             ></c:otherwise
@@ -99,7 +97,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       <c:choose>
         <c:when test="${vo.next}">
           <a
-            href="list?${vo.parameter}&page=${vo.nextPage}&${vo.addParameter}"
+            href="/message/receive?${vo.parameter}&page=${vo.nextPage}&${vo.addParameter}"
             class=""
             ><i class="fa-solid fa-angle-right"></i
           ></a>
@@ -112,7 +110,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       <c:choose>
         <c:when test="${!vo.last}">
           <a
-            href="list?${vo.parameter}&page=${vo.totalPage}&${vo.addParameter}"
+            href="/message/receive?${vo.parameter}&page=${vo.totalPage}&${vo.addParameter}"
             class=""
             ><i class="fa-solid fa-angles-right"></i
           ></a>
@@ -120,7 +118,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:otherwise>
           <a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
         </c:otherwise>
-      </c:choose>
+      </c:choose> --%>
     </div>
     <!-- 페이지네이션 끝 -->
   </article>

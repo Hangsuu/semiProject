@@ -16,12 +16,9 @@ section {
 }
 .aside {
   width: 220px;
-  padding: 1em;
 }
 article {
-  min-height: 1200px;
-  padding: 1em;
-  /* flex-grow: 1; */
+  min-height: 400px;
 }
 footer {
   padding: 1em;

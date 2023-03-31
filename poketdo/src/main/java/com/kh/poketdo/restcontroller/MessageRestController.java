@@ -60,7 +60,7 @@ public class MessageRestController {
       return null;
 
     // 페이지네이션 count 세팅
-    pageVo.setCount(messageWithNickDao.getCount(pageVo));
+    pageVo.setCount(messageWithNickDao.getReceiveCount(pageVo, memberId));
     List<MessageWithNickDto> list = messageWithNickDao.selectReceiveMessage(pageVo, memberId);
     List<String> sendTimeList = new ArrayList<>();
     List<Object> pageVoList = new ArrayList<>();

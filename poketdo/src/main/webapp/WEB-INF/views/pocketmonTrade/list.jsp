@@ -26,8 +26,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- section -->
 <section>
   <!-- article -->
-  <article class="container-1000">
-    <div class="mt-30 mb-20">
+  <article class="container-1200" style="min-height: 1000px;">
+    <div class="mt-50 mb-30">
       <a class="pocketmonTrade-list-banner" href="/pocketmonTrade"
         >포켓몬교환 게시판</a
       >
@@ -137,7 +137,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         ></c:if
       >
     </div>
-    <div class="row center mt-30 back-gray pt-10">
+    <div class="row center mt-30 pt-10">
       <!-- 포켓몬교환 페이지네이션 -->
       <!-- 페이지네이션 -->
 	<div class="row center pagination">
@@ -186,26 +186,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       </c:choose>
     </div>
   <!-- 페이지네이션 끝 -->
-      <hr />
       <!-- 검색 -->
-      <div class="row">
-        <form action="list" method="get" autocomplete="off">
-          <select name="column" class="form-input">
-            <option value="auction_title">제목</option>
-            <option value="auction_content">내용</option>
-            <option value="auction_writer">글쓴이</option>
-          </select>
-          <input name="keyword" class="form-input" placeholder="검색">
-          <input name="page" type="hidden" value="${param.page}">
-          <input name="item" type="hidden" value="${param.item}">
-          <input name="order" type="hidden" value="${param.order}">
-          <input name="special" type="hidden" value="${param.special}">
-          <button class="form-btn neutral">검색</button>
-        </form>
-      </div>
-      <div class="h-3em flex-all-center pb-10">
-        <form class="w-100 pocketmonTrade-search-form" action="" method="get">
-          <select class="w-20" name="column">
+      <div class="row pb-20">
+        <form action="" method="get">
+          <select class="w-20 form-input" name="column">
             <option value="pocketmon_trade_title">선택</option>
             <c:choose>
               <c:when test="${pageVo.getColumn()=='pocketmon_trade_title'}">
@@ -243,12 +227,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             </c:choose>
           </select>
           <input
+            class="form-input"
             type="search"
             name="keyword"
             value="${pageVo.getKeyword()}"
             placeholder="검색어를 입력해주세요"
           />
-          <button type="submit" class="positive">검색</button>
+          <button type="submit" class="form-btn neutral">검색</button>
         </form>
       </div>
     </div>

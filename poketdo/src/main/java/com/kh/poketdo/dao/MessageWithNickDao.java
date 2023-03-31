@@ -60,17 +60,18 @@ public class MessageWithNickDao {
         return jdbcTemplate.query(sql, mapper, param);
     }
 
-    // R 메세지 카운트 세기
-    public int getCount(PaginationVO pageVo) {
+    // R 받은메세지 카운트 세기
+    public int getReceiveCount(PaginationVO pageVo, String memberId) {
         String sql;
         int cnt;
         if (pageVo.getKeyword().equals("")) {
-            sql = "select count(*) from message_with_nick";
-            cnt = jdbcTemplate.queryForObject(sql, int.class);
+            sql = "select count(*) from message_with_nick where message_recipient_store = 1 and message_recipient = ?";
+            Object[] param = { memberId };
+            cnt = jdbcTemplate.queryForObject(sql, int.class, param);
         } else {
-            sql = "select count(*) from pocketmon_trade where instr(#1, ?) > 0";
+            sql = "select count(*) from message_with_nick where message_recipient_store = 1 and message_recipient = ? and instr(#1, ?) > 0";
             sql = sql.replace("#1", pageVo.getColumn());
-            Object[] param = { pageVo.getKeyword() };
+            Object[] param = { pageVo.getKeyword(), memberId };
             cnt = jdbcTemplate.queryForObject(sql, int.class, param);
         }
         return cnt;

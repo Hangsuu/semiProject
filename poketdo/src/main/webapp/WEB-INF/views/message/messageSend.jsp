@@ -143,15 +143,11 @@ $(function(){
     <div class="message-send-cancle-btn">발송취소</div>
   </div>
 </script>
-<!-- section -->
-<section class="flex-row-justify-center">
+
 
   <!-- aside -->
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
 
-  
-  <!-- article -->
-  <article class="container-800 mg-0">
     <div class="row mb-40">
         <h1>보낸 쪽지함 <a class="deco-none message-send-cnt" style="color:black" href="/message/send"></a></h1>
     </div>

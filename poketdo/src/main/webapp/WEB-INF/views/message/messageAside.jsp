@@ -28,6 +28,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     .message-nav {
     }
 </style>
+<!-- section -->
+<section class="container-1200 mt-50 mb-50">
 
 <aside class="message-nav">
     <div class="row flex-row-grow">
@@ -41,3 +43,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
       <a href="/message/send" class="link"><i class="fa-regular fa-message" style="color: #9DACE4;"></i> 보낸쪽지함</a>
     </div>
 </aside>
+
+  <!-- article -->
+  <article class="container-1000 ps-30">

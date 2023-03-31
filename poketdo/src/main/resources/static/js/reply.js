@@ -122,6 +122,7 @@ var submitButton = function (context) {
 				replyGroup:replyGroup,
 			},
 			success:function(response){
+				$(".summernote-reply").summernote("code", "");
 				loadList();
 			},
 			error:function(){

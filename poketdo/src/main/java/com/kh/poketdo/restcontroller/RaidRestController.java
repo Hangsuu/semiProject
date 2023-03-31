@@ -59,7 +59,7 @@ public class RaidRestController {
 		boolean isConfirmed = false;
 		if(raidJoinDto!=null) isConfirmed=raidJoinDao.isConfirmed(allboardNo, memberId);
 		return RaidJoinVO.builder().isJoiner(raidJoinDao.isJoiner(allboardNo, memberId))
-				.raidJoinContent(raidJoinContent)
+				.raidJoinContent(raidJoinContent).raidCode(raidDao.selectOne(allboardNo).getRaidCode())
 				.isConfirmed(isConfirmed).build();
 	}
 	@DeleteMapping("/{allboardNo}")

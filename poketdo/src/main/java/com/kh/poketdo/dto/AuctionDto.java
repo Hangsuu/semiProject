@@ -3,6 +3,10 @@ package com.kh.poketdo.dto;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.kh.poketdo.dao.MemberDao;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

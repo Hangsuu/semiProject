@@ -27,28 +27,26 @@ $(function(){
 })
 </script>
 <script type="text/template" id="reply-template">
-	<div class="row reply-box" style="border-bottom:1px solid lightgray">
-		<div class="row reply-writer"></div>
-		<div class="row reply-time"></div>
-		<div class="row reply-content"></div>
+	<div class="row reply-box float-box" style="border-bottom:1px solid lightgray; margin:0">
+		<div class="float-left remove-box" style="min-height:100px; width:5%">
+			<div class="align-center"><i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i></div>
+		</div>
+		<div class="float-right remain-box" style="width:95%">
+			<div class="row reply-writer"></div>
+			<div class="row reply-time"></div>
+			<div class="row reply-content"></div>
+		</div>
 	</div>
 </script>
 <script type="text/template" id="reply-edit-template">
-	<div class="row">
-		<textarea class="row reply-edit-content form-input w-100 summernote-reply"></textarea>
-	</div>
-	<div class="row right">
-		<button class="form-btn neutral confirm-edit">수정</button>
-		<button class="form-btn neutral cancle-edit">취소</button>
+	<div class="row reply-edit">
+		<textarea class="row reply-edit-content form-input w-100 summernote-reply-edit"></textarea>
 	</div>
 </script>
 <script type="text/template" id="reply-child-template">
-	<div class="row">
+	<div class="row reply-child">
 	<hr>
-		<textarea class="form-input w-100 summernote-reply"></textarea>
-		<div class="row right">
-			<button class="form-btn neutral reply-submit">댓글달기</button>
-		</div>
+		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
 <script src="/static/js/like.js"></script>
@@ -63,7 +61,7 @@ $(function(){
 				<span>종료된 경매</span>
 			</div>
 			<div class="row">
-			낙찰 가격 : <span class="min-bid-price"></span>
+			낙찰 가격 : <span class="final-price"></span>
 			</div>			
 		</div>
 		<div class="row ing-auction">
@@ -93,14 +91,16 @@ $(function(){
 	글쓴이 : <span class="auction-writer">${auctionDto.auctionWriter}</span>
 	</div>
 <!-- 입찰기능 -->
-	<div class="row bid-form">
-		<form class="form-bid">
-			<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
-			<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
-			<input class="form-input" name="auctionBidPrice">
-			<button type="button" class="form-btn neutral bid-btn">입찰</button>
-		</form>
-	</div>
+	<c:if test="${sessionScope.memberId!=auctionDto.auctionWriter}">
+		<div class="row bid-form">
+			<form class="form-bid">
+				<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
+				<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
+				<input class="form-input" name="auctionBidPrice">
+				<button type="button" class="form-btn neutral bid-btn">입찰</button>
+			</form>
+		</div>
+	</c:if>
 <!-- 입찰기능 끝 -->
 <!-- 댓글 -->
 	<!-- 표시 -->
@@ -108,7 +108,7 @@ $(function(){
 	</div>
 	<!-- 신청 -->
 	<div class="row">
-		<textarea class="form-input w-100 summernote-reply"></textarea>
+		<textarea class="form-input w-100 summernote-reply reply-textarea"></textarea>
 	</div>
 <!-- 댓글 끝 -->
 	<div class="row">

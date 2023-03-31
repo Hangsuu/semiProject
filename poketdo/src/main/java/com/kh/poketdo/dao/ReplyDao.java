@@ -60,7 +60,7 @@ public class ReplyDao {
   }
 
   public List<ReplyDto> selectList(int replyOrigin) {
-    String sql = "select * from reply where reply_origin=? order by reply_no asc";
+    String sql = "SELECT * FROM reply where reply_origin=? CONNECT BY PRIOR reply_no = COALESCE(reply_group, 0) START WITH COALESCE(reply_group, 0) = 0 order siblings by reply_no ASC";
     Object[] param = { replyOrigin };
     return jdbcTemplate.query(sql, mapper, param);
   }

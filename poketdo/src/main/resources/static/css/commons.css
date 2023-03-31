@@ -15,13 +15,6 @@
 
     - div는 기본적으로 폭이 100%이므로 원하는 크기로 변경해야함
 */
-
-/* (주의)reset.css로 이동하였으므로 향후 제거 */
-* {
-  box-sizing: border-box;
-  font-family: "빙그레 메로나체";
-}
-
 /* 
     container는 표시될 폭과 정렬방식을 가운데로 설정 
     가운데라고만 하면 너무 애매하므로 다음과 같이 세분화
@@ -91,22 +84,28 @@
     같은 형태로 쓰기 때문에 색상 등을 제외한 나머지 크기가 동일해야함
 */
 .form-input {
-  font-size: 20px;
-  padding: 0.5em;
+  font-size:16px;
+  padding: 0.4em;
   outline: none; /*선택 시 강조 효과 제거*/
-  border: 1px solid #a4b0be;
-  border-radius: 0.1em;
+  border: 2px solid #F2F4FB;
+  border-radius: 0.2em;
 }
 .form-input:focus {
   /*커서가 위치했을 때*/
   border-color: black;
 }
+.form-input.neutral{
+  background-color: #F2F4FB;
+  border-color: #F2F4FB;
+  color: #2d3436;
+}
+/*
 input.form-input,
 select.form-input,
 .form-btn {
   height: 2.5em;
 }
-
+*/
 /*
     textarea는 리사이즈(resize)에 대한 설정이 필요하다
     - resize:vertical 은 수직 변경만 가능
@@ -134,11 +133,11 @@ input[type="file"].form-input {
     - 중립 버튼은 흑백 계열
 */
 .form-btn {
-  font-size: 20px;
-  padding: 0.5em;
+  font-size: 16px;
+  padding: 0.4em;
   border-width: 1px;
   border-style: solid;
-  border-radius: 0.1em;
+  border-radius:0.2em;
   cursor: pointer;
 }
 
@@ -157,8 +156,8 @@ a.form-btn {
 /* 버튼 스타일 */
 /*.form-btn과 .positive가 같이 있으면*/
 .form-btn.positive {
-  background-color: #2ed573;
-  border-color: #2ed573;
+  background-color: #9DACE4;
+  border-color: #9DACE4;
   color: white;
 }
 .form-btn.negative {
@@ -167,13 +166,13 @@ a.form-btn {
   color: white;
 }
 .form-btn.neutral {
-  background-color: #ced6e0;
-  border-color: #ced6e0;
-  color: black;
+  background-color: #F2F4FB;
+  border-color: #F2F4FB;
+  color: #2d3436;
 }
 
 .form-btn:hover {
-  filter: brightness(105%); /*원래보다 5% 밝게 처리*/
+  filter: brightness(101%); /*원래보다 5% 밝게 처리*/
 }
 
 /* 폭 설정 클래스 */
@@ -504,7 +503,7 @@ a.link {
   text-decoration: none;
 }
 a.link:hover {
-  color: #ff4757;
+  color: #b2bec3;
 }
 
 /*
@@ -538,7 +537,7 @@ a.link:hover {
 .pagination > a:hover:not(.disabled) {
   /* border: 1px solid #dfe6e9; */
   box-shadow: 0 0 0 1px #dfe6e9;
-  color: #74b9ff;
+  color: #9DACE4;
   font-weight: bold;
 }
 .pagination > a.disabled {
@@ -726,31 +725,56 @@ input [name="memberPw"] {
   right: 100%;
 }
 
-/* valid invalid 메세지 스타일 */
-.valid-messsage{
-	color: forestgreen;
-	display: none;
+.valid-message {
+    color: forestgreen;
+    font-style: bold;
+    font-size :13px;
+    display: none;
 }
-
 .invalid-message,
 .invalid-message2,
-.invalid-message3{
-	color:red;
-	display: none;
+.invalid-message3 {
+    color: red;
+    font-style: bold;
+    font-size :13px;
+    display: none;
 }
+/* 
+    입력창이 성공상태(.valid)일 경우 
+    뒤에 있는 성공메세지(.valid-message)를 표시 
+*/
 .valid ~ .valid-message {
-  display: block;
+    display: block;
 }
+/* 
+    입력창이 실패상태(.invalid)일 경우 
+    뒤에 있는 실패메세지(.invalid-message)를 표시 
+*/
 .invalid ~ .invalid-message {
-  display: block;
+    display: block;
 }
 .invalid2 ~ .invalid-message2 {
-  display: block;
+    display: block;
 }
 .invalid3 ~ .invalid-message3 {
-  display: block;
+    display: block;
 }
 
 main section article h1 {
   font-size: 2em;
+}
+.hash-tag{
+	background-color:white;
+	border:2px solid lightgray;
+	margin-left:10px;
+	border-radius:0.4em;
+	padding:0.4em;
+	text-decoration:none;
+	
+}
+.hash-tag :hover{
+	text-decoration:none;
+}
+.hash-tag>.fa-xmark{
+	color:#eb4d4b;
 }

@@ -37,3 +37,18 @@
 .reply-item .fa-trash:hover {
 	filter:brightness(0.85);
 } 
+
+/* 오행서 summer-note용 css*/
+.note-toolbar{
+	display:flex !important;
+	justify-content: flex-end !important;
+}
+.note-mybutton{
+	margin-left:auto !important;
+}
+
+.reply-btn {
+	background-color:white;
+	border:0px;
+	font-size:17px;
+}

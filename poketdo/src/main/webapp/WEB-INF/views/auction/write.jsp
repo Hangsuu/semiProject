@@ -133,7 +133,7 @@
 	</div>
 	<div class="row">
 		기간선택 : 
-		<select name="lastDay" class="form-input">
+		<select name="lastDay" class="form-input neutral">
 			<option value="0">선택</option>
 			<option value="1">1일</option>
 			<option value="3">3일</option>

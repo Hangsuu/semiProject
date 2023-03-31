@@ -9,6 +9,8 @@
 
 * {
   box-sizing: border-box;
+  color: #2d3436;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 html {

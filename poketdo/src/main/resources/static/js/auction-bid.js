@@ -31,6 +31,7 @@ $(function(){
 			method:"get",
 			success:function(response){
 				$(".min-bid-price").text(response);
+				$(".final-price").text(response);
 			}
 		});			
 	};
@@ -50,6 +51,10 @@ $(function(){
 	};
 	
 	$(".bid-btn").click(function(){
+		if(!memberId){
+			alert("로그인 후 이용하세요");
+			return;
+		}
 		if(memberId==$(".auction-writer").text()){
 			$(".form-bid").get(0).reset();
 			alert("작성자는 입찰을 할 수 없습니다");

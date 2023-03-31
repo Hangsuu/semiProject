@@ -122,6 +122,10 @@ var submitButton = function (context) {
 				replyGroup:replyGroup,
 			},
 			success:function(response){
+<<<<<<< HEAD
+=======
+				$(".summernote-reply").summernote("code", "");
+>>>>>>> refs/remotes/origin/main
 				loadList();
 			},
 			error:function(){

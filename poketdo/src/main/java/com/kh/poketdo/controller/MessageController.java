@@ -30,8 +30,9 @@ public class MessageController {
   // 받은메세지 리스트
   @GetMapping("/receive")
   public String receiveList(
-      @RequestParam(required = false, defaultValue = "") String mode, @ModelAttribute("vo") PaginationVO vo) {
-    vo.setCount(messageWithNickDao.getCount(vo));
+      @RequestParam(required = false, defaultValue = "") String mode, @ModelAttribute("vo") PaginationVO vo, HttpSession session) {
+        String memberId = session.getAttribute("memberId")==null?null:(String)session.getAttribute("memberId");
+    vo.setCount(messageWithNickDao.getReceiveCount(vo, memberId));
     // System.out.println(messageWithNickDao.getCount(vo));
     return "/WEB-INF/views/message/messageReceive.jsp";
   }

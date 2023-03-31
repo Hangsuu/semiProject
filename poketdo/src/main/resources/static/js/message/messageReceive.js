@@ -82,6 +82,8 @@ $(function () {
         const pageVo = response.pageVoList[0];
         console.log(pageVo);
 
+
+
         // target 비우고 다시 로드
         $(".target").empty();
         for (let i = 0; i < messageList.length; i++) {
@@ -159,7 +161,7 @@ $(function () {
 
         // h1태그 옆 숫자 반영
         // 받은 메세지 전체 숫자
-        $(".message-receive-cnt").text(messageList.length);
+        $(".message-receive-cnt").text(pageVo.count);
         // 받은 메세지 중 안 읽은 숫자
         $.ajax({
           url: "/rest/message/receive/notReadCount",
@@ -172,6 +174,40 @@ $(function () {
             console.log("안 읽은 메세지 count 통신에러 !!!!");
           },
         });
+
+        // 비동기 페이지네이션 추가
+        // <<
+        if(pageVo.first){
+          $(".pagination").append($("<a>").addClass("disabled").append($("<i>").addClass("fa-solid fa-angles-left")));
+        } else {
+          $(".pagination").append($("<a>").attr("href", `/message/receive?${pageVo.parameter}&page=1&${pageVo.addParameter}`).append($("<i>").addClass("fa-solid fa-angles-left")));
+        }
+        // <
+        if(pageVo.prev){
+          $(".pagination").append($("<a>").attr("href", `/message/receive?${pageVo.parameter}&page=${pageVo.prevPage}&${pageVo.addParameter}`).append($("<i>").addClass("fa-solid fa-angle-left")));
+        } else {
+          $(".pagination").append($("<a>").addClass("disabled").append($("<i>").addClass("fa-solid fa-angle-left disabled")));
+        }
+        // 숫자
+        for(let i = pageVo.startBlock; i < pageVo.finishBlock; i++){
+          if(pageVo.page === i){
+            $(".pagination").append($("<a>").addClass("on disabled").text(`${i}`));
+          } else {
+            $(".pagination").append($("<a>").attr("href", `/message/receive?${pageVo.parameter}&page=${i}&${pageVo.addParameter}`).text(`${i}`))
+          }
+        }
+        // >
+        if(pageVo.next){
+          $(".pagination").append($("<a>").attr("href", `/message/receive?${pageVo.parameter}&page=${pageVo.nextPage}&${pageVo.addParameter}`).append($("<i>").addClass("fa-solid fa-angle-right")));
+        } else {
+          $(".pagination").append($("<a>").addClass("disabled").append($("<i>").addClass("fa-solid fa-angle-right")));
+        }
+        // >>
+        if(pageVo.last){
+          $(".pagination").append($("<a>").addClass("disabled").append($("<i>").addClass("fa-solid fa-angles-right")));
+        } else {
+          $(".pagination").append($("<a>").attr("href", `/message/receive?${pageVo.parameter}&page=${pageVo.totalPage}&${pageVo.addParameter}`).append($("<i>").addClass("fa-solid fa-angles-right")));
+        }
       },
       error: function () {
         console.log("받은 편지함 테스트 통신오류");

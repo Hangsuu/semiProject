@@ -34,14 +34,9 @@
     })
   })
 </script>
-<!-- section -->
-<section class="flex-row-justify-center">
 
-  <!-- aside -->
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
   
-  <!-- article -->
-  <article class="container-800 mg-0">
     <div class="row">
       <h1>${messageDto.getMessageTitle()}</h1>
     </div>

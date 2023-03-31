@@ -98,7 +98,7 @@
                     <td class="w-25 stat"></td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="evaluation"></td>
+                    <td colspan="4" class="evaluation">&nbsp;</td>
                 </tr>
             </table>
         	</c:forEach>

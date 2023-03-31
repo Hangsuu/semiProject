@@ -128,4 +128,4 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </div>
 </header>
 
-<div style="border-top:2px solid #9DACE4"></div>
+<div class="media-css" style="border-top:2px solid #9DACE4"></div>

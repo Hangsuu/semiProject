@@ -18,6 +18,7 @@ import com.kh.poketdo.dao.PocketmonNameImageDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonNameImageDto;
+import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.service.PocketmonService;
 
 @RestController
@@ -58,10 +59,10 @@ public class PocketmonRestController {
 	    return "redirect:insertFinish";
 	  }
 	  
-//	  @GetMapping("/{pocketmonName}")
-//	  public PocketmonWithImageDto selectOne(@PathVariable String pocketmonName) {
-//		  return pocketmonWithImageDao.selectName(pocketmonName);
-//	  };
+	  @GetMapping("/stats/{pocketmonName}")
+	  public PocketmonWithImageDto selectOne(@PathVariable String pocketmonName) {
+		  return pocketmonWithImageDao.selectName(pocketmonName);
+	  };
 
 	@GetMapping("/{pocketName}")
 	public PocketmonNameImageDto findId(@PathVariable String pocketName) {

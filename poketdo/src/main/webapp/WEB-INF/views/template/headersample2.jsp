@@ -33,7 +33,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <main>
 <header class="container-1200" style="min-height:70px;">
     <!-- header -->
-<div class="right" style="background-color:#9DACE4">
+<div class="right mb-30" style="background-color:#9DACE4">
    	<div style="display:inline-block; padding:10px">
 		<c:choose>
 			<c:when test="${empty sessionScope.memberId}">
@@ -65,14 +65,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <div class="float-box">
       <div class="float-left w-30">
         <a href="/">
-          <img src="/static/image/leaf.png" style="width:300px"/>
+          <img src="/static/image/main.png" style="width:300px"/>
         </a>
       </div>
     <div class="float-right w-70">
     <!-- nav -->
-     <nav style="height:80px">
+     <nav style="height:80px" class="flex-box flex-auto-width">
        <%-- base.css --%>
-       <div class="nav-bar">
+       <div class="nav-bar flex-box align-center">
          <div>
            <a href="/"><span>커뮤니티</span></a>
            <div>

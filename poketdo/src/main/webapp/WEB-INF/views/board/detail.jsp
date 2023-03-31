@@ -19,11 +19,28 @@
 </script>
 <script src="/static/js/board-like.js"></script>
 <script src="/static/js/reply.js"></script>
+<!-- 댓글창 템플릿 -->
 <script type="text/template" id="reply-template">
-	<div class="reply-item">
-		<div class="replyWriter">?</div>
-		<div class="replyContent">?</div>
-		<div class="replyTime">?</div>
+	<div class="row reply-box float-box" style="border-bottom:1px solid lightgray; margin:0">
+		<div class="float-left remove-box" style="min-height:100px; width:5%">
+			<div class="align-center"><i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i></div>
+		</div>
+		<div class="float-right remain-box" style="width:95%">
+			<div class="row reply-writer"></div>
+			<div class="row reply-time"></div>
+			<div class="row reply-content"></div>
+		</div>
+	</div>
+</script>
+<script type="text/template" id="reply-edit-template">
+	<div class="row reply-edit">
+		<textarea class="row reply-edit-content form-input w-100 summernote-reply-edit"></textarea>
+	</div>
+</script>
+<script type="text/template" id="reply-child-template">
+	<div class="row reply-child">
+	<hr>
+		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
     

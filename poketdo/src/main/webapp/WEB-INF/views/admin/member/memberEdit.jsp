@@ -1,84 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <jsp:include page="/WEB-INF/views/template/adminheader.jsp"></jsp:include>  
 
-<form action="memberEdit" method="post">
 	<div class="container-800">
+	<form action="memberEdit" method="post">
 		<div class="row">
-			<h2>È¸¿ø Á¤º¸ º¯°æ</h2>
+			<h2>íšŒì› ì •ë³´ ë³€ê²½</h2>
 		</div>
 		<div class="row flex-box">
 			<div class="w-30">
-				<div class="row">
-					<img width="200" height="200" 
-						src="/attachment/${memberWithImageDto.imageURL}">
-				</div>
+				<c:choose>
+					<c:when test="${memberWithImageDto.attachmentNo == null}">
+    					<img width="200" height="200" src="/static/image/user.jpg">
+  					</c:when>
+  					<c:otherwise>
+    					<img width="200" height="200" src="/attachment/${memberWithImageDto.imageURL}">
+  					</c:otherwise>
+				</c:choose>
 			</div>
 				<div class="w-70">
+				<input type="hidden" name="memberId" value="${memberWithImageDto.memberId}" class="">
 					<table class="table table-slit">
 						<tr>
-							<th>¾ÆÀÌµğ</th>
+							<th>ì•„ì´ë””</th>
 							<td>
 								${memberWithImageDto.memberId}
 							</td>
 						</tr>
 						<tr>
-							<th>´Ğ³×ÀÓ</th>
+							<th>ë‹‰ë„¤ì„</th>
 							<td>
 								<input type="text" name="memberNick" value="${memberWithImageDto.memberNick}" class="form-input w-100">
 							</td>
 						</tr>
 						<tr>
-							<th>ÀÌ¸ŞÀÏ</th>
+							<th>ì´ë©”ì¼</th>
 							<td>
 								<input type="text" name="memberEmail" value="${memberWithImageDto.memberEmail}" class="form-input w-100">
 							</td>
 						</tr>
 						<tr>
-							<th>µî±Ş</th>
+							<th>ë“±ê¸‰</th>
 							<td>
 								<c:choose>
-									<c:when test="${memberWithImageDto.memberLevel == 'ÀÏ¹İÈ¸¿ø'}">
+									<c:when test="${memberWithImageDto.memberLevel == 'ì¼ë°˜íšŒì›'}">
 										<select name="memberLevel" class="form-input">
-											<option selected>ÀÏ¹İÈ¸¿ø</option>
-											<option>°ü¸®ÀÚ</option>
+											<option selected>ì¼ë°˜íšŒì›</option>
+											<option>ê´€ë¦¬ì</option>
 										</select>
 									</c:when>
-									<c:when test="${memberWithImageDto.memberLevel == '°ü¸®ÀÚ'}">
+									<c:when test="${memberWithImageDto.memberLevel == 'ê´€ë¦¬ì'}">
 										<select name="memberLevel" class="form-input">
-											<option>ÀÏ¹İÈ¸¿ø</option>
-											<option selected>°ü¸®ÀÚ</option>
+											<option>ì¼ë°˜íšŒì›</option>
+											<option selected>ê´€ë¦¬ì</option>
 										</select>
 									</c:when>
 								</c:choose>
 								
-								(±âÁ¸ : ${memberWithImageDto.memberLevel})
+								(ê¸°ì¡´ : ${memberWithImageDto.memberLevel})
 							</td>
 						</tr>
 						<tr>
-							<th>Æ÷ÀÎÆ®</th>
+							<th>í¬ì¸íŠ¸</th>
 							<td>
 								<input type="text" name="memberPoint" value="${memberWithImageDto.memberPoint}" class="form-input w-100">
-								(±âÁ¸ : ${memberWithImageDto.memberPoint} point)
+								(ê¸°ì¡´ : ${memberWithImageDto.memberPoint} point)
 							</td>
 						</tr>
 						<tr>
-							<th>°¡ÀÔ ÀÏ</th>
+							<th>ê°€ì… ì¼</th>
 							<td>
-								<fmt:formatDate value="${memberWithImageDto.memberJoin}" pattern="y³â M¿ù dÀÏ E a h½Ã mºĞ sÃÊ"/>
+								<fmt:formatDate value="${memberWithImageDto.memberJoin}" pattern="yë…„ Mì›” dì¼ E a hì‹œ më¶„ sì´ˆ"/>
 							</td>
 						</tr>
 						<tr>
-							<th>·Î±×ÀÎ</th>
+							<th>ë¡œê·¸ì¸</th>
 							<td>
-								<fmt:formatDate value="${memberWithImageDto.memberLogin}" pattern="y³â M¿ù dÀÏ E a h½Ã mºĞ sÃÊ"/>
+								<fmt:formatDate value="${memberWithImageDto.memberLogin}" pattern="yë…„ Mì›” dì¼ E a hì‹œ më¶„ sì´ˆ"/>
 							</td>
 						</tr>
 						<tr>
-							<th>»ı³â ¿ùÀÏ</th>
+							<th>ìƒë…„ ì›”ì¼</th>
 							<td>
 								${memberWithImageDto.memberBirth}
 							</td>
@@ -87,10 +92,10 @@
 				</div>
 			</div>
 			<div class="row right">
-				<a href="memberManage" class="form-btn neutral">¸ñ·Ï</a>
-				<button type="submit" class="form-btn positive">µî·Ï</button>
+				<a href="memberManage" class="form-btn neutral">ëª©ë¡</a>
+				<button type="submit" class="form-btn positive">ë“±ë¡</button>
 			</div>
+			</form>
 		</div>
-	</form>
 
 <jsp:include page="/WEB-INF/views/template/adminfooter.jsp"></jsp:include>

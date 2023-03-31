@@ -22,8 +22,12 @@ public class ReplyDao {
 
   @Autowired
   private RaidDao raidDao;
-	@Autowired
-	private CombinationDao combinationDao;
+  
+  @Autowired
+  private CombinationDao combinationDao;
+  
+  @Autowired
+  private BoardWithImageDao boardWithImageDao;
 
   RowMapper<ReplyDto> mapper = (rs, index) -> {
     return ReplyDto
@@ -38,12 +42,14 @@ public class ReplyDao {
   };
 
   public void insert(ReplyDto replyDto) {
-    String sql = "insert into reply(reply_no, reply_writer, reply_origin," +
-        "reply_content, reply_group) values(reply_seq.nextval,?,?,?,?)";
+    String sql = "insert into reply(reply_no, reply_origin, reply_writer," +
+        "reply_content, reply_time ,reply_group) values(reply_seq.nextval,?,?,?,sysdate,?)";
     Object[] param = {
         replyDto.getReplyWriter(),
         replyDto.getReplyOrigin(),
+        replyDto.getReplyWriter(),
         replyDto.getReplyContent(),
+        replyDto.getReplyTime(),
         replyDto.getReplyGroup(),
     };
     jdbcTemplate.update(sql, param);
@@ -96,6 +102,8 @@ public class ReplyDao {
     int replyCount = replyCount(allboardNo);
     String allboardType = allboardDto.getAllboardBoardType();
     switch (allboardType) {
+      case "board":
+    	boardWithImageDao.replySet(allboardNo, replyCount);
       case "auction":
         auctionDao.replySet(allboardNo, replyCount);
       case "raid":
@@ -105,8 +113,16 @@ public class ReplyDao {
     }
   }
 
+  // 댓글 시퀀스
   public int sequence() {
     String sql = "select reply_seq.nextval from dual";
     return jdbcTemplate.queryForObject(sql, int.class);
+  }
+  
+  // 답글 메서드
+  public void updateReplyGroup(int originId, int replyGroup) {
+	  String sql = "update reply set reply_group = ? where reply_origin = ?";
+	  Object[] param = {originId, replyGroup};
+	  jdbcTemplate.update(sql, param);
   }
 }

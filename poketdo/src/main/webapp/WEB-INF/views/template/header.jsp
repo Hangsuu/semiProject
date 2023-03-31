@@ -59,7 +59,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				</c:if>
 			</div>
 			<div style="display:inline-block">
-				<c:if test="${sessionScope.memberLevel == '마스터'}">
+				<c:if test="${sessionScope.memberLevel == '관리자'}">
 					<a href="/admin/adminCheck"><span>관리 페이지</span></a>
 				</c:if>
 			</div>

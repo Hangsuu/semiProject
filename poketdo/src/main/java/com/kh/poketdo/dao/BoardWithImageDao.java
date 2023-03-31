@@ -157,9 +157,9 @@ public class BoardWithImageDao {
 
 		
 		// 댓글 갯수 갱신 기능
-		public void updateReplycount(int count, int allboardNo) {
+		public void replySet(int allboardNo, int replyCount) {
 		    String sql = "update board set board_reply = ? where allboard_no = ?";
-		    Object[] param = {count, allboardNo};
+		    Object[] param = {replyCount, allboardNo};
 		    jdbcTemplate.update(sql, param);
 		}
 

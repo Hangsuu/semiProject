@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
@@ -7,28 +7,28 @@
 
 <div class = "container-800">
 	<div class="row center">
-		<h2>È¸¿ø ÇöÈ²</h2>
+		<h2>íšŒì› í˜„í™©</h2>
 	</div>
 
-	<!--  °¢Á¾ Á¤·Ä°ú °ü·ÃµÈ ¸µÅ©µé -->
+	<!--  ê°ì¢… ì •ë ¬ê³¼ ê´€ë ¨ëœ ë§í¬ë“¤ -->
 	<div class="row right">
-		<a class="link" href="member">µî±Þ¼ø</a>
-		<a class="link" href="member?sort=cnt desc">ÀÎ¿ø¸¹Àº ¼ø</a>
-		<a class="link" href="member?sort=cnt asc">ÀÎ¿øÀûÀº ¼ø</a>
-		<a class="link" href="member?sort=total desc">Æ÷ÀÎÆ® ÇÕ°è¡é</a>
-		<a class="link" href="member?sort=total asc">Æ÷ÀÎÆ® ÇÕ°è¡è</a>
+		<a class="link" href="member">ë“±ê¸‰ìˆœ</a>
+		<a class="link" href="member?sort=cnt desc">ì¸ì›ë§Žì€ ìˆœ</a>
+		<a class="link" href="member?sort=cnt asc">ì¸ì›ì ì€ ìˆœ</a>
+		<a class="link" href="member?sort=total desc">í¬ì¸íŠ¸ í•©ê³„â†“</a>
+		<a class="link" href="member?sort=total asc">í¬ì¸íŠ¸ í•©ê³„â†‘</a>
 	</div>
 
 	<div class="row">
 		<table class="table table-slit">
 			<thead>
 				<tr>
-					<th>µî±Þ</th>
-					<th>ÀÎ¿ø¼ö</th>
-					<th>Æ÷ÀÎÆ®ÇÕ°è</th>
-					<th>Æ÷ÀÎÆ®Æò±Õ</th>
-					<th>ÃÖ´ëÆ÷ÀÎÆ®</th>
-					<th>ÃÖ¼ÒÆ÷ÀÎÆ®</th>
+					<th>ë“±ê¸‰</th>
+					<th>ì¸ì›ìˆ˜</th>
+					<th>í¬ì¸íŠ¸í•©ê³„</th>
+					<th>í¬ì¸íŠ¸í‰ê· </th>
+					<th>ìµœëŒ€í¬ì¸íŠ¸</th>
+					<th>ìµœì†Œí¬ì¸íŠ¸</th>
 				</tr>
 			</thead>
 			<tbody class="right">

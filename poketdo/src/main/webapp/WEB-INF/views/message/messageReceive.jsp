@@ -22,28 +22,15 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
   </div>
 </script>
 <!-- section -->
-<section class="flex-row-justify-center">
+<section class="container-1200">
+
   <!-- aside -->
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
 
   <!-- article -->
-  <article class="container-800 mg-0">
-    <div class="row mb-40">
-      <h1>
-        받은 쪽지함
-        <a
-          class="deco-none message-not-read-cnt"
-          href="/message/receive?mode=new"
-          style="color: #ffd400"
-          >${notReadCnt}</a
-        ><c:if test="${param.mode != 'new'}"
-          >/<a
-            class="deco-none message-receive-cnt"
-            style="color: black"
-            href="/message/receive"
-          ></a
-        ></c:if>
-      </h1>
+  <article class="container-1000 mg-0">
+    <div class="mb-30">
+        <h1>받은 쪽지함 <a class="deco-none message-not-read-cnt" href="/message/receive?mode=new" style="color:#5E78D3">${notReadCnt}</a>/<a class="deco-none message-receive-cnt" style="color:black" href="/message/receive"></a></h1>
     </div>
     <div class="row flex">
       <div class="pocketmonTrade-btn message-delete-btn">

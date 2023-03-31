@@ -16,10 +16,11 @@
 				titleValid:false,
 				contentValid:false,
 				monsterValid:false,
+				codeValid:false,
 				timeValid:false,
 				memberIdValid:memberId.length>0,
 				isAllValid:function(){
-					return this.titleValid && this.contentValid && this.monsterValid && this.timeValid && this.memberIdValid
+					return this.codeValid && this.titleValid && this.contentValid && this.monsterValid && this.timeValid && this.memberIdValid
 				}
 		};
 		function checkAllValid(){
@@ -63,30 +64,38 @@
 			var text =$(this).val().trim();
 			if(text){
 				$(this).addClass("valid");
-				valid.titleValid=true;
+				valid.monsterValid=true;
 			}
 			else{
 				$(this).addClass("invalid");
-				valid.titleValid=false;
+				valid.monsterValid=false;
 			}
 			checkAllValid();
 		})
+		//코드 입력되었을 때
+		$("[name=raidCode]").blur(function(){
+			$(this).removeClass("invalid valid");
+			var text =$(this).val().trim();
+			if(text){
+				$(this).addClass("valid");
+				valid.codeValid=true;
+			}
+			else{
+				$(this).addClass("invalid");
+				valid.codeValid=false;
+			}
+			checkAllValid();
+		});
 		
 		//시간 입력 처리
 		$(".set-date").blur(function(){
-			checkTime();
-		});
-		$(".set-time").blur(function(){
-			checkTime();
-		});
-		function checkTime(){
-			var correctTime = $(".set-date").val() && $(".set-time").val();
+			var correctTime = $(".set-date").val();
 			if(correctTime){
-				$("[name=raidStartTime]").val($(".set-date").val()+" "+$(".set-time").val()+":00.000");
+				$("[name=raidStartTime]").val(correctTime.replace("T", " ")+":00.000");
 			}
 			valid.timeValid=correctTime;
 			checkAllValid();
-		}
+		});
 	});
 </script>
 <div class="container-1200 mt-50">
@@ -101,9 +110,8 @@
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
 	<div class="row">
-		날짜 : <input class="form-input set-date" type="date" >
-		시간 : <input class="form-input set-time" type="time" >
-		<div class="invalid-message">날짜와 시간 모두 입력하세요</div>
+		날짜 : <input class="form-input set-date" type="datetime-local">
+		<div class="invalid-message">필수 입력 항목입니다</div>
 		<input type="hidden" name="raidStartTime">
 	</div>
 	<div class="row">
@@ -111,6 +119,10 @@
 			<option value='0'>모집</option>
 			<option value='1'>선착순</option>
 		</select>
+	</div>
+	<div class="row">
+		레이드코드 : <input class="form-input" name="raidCode">
+		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
 	<div class="row w-100">
 		<textarea name="raidContent" rows="10" class="form-input w-100 summernote"></textarea>

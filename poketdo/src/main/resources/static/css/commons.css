@@ -87,12 +87,17 @@
   font-size:16px;
   padding: 0.4em;
   outline: none; /*선택 시 강조 효과 제거*/
-  border: 1px solid #EEF2F6;
-  border-radius: 0.1em;
+  border: 2px solid #F2F4FB;
+  border-radius: 0.2em;
 }
 .form-input:focus {
   /*커서가 위치했을 때*/
   border-color: black;
+}
+.form-input.neutral{
+  background-color: #F2F4FB;
+  border-color: #F2F4FB;
+  color: #2d3436;
 }
 /*
 input.form-input,
@@ -132,7 +137,7 @@ input[type="file"].form-input {
   padding: 0.4em;
   border-width: 1px;
   border-style: solid;
-  border-radius: 0.1em;
+  border-radius:0.2em;
   cursor: pointer;
 }
 
@@ -151,8 +156,8 @@ a.form-btn {
 /* 버튼 스타일 */
 /*.form-btn과 .positive가 같이 있으면*/
 .form-btn.positive {
-  background-color: #2ed573;
-  border-color: #2ed573;
+  background-color: #9DACE4;
+  border-color: #9DACE4;
   color: white;
 }
 .form-btn.negative {
@@ -161,13 +166,13 @@ a.form-btn {
   color: white;
 }
 .form-btn.neutral {
-  background-color: #EEF2F6;
-  border-color: #EEF2F6;
+  background-color: #F2F4FB;
+  border-color: #F2F4FB;
   color: #2d3436;
 }
 
 .form-btn:hover {
-  filter: brightness(105%); /*원래보다 5% 밝게 처리*/
+  filter: brightness(101%); /*원래보다 5% 밝게 처리*/
 }
 
 /* 폭 설정 클래스 */
@@ -532,7 +537,7 @@ a.link:hover {
 .pagination > a:hover:not(.disabled) {
   /* border: 1px solid #dfe6e9; */
   box-shadow: 0 0 0 1px #dfe6e9;
-  color: #74b9ff;
+  color: #9DACE4;
   font-weight: bold;
 }
 .pagination > a.disabled {

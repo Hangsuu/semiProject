@@ -108,7 +108,7 @@ $(function(){
 					if(response.joiner){
 						$("[name=raidJoinContent]").val(response.raidJoinContent);
 						if(response.confirmed){
-							$(".raid-join-status").text("수락됨 친구코드 : ");
+							$(".raid-join-status").text("수락됨 친구코드 : "+response.raidCode);
 						}
 						else{
 							$(".raid-join-status").text("신청 완료! 수락 대기중");

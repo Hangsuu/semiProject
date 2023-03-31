@@ -8,8 +8,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- section -->
 <section>
   <!-- article -->
-  <article class="container-800">
-    <div class="row">
+  <article class="container-1000">
+    <div class="mt-30 mb-20">
       <a class="pocketmonTrade-list-banner" href="/pocketmonTrade"
         >포켓몬교환 게시판</a
       >
@@ -121,43 +121,70 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     </div>
     <div class="row center mt-30 back-gray pt-10">
       <!-- 포켓몬교환 페이지네이션 -->
-      <div class="h-2p5em flex-all-center pocketmonTrade-pagination">
-        <c:if test="${!pageVo.isFirst()}">
-          <a href="?page=1${pageVo.getQueryString()}"
-            ><i class="fa-solid fa-angles-left"></i
-          ></a>
-        </c:if>
-        <c:if test="${pageVo.isPrev()}">
-          <a href="?page=${pageVo.getPrevPage()}${pageVo.getQueryString()}"
-            ><i class="fa-solid fa-less-than"></i
-          ></a>
-        </c:if>
-        <c:forEach
-          var="i"
-          begin="${pageVo.getStartBlock()}"
-          end="${pageVo.getFinishBlock()}"
-        >
-          <c:choose>
-            <c:when test="${i == pageVo.getPage()}"
-              ><div class="nowPage">${i}</div></c:when
-            >
-            <c:otherwise>
-              <a href="?page=${i}${pageVo.getQueryString()}">${i}</a>
-            </c:otherwise>
-          </c:choose>
-        </c:forEach>
-        <c:if test="${pageVo.isNext()}">
-          <a href="?page=${pageVo.getNextPage()}${pageVo.getQueryString()}"
-            ><i class="fa-solid fa-greater-than"></i
-          ></a>
-        </c:if>
-        <c:if test="${!pageVo.isLast()}"
-          ><a href="?page=${pageVo.getTotalPage()}${pageVo.getQueryString()}"
-            ><i class="fa-solid fa-angles-right"></i></a
-        ></c:if>
-      </div>
+      <!-- 페이지네이션 -->
+	<div class="row center pagination">
+    <!-- 1페이지로 이동 -->
+      <c:choose>
+        <c:when test="${pageVo.first}">
+          <a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
+        </c:when>
+        <c:otherwise>
+          <a href="/pocketmonTrade/?page=1&${pageVo.parameter}&${pageVo.addParameter}"><i class="fa-solid fa-angles-left"></i></a>
+        </c:otherwise>
+      </c:choose>
+    <!-- 이전 페이지로 이동 -->
+      <c:choose>
+        <c:when test="${pageVo.prev}">
+          <a href="/pocketmonTrade/?page=${pageVo.prevPage}&${pageVo.parameter}&${pageVo.addParameter}"><i class="fa-solid fa-angle-left"></i></a>
+        </c:when>
+        <c:otherwise>
+          <a class="disabled"><i class="fa-solid fa-angle-left disabled"></i></a>
+        </c:otherwise>
+      </c:choose>
+    <!-- 번호들 -->
+      <c:forEach var="i" begin="${pageVo.startBlock}" end="${pageVo.finishBlock}" step="1">
+        <c:choose>
+          <c:when test="${pageVo.page==i}"><a class="on disabled">${i}</a></c:when>
+          <c:otherwise><a href="/pocketmonTrade/?page=${i}&${pageVo.parameter}&${pageVo.addParameter}" class="">${i}</a></c:otherwise>
+        </c:choose>
+      </c:forEach>
+    <!-- 다음 페이지 -->
+      <c:choose>
+        <c:when test="${pageVo.next}">
+          <a href="/pocketmonTrade/?page=${pageVo.nextPage}&${pageVo.parameter}&${pageVo.addParameter}" class=""><i class="fa-solid fa-angle-right"></i></a>
+        </c:when>
+        <c:otherwise><a class="disabled">
+          <i class="fa-solid fa-angle-right"></i></a>
+        </c:otherwise>
+      </c:choose>
+    <!-- 마지막페이지로 -->
+      <c:choose>
+        <c:when test="${!pageVo.last}">
+          <a href="/pocketmonTrade/?page=${pageVo.totalPage}&${pageVo.parameter}&${pageVo.addParameter}" class=""><i class="fa-solid fa-angles-right"></i></a>
+        </c:when>
+        <c:otherwise>
+          <a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
+        </c:otherwise>
+      </c:choose>
+    </div>
+  <!-- 페이지네이션 끝 -->
       <hr />
       <!-- 검색 -->
+      <div class="row">
+        <form action="list" method="get" autocomplete="off">
+          <select name="column" class="form-input">
+            <option value="auction_title">제목</option>
+            <option value="auction_content">내용</option>
+            <option value="auction_writer">글쓴이</option>
+          </select>
+          <input name="keyword" class="form-input" placeholder="검색">
+          <input name="page" type="hidden" value="${param.page}">
+          <input name="item" type="hidden" value="${param.item}">
+          <input name="order" type="hidden" value="${param.order}">
+          <input name="special" type="hidden" value="${param.special}">
+          <button class="form-btn neutral">검색</button>
+        </form>
+      </div>
       <div class="h-3em flex-all-center pb-10">
         <form class="w-100 pocketmonTrade-search-form" action="" method="get">
           <select class="w-20" name="column">

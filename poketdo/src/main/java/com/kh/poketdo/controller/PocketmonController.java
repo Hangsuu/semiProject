@@ -145,11 +145,9 @@ public class PocketmonController {
 	  model.addAttribute("list" , list);
 	  List<String> list2 = new ArrayList<>();
 	  for(int i=0; i<list.get(0).getPocketTypeNoes().size(); i++) {
-		 list2.add(pocketmonTypeWithImageDao.selectOne(list.get(0).getPocketTypeNoes().get(0)).getImageURL());
+		 list2.add(pocketmonTypeWithImageDao.selectOne(list.get(0).getPocketTypeNoes().get(i)).getImageURL());
 	  }
-	  model.addAllAttributes(list2);
-	  System.out.println(list2.get(0));
-	  
+	  model.addAttribute("list2", list2);
 	  return "/WEB-INF/views/pocketdex/detail.jsp";
   }
   

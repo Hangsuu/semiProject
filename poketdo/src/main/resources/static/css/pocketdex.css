@@ -1,101 +1,101 @@
 /* 자식 요소 우측 여백 (4,8,12,16...제외) */
-.pocket-ul > :not(:nth-child(4n)) {
- 	margin-right: 50px;
+.pocket-ul>:not(:nth-child(4n)) {
+	margin-right: 50px;
 }
 /* 자식 요소 1,5,9,13... 좌측 여백*/
-.pocket-ul > :nth-child(4n-3) {
- 	margin-left:10px;
+.pocket-ul>:nth-child(4n-3) {
+	margin-left: 10px;
 }
 /* a태그 효과 */
-.pocket-box-a{
-	text-decoration: none; 
- 	color: inherit; 
+.pocket-box-a {
+	text-decoration: none;
+	color: inherit;
 }
 /* 포켓몬 박스 ul */
 .pocket-ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 /* 포켓몬 박스 li */
 .pocket-li {
-  display: flex;
-  width: 250px;
-  flex-direction: column;
-  margin-bottom: 2em;
+	display: flex;
+	width: 250px;
+	flex-direction: column;
+	margin-bottom: 2em;
 }
 /* 포켓몬 이름 글씨 */
-.pocket-data > h3{
-	margin-left : 1.3em;
+.pocket-data>h3 {
+	margin-left: 1.3em;
 }
 /* 포켓몬 번호 글씨 */
-.pocket-data > h4 {
+.pocket-data>h4 {
 	font-weight: 300;
-	color: #808080; 
-	margin-left : 1.5em;
+	color: #808080;
+	margin-left: 1.5em;
 }
 /* 포켓몬박스 */
 .pocket-box {
-  width: 100%;
-  height: 250px;
-  background-color: white;
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 1em;
-  transition: transform 0.2s ease-in-out;
+	width: 100%;
+	height: 250px;
+	background-color: white;
+	border-radius: 20px;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 1em;
+	transition: transform 0.2s ease-in-out;
 }
 /* 호버 효과 */
-.pocket-box-a:hover > li > .pocket-box{
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-  transform: scale(1.02);
+.pocket-box-a:hover>li>.pocket-box {
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+	transform: scale(1.02);
 }
 /* 포켓몬박스 위쪽 테두리 부분 */
-.pocket-box > div:first-child {
-  width: 100%;
-  height: 48%;
-  position: absolute;
-  top: 0;
-  background-color: #e53935;
+.pocket-box>div:first-child {
+	width: 100%;
+	height: 48%;
+	position: absolute;
+	top: 0;
+	background-color: #e53935;
 }
 /* 포켓몬 박스 아래쪽 테두리 부분*/
-.pocket-box > div:nth-child(2) {
-  width: 100%;
-  height: 48%;
-  background-color: #ececf4;
-  position: absolute;
-  bottom: 0;
+.pocket-box>div:nth-child(2) {
+	width: 100%;
+	height: 48%;
+	background-color: #ececf4;
+	position: absolute;
+	bottom: 0;
 }
 /* 포켓몬 박스 흰색 부분 */
-.pocket-box > div:last-child {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 95%;
-  height: 95%;
-  background-color: white;
-  border-radius: 20px;
+.pocket-box>div:last-child {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 95%;
+	height: 95%;
+	background-color: white;
+	border-radius: 20px;
 }
 /* 포켓몬 이미지 */
-.pocket-box > div:nth-child(3) > img {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  padding: 10%;
-  object-fit: cover;
-  border-radius: 20px;
+.pocket-box>div:nth-child(3)>img {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 10%;
+	object-fit: cover;
+	border-radius: 20px;
 }
 /* 포켓몬 데이터 자리 */
 .pocket-data {
-  width: 100%;
-  height: 100px;
-  overflow: hidden;
-  position: relative;
-  display: block;
+	width: 100%;
+	height: 100px;
+	overflow: hidden;
+	position: relative;
+	display: block;
 }
 
 /* 속성 글자 */
@@ -106,248 +106,522 @@
 	color: white;
 }
 /* 	속성 데이터 div */
-.pocket-data > div {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 5%;
+.pocket-data>div {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 5%;
 }
 
 /* 
 	속성 배경 모깍기
  */
-.pocket-data > div div {
+.pocket-data>div div {
 	display: inline-block;
 	text-align: center;
-	width:48%;
+	width: 48%;
 	height: 30px;
 	padding: 0px;
-	clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+	clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px),
+		calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
 /* 
 	pocketdex list 속성 배경 색
  */
-.type-back-color1 {
-	background-color:#999999;
+.type-back-color1, .pdc-color1 {
+	background-color: #999999;
 }
-.type-back-color2 {
-	background-color:#FFA202;
+
+.type-back-color2, .pdc-color2 {
+	background-color: #FFA202;
 }
-.type-back-color3 {
-	background-color:#95C9FF;
+
+.type-back-color3, .pdc-color3 {
+	background-color: #95C9FF;
 }
-.type-back-color4 {
-	background-color:#994DCF ;
+
+.type-back-color4, .pdc-color4 {
+	background-color: #994DCF;
 }
-.type-back-color5 {
-	background-color:#AB7939;
+
+.type-back-color5, .pdc-color5 {
+	background-color: #AB7939;
 }
-.type-back-color6 {
-	background-color:#BCB889;
+
+.type-back-color6, .pdc-color6 {
+	background-color: #BCB889;
 }
-.type-back-color7 {
-	background-color:#9FA424;
+
+.type-back-color7, .pdc-color7 {
+	background-color: #9FA424;
 }
-.type-back-color8 {
-	background-color:#6E4570;
+
+.type-back-color8, .pdc-color8 {
+	background-color: #6E4570;
 }
-.type-back-color9 {
-	background-color:#6AAED3;
+
+.type-back-color9, .pdc-color9 {
+	background-color: #6AAED3;
 }
-.type-back-color10 {
-	background-color:#FF612C;
+
+.type-back-color10, .pdc-color10 {
+	background-color: #FF612C;
 }
-.type-back-color11 {
-	background-color:#2992FF;
+
+.type-back-color11, .pdc-color11 {
+	background-color: #2992FF;
 }
-.type-back-color12 {
-	background-color:#42BF24;
+
+.type-back-color12, .pdc-color12 {
+	background-color: #42BF24;
 }
-.type-back-color13 {
-	background-color:#FFDB00;
+
+.type-back-color13, .pdc-color13 {
+	background-color: #FFDB00;
 }
-.type-back-color14 {
-	background-color:#FF637F;
+
+.type-back-color14, .pdc-color14 {
+	background-color: #FF637F;
 }
-.type-back-color15 {
-	background-color:#42D8FF;
+
+.type-back-color15, .pdc-color15 {
+	background-color: #42D8FF;
 }
-.type-back-color16 {
-	background-color:#5462D6;
+
+.type-back-color16, .pdc-color16 {
+	background-color: #5462D6;
 }
-.type-back-color17 {
-	background-color:#4F4747;
+
+.type-back-color17, .pdc-color17 {
+	background-color: #4F4747;
 }
-.type-back-color18 {
-	background-color:#FFB1FF;
+
+.type-back-color18, .pdc-color18 {
+	background-color: #FFB1FF;
+}
+
+.pdc-color1>div {
+	background-color: #F9F9F9;
+}
+
+.pdc-color2>div {
+	background-color: #FFFBF4;
+}
+
+.pdc-color3>div {
+	background-color: #F4F9FF;
+}
+
+.pdc-color4>div {
+	background-color: #FAF6FC;
+}
+
+.pdc-color5>div {
+	background-color: #FCFAF7;
+}
+
+.pdc-color6>div {
+	background-color: #FBFBF8;
+}
+
+.pdc-color7>div {
+	background-color: #FCFDF6;
+}
+
+.pdc-color8>div {
+	background-color: #FBF8FB;
+}
+
+.pdc-color9>div {
+	background-color: #F7FAFC;
+}
+
+.pdc-color10>div {
+	background-color: #FFF7F4;
+}
+
+.pdc-color11>div {
+	background-color: #F4F9FF;
+}
+
+.pdc-color12>div {
+	background-color: #F7FDF6;
+}
+
+.pdc-color13>div {
+	background-color: #FFFDF4;
+}
+
+.pdc-color14>div {
+	background-color: #FFF4F6;
+}
+
+.pdc-color15>div {
+	background-color: #F4FCFF;
+}
+
+.pdc-color16>div {
+	background-color: #F6F7FD;
+}
+
+.pdc-color17>div {
+	background-color: #FAF9F9;
+}
+
+.pdc-color18>div {
+	background-color: #FFF4FF;
+}
+
+.pdc-color1>div>.left>i, .pdc-color1>div>.right>i {
+	color: #CCCCCC;
+	font-size: 4em;
+}
+
+.pdc-color2>div>.left>i, .pdc-color2>div>.right>i, .pdc-color2>div>.detail-list-icon>i
+	{
+	color: #FFD999;
+	font-size: 4em;
+}
+
+.pdc-color3>div>.left>i, .pdc-color3>div>.right>i, .pdc-color3>div>.detail-list-icon>i
+	{
+	color: #B2D7FF;
+	font-size: 4em;
+}
+
+.pdc-color4>div>.left>i, .pdc-color4>div>.right>i, .pdc-color4>div>.detail-list-icon>i
+	{
+	color: #E5CFB2;
+	font-size: 4em;
+}
+
+.pdc-color5>div>.left>i, .pdc-color5>div>.right>i, .pdc-color5>div>.detail-list-icon>i
+	{
+	color: #DAD7BD;
+	font-size: 4em;
+}
+
+.pdc-color6>div>.left>i, .pdc-color6>div>.right>i, .pdc-color6>div>.detail-list-icon>i
+	{
+	color: #DAD7BD;
+	font-size: 4em;
+}
+
+.pdc-color7>div>.left>i, .pdc-color7>div>.right>i, .pdc-color7>div>.detail-list-icon>i
+	{
+	color: #EAECAB;
+	font-size: 4em;
+}
+
+.pdc-color8>div>.left>i, .pdc-color8>div>.right>i, .pdc-color8>div>.detail-list-icon>i
+	{
+	color: #D7BFD8;
+	font-size: 4em;
+}
+
+.pdc-color9>div>.left>i, .pdc-color9>div>.right>i, .pdc-color9>div>.detail-list-icon>i
+	{
+	color: #B0D4E7;
+	font-size: 4em;
+}
+
+.pdc-color10>div>.left>i, .pdc-color10>div>.right>i, .pdc-color10>div>.detail-list-icon>i
+	{
+	color: #FFB299;
+	font-size: 4em;
+}
+
+.pdc-color11>div>.left>i, .pdc-color11>div>.right>i, .pdc-color11>div>.detail-list-icon>i
+	{
+	color: #99CAFF;
+	font-size: 4em;
+}
+
+.pdc-color12>div>.left>i, .pdc-color12>div>.right>i, .pdc-color12>div>.detail-list-icon>i
+	{
+	color: #B7EEA9;
+	font-size: 4em;
+}
+
+.pdc-color13>div>.left>i, .pdc-color13>div>.right>i, .pdc-color13>div>.detail-list-icon>i
+	{
+	color: #FFF199;
+	font-size: 4em;
+}
+
+.pdc-color14>div>.left>i, .pdc-color14>div>.right>i, .pdc-color14>div>.detail-list-icon>i
+	{
+	color: #FF99AB;
+	font-size: 4em;
+}
+
+.pdc-color15>div>.left>i, .pdc-color15>div>.right>i, .pdc-color15>div>.detail-list-icon>i
+	{
+	color: #99EAFF;
+	font-size: 4em;
+}
+
+.pdc-color16>div>.left>i, .pdc-color16>div>.right>i, .pdc-color16>div>.detail-list-icon>i
+	{
+	color: #ACB3EB;
+	font-size: 4em;
+}
+
+.pdc-color17>div>.left>i, .pdc-color17>div>.right>i, .pdc-color17>div>.detail-list-icon>i
+	{
+	color: #CEC9C9;
+	font-size: 4em;
+}
+
+.pdc-color18>div>.left>i, .pdc-color18>div>.right>i, .pdc-color18>div>.detail-list-icon>i
+	{
+	color: #FFCCFF;
+	font-size: 4em;
 }
 
 /* 포켓몬 상세 컨테이너 */
 .pocket-detail-article {
-  display: flex;
-  justify-content: center;
-  width:100%;
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 
 .pocket-detail-container {
 	position: relative;
-  width: 900px;
-  height: 1100px;
-  border-radius:25px;
-  background-color:#CCEBFF;
+	width: 900px;
+	height: 1100px;
+	border-radius: 25px;
 }
 
-.pocket-detail-container > div {
-  position:absolute;
-  background-color:#F9FDFF;
-  border-radius:25px;
-  display:flex;
-  width:98%;
-  height:98%;
-  top:1%;
-  left:1%;
-  flex-direction: column;
-  align-items: center;
+.pocket-detail-container>div {
+	position: relative;
+	border-radius: 25px;
+	display: flex;
+	width: 98%;
+	height: 98%;
+	top: 1%;
+	left: 1%;
+	flex-direction: column;
+	align-items: center;
 }
-
-
+.pocket-detail-container > div > .left-text {
+	position: absolute;
+	display: block;
+	left: 30px;
+	top: 230px;
+}
+.pocket-detail-container > div > .left-text > span {
+	font-weight: 300;
+	font-size: 25px;
+	color: #808080;
+}
+.pocket-detail-container > div > .right-text {
+	position: absolute;
+	display: block;
+	right: 30px;
+	top: 230px;
+}
+.pocket-detail-container > div > .right-text > span {
+	font-weight: 300;
+	font-size: 25px;
+	color: #808080;
+}
 .pocket-detail-container > div > .left {
- position: absolute;
-  width: 30px;
-  height: 30px;
-  top: 350px;
-  left: 0;
-  transform: translate(100%, -30%);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-   background-color:white;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 300px;
+	left: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
 }
 
-.pocket-detail-container > div > .right {
- position: absolute;
-  width: 30px;
-  height: 30px;
-  right: 0;
-  top:350px;
-  transform: translate(-100%, -30%);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background-color:white;
+.pocket-detail-container > div >.right {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	right:50px;
+	top: 300px; 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
 }
 
-.pocket-detail-container > div > .left > i,
-.pocket-detail-container > div > .right > i{
-	color: #65C4FF;;
-	font-size:4em;
-}
-
-.pocket-detail-container > div > .detail-image {
+.pocket-detail-container>div>.detail-image {
 	width: 350px;
 	height: 500px;
-	border-radius:25px;
-	background-color:white;
-	border : 2px solid #E5E5E5;
+	border-radius: 25px;
+	background-color: white;
+	border: 2px solid #E5E5E5;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-	display:flex;
-	padding : 5%;
+	display: flex;
+	padding: 5%;
 	overflow: hidden;
 	flex-direction: column;
 	text-align: center;
-	margin-top : 50px;
-	
+	margin-top: 50px;
 }
 
-.pocket-detail-container > div > .detail-image > img {
-	margin-bottom:50px;
+.pocket-detail-container>div>.detail-image>img {
+	margin-bottom: 50px;
 }
 
-.pocket-detail-container > div > .detail-data {
+.pocket-detail-container>div>.detail-data {
+	position:relative;
 	width: 700px;
-	height: 400px;
-	border : 2px solid #E5E5E5;
-	border-radius:25px;
-	background-color:white;
+	height: 350px;
+	border: 2px solid #E5E5E5;
+	border-radius: 25px;
+	background-color: white;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-	display:flex;
+	display: flex;
 	flex-direction: column; /* span이 세로로 나열되도록 추가 */
-	align-items:center;
-	margin-top : 20px;
+	align-items: center;
+	margin-top: 20px;
 }
 
-.pocket-detail-container > div > .detail-data > div:nth-child(1) {
-	width: 200px;
-	height: 50px;
-	border : 1px solid black;
-	display:flex;
-	text-align: center;
-	margin-top : 30px;
+/*타입*/
+.detail-data>div:nth-child(1) {
+	position: absolute;
+	left:25px;
+	top:15px;
+	width: 150px;
+	height: 30px;
+	display: flex;
 }
-.pocket-detail-container > div > .detail-data > div:nth-child(2) {
-	width: 200px;
+
+.detail-data .type {
+	font-weight: 300;
+	font-size: 20px;
+	display: block;
+	color: #808080;
+	text-align: center;
+}
+
+/*이미지 */
+.detail-data>div:nth-child(2) {
+	position: absolute;
+	left:25px;
+	top:50px;
+	width: 150px;
 	height: 100px;
-	border : 1px solid black;
-	display:flex;
-	text-align: center;
+	display: flex;
+	margin-top: 5px;
 }
-.pocket-detail-container > div > .detail-data > div:nth-child(3) {
-	width: 600px;
-	height: 200px;
-	border : 1px solid black;
-	display:flex;
+/*종족값*/
+.detail-data>div:nth-child(3) {
+	position: absolute;
+	left:25px;
+	top:160px;
+	width: 150px;
+	height: 30px;
+	display: flex;
+}
+/*종족값 데이터*/
+.detail-data>div:nth-child(4) {
+	position: absolute;
+	left:25px;
+	top:190px;
+	width: 150px;
+	height: 30px;
+	display: flex;
+}
+.detail-data .basic-data{
+	font-weight: 300;
+	font-size: 20px;
+	display: block;
+	color: #808080;
 	text-align: center;
-	margin-top : 30px;
 }
 
-.detail-image > .name{
+/*기본노력치 데이터*/
+.detail-data>div:nth-child(4) {
+	position: absolute;
+	left:25px;
+	top:220px;
+	width: 150px;
+	height: 30px;
+	display: flex;
+}
+.detail-data .effort-data{
+	font-weight: 300;
+	font-size: 20px;
+	display: block;
+	color: #808080;
+	text-align: center;
+}
+
+
+.detail-image>.name {
 	font-weight: 500;
 	font-size: 50px;
- 	display: block;
-  	text-align: center;
+	display: block;
+	text-align: center;
 }
 
-.detail-image > .no {
+.detail-image>.no {
 	font-weight: 300;
 	font-size: 35px;
-	display:block;
-	color: #808080; 
+	display: block;
+	color: #808080;
 	text-align: center;
 }
 
-.pocket-detail-container > div > .detail-list-icon {
+.pocket-detail-container>div>.detail-list-icon {
 	width: 50px;
 	height: 50px;
-	display:flex;
+	display: flex;
 	flex-direction: column;
 	text-align: center;
-	 justify-content: center;
-	 margin-top : 30px;
+	justify-content: center;
 }
-.pocket-detail-container > div > .detail-list-icon > i {
-	display:flex;
+.pocket-detail-container > div > .menu-text {
+	width: 50px;
+	height: 50px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	margin-top:10px;
+}
+
+.pocket-detail-container>div>.detail-list-icon>i {
+	display: flex;
 	text-align: center;
 }
 
-.detail-data > div > div {
+.detail-data .basic {
+	font-weight: 300;
+	font-size: 20px;
+	color: #808080;
+}
+
+.type-image-container {
+	width: 150px;
+	height: 60px;
+}
+
+
+/*이미지 감쌈*/
+.type-image-container>div {
+	display: flex;
+	width: 60px;
+	height: 60px;
+}
+
+.type-image-container>div>div {
 	display: inline-block;
-	text-align: center;
-	width:48%;
-	height: 30px;
-	padding: 0px;
-	clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-}
-
-.type-image-container > div {
-	display:flex;
-	flex-direction: column;
+	border-radius: 5px;
 	text-align: center;
 }
-.type-image-container > div > div {
-	display:flex;
-	flex-direction: column;
-	text-align: center;
+.type-image-container>div> div {
+	margin-right:10px;
 }
 
-
-
+.type-image-container>div>div>img {
+	width: 60px;
+	height: 60px;
+}

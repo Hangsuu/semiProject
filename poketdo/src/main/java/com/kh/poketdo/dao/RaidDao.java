@@ -33,6 +33,7 @@ public class RaidDao {
 					.raidMonster(rs.getString("raid_monster"))
 					.raidTime(rs.getDate("raid_time"))
 					.raidStartTime(rs.getTimestamp("raid_start_time"))
+					.raidCode(rs.getString("raid_code"))
 					.raidCount(rs.getInt("raid_count"))
 					.raidReply(rs.getInt("raid_reply"))
 					.raidLike(rs.getInt("raid_like"))
@@ -52,12 +53,12 @@ public class RaidDao {
 	//생성(C)
 	public void insert(RaidDto dto) {
 		String sql = "insert into raid(allboard_no, raid_no, raid_writer, raid_title, raid_content, "
-				+ "raid_monster, raid_start_time, raid_type) "
-				+ "values(?,?,?,?,?,?,?,?)";
+				+ "raid_monster, raid_start_time, raid_code, raid_type) "
+				+ "values(?,?,?,?,?,?,?,?,?)";
 		int raidSeq = raidSequence();
 		dto.setRaidNo(raidSeq);
 		Object[] param = {dto.getAllboardNo(),dto.getRaidNo(), dto.getRaidWriter(), dto.getRaidTitle(), dto.getRaidContent(), 
-				dto.getRaidMonster(), dto.getRaidStartTime(), dto.getRaidType()};
+				dto.getRaidMonster(), dto.getRaidStartTime(), dto.getRaidCode(), dto.getRaidType()};
 		
 		AllboardDto allboardDto = new AllboardDto();
 		allboardDto.setAllboardNo(dto.getAllboardNo());
@@ -149,8 +150,8 @@ public class RaidDao {
 	}
 	//수정(U)
 	public boolean edit(RaidDto raidDto) {
-		String sql = "update raid set raid_title=?, raid_content=?, raid_type=? where allboard_no=?";
-		Object[] param = {raidDto.getRaidTitle(), raidDto.getRaidContent(), raidDto.getRaidType(), raidDto.getAllboardNo()};
+		String sql = "update raid set raid_title=?, raid_content=?, raid_type=?, raid_code=? where allboard_no=?";
+		Object[] param = {raidDto.getRaidTitle(), raidDto.getRaidContent(), raidDto.getRaidType(), raidDto.getRaidCode(), raidDto.getAllboardNo()};
 		return jdbcTemplate.update(sql, param)>0;
 	}
 	//댓글 갯수 반영

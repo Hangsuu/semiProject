@@ -23,6 +23,32 @@
 					<span class="name">${pocketmonWithImageDto.pocketName}</span>
 				</div>
 				<div class="detail-data">
+					<div>
+						<div style="background-color:black;">
+						<img src="${list2.get(i)}" >
+							<span class="type">타입</span>
+						</div>
+					</div>
+					<div class="type-image-container">
+						<div>
+							<c:forEach var="i" begin="0" end="${list.get(0).getPocketTypes().size()-1}">
+								<c:choose>
+									<c:when test="${list.get(0).getPocketTypes().get(i).equals('없음')}">
+									</c:when>
+									<c:otherwise>
+										<div style="background-color:black;">
+											<img src="${list2.get(i)}" >
+										</div>
+										<div class="type-back-color${list.get(0).getPocketTypeNoes().get(i)} ">
+											<span>
+												${list.get(0).getPocketTypes().get(i)}
+											</span>
+										</div>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</div>
+					</div>
 				</div>
 				<div class="detail-list-icon">
 					<i class="fa-solid fa-bars fa-2xs" style="color: #0077c2; font-size:4em;"></i>

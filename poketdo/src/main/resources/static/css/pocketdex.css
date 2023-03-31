@@ -123,7 +123,6 @@
 	height: 30px;
 	padding: 0px;
 	clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-	
 }
 /* 
 	pocketdex list 속성 배경 색
@@ -192,8 +191,8 @@
 
 .pocket-detail-container {
 	position: relative;
-  width: 1200px;
-  height: 1200px;
+  width: 900px;
+  height: 1100px;
   border-radius:25px;
   background-color:#CCEBFF;
 }
@@ -207,7 +206,8 @@
   height:98%;
   top:1%;
   left:1%;
-  z-index:2;
+  flex-direction: column;
+  align-items: center;
 }
 
 
@@ -215,9 +215,9 @@
  position: absolute;
   width: 30px;
   height: 30px;
-  top: 50%;
+  top: 350px;
   left: 0;
-  transform: translate(100%, -50%);
+  transform: translate(100%, -30%);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -228,9 +228,9 @@
  position: absolute;
   width: 30px;
   height: 30px;
-  top: 50%;
   right: 0;
-  transform: translate(-100%, -50%);
+  top:350px;
+  transform: translate(-100%, -30%);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -244,11 +244,8 @@
 }
 
 .pocket-detail-container > div > .detail-image {
-	position: absolute;
-	width: 450px;
-	height: 600px;
-	left :350px;
-	top : 50px;
+	width: 350px;
+	height: 500px;
 	border-radius:25px;
 	background-color:white;
 	border : 2px solid #E5E5E5;
@@ -257,6 +254,9 @@
 	padding : 5%;
 	overflow: hidden;
 	flex-direction: column;
+	text-align: center;
+	margin-top : 50px;
+	
 }
 
 .pocket-detail-container > div > .detail-image > img {
@@ -264,17 +264,40 @@
 }
 
 .pocket-detail-container > div > .detail-data {
-  position: absolute;
-	width: 900px;
-	height: 350px;
-	left :125px;
-	top : 750px;
+	width: 700px;
+	height: 400px;
 	border : 2px solid #E5E5E5;
 	border-radius:25px;
 	background-color:white;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 	display:flex;
 	flex-direction: column; /* span이 세로로 나열되도록 추가 */
+	align-items:center;
+	margin-top : 20px;
+}
+
+.pocket-detail-container > div > .detail-data > div:nth-child(1) {
+	width: 200px;
+	height: 50px;
+	border : 1px solid black;
+	display:flex;
+	text-align: center;
+	margin-top : 30px;
+}
+.pocket-detail-container > div > .detail-data > div:nth-child(2) {
+	width: 200px;
+	height: 100px;
+	border : 1px solid black;
+	display:flex;
+	text-align: center;
+}
+.pocket-detail-container > div > .detail-data > div:nth-child(3) {
+	width: 600px;
+	height: 200px;
+	border : 1px solid black;
+	display:flex;
+	text-align: center;
+	margin-top : 30px;
 }
 
 .detail-image > .name{
@@ -291,3 +314,40 @@
 	color: #808080; 
 	text-align: center;
 }
+
+.pocket-detail-container > div > .detail-list-icon {
+	width: 50px;
+	height: 50px;
+	display:flex;
+	flex-direction: column;
+	text-align: center;
+	 justify-content: center;
+	 margin-top : 30px;
+}
+.pocket-detail-container > div > .detail-list-icon > i {
+	display:flex;
+	text-align: center;
+}
+
+.detail-data > div > div {
+	display: inline-block;
+	text-align: center;
+	width:48%;
+	height: 30px;
+	padding: 0px;
+	clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.type-image-container > div {
+	display:flex;
+	flex-direction: column;
+	text-align: center;
+}
+.type-image-container > div > div {
+	display:flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+
+

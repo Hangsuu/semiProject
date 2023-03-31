@@ -1,6 +1,7 @@
 package com.kh.poketdo.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonTypeDao;
+import com.kh.poketdo.dao.PocketmonTypeWithImageDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonJoinTypeDto;
@@ -43,6 +45,9 @@ public class PocketmonController {
  
   @Autowired
   private PocketmonService pocketmonService;
+  
+  @Autowired
+  private PocketmonTypeWithImageDao pocketmonTypeWithImageDao;
   
   
   
@@ -136,8 +141,15 @@ public class PocketmonController {
   @GetMapping("/detail")
   public String detail(Model model, @RequestParam int pocketNo) {
 	  model.addAttribute("pocketmonWithImageDto", pocketmonWithImageDao.selectOne(pocketNo));
-	  List<String> list = pocketmonService.pocketmonTypeSelectOne(pocketNo);
-	  model.addAttribute("pocketmonTypes" , list);
+	  List<PocketmonWithTypesVO> list = pocketmonService.pocketmonTypeSelect(pocketNo);
+	  model.addAttribute("list" , list);
+	  List<String> list2 = new ArrayList<>();
+	  for(int i=0; i<list.get(0).getPocketTypeNoes().size(); i++) {
+		 list2.add(pocketmonTypeWithImageDao.selectOne(list.get(0).getPocketTypeNoes().get(0)).getImageURL());
+	  }
+	  model.addAllAttributes(list2);
+	  System.out.println(list2.get(0));
+	  
 	  return "/WEB-INF/views/pocketdex/detail.jsp";
   }
   

@@ -455,6 +455,11 @@
 	font-size: 4em;
 }
 
+.bottom-delete-icon i {
+	color: #FF0000;
+	font-size: 4em;
+}
+
 /* 포켓몬 상세 컨테이너 */
 .pocket-detail-article {
 	display: flex;
@@ -675,7 +680,7 @@
 	justify-content: space-around;
 }
 
-.pocket-detail-container .bottom-icons>div {
+.pocket-detail-container .bottom-icons>div>a {
 	width: 120px;
 	height: 50px;
 	display: flex;
@@ -683,8 +688,10 @@
 	text-align: center;
 	justify-content: center;
 	margin-top:60px;
+	text-decoration: none; /* 밑줄 없애기 */
+  	color: inherit; /* 기본 색상 상속 받기 */
 }
-.bottom-icons>div > i {
+.bottom-icons>div >a> i {
 	margin-top:10px;
 }
 

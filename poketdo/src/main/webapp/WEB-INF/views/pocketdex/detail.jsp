@@ -30,10 +30,12 @@
 		}).mouseleave(function(){
 			$(this).find("i").removeClass('fa-beat');
 		});
-		
-		
-		
-		
+        $(".confirm-delete").click(function(e){
+            e.preventDefault();
+            if(!confirm("정말 삭제하시겠습니까?"))	return;
+            window.location.href = $(this).attr("href");
+           
+        });
 		
 	});	
 	
@@ -163,18 +165,25 @@
 				</div>
 				<div class="bottom-icons">
 					<div class="bottom-list-icon icon-color">
-						<span>목록</span>
-						<i class="fa-solid fa-bars "></i>
+						<a href="list">
+							<span>목록</span>
+							<i class="fa-solid fa-bars "></i>
+						</a>
 					</div>
-					
+				<c:if test="${sessionScope.memberLevel=='관리자' }">
 					<div class="bottom-edit-icon icon-color">
-						<span>수정</span>
-						<i class="fa-solid fa-pen-to-square "></i>
+						<a href="edit?pocketNo=${pocketmonWithImageDto.pocketNo}">
+							<span>수정</span>
+							<i class="fa-solid fa-pen-to-square "></i>
+						</a>
 					</div>
-					<div class="bottom-delete-icon icon-color">
-						<span>삭제</span>
-						<i class="fa-solid fa-trash-can " ></i>
+					<div class="bottom-delete-icon">
+						<a href="delete?pocketNo=${pocketmonWithImageDto.pocketNo}" class="confirm-delete">
+							<span>삭제</span>
+							<i class="fa-solid fa-trash-can " ></i>
+						</a>
 					</div>
+				</c:if>
 				</div>
 			</div>
 		</div>

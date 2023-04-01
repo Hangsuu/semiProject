@@ -23,8 +23,8 @@
 배너배너배너  1200x150
     </div>
 <%-- 인기글, 오늘의 포켓몬--%>
-    <%-- home.css / component.css --%>
-    <div class="row flex-row-grow w-100" style="min-height:400px">
+    <%-- base.css / component.css --%>
+    <div class="home-sector flex-row-grow w-100">
       <%-- home.css / component.css --%>
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
@@ -45,8 +45,8 @@
       </div>
     </div>
 <%-- 포켓몬 교환 --%>
-    <%-- home.css / component.css --%>
-    <div class="row home-raid-board title-body"  style="min-height:300px">
+    <%-- base.css / component.css --%>
+    <div class="home-sector home-raid-board title-body">
       <%-- home.css --%>
       <div class="home-board-title">
         <h2>교환해요</h2>
@@ -120,8 +120,8 @@
       </div>
     </div>
 <%-- 레이드, 공략--%>
-    <%-- home.css / component.css --%>
-    <div class="row flex-row-grow w-100" style="min-height:400px">
+    <%-- base.css / component.css --%>
+    <div class="home-sector flex-row-grow">
       <%-- home.css / component.css --%>
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
@@ -144,8 +144,8 @@
     
     
 <%-- 경매 --%>
-    <%-- home.css / component.css --%>
-    <div class="row w-100"  style="min-height:300px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); padding:1.5em">
+    <%-- base.css / component.css --%>
+    <div class="home-sector">
       <%-- home.css --%>
       <div class="home-board-title">
         <h2>hot 경매</h2>

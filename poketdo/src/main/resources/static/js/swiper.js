@@ -1,11 +1,15 @@
 $(function(){
 	const swiper = new Swiper(".swiper", {
 		// Optional parameters
+		//한 화면에 포함하는 슬라이드 개수
 		slidesPerView: 5,
+		//좌우 버튼 누르면 움직이는 슬라이드 개수
 		slidesPerGroup:1,
+		//슬라이드간 간격
 		spaceBetween: 0,
 		
 		direction: "horizontal",
+		//루프할지 여부
 		loop: true,
 		//오른쪽에 미리 대기하는 개수
 		loopAdditionalSlides: 5,
@@ -26,12 +30,5 @@ $(function(){
 		//   el: ".swiper-scrollbar",
 		// },
 		maxBackfaceHiddenSlides:20,
-	});
-	
-	$(".swiper-button-prev").click(function(){
-		swiper.slidePrev();
-	});
-	$(".swiper-button-next").click(function(){
-		swiper.slideNext();
 	});
 });

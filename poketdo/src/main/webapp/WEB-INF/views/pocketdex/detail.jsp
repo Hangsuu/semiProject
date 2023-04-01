@@ -75,12 +75,41 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<div class="left icon-color">
-					<i class="fa-solid fa-circle-chevron-left"></i>
-				</div>
-				<div class="right icon-color">
-					<i class="fa-solid fa-circle-chevron-right"></i>
-				</div>
+				
+				<c:choose>
+						<c:when test="${prev.isEmpty()}">
+							<div class="left icon-color">
+								<a href="detail?pocketNo=${list3.get(list3.size()-1).pocketNo}">
+									<i class="fa-solid fa-circle-chevron-left"></i>
+								</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="left icon-color">
+								<a href="detail?pocketNo=${prev.get(0).pocketNo}">
+									<i class="fa-solid fa-circle-chevron-left"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				
+				<c:choose>
+					<c:when test="${next.isEmpty()}">
+						<div class="right icon-color">
+							<a href="detail?pocketNo=${list3.get(0).pocketNo}">
+								<i class="fa-solid fa-circle-chevron-right"></i>
+							</a>	
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="right icon-color">
+							<a href="detail?pocketNo=${next.get(0).pocketNo}">
+								<i class="fa-solid fa-circle-chevron-right"></i>
+							</a>	
+						</div>
+					</c:otherwise>
+				</c:choose>
+				
 				<div class="detail-image">
 					<img src="${pocketmonWithImageDto.imageURL}">
 					<span class="no">No.0${pocketmonWithImageDto.pocketNo}</span>

@@ -126,15 +126,16 @@ public class PocketmonService {
 	    
 	    // 타입이 포함된 pocketmonWithType들이 담긴 list(model에 첨부)
 	    List<PocketmonWithTypesVO> list3 = new ArrayList<>();
-	 
+	    
 	    for (PocketmonWithImageDto dto : list) {
 	      // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
 	      List<PocketmonJoinTypeDto> list2 = 
 	    		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
-	      
+	      List<Integer> typeNoList = new ArrayList<>();
 	      List<String> typeList = new ArrayList<>();  
 	      for (PocketmonJoinTypeDto joinDto : list2) {
 	        typeList.add(pocketmonTypeDao.selectOneForTypeName(joinDto.getTypeJoinNo()));
+	        typeNoList.add(joinDto.getTypeJoinNo());
 	      }
 	      
 	      //포켓몬스터 이미지 URL List
@@ -148,25 +149,79 @@ public class PocketmonService {
 	          .builder()
 	          .pocketNo(dto.getPocketNo())
 	          .pocketName(dto.getPocketName())
-	          .pocketBaseHp(dto.getPocketEffortHp())
+	          .pocketBaseHp(dto.getPocketBaseHp())
 	          .pocketBaseAtk(dto.getPocketBaseAtk())
 	          .pocketBaseDef(dto.getPocketBaseDef())
 	          .pocketBaseSpd(dto.getPocketBaseSpd())
 	          .pocketBaseSatk(dto.getPocketBaseSatk())
+	          .pocketBaseSdef(dto.getPocketBaseSdef())
 	          .pocketEffortHp(dto.getPocketEffortHp())
 	          .pocketEffortAtk(dto.getPocketEffortAtk())
 	          .pocketEffortDef(dto.getPocketEffortDef())
 	          .pocketEffortSpd(dto.getPocketEffortSpd())
 	          .pocketEffortSatk(dto.getPocketEffortSatk())
-	          .pocketBaseSdef(dto.getPocketEffortSdef())
+	          .pocketEffortSdef(dto.getPocketEffortSdef())
 	          .pocketTypes(typeList)
+	          .pocketTypeNoes(typeNoList)
 	          .imageURL(imageDto.getImageURL())
 	          .build()
 	      );
 	    }
-	    
 	    return list3;
 	}
+	
+	//포켓몬 속성 불러오기
+		public List<PocketmonWithTypesVO> pocketmonTypeSelect(int pocketNo){
+			
+			// 포켓몬들이 전부 들어있는 list
+		    List<PocketmonWithImageDto> list = pocketmonWithImageDao.selectOneWithType(pocketNo);
+		    
+		    // 타입이 포함된 pocketmonWithType들이 담긴 list(model에 첨부)
+		    List<PocketmonWithTypesVO> list3 = new ArrayList<>();
+		 
+		    for (PocketmonWithImageDto dto : list) {
+		      // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
+		      List<PocketmonJoinTypeDto> list2 = 
+		    		  pocketmonJoinTypeDao.selectOne(dto.getPocketNo());
+		      List<Integer> typeNoList = new ArrayList<>();
+		      List<String> typeList = new ArrayList<>();  
+		      for (PocketmonJoinTypeDto joinDto : list2) {
+		        typeList.add(pocketmonTypeDao.selectOneForTypeName(joinDto.getTypeJoinNo()));
+		        typeNoList.add(joinDto.getTypeJoinNo());
+		      }
+		      
+		      //포켓몬스터 이미지 URL List
+		      PocketmonWithImageDto imageDto = 
+		    		  pocketmonWithImageDao.selectOne(dto.getPocketNo());
+		      
+		      
+		      // jsp파일에 보내질 list3에 PocketmonWithTypes를 build하여 추가
+		      list3.add(
+		        PocketmonWithTypesVO
+		          .builder()
+		          .pocketNo(dto.getPocketNo())
+		          .pocketName(dto.getPocketName())
+		          .pocketBaseHp(dto.getPocketBaseHp())
+		          .pocketBaseAtk(dto.getPocketBaseAtk())
+		          .pocketBaseDef(dto.getPocketBaseDef())
+		          .pocketBaseSpd(dto.getPocketBaseSpd())
+		          .pocketBaseSatk(dto.getPocketBaseSatk())
+		          .pocketBaseSdef(dto.getPocketBaseSdef())
+		          .pocketEffortHp(dto.getPocketEffortHp())
+		          .pocketEffortAtk(dto.getPocketEffortAtk())
+		          .pocketEffortDef(dto.getPocketEffortDef())
+		          .pocketEffortSpd(dto.getPocketEffortSpd())
+		          .pocketEffortSatk(dto.getPocketEffortSatk())
+		          .pocketEffortSdef(dto.getPocketEffortSdef())
+		          .pocketTypes(typeList)
+		          .pocketTypeNoes(typeNoList)
+		          .imageURL(imageDto.getImageURL())
+		          .build()
+		      );
+		    }
+		    
+		    return list3;
+		}
 	
 	public List<String> pocketmonTypeSelectOne(@RequestParam int pocketNo){
 			

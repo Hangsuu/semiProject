@@ -65,6 +65,12 @@ public class PocketmonWithImageDao {
 		List<PocketmonWithImageDto> list = jdbcTemplate.query(sql,  mapper, param);
 		return list.isEmpty() ? null : list.get(0); 
 	}
+	//상세
+	public List<PocketmonWithImageDto> selectOneWithType(int pocketNo) {
+		String sql ="select * from pocketmon_with_image where pocket_no=?";
+		Object [] param = {pocketNo};
+		return jdbcTemplate.query(sql,  mapper, param); 
+	}
 	
 	//페이징 적용된 조회 및 카운트
 	public int selectCount(PocketPaginationVO vo) {

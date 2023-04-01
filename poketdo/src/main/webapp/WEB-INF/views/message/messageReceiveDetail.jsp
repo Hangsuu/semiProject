@@ -4,40 +4,13 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<style>
-  .message-content {
-    min-height: 200px;
-  }
-</style>
 <script>
-  var messageNo = parseInt("${messageDto.getMessageNo()}");
-  var messageSender = "${messageDto.getMessageSender()}";
+  const messageNo = parseInt("${messageDto.getMessageNo()}");
+  const messageSender = "${messageDto.getMessageSender()}";
 </script>
-<script>
-  $(function(){
-    $(".message-delete-btn").click(function(e){
-      if(!confirm("정말 삭제하시겠습니까?")){
-        e.preventDefault();
-        return;
-      }
-      $.ajax({
-        url: "/rest/message/receive",
-        method: "put",
-        data: { messageNo: messageNo },
-        success: function(){
-          window.location.href="/message/receive";
-        },
-        error: function(){
-          console.log("받은 메세지 삭제 통신 에러!!!!");
-        },
-      })
-    })
-  })
-</script>
-
+<script src="/static/js/message/messageReceiveDetail.js"></script>
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
-  
-    <div class="row">
+    <div>
       <h1>${messageDto.getMessageTitle()}</h1>
     </div>
     <hr/>
@@ -62,7 +35,7 @@
       ${messageDto.getMessageRecipient()} [<fmt:formatDate value="${messageDto.getMessageReadTime()}" pattern="yyyy.MM.dd. H:m"/>]
     </div>
     <hr/>
-    <div class="row message-content">
+    <div class="row message-content" style="min-height: 200px;">
       ${messageDto.getMessageContent()}
     </div>
     <hr/>

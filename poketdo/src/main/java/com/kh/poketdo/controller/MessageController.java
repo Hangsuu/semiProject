@@ -29,20 +29,13 @@ public class MessageController {
 
   // 받은메세지 리스트
   @GetMapping("/receive")
-  public String receiveList(
-      @RequestParam(required = false, defaultValue = "") String mode, @ModelAttribute("vo") PaginationVO vo, HttpSession session) {
-        String memberId = session.getAttribute("memberId")==null?null:(String)session.getAttribute("memberId");
-    vo.setCount(messageWithNickDao.getReceiveCount(vo, memberId));
-    // System.out.println(messageWithNickDao.getCount(vo));
+  public String receiveList() {
     return "/WEB-INF/views/message/messageReceive.jsp";
   }
 
   // 보낸메세지 리스트
   @GetMapping("/send")
-  public String sendList(HttpSession session, Model model) {
-    String memberId = (String) session.getAttribute("memberId");
-    List<MessageDto> lists = messageDao.selectSendMessage(memberId);
-    model.addAttribute("lists", lists);
+  public String sendList() {
     return "/WEB-INF/views/message/messageSend.jsp";
   }
 
@@ -82,16 +75,4 @@ public class MessageController {
     return "/WEB-INF/views/message/messageSendDetail.jsp";
   }
 
-  // 받은메세지 삭제
-  @GetMapping("/receive/delete")
-  public String receiveDelete(
-      @RequestParam int messageNo,
-      HttpSession session) {
-    String memberId = (String) session.getAttribute("memberId");
-    // 받은메세지 삭제(column값 0으로 변경)
-    messageDao.deleteReceiveMessage(messageNo, memberId);
-    // 보낸메세지에서도 없을 시 message table에서 삭제
-    messageDao.deleteMessage(messageNo);
-    return "redirect:/message/receive";
-  }
 }

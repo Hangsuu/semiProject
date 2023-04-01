@@ -26,7 +26,7 @@ public class HomeController {
 		auctionPagination.setCount(20);
 		auctionPagination.setItem("auction_finish_time");
 		auctionPagination.setOrder("asc");
-		auctionPagination.setSpecial("auction_finish_time>sysdate and auction_min_price<auction_max_price");
+		auctionPagination.setSpecial("auction_finish_time>sysdate and (auction_max_price=0 or auction_min_price<auction_max_price)");
 		model.addAttribute("auctionList", auctionDao.selectList(auctionPagination));
 		//------------경매 끝--------------
 		return "/WEB-INF/views/home.jsp";

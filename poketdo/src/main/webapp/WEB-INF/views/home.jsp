@@ -23,8 +23,8 @@
 배너배너배너  1200x150
     </div>
 <%-- 인기글, 오늘의 포켓몬--%>
-    <%-- home.css / component.css --%>
-    <div class="row flex-row-grow w-100" style="min-height:400px">
+    <%-- base.css / component.css --%>
+    <div class="home-sector flex-row-grow w-100">
       <%-- home.css / component.css --%>
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
@@ -45,8 +45,8 @@
       </div>
     </div>
 <%-- 포켓몬 교환 --%>
-    <%-- home.css / component.css --%>
-    <div class="row home-raid-board title-body"  style="min-height:300px">
+    <%-- base.css / component.css --%>
+    <div class="home-sector home-raid-board title-body">
       <%-- home.css --%>
       <div class="home-board-title">
         <h2>교환해요</h2>
@@ -120,8 +120,8 @@
       </div>
     </div>
 <%-- 레이드, 공략--%>
-    <%-- home.css / component.css --%>
-    <div class="row flex-row-grow w-100" style="min-height:400px">
+    <%-- base.css / component.css --%>
+    <div class="home-sector flex-row-grow">
       <%-- home.css / component.css --%>
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
@@ -144,18 +144,18 @@
     
     
 <%-- 경매 --%>
-    <%-- home.css / component.css --%>
-    <div class="row w-100"  style="min-height:300px">
+    <%-- base.css / component.css --%>
+    <div class="home-sector">
       <%-- home.css --%>
       <div class="home-board-title">
         <h2>hot 경매</h2>
         <a href="/auction/list?page=1">+더보기</a>
       </div>
 	<!-- 게시판 테이블(swiper) -->
-		<div class="swiper">
+		<div class="swiper mt-20">
 			<div class="swiper-wrapper">
 				<c:forEach var="auctionDto" items="${auctionList}">
-					<div class="swiper-slide" style="padding:1em; border:1px solid #F2F4FB; border-radious:2em; margin:10px">
+					<div class="swiper-slide" style="padding:1em; border:1px solid #F2F4FB; border-radious:2em; margin:10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05)">
 						<div style="width:200px; height:200px" class="flex-box align-center">
 							<c:choose>
 								<c:when test="${auctionDto.auctionMainImg>0}">

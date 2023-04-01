@@ -1,133 +1,202 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<h1>등록페이지 입니다~</h1>
-	<form action="insertProcess" method="post" enctype="multipart/form-data" class="form">
-		<label>포켓몬스터 번호</label>
-		<input name="pocketNo">
-		
-		<br>
-		
-		<label>포켓몬스터 이름</label>
-		<input name="pocketName">
-		
-		<br>
-		
-		<label>포켓몬스터 기본 종족치 (HP)</label>
-		<input name="pocketBaseHp">
-		
-		<br>
-		
-		<label>포켓몬스터 기본 종족치 (공격)</label>
-		<input name="pocketBaseAtk">
-		
-		<br>
-		
-		<label>포켓몬스터 기본 종족치 (방어)</label>
-		<input name="pocketBaseDef">
-		
-		<br>
-		
-		<label>포켓몬스터 기본 종족치 (스피드)</label>
-		<input name="pocketBaseSpd">
-		
-		<br>
-		
-		<label>포켓몬스터 기본 종족치 (특수공격)</label>
-		<input name="pocketBaseSatk">
-		
-		<br>
-		
-		<label>포켓몬스터 기본 종족치 (특수방어)</label>
-		<input name="pocketBaseSdef">
-		
-		<br>
-		
-		<label>포켓몬스터 노력치 (HP)</label>
-		<input name="pocketEffortHp">
-		
-		<br>
-		
-		<label>포켓몬스터 노력치 (공격)</label>
-		<input name="pocketEffortAtk">
-		
-		<br>
-		
-		<label>포켓몬스터 노력치 (방어)</label>
-		<input name="pocketEffortDef">
-		
-		<br>
-		
-		<label>포켓몬스터 노력치 (스피드)</label>
-		<input name="pocketEffortSpd">
-		
-		<br>
-		
-		<label>포켓몬스터 노력치 (특수공격)</label>
-		<input name="pocketEffortSatk">
-		
-		<br>
-		
-		<label>포켓몬스터 노력치 (특수방어)</label>
-		<input name="pocketEffortSdef">
-		
-		<br>
-		
-		<label>포켓몬스터 속성 1</label>
-		<select name="typeJoinNo">
-			<option value="0">없음</option>
-			<option value="1">1. 노말</option>
-			<option value="2">2. 격투</option>
-			<option value="3">3. 비행</option>
-			<option value="4">4. 독</option>
-			<option value="5">5. 땅</option>
-			<option value="6">6. 바위</option>
-			<option value="7">7. 벌레</option>
-			<option value="8">8. 고스트</option>
-			<option value="9">9. 강철</option>
-			<option value="10">10. 불꽃</option>
-			<option value="11">11. 물</option>
-			<option value="12">12. 풀</option>
-			<option value="13">13. 전기</option>
-			<option value="14">14. 에스퍼</option>
-			<option value="15">15. 얼음</option>
-			<option value="16">16. 드래곤</option>
-			<option value="17">17. 악</option>
-			<option value="18">18. 페어리</option>
-		</select>
-		
-		<br>
-			
-		<label>포켓몬스터 속성 2</label>
-		<select name="typeJoinNo2">
-			<option value="0">없음</option>
-			<option value="1">1. 노말</option>
-			<option value="2">2. 격투</option>
-			<option value="3">3. 비행</option>
-			<option value="4">4. 독</option>
-			<option value="5">5. 땅</option>
-			<option value="6">6. 바위</option>
-			<option value="7">7. 벌레</option>
-			<option value="8">8. 고스트</option>
-			<option value="9">9. 강철</option>
-			<option value="10">10. 불꽃</option>
-			<option value="11">11. 물</option>
-			<option value="12">12. 풀</option>
-			<option value="13">13. 전기</option>
-			<option value="14">14. 에스퍼</option>
-			<option value="15">15. 얼음</option>
-			<option value="16">16. 드래곤</option>
-			<option value="17">17. 악</option>
-			<option value="18">18. 페어리</option>
-		</select>
-		
-		<br>
-		
-		<label>포켓몬스터 이미지(png, gif, jpg)</label>
-		<input type="file" name="attach" accept=".png, .gif, .jpg">
-		<br>
-		<button>입력 완료</button>
-	</form>
-	<button class="auto-btn">자동입력</button>
+
+<script src="/static/js/pocket-insert.js"></script>
+
+<section class="container-1200 flex-box flex-vertical">
+
+	<aside></aside>
 	
+	<article class="mt-50 container-1200 ">
+	
+	<form action="insertProcess" method="post" enctype="multipart/form-data" class="form pocket-form">
+		<div class="pocket-input-container" >
+			<div>
+				<h1>포켓몬스터  신규 등록</h1>
+			</div>
+			<div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 번호</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketNo"  class="form-input" >
+						<span class="valid-message">사용 가능 번호입니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>
+						<span class="invalid-message2">이미 사용중인 번호입니다!</span>
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 이름</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketName"  class="form-input">
+						<span class="valid-message">사용 가능한 이름입니다!</span>
+						<span class="invalid-message2">이미 사용중인 이름입니다!</span>						
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 기본 종족치 (HP)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketBaseHp" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">0 이상의 숫자를 입력하세요!</span>						
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 기본 종족치 (공격)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketBaseAtk" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">0 이상의 숫자를 입력하세요!</span>						
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 기본 종족치 (방어)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketBaseDef"  class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">0 이상의 숫자를 입력하세요!</span>						
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 기본 종족치 (스피드)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketBaseSpd" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>						
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 기본 종족치 (특수공격)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketBaseSatk" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>	
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 기본 종족치 (특수방어)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketBaseSdef"  class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>	
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 노력치 (HP)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketEffortHp" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>	
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 노력치 (공격)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketEffortAtk"  class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>	
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 노력치 (방어)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketEffortDef" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>	
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 노력치 (스피드)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketEffortSpd" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>	
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 노력치 (특수공격)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketEffortSatk" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>	
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 노력치 (특수방어)</span>
+					</div>
+					<div class="pocket-input-box">
+						<input name="pocketEffortSdef" class="form-input">
+						<span class="valid-message">사용 가능합니다!</span>
+						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>	
+					</div>
+				</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 속성 1</span>
+					</div>
+						<div class="pocket-input-box">
+							<select name="typeJoinNo" class="form-input neutral">
+								<c:forEach var="i" begin="0" end="${typeList.size()-1}">
+									<option value="${typeList.get(i).pocketTypeNo}">${typeList.get(i).pocketTypeName}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+				<div>
+					<div class="pocket-input-box">
+						<span>포켓몬스터 속성 2</span>
+					</div>
+						<div class="pocket-input-box">
+							<select name="typeJoinNo2" class="form-input neutral">
+								<c:forEach var="i" begin="0" end="${typeList.size()-1}">
+									<option value="${typeList.get(i).pocketTypeNo}">${typeList.get(i).pocketTypeName}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<div>
+						<div class="pocket-input-box">
+							<span>포켓몬스터 이미지(png, gif, jpg)</span>
+						</div>
+						<div class="pocket-input-box">
+							<input type="file" name="attach" accept=".png, .gif, .jpg" class="form-input">
+						</div>
+					</div>
+					<div>
+						<button class="form-btn positive">입력 완료</button>
+					</div>
+				</div>
+			</div>
+	</form>
+		</article>
+	
+</section>	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

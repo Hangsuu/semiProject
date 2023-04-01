@@ -71,6 +71,13 @@ public class PocketmonRestController {
 		return dto;
 	}
 
-
+	@GetMapping("/pocketNo/{pocketNo}")
+	public String findPocketNo (@PathVariable int pocketNo) {
+		return pocketmonDao.selectOne(pocketNo)==null?"Y":"N";
+	}
+	@GetMapping("/pocketName/{pocketName}")
+	public String findPocketName (@PathVariable String pocketName) {
+		return pocketmonDao.selectNameOne(pocketName)==null?"Y":"N";
+	}
 
 }

@@ -13,6 +13,16 @@
 		<!-- 검색창  -->
 			<div class="row center mb-30" >
 			<h1 class="mb-20">포켓몬 도감</h1>
+			
+				<c:if test="${sessionScope.memberLevel=='관리자' }">
+					<div class="pocket-insert-btn">
+						<a href="insert" class="form-btn positive" >포켓몬스터 신규 등록</a>
+					</div>
+					<div class="pocket-insert-btn">
+						<a href="/pockettype/list" class="form-btn positive" >포켓몬스터 타입 관리</a>
+					</div>
+				</c:if>
+			
 				<form action="list" method="get">
 					<c:choose>
 						<c:when test="${vo.column =='pocket_no'}">
@@ -139,6 +149,15 @@
 		        	</div>
 		        </c:otherwise>
 			</c:choose>
+	
+	<c:if test="${sessionScope.memberLevel=='관리자' }">
+		<div class="pocket-insert-btn">
+			<a href="insert" class="form-btn positive" >포켓몬스터 신규 등록</a>
+		</div>
+		<div class="pocket-insert-btn">
+			<a href="/pockettype/list" class="form-btn positive" >포켓몬스터 타입 관리</a>
+		</div>
+	</c:if>
 	
 	<!-- 페이지 네이션 -->
 	<c:if test="${!list3.isEmpty()}">

@@ -140,6 +140,13 @@ public class PocketmonDao {
 		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	//포켓몬스터 정보 상세조회
+	public PocketmonDto selectNameOne(String pocketName) {
+		String sql = "select * from pocketmon where pocket_name=? ";
+		Object [] param = {pocketName};
+		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
 	
 	//포켓몬스터 정보 삭제
 	public boolean delete(int pocketNo) {

@@ -32,7 +32,10 @@ $(function(){
 			<div class="align-center"><i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i></div>
 		</div>
 		<div class="float-right remain-box" style="width:95%">
-			<div class="row reply-writer"></div>
+			<div class="float-box>
+				<div class="row reply-writer float-left"></div>
+				<div class="row float-right reply-like"><i class="fa-regular fa-heart" style="color:red"></i></div>
+			</div>
 			<div class="row reply-time"></div>
 			<div class="row reply-content"></div>
 		</div>

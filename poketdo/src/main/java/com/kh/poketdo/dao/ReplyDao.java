@@ -34,6 +34,7 @@ public class ReplyDao {
         .replyContent(rs.getString("reply_content"))
         .replyTime(rs.getDate("reply_time"))
         .replyGroup(rs.getInt("reply_group"))
+        .replyLike(rs.getInt("reply_like"))
         .build();
   };
 
@@ -108,5 +109,12 @@ public class ReplyDao {
   public int sequence() {
     String sql = "select reply_seq.nextval from dual";
     return jdbcTemplate.queryForObject(sql, int.class);
+  }
+  
+  //좋아요 개수 입력
+  public void likeSet(int replyNo, int likeCount) {
+	  String sql = "update reply set reply_like=? where reply_no=? ";
+	  Object[] param = {likeCount, replyNo};
+	  jdbcTemplate.update(sql, param);
   }
 }

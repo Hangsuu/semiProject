@@ -27,7 +27,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
-    <title>Document</title>
+    <title>세미프로젝트 A조 POCKETDO!</title>
   </head>
   <body>
     <main>
@@ -46,7 +46,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		</c:choose>
      </div>
 	<div style="display:inline-block">
-		<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
+		<c:if test="${sessionScope.memberId != null}">
+			<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
+		</c:if>
 	</div>
 	<div style="display:inline-block">
 		<c:if test="${sessionScope.memberId != null}">
@@ -59,7 +61,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		</c:if>
 	</div>
 	<div style="display:inline-block" class="me-30">
-		<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+		<c:if test="${sessionScope.memberId != null}">
+			<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+		</c:if>
 	</div>
 </div>
       <%-- base.css --%>

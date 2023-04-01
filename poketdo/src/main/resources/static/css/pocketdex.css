@@ -272,110 +272,186 @@
 	background-color: #FFF4FF;
 }
 
-.pdc-color1>div>.left>i, .pdc-color1>div>.right>i {
+.pdc-color1 .icon-color i{
 	color: #CCCCCC;
 	font-size: 4em;
 }
 
-.pdc-color2>div>.left>i, .pdc-color2>div>.right>i, .pdc-color2>div>.detail-list-icon>i
-	{
+.pdc-color2 .icon-color i{
 	color: #FFD999;
 	font-size: 4em;
 }
 
-.pdc-color3>div>.left>i, .pdc-color3>div>.right>i, .pdc-color3>div>.detail-list-icon>i
-	{
+.pdc-color3 .icon-color i	{
 	color: #B2D7FF;
 	font-size: 4em;
 }
 
-.pdc-color4>div>.left>i, .pdc-color4>div>.right>i, .pdc-color4>div>.detail-list-icon>i
-	{
+.pdc-color4 .icon-color i	{
 	color: #E5CFB2;
 	font-size: 4em;
 }
 
-.pdc-color5>div>.left>i, .pdc-color5>div>.right>i, .pdc-color5>div>.detail-list-icon>i
-	{
+.pdc-color5 .icon-color i	{
 	color: #DAD7BD;
 	font-size: 4em;
 }
 
-.pdc-color6>div>.left>i, .pdc-color6>div>.right>i, .pdc-color6>div>.detail-list-icon>i
-	{
+.pdc-color6 .icon-color i	{
 	color: #DAD7BD;
 	font-size: 4em;
 }
 
-.pdc-color7>div>.left>i, .pdc-color7>div>.right>i, .pdc-color7>div>.detail-list-icon>i
-	{
+.pdc-color7 .icon-color i	{
 	color: #EAECAB;
 	font-size: 4em;
 }
 
-.pdc-color8>div>.left>i, .pdc-color8>div>.right>i, .pdc-color8>div>.detail-list-icon>i
-	{
+.pdc-color8 .icon-color i	{
 	color: #D7BFD8;
 	font-size: 4em;
 }
 
-.pdc-color9>div>.left>i, .pdc-color9>div>.right>i, .pdc-color9>div>.detail-list-icon>i
-	{
+.pdc-color9 .icon-color i	{
 	color: #B0D4E7;
 	font-size: 4em;
 }
 
-.pdc-color10>div>.left>i, .pdc-color10>div>.right>i, .pdc-color10>div>.detail-list-icon>i
-	{
+.pdc-color10 .icon-color i	{
 	color: #FFB299;
 	font-size: 4em;
 }
 
-.pdc-color11>div>.left>i, .pdc-color11>div>.right>i, .pdc-color11>div>.detail-list-icon>i
+.pdc-color11 .icon-color i
 	{
 	color: #99CAFF;
 	font-size: 4em;
 }
 
-.pdc-color12>div>.left>i, .pdc-color12>div>.right>i, .pdc-color12>div>.detail-list-icon>i
+ .pdc-color12 .icon-color i
 	{
 	color: #B7EEA9;
 	font-size: 4em;
 }
 
-.pdc-color13>div>.left>i, .pdc-color13>div>.right>i, .pdc-color13>div>.detail-list-icon>i
-	{
+.pdc-color13 .icon-color i	{
 	color: #FFF199;
 	font-size: 4em;
 }
 
-.pdc-color14>div>.left>i, .pdc-color14>div>.right>i, .pdc-color14>div>.detail-list-icon>i
-	{
+.pdc-color14 .icon-color i	{
 	color: #FF99AB;
 	font-size: 4em;
 }
 
-.pdc-color15>div>.left>i, .pdc-color15>div>.right>i, .pdc-color15>div>.detail-list-icon>i
-	{
+.pdc-color15 .icon-color i	{
 	color: #99EAFF;
 	font-size: 4em;
 }
 
-.pdc-color16>div>.left>i, .pdc-color16>div>.right>i, .pdc-color16>div>.detail-list-icon>i
-	{
+.pdc-color16 .icon-color i	{
 	color: #ACB3EB;
 	font-size: 4em;
 }
 
-.pdc-color17>div>.left>i, .pdc-color17>div>.right>i, .pdc-color17>div>.detail-list-icon>i
-	{
+.pdc-color17 .icon-color i	{
 	color: #CEC9C9;
 	font-size: 4em;
 }
 
-.pdc-color18>div>.left>i, .pdc-color18>div>.right>i, .pdc-color18>div>.detail-list-icon>i
-	{
+.pdc-color18 .icon-color i	{
 	color: #FFCCFF;
+	font-size: 4em;
+}
+.pdc-color1 .icon-color:hover i{
+	color: #999999;
+	font-size: 4em;
+}
+
+.pdc-color2 .icon-color:hover i{
+	color: #FFA202;
+	font-size: 4em;
+}
+
+.pdc-color3 .icon-color:hover i{
+	color: #95C9FF;
+	font-size: 4em;
+}
+
+.pdc-color4 .icon-color:hover i{
+	color: #994DCF;
+	font-size: 4em;
+}
+
+.pdc-color5 .icon-color:hover i{
+	color: #AB7939;
+	font-size: 4em;
+}
+
+.pdc-color6 .icon-color:hover i{
+	color: #BCB889;
+	font-size: 4em;
+}
+
+.pdc-color7 .icon-color:hover i{
+	color: #9FA424;
+	font-size: 4em;
+}
+
+.pdc-color8 .icon-color:hover i{
+	color: #6E4570;
+	font-size: 4em;
+}
+
+.pdc-color9 .icon-color:hover i{
+	color: #6AAED3;
+	font-size: 4em;
+}
+
+.pdc-color10 .icon-color:hover i{
+	color: #FF612C;
+	font-size: 4em;
+}
+
+.pdc-color11 .icon-color:hover i
+	{
+	color: #2992FF;
+	font-size: 4em;
+}
+
+ .pdc-color12 .icon-color:hover i
+	{
+	color: #42BF24;
+	font-size: 4em;
+}
+
+.pdc-color13 .icon-color:hover i{
+	color: #FFDB00;
+	font-size: 4em;
+}
+
+.pdc-color14 .icon-color:hover i{
+	color: #FF637F;
+	font-size: 4em;
+}
+
+.pdc-color15 .icon-color:hover i{
+	color: #42D8FF;
+	font-size: 4em;
+}
+
+.pdc-color16 .icon-color:hover i{
+	color: #5462D6;
+	font-size: 4em;
+}
+
+.pdc-color17 .icon-color:hover i{
+	color: #4F4747;
+	font-size: 4em;
+}
+
+.pdc-color18 .icon-color:hover i{
+	color: #FFB1FF;
 	font-size: 4em;
 }
 
@@ -389,8 +465,9 @@
 .pocket-detail-container {
 	position: relative;
 	width: 900px;
-	height: 1100px;
+	height: 1200px;
 	border-radius: 25px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }
 
 .pocket-detail-container>div {
@@ -408,71 +485,80 @@
 	position: absolute;
 	display: block;
 	left: 30px;
-	top: 230px;
+	top: 185px;
+	text-align: left;
 }
-.pocket-detail-container > div > .left-text > span {
+.pocket-detail-container > div > .left-text > span:nth-child(1) {
 	font-weight: 300;
-	font-size: 25px;
+	font-size: 20px;
 	color: #808080;
+}
+.pocket-detail-container > div > .left-text > span:nth-child(2) {
+	font-weight: 400;
+	font-size: 30px;
+	display:block;
 }
 .pocket-detail-container > div > .right-text {
 	position: absolute;
 	display: block;
 	right: 30px;
-	top: 230px;
+	top: 185px;
+	text-align: right;
 }
-.pocket-detail-container > div > .right-text > span {
+.pocket-detail-container > div > .right-text > span:nth-child(1) {
 	font-weight: 300;
-	font-size: 25px;
+	font-size: 20px;
 	color: #808080;
+}
+.pocket-detail-container > div > .right-text > span:nth-child(2) {
+	font-weight: 400;
+	font-size: 30px;
+	display:block;
 }
 .pocket-detail-container > div > .left {
 	position: absolute;
-	width: 30px;
-	height: 30px;
-	top: 300px;
-	left: 50px;
+	width: 90px;
+	height: 90px;
+	top: 260px;
+	left: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: white;
 }
 
 .pocket-detail-container > div >.right {
 	position: absolute;
-	width: 30px;
-	height: 30px;
-	right:50px;
-	top: 300px; 
+	width: 90px;
+	height: 90px;
+	right:20px;
+	top: 260px; 
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: white;
 }
 
 .pocket-detail-container>div>.detail-image {
-	width: 350px;
-	height: 500px;
+	width: 400px;
+	height: 550px;
 	border-radius: 25px;
 	background-color: white;
 	border: 2px solid #E5E5E5;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 	display: flex;
-	padding: 5%;
 	overflow: hidden;
 	flex-direction: column;
 	text-align: center;
 	margin-top: 50px;
 }
-
+/* 이미지 패딩 */
 .pocket-detail-container>div>.detail-image>img {
-	margin-bottom: 50px;
+	padding :8%;
 }
 
 .pocket-detail-container>div>.detail-data {
 	position:relative;
 	width: 700px;
-	height: 350px;
+	height: 380px;
 	border: 2px solid #E5E5E5;
 	border-radius: 25px;
 	background-color: white;
@@ -486,8 +572,8 @@
 /*타입*/
 .detail-data>div:nth-child(1) {
 	position: absolute;
-	left:25px;
-	top:15px;
+	left:50px;
+	top:25px;
 	width: 150px;
 	height: 30px;
 	display: flex;
@@ -504,8 +590,8 @@
 /*이미지 */
 .detail-data>div:nth-child(2) {
 	position: absolute;
-	left:25px;
-	top:50px;
+	left:50px;
+	top:60px;
 	width: 150px;
 	height: 100px;
 	display: flex;
@@ -514,46 +600,60 @@
 /*종족값*/
 .detail-data>div:nth-child(3) {
 	position: absolute;
-	left:25px;
-	top:160px;
-	width: 150px;
+	left:50px;
+	top:170px;
+	width: 650px;
 	height: 30px;
 	display: flex;
 }
-/*종족값 데이터*/
-.detail-data>div:nth-child(4) {
-	position: absolute;
-	left:25px;
-	top:190px;
-	width: 150px;
+
+.detail-data .basic-data div{
+	width: 650px;
 	height: 30px;
 	display: flex;
+	justify-content: space-around;
+	align-items: center;
 }
-.detail-data .basic-data{
+/*종족값 글씨속성*/
+.detail-data .basic > span {
 	font-weight: 300;
 	font-size: 20px;
-	display: block;
 	color: #808080;
-	text-align: center;
+}
+
+/*종족값 데이터 글씨 속성*/
+.detail-data .basic-data span {
+	display:inline-block;
+	width:15%;
 }
 
 /*기본노력치 데이터*/
 .detail-data>div:nth-child(4) {
 	position: absolute;
-	left:25px;
-	top:220px;
-	width: 150px;
+	left:50px;
+	top:270px;
+	width: 650px;
 	height: 30px;
 	display: flex;
 }
-.detail-data .effort-data{
-	font-weight: 300;
-	font-size: 20px;
-	display: block;
-	color: #808080;
-	text-align: center;
+.detail-data .effort-data div{
+	width: 650px;
+	height: 30px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
 }
 
+/*기본노력치 글씨속성*/
+.detail-data .effort > span {
+	font-weight: 300;
+	font-size: 20px;
+	color: #808080;
+}
+.detail-data .effort-data span {
+	display:inline-block;
+	width:15%;
+}
 
 .detail-image>.name {
 	font-weight: 500;
@@ -570,33 +670,22 @@
 	text-align: center;
 }
 
-.pocket-detail-container>div>.detail-list-icon {
-	width: 50px;
-	height: 50px;
+.pocket-detail-container .bottom-icons{
 	display: flex;
-	flex-direction: column;
-	text-align: center;
-	justify-content: center;
+	justify-content: space-around;
 }
-.pocket-detail-container > div > .menu-text {
-	width: 50px;
+
+.pocket-detail-container .bottom-icons>div {
+	width: 120px;
 	height: 50px;
 	display: flex;
 	flex-direction: column;
 	text-align: center;
 	justify-content: center;
+	margin-top:60px;
+}
+.bottom-icons>div > i {
 	margin-top:10px;
-}
-
-.pocket-detail-container>div>.detail-list-icon>i {
-	display: flex;
-	text-align: center;
-}
-
-.detail-data .basic {
-	font-weight: 300;
-	font-size: 20px;
-	color: #808080;
 }
 
 .type-image-container {
@@ -625,3 +714,8 @@
 	width: 60px;
 	height: 60px;
 }
+
+
+
+
+

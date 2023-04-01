@@ -126,7 +126,7 @@ public class PocketmonService {
 	    
 	    // 타입이 포함된 pocketmonWithType들이 담긴 list(model에 첨부)
 	    List<PocketmonWithTypesVO> list3 = new ArrayList<>();
-	 
+	    
 	    for (PocketmonWithImageDto dto : list) {
 	      // 해당 포켓몬이 가진 속성들을 저장한 속성list (정규화)
 	      List<PocketmonJoinTypeDto> list2 = 
@@ -149,28 +149,28 @@ public class PocketmonService {
 	          .builder()
 	          .pocketNo(dto.getPocketNo())
 	          .pocketName(dto.getPocketName())
-	          .pocketBaseHp(dto.getPocketEffortHp())
+	          .pocketBaseHp(dto.getPocketBaseHp())
 	          .pocketBaseAtk(dto.getPocketBaseAtk())
 	          .pocketBaseDef(dto.getPocketBaseDef())
 	          .pocketBaseSpd(dto.getPocketBaseSpd())
 	          .pocketBaseSatk(dto.getPocketBaseSatk())
+	          .pocketBaseSdef(dto.getPocketBaseSdef())
 	          .pocketEffortHp(dto.getPocketEffortHp())
 	          .pocketEffortAtk(dto.getPocketEffortAtk())
 	          .pocketEffortDef(dto.getPocketEffortDef())
 	          .pocketEffortSpd(dto.getPocketEffortSpd())
 	          .pocketEffortSatk(dto.getPocketEffortSatk())
-	          .pocketBaseSdef(dto.getPocketEffortSdef())
+	          .pocketEffortSdef(dto.getPocketEffortSdef())
 	          .pocketTypes(typeList)
 	          .pocketTypeNoes(typeNoList)
 	          .imageURL(imageDto.getImageURL())
 	          .build()
 	      );
 	    }
-	    
 	    return list3;
 	}
 	
-	//포켓몬 전체 속성 불러오기
+	//포켓몬 속성 불러오기
 		public List<PocketmonWithTypesVO> pocketmonTypeSelect(int pocketNo){
 			
 			// 포켓몬들이 전부 들어있는 list
@@ -201,17 +201,18 @@ public class PocketmonService {
 		          .builder()
 		          .pocketNo(dto.getPocketNo())
 		          .pocketName(dto.getPocketName())
-		          .pocketBaseHp(dto.getPocketEffortHp())
+		          .pocketBaseHp(dto.getPocketBaseHp())
 		          .pocketBaseAtk(dto.getPocketBaseAtk())
 		          .pocketBaseDef(dto.getPocketBaseDef())
 		          .pocketBaseSpd(dto.getPocketBaseSpd())
 		          .pocketBaseSatk(dto.getPocketBaseSatk())
+		          .pocketBaseSdef(dto.getPocketBaseSdef())
 		          .pocketEffortHp(dto.getPocketEffortHp())
 		          .pocketEffortAtk(dto.getPocketEffortAtk())
 		          .pocketEffortDef(dto.getPocketEffortDef())
 		          .pocketEffortSpd(dto.getPocketEffortSpd())
 		          .pocketEffortSatk(dto.getPocketEffortSatk())
-		          .pocketBaseSdef(dto.getPocketEffortSdef())
+		          .pocketEffortSdef(dto.getPocketEffortSdef())
 		          .pocketTypes(typeList)
 		          .pocketTypeNoes(typeNoList)
 		          .imageURL(imageDto.getImageURL())

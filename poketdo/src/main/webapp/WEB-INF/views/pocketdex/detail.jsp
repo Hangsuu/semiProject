@@ -3,6 +3,41 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<script type="text/javascript">
+	$(function(){
+		$(".left").mouseenter(function() {
+			$(this).find("i").addClass('fa-shake');
+		}).mouseleave(function(){
+			$(this).find("i").removeClass('fa-shake');
+		});
+		$(".right").mouseenter(function() {
+			$(this).find("i").addClass('fa-shake');
+		}).mouseleave(function(){
+			$(this).find("i").removeClass('fa-shake');
+		});
+		$(".bottom-list-icon").mouseenter(function() {
+			$(this).find("i").addClass('fa-beat');
+		}).mouseleave(function(){
+			$(this).find("i").removeClass('fa-beat');
+		});
+		$(".bottom-edit-icon").mouseenter(function() {
+			$(this).find("i").addClass('fa-beat');
+		}).mouseleave(function(){
+			$(this).find("i").removeClass('fa-beat');
+		});
+		$(".bottom-delete-icon").mouseenter(function() {
+			$(this).find("i").addClass('fa-beat');
+		}).mouseleave(function(){
+			$(this).find("i").removeClass('fa-beat');
+		});
+		
+		
+		
+		
+		
+	});	
+	
+</script>
 
 <section class="container-1200 flex-box">
 
@@ -12,16 +47,37 @@
 		<div class="pocket-detail-container pdc-color${list.get(0).getPocketTypeNoes().get(0)}">
 			<div class="detail-image-container">
 				<div class="left-text">
-					<span>No.0${pocketmonWithImageDto.pocketNo-1}</span>
+					
+					<c:choose>
+						<c:when test="${prev.isEmpty()}">
+							<span>No.0${list3.get(list3.size()-1).pocketNo}</span>
+							<span>${list3.get(list3.size()-1).pocketName}</span>
+						</c:when>
+						<c:otherwise>
+							<span>No.0${prev.get(0).pocketNo}</span>
+							<span>${prev.get(0).pocketName}</span>
+						</c:otherwise>
+					</c:choose>
+
 				</div>
 				<div class="right-text">
-					<span>No.0${pocketmonWithImageDto.pocketNo}</span>
+				
+					<c:choose>
+						<c:when test="${next.isEmpty()}">
+							<span>No.0${list3.get(0).pocketNo}</span>
+							<span>${list3.get(0).pocketName}</span>
+						</c:when>
+						<c:otherwise>
+							<span>No.0${next.get(0).pocketNo}</span>
+							<span>${next.get(0).pocketName}</span>
+						</c:otherwise>
+					</c:choose>
 				</div>
-				<div class="left">
-					<i class="fa-solid fa-circle-chevron-left fa-2xl" ></i>
+				<div class="left icon-color">
+					<i class="fa-solid fa-circle-chevron-left"></i>
 				</div>
-				<div class="right">
-					<i class="fa-solid fa-circle-chevron-right fa-2xl" ></i>
+				<div class="right icon-color">
+					<i class="fa-solid fa-circle-chevron-right"></i>
 				</div>
 				<div class="detail-image">
 					<img src="${pocketmonWithImageDto.imageURL}">
@@ -54,25 +110,71 @@
 							</div>
 						</div>
 					</div>
-						<div>
-							<span class="basic">종족값</span>
+					<div>
+						<div class="basic-container">
+							<div class="basic">
+								<span>종족값</span>
+							</div>
+							<div class="basic-data">
+								<div>
+									<span>체력</span>
+									<span>공격</span>
+									<span>방어</span>
+									<span>특수공격</span>
+									<span>특수방어</span>
+									<span>스피드</span>
+								</div>
+								<div>
+									<span>${pocketmonWithImageDto.pocketBaseHp}</span>
+									<span>${pocketmonWithImageDto.pocketBaseAtk}</span>
+									<span>${pocketmonWithImageDto.pocketBaseDef}</span>
+									<span>${pocketmonWithImageDto.pocketBaseSpd}</span>
+									<span>${pocketmonWithImageDto.pocketBaseSatk}</span>
+									<span>${pocketmonWithImageDto.pocketBaseSdef}</span>
+								</div>
+							</div>
 						</div>
-						<div>
-							<span class="basic-data">종족값</span>
+					</div>
+					<div>
+						<div class="effort-container">
+							<div class="effort">
+								<span>기본 노력치</span>
+							</div>
+							<div class="effort-data">
+								<div>
+									<span>체력</span>
+									<span>공격</span>
+									<span>방어</span>
+									<span>특수공격</span>
+									<span>특수방어</span>
+									<span>스피드</span>
+								</div>
+								<div>
+									<span>${pocketmonWithImageDto.pocketEffortHp}</span>
+									<span>${pocketmonWithImageDto.pocketEffortAtk}</span>
+									<span>${pocketmonWithImageDto.pocketEffortDef}</span>
+									<span>${pocketmonWithImageDto.pocketEffortSpd}</span>
+									<span>${pocketmonWithImageDto.pocketEffortSatk}</span>
+									<span>${pocketmonWithImageDto.pocketEffortSdef}</span>
+								</div>
+							</div>
 						</div>
-						<div>
-							<span class="effort">기본 노력치</span>
-						</div>
-						<div>
-							<span class="effort-data">체력</span>
-						</div>
-						<div></div>
+					</div>
 				</div>
-				<div class="menu-text">
-					<span>메뉴</span>
-				</div>
-				<div class="detail-list-icon">
-					<i class="fa-solid fa-bars fa-2xs"></i>
+				<div class="bottom-icons">
+					<div class="bottom-list-icon icon-color">
+						<span>목록</span>
+						<i class="fa-solid fa-bars "></i>
+					</div>
+					
+					<div class="bottom-edit-icon icon-color">
+						<span>수정</span>
+						<i class="fa-solid fa-pen-to-square "></i>
+					</div>
+					<div class="bottom-delete-icon icon-color">
+						<span>삭제</span>
+						<i class="fa-solid fa-trash-can " ></i>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -139,15 +139,23 @@ public class PocketmonController {
 
   //포켓몬스터 정보 상세
   @GetMapping("/detail")
-  public String detail(Model model, @RequestParam int pocketNo) {
-	  model.addAttribute("pocketmonWithImageDto", pocketmonWithImageDao.selectOne(pocketNo));
+  public String detail(
+		  Model model, 
+		  @RequestParam int pocketNo
+		  ) {
 	  List<PocketmonWithTypesVO> list = pocketmonService.pocketmonTypeSelect(pocketNo);
-	  model.addAttribute("list" , list);
 	  List<String> list2 = new ArrayList<>();
+	  List<PocketmonDto> list3 = pocketmonDao.selectList();
 	  for(int i=0; i<list.get(0).getPocketTypeNoes().size(); i++) {
 		 list2.add(pocketmonTypeWithImageDao.selectOne(list.get(0).getPocketTypeNoes().get(i)).getImageURL());
 	  }
+	  model.addAttribute("pocketmonWithImageDto", pocketmonWithImageDao.selectOne(pocketNo));
+	  model.addAttribute("prev", pocketmonDao.selectPrevOne(pocketNo));
+	  model.addAttribute("next", pocketmonDao.selectNextOne(pocketNo));
+	  model.addAttribute("list" , list);
 	  model.addAttribute("list2", list2);
+	  model.addAttribute("list3", list3);
+    
 	  return "/WEB-INF/views/pocketdex/detail.jsp";
   }
   

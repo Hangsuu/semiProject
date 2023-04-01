@@ -8,14 +8,14 @@
 
 	<aside></aside>
 	
-	<article class="mt-50">
+	<article class="mt-50 container-1200">
 
 		<!-- 검색창  -->
 			<div class="row center mb-30" >
 			<h1 class="mb-20">포켓몬 도감</h1>
 				<form action="list" method="get">
 					<c:choose>
-						<c:when test="${vo.column =='pocket_name'}">
+						<c:when test="${vo.column =='pocket_no'}">
 							<select name="column" class="form-input">
 								<option value="pocket_name"  >이름</option>
 								<option value="pocket_no" selected>번호</option>
@@ -34,7 +34,8 @@
 		
 				</form>
 			</div>
-
+	<!-- 페이지 네이션 -->
+	<c:if test="${!list3.isEmpty()}">
 		<div class="row pagination mb-50" >
 		
 			<c:choose>
@@ -93,46 +94,54 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
+		</c:if>
 			
-			
-		    <ul class="pocket-ul">
-		<c:forEach var="pocketmonDto"  items="${list3}">
-			
-			 <a href="detail?pocketNo=${pocketmonDto.pocketNo}" class="pocket-box-a">
-			  <li class="pocket-li row">
-			    <div class="pocket-box">
-			      <div></div>
-			      <div></div>
-			      <div class="image-container">
-			          <img src="${pocketmonDto.imageURL}">
-			      </div>
-			    </div>
-			    <div class="pocket-data">
-			      <h4>No.0${pocketmonDto.pocketNo}</h4>
-			      <h3>${pocketmonDto.pocketName}</h3>
-			   		   <div>
-	    					<c:forEach var="i" begin="0" end="${pocketmonDto.getPocketTypes().size()-1}">
-								<c:choose>
-									<c:when test="${pocketmonDto.getPocketTypes().get(i).equals('없음')}">
-									</c:when>
-									<c:otherwise>
-										<div class="type-back-color${pocketmonDto.getPocketTypeNoes().get(i)} ">
-											<span>
-												${pocketmonDto.getPocketTypes().get(i)}
-											</span>
+			<c:choose>
+				<c:when test="${!list3.isEmpty()}">
+				    <ul class="pocket-ul">
+						<c:forEach var="pocketmonDto"  items="${list3}">
+							 <a href="detail?pocketNo=${pocketmonDto.pocketNo}" class="pocket-box-a">
+							  <li class="pocket-li row">
+							    <div class="pocket-box">
+							      <div></div>
+							      <div></div>
+							      <div class="image-container">
+							          <img src="${pocketmonDto.imageURL}">
+							      </div>
+							    </div>
+							    <div class="pocket-data">
+							      <h4>No.0${pocketmonDto.pocketNo}</h4>
+							      <h3>${pocketmonDto.pocketName}</h3>
+							   		   <div>
+					    					<c:forEach var="i" begin="0" end="${pocketmonDto.getPocketTypes().size()-1}">
+												<c:choose>
+													<c:when test="${pocketmonDto.getPocketTypes().get(i).equals('없음')}">
+													</c:when>
+													<c:otherwise>
+														<div class="type-back-color${pocketmonDto.getPocketTypeNoes().get(i)} ">
+															<span>
+																${pocketmonDto.getPocketTypes().get(i)}
+															</span>
+														</div>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
 										</div>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</div>
-			    </div>
-			  </li>
-			  </a>
-			  
-		</c:forEach>
-	        </ul>
-
+							    </div>
+							  </li>
+							  </a>
+						</c:forEach>
+			        </ul>
+		        </c:when>
+		        <c:otherwise>
+		        	<div style=" text-align: center; margin:200px;">
+		        		<span>검색 결과가 없습니다.</span>
+		        	</div>
+		        </c:otherwise>
+			</c:choose>
 	
+	<!-- 페이지 네이션 -->
+	<c:if test="${!list3.isEmpty()}">
 		<div class="row pagination mb-30 mt-50" >
 		
 			<c:choose>
@@ -191,12 +200,12 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			
+		</c:if>
 			<!-- 검색창  -->
 			<div class="row center mb-30" >
 				<form action="list" method="get">
 					<c:choose>
-						<c:when test="${vo.column =='pocket_name'}">
+						<c:when test="${vo.column =='pocket_no'}">
 							<select name="column" class="form-input">
 								<option value="pocket_name"  >이름</option>
 								<option value="pocket_no" selected>번호</option>
@@ -204,7 +213,7 @@
 						</c:when>
 						<c:otherwise>
 							<select name="column" class="form-input">
-								<option value="pocket_name" selected >이름</option>
+								<option value="pocket_name"  selected>이름</option>
 								<option value="pocket_no" >번호</option>
 							</select>
 						</c:otherwise>

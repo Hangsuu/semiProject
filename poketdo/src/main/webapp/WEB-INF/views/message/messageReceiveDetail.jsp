@@ -5,13 +5,13 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <script>
-  const messageNo = parseInt("${messageDto.getMessageNo()}");
-  const messageSender = "${messageDto.getMessageSender()}";
+  const messageNo = parseInt("${messageWithNickDto.getMessageNo()}");
+  const messageSender = "${messageWithNickDto.getMessageSender()}";
 </script>
 <script src="/static/js/message/messageReceiveDetail.js"></script>
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
     <div>
-      <h1>${messageDto.getMessageTitle()}</h1>
+      <h1>${messageWithNickDto.getMessageTitle()}</h1>
     </div>
     <hr/>
     <div class="row flex">
@@ -28,15 +28,15 @@
     <hr/>
     <div class="row">
       <b>보낸사람</b> 
-      ${messageDto.getMessageSender()} [<fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/>]
+      ${messageWithNickDto.getMessageSenderNick()}(${messageWithNickDto.getMessageSender().length() < 5 ?messageWithNickDto.getMessageSender():messageWithNickDto.getMessageSender().substring(0,4).concat("*".repeat(messageWithNickDto.getMessageSender().length()-4))}) [<fmt:formatDate value="${messageWithNickDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/>]
     </div>
     <div class="row">
       <b>받은사람</b> 
-      ${messageDto.getMessageRecipient()} [<fmt:formatDate value="${messageDto.getMessageReadTime()}" pattern="yyyy.MM.dd. H:m"/>]
+      ${messageWithNickDto.getMessageRecipientNick()}(${messageWithNickDto.getMessageRecipient()}) [<fmt:formatDate value="${messageWithNickDto.getMessageReadTime()}" pattern="yyyy.MM.dd. H:m"/>]
     </div>
     <hr/>
     <div class="row message-content" style="min-height: 200px;">
-      ${messageDto.getMessageContent()}
+      ${messageWithNickDto.getMessageContent()}
     </div>
     <hr/>
   </article>

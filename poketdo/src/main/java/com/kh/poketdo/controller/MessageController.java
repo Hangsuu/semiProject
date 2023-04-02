@@ -8,14 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.poketdo.dao.MessageDao;
 import com.kh.poketdo.dao.MessageWithNickDao;
 import com.kh.poketdo.dto.MessageDto;
-import com.kh.poketdo.vo.PaginationVO;
+import com.kh.poketdo.dto.MessageWithNickDto;
 
 @Controller
 @RequestMapping("/message")
@@ -52,14 +51,15 @@ public class MessageController {
       @RequestParam int messageNo,
       HttpSession session,
       Model model) {
-    String memberId = (String) session.getAttribute("memberId");
+    String memberId = session.getAttribute("memberId") == null ? null : (String) session.getAttribute("memberId");
 
     // 처음 읽었을 때 시간 기록
     messageDao.updateReceiveTime(messageNo, memberId);
 
     // 받은 메세지 1개 가져오기
-    MessageDto messageDto = messageDao.selectReceiveOne(messageNo, memberId);
-    model.addAttribute("messageDto", messageDto);
+    MessageWithNickDto messageWithNickDto = messageWithNickDao.selectReceiveMessage(messageNo, memberId);
+    model.addAttribute("messageWithNickDto", messageWithNickDto);
+
     return "/WEB-INF/views/message/messageReceiveDetail.jsp";
   }
 
@@ -69,9 +69,10 @@ public class MessageController {
       @RequestParam int messageNo,
       HttpSession session,
       Model model) {
-    String memberId = (String) session.getAttribute("memberId");
-    MessageDto messageDto = messageDao.selectSendOne(messageNo, memberId);
-    model.addAttribute("messageDto", messageDto);
+        String memberId = session.getAttribute("memberId") == null ? null : (String) session.getAttribute("memberId");
+
+    MessageWithNickDto messageWithNickDto = messageWithNickDao.selectSendMessage(messageNo, memberId);
+    model.addAttribute("messageWithNickDto", messageWithNickDto);
     return "/WEB-INF/views/message/messageSendDetail.jsp";
   }
 

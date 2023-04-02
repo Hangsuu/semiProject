@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class PocketmonTradeMember {
+public class PocketmonTradeMemberDto {
     private int pocketmonTradeNo;
     private int allboardNo;
     private String pocketmonTradeTitle;

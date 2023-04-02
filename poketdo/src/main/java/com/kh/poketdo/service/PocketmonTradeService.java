@@ -1,23 +1,31 @@
 package com.kh.poketdo.service;
 
-import com.kh.poketdo.dao.AllboardDao;
-import com.kh.poketdo.dao.PocketmonTradeDao;
-import com.kh.poketdo.dto.AllboardDto;
-import com.kh.poketdo.dto.PocketmonTradeDto;
-import com.kh.poketdo.vo.PaginationVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.kh.poketdo.dao.AllboardDao;
+import com.kh.poketdo.dao.PocketmonTradeDao;
+import com.kh.poketdo.dao.PocketmonTradeMemberDao;
+import com.kh.poketdo.dto.AllboardDto;
+import com.kh.poketdo.dto.PocketmonTradeDto;
+import com.kh.poketdo.dto.PocketmonTradeMemberDto;
+import com.kh.poketdo.vo.PocketmonTradePageVO;
 
 @Service
 public class PocketmonTradeService {
 
   @Autowired
   private PocketmonTradeDao pocketmonTradeDao;
+
+  @Autowired
+  private PocketmonTradeMemberDao pocketmonTradeMemberDao;
 
   @Autowired
   private AllboardDao allboardDao;
@@ -57,9 +65,10 @@ public class PocketmonTradeService {
   }
 
   // 포켓몬교환 공지글, 게시물 리스트
-  public List<PocketmonTradeDto> getPocketmonTradeList(PaginationVO pageVo) {
+  public List<PocketmonTradeMemberDto> getPocketmonTradeList(PocketmonTradePageVO pageVo) {
     pageVo.setCount(pocketmonTradeDao.getCount(pageVo));
-    List<PocketmonTradeDto> lists = pocketmonTradeDao.selectList(pageVo);
+    // List<PocketmonTradeDto> lists = pocketmonTradeDao.selectList(pageVo);
+    List<PocketmonTradeMemberDto> lists = pocketmonTradeMemberDao.selectList(pageVo);
     return lists;
   }
 

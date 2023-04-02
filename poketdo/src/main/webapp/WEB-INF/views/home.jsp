@@ -190,16 +190,6 @@
 								<c:if test="${auctionDto.auctionReply!=0}">(${auctionDto.auctionReply})</c:if>
 							</a>
 						</div>
-				<!-- 닉네임 및 즐겨찾기 -->
-						<div class="row flex-box">
-							<div>
-								${auctionDto.auctionWriter}
-							</div>
-							<div class="align-right">
-								<!-- 즐겨찾기 -->
-								<i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
-							</div>
-						</div>
 					</div>
 				</c:forEach>
 			<!-- If we need navigation buttons -->

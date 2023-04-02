@@ -41,6 +41,10 @@ public class PaginationVO {
     buffer.append(size);
     buffer.append("&tagList=");
     buffer.append(tagList);
+    buffer.append("&column=");
+    buffer.append(column);
+    buffer.append("&keyword=");
+    buffer.append(keyword);
     return buffer.toString();
   }
 

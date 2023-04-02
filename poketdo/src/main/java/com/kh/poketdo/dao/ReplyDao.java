@@ -36,12 +36,13 @@ public class ReplyDao {
         .replyContent(rs.getString("reply_content"))
         .replyTime(rs.getDate("reply_time"))
         .replyGroup(rs.getInt("reply_group"))
+        .replyLike(rs.getInt("reply_like"))
         .build();
   };
 
   public void insert(ReplyDto replyDto) {
-    String sql = "insert into reply(reply_no, reply_writer, reply_origin," +
-        "reply_content, reply_group) values(reply_seq.nextval,?,?,?,?)";
+    String sql = "insert into reply(reply_no, reply_writer, reply_origin, reply_time," +
+        "reply_content, reply_group) values(reply_seq.nextval,?,?,sysdate,?,?)";
     Object[] param = {
         replyDto.getReplyWriter(),
         replyDto.getReplyOrigin(),
@@ -59,6 +60,15 @@ public class ReplyDao {
     String sql = "SELECT * FROM reply where reply_origin=? CONNECT BY PRIOR reply_no = COALESCE(reply_group, 0) START WITH COALESCE(reply_group, 0) = 0 order siblings by reply_no ASC";
     Object[] param = { replyOrigin };
     return jdbcTemplate.query(sql, mapper, param);
+  }
+  public List<ReplyDto> selectLikeList(int replyOrigin){
+	  String sql="SELECT * FROM ("+
+				"SELECT tmp.*, rownum rn FROM ("+
+				"select * from reply where reply_origin=? and reply_like!=0 order by reply_like desc, reply_no asc"+
+				") tmp"+
+				") WHERE rn BETWEEN 1 AND 3";
+	  Object[] param= {replyOrigin};
+	  return jdbcTemplate.query(sql, mapper, param);
   }
 
   public void update(ReplyDto replyDto) {
@@ -112,5 +122,12 @@ public class ReplyDao {
   public int sequence() {
     String sql = "select reply_seq.nextval from dual";
     return jdbcTemplate.queryForObject(sql, int.class);
+  }
+  
+  //좋아요 개수 입력
+  public void likeSet(int replyNo, int likeCount) {
+	  String sql = "update reply set reply_like=? where reply_no=?";
+	  Object[] param = {likeCount, replyNo};
+	  jdbcTemplate.update(sql, param);
   }
 }

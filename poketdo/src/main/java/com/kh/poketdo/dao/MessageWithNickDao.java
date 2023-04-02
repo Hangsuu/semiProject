@@ -88,7 +88,7 @@ public class MessageWithNickDao {
             sql = "select * from (select rownum rn, tmp.* from (select * from message_with_nick where message_recipient = ? and message_recipient_store = 1 and message_read_time is null order by message_no desc) tmp) where rn between ? and ?";
             param = new Object[] { memberId, pageVo.getBegin(), pageVo.getEnd() };
         } else {
-            sql = "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade where message_recipient = ? and message_recipient_store = 1 and instr(#1, ?) > 0 and message_read_time is null order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
+            sql = "select * from (select rownum rn, tmp.* from (select * from message_with_nick where message_recipient = ? and message_recipient_store = 1 and instr(#1, ?) > 0 and message_read_time is null order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
             sql = sql.replace("#1", pageVo.getColumn());
             param = new Object[] {
                     memberId,
@@ -98,6 +98,11 @@ public class MessageWithNickDao {
             };
         }
         return jdbcTemplate.query(sql, mapper, param);
+    }
+
+    // R 받은 메세지 + 닉네임 가져오기
+    public MessageWithNickDto selectReceiveMessage(int messageNo, String memberId) {
+        String sql = "select * from ";
     }
 
     // R 받은메세지 카운트 세기
@@ -150,4 +155,5 @@ public class MessageWithNickDao {
         }
         return cnt;
     }
+
 }

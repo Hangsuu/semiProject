@@ -45,8 +45,8 @@ public class MessageRestController {
 
   // 비동기 메세지 보내기(받는사람, 보내는사람, 제목, 내용을 입력받아 새로운 Message 생성)
   @PostMapping("/write")
-  public void insert(MessageDto messageDto) {
-    messageService.insert(messageDto);
+  public void insert(MessageDto messageDto,@RequestParam("recipients") List<String> recipients) {
+    messageService.insert(messageDto, recipients);
   }
 
   // S 받은메세지 + 보낸시간List

@@ -98,10 +98,10 @@ $(function () {
         // target 비우고 다시 로드
         $(".target").empty();
         for (let i = 0; i < messageList.length; i++) {
+          const message = messageList[i];
           if (mode === "new" && message.messageReadTime != null) {
             continue;
           }
-          const message = messageList[i];
           const sendTime = sendTimeList[i];
 
           var newReceiveMsgRow = $.parseHTML($("#receive-message-row").html());

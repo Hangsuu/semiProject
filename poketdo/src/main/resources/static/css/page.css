@@ -356,3 +356,17 @@ a.link:hover {
 #message-recipient-input {
   flex-grow: 1;
 }
+.message-recipient-ele {
+  min-height: 2.4em;
+  margin: 0.25em;
+  width: 22%;
+}
+.recipient-btn {
+  cursor: pointer;
+}
+.recipient-cnt {
+  color: forestgreen;
+}
+.red {
+  color: red;
+}

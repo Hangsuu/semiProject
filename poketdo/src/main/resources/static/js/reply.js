@@ -14,6 +14,7 @@ $(function(){
 				var nowTime = now.getTime();
 				//베스트 댓글
 				if(response.replyDto.length>3){
+					$(".reply-best-target").addClass("mt-30");
 					for(var i=0; i<response.replyLike.length; i++){
 						var template = $("#reply-template").html();
 						var html = $.parseHTML(template);
@@ -45,6 +46,10 @@ $(function(){
 						$(html).find(".reply-like-box").remove()
 						$(".reply-best-target").append(html);
 					}
+				}
+				else{
+					$(".reply-best-target").hide();
+					$(".reply-target").addClass("mt-30");
 				}
 				//댓글 리스트
 				for(var i=0; i<response.replyDto.length; i++){

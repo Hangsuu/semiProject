@@ -130,7 +130,7 @@ $(function(){
 	<div class="row reply-target">
 	</div>
 	<!-- 신청 -->
-	<div class="row">
+	<div class="row mt-30">
 		<textarea class="form-input w-100 summernote-reply reply-textarea"></textarea>
 	</div>
 <!-- 댓글 끝 -->

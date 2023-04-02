@@ -252,9 +252,13 @@ $(function(){
 				for(var i=0; i<response.list.length; i++){
 					var template = $("#list-template").html();
 					var html = $.parseHTML(template);
+					var reply = ""
+					if(response.list[i].combinationReply>0){
+						reply = " ("+response.list[i].combinationReply+")";
+					}
 					$(html).find(".list-no").text(response.list[i].combinationNo);
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
-							.text(response.list[i].combinationTitle);
+							.text("["+response.list[i].combinationType+"] "+response.list[i].combinationTitle+reply);
 					$(html).find(".list-writer").text(response.list[i].combinationWriter);
 					$(html).find(".list-time").text(response.list[i].combinationTime);
 					$(html).find(".list-like").text(response.list[i].combinationLike);
@@ -387,5 +391,10 @@ $(function(){
 	<div class="row center pagination">
 	</div>
 <!-- 페이지네이션 끝 -->
+	<div class="row">
+		<c:if test="${sessionScope.memberId!=null}">
+			<a href="write" class="form-btn neutral">글쓰기</a>
+		</c:if>
+	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

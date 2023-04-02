@@ -267,10 +267,18 @@ $(function(){
 <script type="text/template" id="reply-template">
 	<div class="row reply-box float-box" style="border-bottom:1px solid lightgray; margin:0">
 		<div class="float-left remove-box" style="min-height:100px; width:5%">
-			<div class="align-center"><i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i></div>
+			<div class="align-center">
+				<i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i>
+			</div>
 		</div>
 		<div class="float-right remain-box" style="width:95%">
-			<div class="row reply-writer"></div>
+			<div class="row float-box">
+				<div class="reply-writer float-left"></div>
+				<div class="float-right left reply-like-box">
+					<i class="fa-heart reply-like"></i>
+					<span class="reply-like-count"></span>
+				</div>
+			</div>
 			<div class="row reply-time"></div>
 			<div class="row reply-content"></div>
 		</div>
@@ -327,9 +335,12 @@ $(function(){
 	</div>
 	<div class="row">
 		<div class="float-box">
-			<div class="left">내용</div>
+			<div class="float-left">내용</div>
 	<!-- 좋아요 -->
-			<div class="right user-like"><i class="fa-regular fa-heart"></i></div>
+			<div class="float-right like-box" style="display:inline-block">
+				<i class="fa-heart detail-like"></i>
+				<span class="like-count"></span>
+			</div>
 		</div>
 		<div class="row form-input w-100" style="min-height:150px">
 		${raidDto.raidContent}

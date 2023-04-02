@@ -10,35 +10,47 @@ $(function(){
 			url:"/rest/reply/"+allboardNo,
 			method:"get",
 			success:function(response){
-				for(var i=0; i<response.length; i++){
+				for(var i=0; i<response.replyDto.length; i++){
 					var template = $("#reply-template").html();
 					var html = $.parseHTML(template);
-					var text = response[i].replyContent;
-					$(html).find(".reply-writer").text(response[i].replyWriter);
+					var text = response.replyDto[i].replyContent;
+					$(html).find(".reply-writer").text(response.replyDto[i].replyWriter);
 					$(html).find(".reply-content").html(text);
-					$(html).find(".reply-time").text(response[i].replyTime);
+					$(html).find(".reply-time").text(response.replyDto[i].replyTime);
 					
-					if(boardWriter==response[i].replyWriter){
+					if(boardWriter==response.replyDto[i].replyWriter){
 						var span = $("<span>").text("(글쓴이)").addClass("ms-10");
 						$(html).find(".reply-writer").append(span);
 					}
-					if(memberId==response[i].replyWriter){
+					if(memberId==response.replyDto[i].replyWriter){
 						var deletebtn = $("<i>").addClass("fa-solid fa-trash ms-10")
-								.attr("data-reply-no", response[i].replyNo).click(deleteReply);
+								.attr("data-reply-no", response.replyDto[i].replyNo).click(deleteReply);
 						var editbtn = $("<i>").addClass("fa-solid fa-edit ms-10")
-								.attr("data-reply-no", response[i].replyNo)
-								.attr("data-reply-content", response[i].replyContent).click(editReply);
+								.attr("data-reply-no", response.replyDto[i].replyNo)
+								.attr("data-reply-content", response.replyDto[i].replyContent).click(editReply);
 						$(html).find(".reply-writer").append(editbtn).append(deletebtn);
 					}
 					//답글달기 버튼
-					if(memberId && response[i].replyGroup==0){
+					if(memberId!=null && response.replyDto[i].replyGroup==0){
 						$(html).find(".remove-box").remove();
-						$(html).find(".remain-box").removeClass("w-90 float-right").addClass("w-100")
+						$(html).find(".remain-box").removeClass("float-right").css("width","100%")
 						var childbtn = $("<i>").addClass("fa-solid fa-reply ms-10")
-								.attr("data-reply-parent", response[i].replyNo).click(childReply);
+								.attr("data-reply-parent", response.replyDto[i].replyNo).click(childReply);
 						$(html).find(".reply-writer").append(childbtn);
 					}
-					
+					//좋아요 버튼
+					if(response.likeCount[i]==0){
+						$(html).find(".reply-like").attr("data-reply-no", response.replyDto[i].replyNo).addClass("fa-regular").css("color","#2d3436");
+						$(html).find(".reply-like-box").click(replyLike);
+					}
+					else{
+						$(html).find(".reply-like").attr("data-reply-no", response.replyDto[i].replyNo).addClass("fa-solid").css("color","#FF3040");
+						$(html).find(".reply-like-box").click(replyLike);
+					}
+					//좋아요 개수 카운트
+					if(response.replyDto[i].replyLike!=0){
+						$(html).find(".reply-like-count").text(response.replyDto[i].replyLike);
+					}
 					$(".reply-target").append(html);
 				}
 			},
@@ -96,11 +108,48 @@ $(function(){
 	}
 	
 /*-------------------------댓글에 좋아요---------------------------------*/
-
-
+	function replyLike(){
+		if(!memberId.length>0){
+			alert("로그인 후 이용하세요");
+			return;
+		}
+		var thisLike = $(this).children(".reply-like");
+		var replyNo = $(this).children(".reply-like").data("reply-no");
+		$.ajax({
+			url:"/rest/reply/like/",
+			method:"post",
+			data:{
+				replyNo:replyNo,
+				memberId:memberId,
+			},
+			success:function(response){
+				if(response==true){
+					thisLike.removeClass("fa-solid fa-regular").addClass("fa-solid").css("color","#FF3040");
+				}
+				else{
+					thisLike.removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
+				}
+				$.ajax({
+					url:"/rest/reply/like/count?replyNo="+replyNo,
+					method:"get",
+					success:function(response){
+						if(response==0){
+							thisLike.next(".reply-like-count").text("");
+						}
+						else{
+							thisLike.next(".reply-like-count").text(response);
+						}
+					},
+				});
+			},
+			error:function(){
+				alert("통신에러");
+			}
+		});
+	}
 /*---------------------------댓글에 좋아요 끝------------------------------*/
-/*----------------------summernote-------------------------*/
 
+/*----------------------summernote-------------------------*/
 //작성버튼 생성	
 var submitButton = function (context) {
   var ui = $.summernote.ui;

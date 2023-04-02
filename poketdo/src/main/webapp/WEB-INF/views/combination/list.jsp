@@ -17,8 +17,8 @@
 		</form>
 	</div>
 <!-- 테이블 시작 -->
-	<div class="row">
-		<table class="table table-slit center">
+	<div class="table-box row">
+		<table class="table table-slit table-hover center">
 			<thead>
 				<tr>
 					<th>글번호</th>

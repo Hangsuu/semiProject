@@ -29,7 +29,8 @@ public class ReplyLikeDao {
 	      jdbcTemplate.update(deleteSql, param);
 	      likeInsert(replyLikeDto.getReplyNo());
 	      return false;
-	    } else {
+	    } 
+	    else {
 	      String insertSql = "insert into reply_like(reply_no, member_id) values(?,?)";
 	      jdbcTemplate.update(insertSql, param);
 	      likeInsert(replyLikeDto.getReplyNo());

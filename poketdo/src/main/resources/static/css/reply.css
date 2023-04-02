@@ -52,3 +52,10 @@
 	border:0px;
 	font-size:17px;
 }
+.note-mybutton >.note-btn:hover > *{
+	color: #333;
+	text-decoration: none;
+	background-color: #ebebeb;
+	outline: 0;
+	border-radius: 1px;
+}

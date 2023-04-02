@@ -39,8 +39,8 @@ public class ReplyDao {
   };
 
   public void insert(ReplyDto replyDto) {
-    String sql = "insert into reply(reply_no, reply_writer, reply_origin," +
-        "reply_content, reply_group) values(reply_seq.nextval,?,?,?,?)";
+    String sql = "insert into reply(reply_no, reply_writer, reply_origin, reply_time," +
+        "reply_content, reply_group) values(reply_seq.nextval,?,?,sysdate,?,?)";
     Object[] param = {
         replyDto.getReplyWriter(),
         replyDto.getReplyOrigin(),
@@ -113,7 +113,7 @@ public class ReplyDao {
   
   //좋아요 개수 입력
   public void likeSet(int replyNo, int likeCount) {
-	  String sql = "update reply set reply_like=? where reply_no=? ";
+	  String sql = "update reply set reply_like=? where reply_no=?";
 	  Object[] param = {likeCount, replyNo};
 	  jdbcTemplate.update(sql, param);
   }

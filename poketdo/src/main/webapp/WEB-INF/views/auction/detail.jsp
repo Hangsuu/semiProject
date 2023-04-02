@@ -29,12 +29,17 @@ $(function(){
 <script type="text/template" id="reply-template">
 	<div class="row reply-box float-box" style="border-bottom:1px solid lightgray; margin:0">
 		<div class="float-left remove-box" style="min-height:100px; width:5%">
-			<div class="align-center"><i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i></div>
+			<div class="align-center">
+				<i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i>
+			</div>
 		</div>
 		<div class="float-right remain-box" style="width:95%">
-			<div class="float-box>
-				<div class="row reply-writer float-left"></div>
-				<div class="row float-right reply-like"><i class="fa-regular fa-heart" style="color:red"></i></div>
+			<div class="row float-box">
+				<div class="reply-writer float-left"></div>
+				<div class="float-right left reply-like-box">
+					<i class="fa-heart reply-like"></i>
+					<span class="reply-like-count"></span>
+				</div>
 			</div>
 			<div class="row reply-time"></div>
 			<div class="row reply-content"></div>
@@ -82,14 +87,23 @@ $(function(){
 	<div class="row">
 	조회수 : ${auctionDto.auctionRead}
 	</div>
-	<div class="row">
-	내용
-<!-- 좋아요 -->
-		<div class="right user-like"><i class="fa-regular fa-heart" style="color:red"></i></div>
-<!-- 즐겨찾기 -->
-		<div class="right user-bookmark"><i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i></div>
-		<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
+	<div class="row flex-box">
+		<div>
+			내용
+		</div>
+		<div class="align-right">
+	<!-- 좋아요 -->
+			<div class="left like-box" style="display:inline-block">
+				<i class="fa-heart detail-like"></i>
+				<span class="like-count"></span>
+			</div>
+	<!-- 즐겨찾기 -->
+			<div class="right user-bookmark" style="display: inline-block">
+				<i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
+			</div>
+		</div>
 	</div>
+	<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
 	<div class="row">
 	글쓴이 : <span class="auction-writer">${auctionDto.auctionWriter}</span>
 	</div>

@@ -107,6 +107,8 @@
 	object-fit: cover;
 	border-radius: 20px;
 }
+
+
 /* 포켓몬 데이터 자리 */
 .pocket-data {
 	width: 100%;
@@ -149,7 +151,7 @@
 .pdc-color {
 	background-color: #999999;
 }
-.type-back-color1, .pdc-color1 {
+.type-back-color1, .pdc-color1{
 	background-color: #999999;
 }
 

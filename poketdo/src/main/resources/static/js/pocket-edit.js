@@ -41,6 +41,7 @@
 		$("[name=pocketName]").blur(function(){
 			var pocketName = $(this).val();
 			var check = existingName===pocketName; 
+			if(pocketName!=0){
 			if(check){
 				valid.pocketNameValid = true;
 							$("[name=pocketName]")
@@ -72,6 +73,14 @@
 					}
 				});
 			}
+			}
+			else{
+				valid.pocketNameValid = false;
+				$(this)
+				.removeClass("valid invalid invalid2")
+				.addClass("invalid");
+			}	
+			
 		});
 		//기본 종족치, 노력치 0 이상 숫자
 		$("[name=pocketBaseHp]").blur(function(){

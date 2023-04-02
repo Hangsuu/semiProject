@@ -14,6 +14,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/pocketdex.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/seal.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/reply.css" />

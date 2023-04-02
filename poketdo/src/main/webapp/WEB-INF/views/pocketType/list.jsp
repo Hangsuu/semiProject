@@ -17,27 +17,34 @@
 						<a href="insert" class="form-btn positive" >포켓몬스터 타입 신규 등록</a>
 					</div>
 			</div>
-			
-			
-			<ul class="pocket-ul">
-				<c:forEach var="pocketmonTypeWithImageDto" items="${list}">
-					<a href="detail?pocketTypeNo=${pocketmonTypeWithImageDto.pocketTypeNo}" class="pocket-type-box-a">
-						<li class="pocket-li row">
-							<div class="pocket-type-box">
-								<div></div>
-								<div class="pdc-color type-back-color${pocketmonTypeWithImageDto.pocketTypeNo}" >
-									<img width="200" height="200" src="${pocketmonTypeWithImageDto.imageURL}">
-								</div>
-							</div>
-							<div class="pocket-data">
-								<h4>No.0${pocketmonTypeWithImageDto.pocketTypeNo}</h4>
-								<h3>${pocketmonTypeWithImageDto.pocketTypeName}</h3>
-							</div>
-						</li>
-					</a>
-				</c:forEach>
-			</ul>
-	
+					
+			<c:choose>
+				<c:when test="${!list.isEmpty()}">
+					<ul class="pocket-ul">
+						<c:forEach var="pocketmonTypeWithImageDto" items="${list}">
+							<a href="detail?pocketTypeNo=${pocketmonTypeWithImageDto.pocketTypeNo}" class="pocket-type-box-a">
+								<li class="pocket-li row">
+									<div class="pocket-type-box">
+										<div></div>
+										<div class="pdc-color type-back-color${pocketmonTypeWithImageDto.pocketTypeNo}" >
+											<img width="200" height="200" src="${pocketmonTypeWithImageDto.imageURL}">
+										</div>
+									</div>
+									<div class="pocket-data">
+										<h4>No.0${pocketmonTypeWithImageDto.pocketTypeNo}</h4>
+										<h3>${pocketmonTypeWithImageDto.pocketTypeName}</h3>
+									</div>
+								</li>
+							</a>
+						</c:forEach>
+					</ul>
+		        </c:when>
+		        <c:otherwise>
+		        	<div style=" text-align: center; margin:200px;">
+		        		<span>검색 결과가 없습니다.</span>
+		        	</div>
+		        </c:otherwise>
+			</c:choose>	
 	
 	<div class="row pagination mb-30">
 			<!-- 페이지 네비게이터-vo에 있는 데이터를 기반으로 구현  -->
@@ -94,16 +101,16 @@
 		<div class="row center mb-30">
 			<form action="list" method="get">
 				<c:choose>
-					<c:when test="${vo.column =='pocket_type_name'}">
+					<c:when test="${vo.column =='pocket_type_no'}">
 						<select name="column" class="form-input">
-							<option value="pocket_type_name" selected >이름</option>
-							<option value="pocket_type_no" >번호</option>
+							<option value="pocket_type_name"  >이름</option>
+							<option value="pocket_type_no" selected>번호</option>
 						</select>
 					</c:when>
 					<c:otherwise>
 						<select name="column" class="form-input">
-							<option value="pocket_type_name" >이름</option>
-							<option value="pocket_type_no" selected>번호</option>
+							<option value="pocket_type_name" selected>이름</option>
+							<option value="pocket_type_no" >번호</option>
 						</select>
 					</c:otherwise>
 				</c:choose>

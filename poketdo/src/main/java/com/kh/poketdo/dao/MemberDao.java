@@ -152,4 +152,10 @@ public class MemberDao {
     	return list.isEmpty() ? null : list.get(0);
     }
     
+    public int selectMemberPoint (String memberId) {
+    	String sql ="select member_point from member where member_id = ?";
+    	Object [] param = {memberId};
+    	return jdbcTemplate.queryForObject(sql, int.class,param);
+    }
+    
 }

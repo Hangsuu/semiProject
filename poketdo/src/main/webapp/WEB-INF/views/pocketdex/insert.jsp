@@ -35,6 +35,7 @@
 					<div class="pocket-input-box">
 						<input name="pocketName"  class="form-input">
 						<span class="valid-message">사용 가능한 이름입니다!</span>
+						<span class="invalid-message">필수 입력 항목입니다!</span>
 						<span class="invalid-message2">이미 사용중인 이름입니다!</span>						
 					</div>
 				</div>

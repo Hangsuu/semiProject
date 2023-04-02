@@ -75,6 +75,7 @@ $(function(){
 		//포켓몬 이름 중복 검사
 		$("[name=pocketName]").blur(function(){
 			var pocketName = $(this).val(); 
+			if(pocketName!=0){
 				$.ajax({
 					url:"/rest/pocketmon/pocketName/" + pocketName,
 					method:"get",
@@ -98,6 +99,13 @@ $(function(){
 						valid.pocketNameValid = false;
 					}
 				});
+				}
+				else{
+					valid.pocketNameValid = false;
+					$(this)
+					.removeClass("valid invalid invalid2")
+					.addClass("invalid");
+				}
 		});
 		
 		//기본 종족치, 노력치 0 이상 숫자

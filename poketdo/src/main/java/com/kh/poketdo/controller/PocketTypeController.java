@@ -86,7 +86,7 @@ public class PocketTypeController {
 			RedirectAttributes attr
 			) throws IllegalStateException, IOException {
 		pocketmonTypeService.pocketmonEdit(pocketmonTypeDto, attach, pocketTypeNo, attr );
-		return "redirect:detail";
+		return "redirect:detail?pocketTypeNo="+pocketTypeNo;
 	}
 	
 	  //포켓몬스터 속성 정보 상세

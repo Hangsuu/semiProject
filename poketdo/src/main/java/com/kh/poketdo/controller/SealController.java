@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.poketdo.dao.MemberDao;
 import com.kh.poketdo.dao.MemberJoinSealDao;
+import com.kh.poketdo.dao.MemberSealWithImageDao;
 import com.kh.poketdo.dao.PointDao;
 import com.kh.poketdo.dao.SealDao;
 import com.kh.poketdo.dao.SealWithImageDao;
+import com.kh.poketdo.dto.MemberSealWithImageDto;
 import com.kh.poketdo.dto.SealDto;
 import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.service.SealService;
@@ -38,6 +41,10 @@ public class SealController {
 	private PointDao pointDao;
 	@Autowired
 	private MemberJoinSealDao memberJoinSealDao;
+	@Autowired
+	private MemberDao memberDao;
+	@Autowired
+	private MemberSealWithImageDao memberSealWithImageDao;
 	
 	
 	//인장 정보 입력 페이지
@@ -66,13 +73,21 @@ public class SealController {
 	@GetMapping("/list")
 	public String sealList(
 			Model model,
-			@ModelAttribute("vo") PocketPaginationVO vo
+			@ModelAttribute("vo") PocketPaginationVO vo,
+			HttpSession session
 			) {
 		int totalCount = sealWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);
+		vo.setSize(20);
 		vo.setBlockSize(15);
+		String memberId = (String) session.getAttribute("memberId");
 		List<SealWithImageDto> list = sealWithImageDao.selectList(vo);
 		model.addAttribute("list" , list);
+		if(memberId!=null) {
+			model.addAttribute("point" , memberDao.selectMemberPoint(memberId));
+			List<String> list2 = memberSealWithImageDao.selectSealNo(memberId);
+			model.addAttribute("list2" , list2);
+		}
 		return "/WEB-INF/views/seal/list.jsp";
 	}
 	

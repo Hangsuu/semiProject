@@ -3,6 +3,14 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+
+
+
+
+
+
+
+
 <form action="mysealSelect" method="post">
 	<h2>현재 적용 인장</h2>
 	<img width="96" height="96" src="${selectAttachNo}">

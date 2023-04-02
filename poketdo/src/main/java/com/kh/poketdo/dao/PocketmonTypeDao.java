@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonTypeDto;
 
 @Repository
@@ -75,7 +76,7 @@ public class PocketmonTypeDao {
     return jdbcTemplate.queryForObject(sql, String.class, param);
   }
   
-  //포켓몬스터 타입 정보 상세 검색
+  //포켓몬스터 타입 정보 상세 검색(번호)
   public PocketmonTypeDto selectOne(int pocketTypeNo) {
 	  String sql= 
 			  "select * from pocketmon_type where pocket_type_no=?";
@@ -84,7 +85,13 @@ public class PocketmonTypeDao {
 	 List<PocketmonTypeDto> list = jdbcTemplate.query(sql,  mapper, param);
 	 return list.isEmpty() ? null : list.get(0);
   }
-  
+	//포켓몬스터 타입 정보 상세조회(이름)
+	public PocketmonTypeDto selectNameOne(String pocketName) {
+		String sql = "select * from pocketmon_type where pocket_type_name=? ";
+		Object [] param = {pocketName};
+		List<PocketmonTypeDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
 
 		
 

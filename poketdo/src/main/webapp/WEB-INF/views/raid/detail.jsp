@@ -2,6 +2,36 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<style>
+.writer-control-box{
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	padding:1em;
+}
+.raid-join-control,
+.raid-join-control-confirmed{
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	padding:0.5em;
+	overflow:auto;
+}
+.id-box{
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	padding:0.5em;
+}
+.id-box:hover{
+transform: scale(1.01);
+
+}
+.raid-control-content,
+.raid-control-confirmed-content{
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.raid-join{
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	padding:1em;
+}
+</style>
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
@@ -19,12 +49,12 @@ $(function(){
 	//작성자일 경우 참가신청 숨기고 관리창 노출
 	if(memberId==boardWriter) {
 		$(".raid-join").hide();
-		$(".raid-join-control").show();
+		$(".writer-control-box").show();
 		joinerList();
 	}
 	else {
 		$(".raid-join").show();
-		$(".raid-join-control").hide();
+		$(".writer-control-box").hide();
 	}
 	
 	//참가 신청자는 취소버튼, 미신청자는 참가 버튼 노출
@@ -39,6 +69,10 @@ $(function(){
 		}
 		if(!memberId){
 			alert("로그인 후 이용하세요.");
+			return;
+		}
+		if(isFinished()){
+			alert("모집 종료된 레이드입니다");
 			return;
 		}
 		var data = $(".raid-join-form").serialize();
@@ -77,6 +111,10 @@ $(function(){
 	});
 	//수정 버튼 누를 시
 	$(".raid-join-edit-btn").click(function(){
+		if(isFinished()){
+			alert("모집 종료된 레이드입니다");
+			return;
+		}
 		if(confirm("수정하시겠습니까?")){
 			$.ajax({
 				url:"/rest/raid/",
@@ -156,7 +194,7 @@ $(function(){
 					var template = $("#raid-control-template").html();
 					var html = $.parseHTML(template);
 					$(html).find(".raid-control-member").text(response[i].raidJoinMember);
-					$(html).find(".raid-control-content").text(response[i].raidJoinContent);
+					$(html).find(".raid-control-content").text(response[i].raidJoinContent).attr("title", response[i].raidJoinContent);
 					$(html).find(".fa-check-control").attr("data-join-member", response[i].raidJoinMember).click(controlConfirm);
 					$(html).find(".fa-xmark-control").attr("data-join-member", response[i].raidJoinMember).click(controlRefuse);
 					$(".raid-join-control").append(html);
@@ -175,6 +213,7 @@ $(function(){
 					var template = $("#raid-control-confirmed-template").html();
 					var html = $.parseHTML(template);
 					$(html).find(".raid-control-confirmed-member").text(response[i].raidJoinMember);
+					$(html).find(".raid-control-confirmed-content").text(response[i].raidJoinContent).attr("title", response[i].raidJoinContent);
 					$(html).find(".fa-xmark-ban").attr("data-join-member", response[i].raidJoinMember).click(controlBan);
 					$(".raid-join-control-confirmed").append(html);
 				}
@@ -251,8 +290,9 @@ $(function(){
 	}
 	//확정 참가자가 4명이 됐을 때의 함수
 	function finishedRaid(){
+		var time = $(".raid-start-time").text();
 		var participant = $(".participant-count").text();
-		if(participant>=4){
+		if(isFinished()){
 			$(".ing-raid").hide();
 			$(".finished-raid").show();
 		}
@@ -261,18 +301,32 @@ $(function(){
 			$(".finished-raid").hide();
 		}
 	}
+	function isFinished(){
+		var time = $(".raid-start-time").text();
+		var participant = $(".participant-count").text();
+		return time.trim()=="종료" || participant>=4;
+	}
 });
 </script>
 <!-- 댓글창 템플릿 -->
 <script type="text/template" id="reply-template">
-	<div class="row reply-box float-box" style="border-bottom:1px solid lightgray; margin:0">
-		<div class="float-left remove-box" style="min-height:100px; width:5%">
-			<div class="align-center"><i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i></div>
+	<div class="row reply-box flex-box">
+		<div class="remove-box" style="width:5%">
+			<div class="align-center" style="padding-top:1em">
+				<i class="fa-solid fa-arrow-right-long" style="font-size:16px"></i>
+			</div>
 		</div>
-		<div class="float-right remain-box" style="width:95%">
-			<div class="row reply-writer"></div>
-			<div class="row reply-time"></div>
-			<div class="row reply-content"></div>
+		<div class="align-right remain-box" style="width:95%">
+			<div class="row flex-box">
+				<div class="reply-writer"></div>
+				<div class="reply-time ms-20" style="font-size:14px"></div>
+				<div class="align-right reply-option me-20"></div>
+				<div class="left reply-like-box">
+					<i class="fa-heart reply-like"></i>
+					<span class="reply-like-count"></span>
+				</div>
+			</div>
+			<div class="row reply-content" style="padding-left:1em"></div>
 		</div>
 	</div>
 </script>
@@ -289,18 +343,19 @@ $(function(){
 </script>
 <!-- 레이드 신청 컨트롤 템플릿 -->
 <script type="text/template" id="raid-control-template">
-	<div class="row">
+	<div class="row id-box">
 		<span class="raid-control-member w-20" style="display:inline-block"></span>
-		<span class="raid-control-content w-50" style="display:inline-block"></span>
-		<i class="fa-solid fa-check ms-10 fa-check-control" style="color:green"></i>
-		<i class="fa-solid fa-xmark ms-10 fa-xmark-control" style="color:red"></i>
+		<span class="raid-control-content w-70" style="display:inline-block"></span>
+		<i class="fa-solid fa-check fa-check-control" style="color:green"></i>
+		<i class="fa-solid fa-xmark fa-xmark-control ms-10" style="color:red"></i>
 	</div>
 </script>
 <!-- 레이드 확정창 템플릿 -->
 <script type="text/template" id="raid-control-confirmed-template">
-	<div class="row">
+	<div class="row id-box">
 		<span class="raid-control-confirmed-member w-20" style="display:inline-block"></span>
-		<i class="fa-solid fa-xmark ms-10 fa-xmark-ban" style="color:red"></i>
+		<span class="raid-control-confirmed-content w-70" style="display:inline-block"></span>
+		<i class="fa-solid fa-xmark ms-10 fa-xmark-ban ms-10" style="color:red"></i>
 	</div>
 </script>
 <script src="/static/js/like.js"></script>
@@ -320,52 +375,70 @@ $(function(){
 		</c:choose>
 	</div>
 	<div class="row ing-raid">
-		참가자 : <span class="participant-count">${raidDto.raidCount}</span>/4
+		<div class="row">
+			참가자 : <span class="participant-count">${raidDto.raidCount}</span>/4
+		</div>
+		<div class="row raid-start-time">
+			${raidDto.time}
+		</div>
 	</div>
 	<div class="row finished-raid">
 		모집 종료
 	</div>
 	<div class="row">
 		<div class="float-box">
-			<div class="left">내용</div>
+			<div class="float-left">내용</div>
 	<!-- 좋아요 -->
-			<div class="right user-like"><i class="fa-regular fa-heart"></i></div>
+			<div class="float-right like-box" style="display:inline-block">
+				<i class="fa-heart detail-like"></i>
+				<span class="like-count"></span>
+			</div>
 		</div>
-		<div class="row form-input w-100" style="min-height:150px">
+		<div class="row form-input w-100" style="min-height:400px">
 		${raidDto.raidContent}
 		</div>
 	</div>
 
 <!-- 레이드 참가 신청 -->
-	<div class="row raid-join">
-		<div class="row">
-			<span class="raid-join-status"></span>
-		</div>
+	<div class="row raid-join mt-30">
+		<span class="raid-join-status"></span>
 		<form class="raid-join-form">
 			<input type="hidden" name="raidJoinOrigin" value="${raidDto.allboardNo}">
 			<input type="hidden" name="raidJoinMember" value="${sessionScope.memberId}">
 			<input type="hidden" name="raidJoinConfirm" value="${raidDto.raidType}">
-			<input class="form-input w-100" name="raidJoinContent">
-			<button type="button" class="form-bnt neutral raid-join-btn">참가</button>
-			<button type="button" class="form-bnt neutral raid-join-cancle-btn">취소</button>
-			<button type="button" class="form-bnt neutral raid-join-edit-btn">수정</button>
+			<input class="form-input w-40" name="raidJoinContent" placeholder="소개메세지(포켓몬, lv)">
+			<button type="button" class="form-btn neutral raid-join-btn">참가신청</button>
+			<button type="button" class="form-btn neutral raid-join-cancle-btn">신청취소</button>
+			<button type="button" class="form-btn neutral raid-join-edit-btn">수정</button>
 		</form>
-		<hr>
 	</div>
 <!-- 레이드 참가 신청 끝 -->
 <!-- 레이드 수락창(글쓴이) -->
-	<div class="row raid-join-control">
-	</div>
-	<div class="row raid-join-control-confirmed">
-		<hr>
+	<div class="row flex-box writer-control-box mt-30">
+		<div style="width:47%">
+			<div class="mb-10 center">대기 인원</div>
+			<div class="row raid-join-control" style="height:250px"></div>
+		</div>
+		<div class="flex-box align-center" style="width:6%">
+			<i class="fa-solid fa-arrow-right" style="font-size:20px"></i>
+		</div>
+		<div style="width:47%">
+			<div class="mb-10 center">확정 인원</div>
+			<div class="row raid-join-control-confirmed align-right" style="min-height:250px"></div>
+		</div>
 	</div>
 <!-- 레이드 수락창 끝 -->
 <!-- 댓글 -->
 	<!-- 표시 -->
+	<div class="row reply-best-target">
+		<div class="row" style="border-bottom:1.5px solid #9DACE4; padding-bottom:0.5em">
+			Best 댓글
+		</div>
+	</div>
 	<div class="row reply-target">
 	</div>
 	<!-- 신청 -->
-	<div class="row">
+	<div class="row mt-30">
 		<textarea class="form-input w-100 summernote-reply reply-textarea"></textarea>
 	</div>
 <!-- 댓글 끝 -->

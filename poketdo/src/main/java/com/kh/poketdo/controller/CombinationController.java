@@ -54,16 +54,16 @@ public class CombinationController {
 	@GetMapping("/list")
 	public String list(Model model,
 			@ModelAttribute("vo") PaginationVO vo) {
-		if(vo.getColumn().equals("tag")) {
-			vo.setCount(combinationDao.tagListCount(vo));
-			model.addAttribute("list", combinationDao.tagSearchList(vo));
-			return "/WEB-INF/views/combination/list.jsp";
-		}
-		else {
-			vo.setCount(combinationDao.selectCount(vo));
-			model.addAttribute("list", combinationDao.selectList(vo));
-			return "/WEB-INF/views/combination/list.jsp";
-		}
+//		if(vo.getColumn().equals("tag")) {
+//			vo.setCount(combinationDao.tagListCount(vo));
+//			model.addAttribute("list", combinationDao.tagSearchList(vo));
+//			return "/WEB-INF/views/combination/list.jsp";
+//		}
+//		else {
+//			vo.setCount(combinationDao.selectCount(vo));
+//			model.addAttribute("list", combinationDao.selectList(vo));
+//		}
+		return "/WEB-INF/views/combination/list.jsp";
 	}
 	@GetMapping("/detail")
 	public String detail(@RequestParam int allboardNo, Model model,
@@ -102,8 +102,8 @@ public class CombinationController {
 		}
 	}
 	
-	@GetMapping("/simulator")
-	public String simulator() {
-		return "/WEB-INF/views/combination/simulator.jsp";
-	}
+//	@GetMapping("/simulator")
+//	public String simulator() {
+//		return "/WEB-INF/views/combination/simulator.jsp";
+//	}
 }

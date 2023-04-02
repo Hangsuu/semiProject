@@ -90,14 +90,7 @@ $(function(){
 	</div>
 <!-- 댓글 끝 -->
 	<div class="row">
-		<c:choose>
-			<c:when test="${param.tagList.length()>=0}">
-				<a href="simulator?page=${param.page}&tagList=${param.tagList}" class="form-btn neutral">조합시뮬레이터로 이동</a>
-			</c:when>
-			<c:otherwise>
-				<a href="list?page=${param.page}" class="form-btn neutral">목록</a>
-			</c:otherwise>
-		</c:choose>
+		<a href="list?page=${param.page}&tagList=${param.tagList}&column=${param.column}&keyword=${param.keyword}" class="form-btn neutral">목록으로</a>
 		<c:if test="${sessionScope.memberId==combinationDto.combinationWriter}">
 			<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="form-btn neutral">삭제</a>
 		</c:if>

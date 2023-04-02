@@ -89,9 +89,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			<div>
 			  <a href="/auction/list?page=1"><span>굿즈 경매 게시판</span></a>
 			</div>
-			<div>
-              <a href="/combination/list?page=1"><span>공략 게시판</span></a>
-            </div>
 		</div>
          </div>
          <div>
@@ -106,8 +103,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
              <div>
                <a href="/calculator"><span>스탯 계산기</span></a>
              </div>
-             <div>
-               <a href="/combination/simulator?page=1&tagList="><span>조합시뮬레이터</span></a>
+			 <div>
+               <a href="/combination/list?page=1&tagList=&keyword=&column="><span>공략 게시판</span></a>
              </div>
            </div>
          </div>

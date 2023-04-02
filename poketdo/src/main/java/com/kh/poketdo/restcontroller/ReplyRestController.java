@@ -36,6 +36,7 @@ public class ReplyRestController {
   public ReplyVO selectList(@PathVariable int allboardNo, HttpSession session) {
 	  String memberId = (String)session.getAttribute("memberId");
 	  List<ReplyDto> list = replyDao.selectList(allboardNo);
+	  List<ReplyDto> likeList = replyDao.selectLikeList(allboardNo);
 	  List<Integer> likeCount = new ArrayList<>();
 	  for(ReplyDto dto: list) {
 		  ReplyLikeDto replyLikeDto = new ReplyLikeDto();
@@ -46,7 +47,7 @@ public class ReplyRestController {
 		  }
 		  else likeCount.add(0);
 	  }
-	  return ReplyVO.builder().replyDto(list).likeCount(likeCount).build();
+	  return ReplyVO.builder().replyDto(list).replyLike(likeList).likeCount(likeCount).build();
   }
 
   @PostMapping("/")

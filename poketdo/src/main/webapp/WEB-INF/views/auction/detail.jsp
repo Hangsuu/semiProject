@@ -27,22 +27,23 @@ $(function(){
 })
 </script>
 <script type="text/template" id="reply-template">
-	<div class="row reply-box float-box" style="border-bottom:1px solid lightgray; margin:0">
-		<div class="float-left remove-box" style="min-height:100px; width:5%">
-			<div class="align-center">
-				<i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i>
+	<div class="row reply-box flex-box">
+		<div class="remove-box" style="width:5%">
+			<div class="align-center" style="padding-top:1em">
+				<i class="fa-solid fa-arrow-right-long" style="font-size:16px"></i>
 			</div>
 		</div>
-		<div class="float-right remain-box" style="width:95%">
-			<div class="row float-box">
-				<div class="reply-writer float-left"></div>
-				<div class="float-right left reply-like-box">
+		<div class="align-right remain-box" style="width:95%">
+			<div class="row flex-box">
+				<div class="reply-writer"></div>
+				<div class="reply-time ms-20" style="font-size:14px"></div>
+				<div class="align-right reply-option me-20"></div>
+				<div class="left reply-like-box">
 					<i class="fa-heart reply-like"></i>
 					<span class="reply-like-count"></span>
 				</div>
 			</div>
-			<div class="row reply-time"></div>
-			<div class="row reply-content"></div>
+			<div class="row reply-content" style="padding-left:1em"></div>
 		</div>
 	</div>
 </script>
@@ -121,6 +122,11 @@ $(function(){
 <!-- 입찰기능 끝 -->
 <!-- 댓글 -->
 	<!-- 표시 -->
+	<div class="row reply-best-target">
+		<div class="row" style="border-bottom:1.5px solid #9DACE4; padding-bottom:0.5em">
+			Best 댓글
+		</div>
+	</div>
 	<div class="row reply-target">
 	</div>
 	<!-- 신청 -->

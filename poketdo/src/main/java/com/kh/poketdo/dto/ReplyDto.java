@@ -16,4 +16,8 @@ public class ReplyDto {
 	private Date replyTime;
 	private int replyGroup;
 	private int replyLike;
+	
+	public long getTime() {
+		return replyTime.getTime();
+	};
 }

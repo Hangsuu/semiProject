@@ -59,6 +59,15 @@ public class ReplyDao {
     Object[] param = { replyOrigin };
     return jdbcTemplate.query(sql, mapper, param);
   }
+  public List<ReplyDto> selectLikeList(int replyOrigin){
+	  String sql="SELECT * FROM ("+
+				"SELECT tmp.*, rownum rn FROM ("+
+				"select * from reply where reply_origin=? and reply_like!=0 order by reply_like desc, reply_no asc"+
+				") tmp"+
+				") WHERE rn BETWEEN 1 AND 3";
+	  Object[] param= {replyOrigin};
+	  return jdbcTemplate.query(sql, mapper, param);
+  }
 
   public void update(ReplyDto replyDto) {
     String sql = "update reply set reply_content=? where reply_no=?";

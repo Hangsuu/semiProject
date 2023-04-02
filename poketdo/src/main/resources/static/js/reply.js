@@ -10,33 +10,85 @@ $(function(){
 			url:"/rest/reply/"+allboardNo,
 			method:"get",
 			success:function(response){
+				var now = new Date();
+				var nowTime = now.getTime();
+				//베스트 댓글
+				if(response.replyDto.length>3){
+					for(var i=0; i<response.replyLike.length; i++){
+						var template = $("#reply-template").html();
+						var html = $.parseHTML(template);
+						var text = response.replyLike[i].replyContent;
+						$(html).find(".reply-writer").text(response.replyLike[i].replyWriter);
+						//작성자 딱지 넣기
+						if(boardWriter==response.replyDto[i].replyWriter){
+							var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
+							$(html).find(".reply-writer").append(span);
+						}
+						$(html).find(".reply-content").html(text);
+						//시간 넣는 자리
+						var thisTime = response.replyDto[i].time;
+						var timeDif = nowTime-thisTime;
+						if(timeDif/1000/60/60/24>=1){
+							$(html).find(".reply-time").text("("+response.replyDto[i].replyTime+")");
+						}
+						else if(timeDif/1000/60/60>=1){
+							$(html).find(".reply-time").text(Math.floor(timeDif/1000/60/60)%24+"시간 전");
+						}
+						else{
+							$(html).find(".reply-time").text(Math.floor(timeDif/1000/60)%60+"분 전");
+						}
+						//대댓글 여부 판단
+						if(memberId!=null && response.replyLike[i].replyGroup==0){
+							$(html).find(".remove-box").remove();
+							$(html).find(".remain-box").removeClass("float-right").css("width","100%")
+						}
+						$(html).find(".reply-like-box").remove()
+						$(".reply-best-target").append(html);
+					}
+				}
+				//댓글 리스트
 				for(var i=0; i<response.replyDto.length; i++){
 					var template = $("#reply-template").html();
 					var html = $.parseHTML(template);
 					var text = response.replyDto[i].replyContent;
 					$(html).find(".reply-writer").text(response.replyDto[i].replyWriter);
 					$(html).find(".reply-content").html(text);
-					$(html).find(".reply-time").text(response.replyDto[i].replyTime);
+					//시간 넣는 자리
+					var thisTime = response.replyDto[i].time;
+					var timeDif = nowTime-thisTime;
+					if(timeDif/1000/60/60/24>=1){
+						$(html).find(".reply-time").text("("+response.replyDto[i].replyTime+")");
+					}
+					else if(timeDif/1000/60/60>=1){
+						$(html).find(".reply-time").text(Math.floor(timeDif/1000/60/60)%24+"시간 전");
+					}
+					else{
+						$(html).find(".reply-time").text(Math.floor(timeDif/1000/60)%60+"분 전");
+					}
 					
+					//작성자인지 판단해서 (작성자) 딱지 넣기
 					if(boardWriter==response.replyDto[i].replyWriter){
-						var span = $("<span>").text("(글쓴이)").addClass("ms-10");
+						var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
 						$(html).find(".reply-writer").append(span);
 					}
+					
+					//댓글 작성자의 경우 수정과 삭제 버튼 생성
 					if(memberId==response.replyDto[i].replyWriter){
 						var deletebtn = $("<i>").addClass("fa-solid fa-trash ms-10")
-								.attr("data-reply-no", response.replyDto[i].replyNo).click(deleteReply);
+								.attr("data-reply-no", response.replyDto[i].replyNo).attr("title","삭제").click(deleteReply);
 						var editbtn = $("<i>").addClass("fa-solid fa-edit ms-10")
 								.attr("data-reply-no", response.replyDto[i].replyNo)
-								.attr("data-reply-content", response.replyDto[i].replyContent).click(editReply);
-						$(html).find(".reply-writer").append(editbtn).append(deletebtn);
+								.attr("data-reply-content", response.replyDto[i].replyContent).attr("title","수정").click(editReply);
+						$(html).find(".reply-option").append(editbtn).append(deletebtn);
 					}
-					//답글달기 버튼
+					
+					//로그인 여부 판단 후 답글달기 버튼 및 대댓글 여부 판단
 					if(memberId!=null && response.replyDto[i].replyGroup==0){
 						$(html).find(".remove-box").remove();
 						$(html).find(".remain-box").removeClass("float-right").css("width","100%")
 						var childbtn = $("<i>").addClass("fa-solid fa-reply ms-10")
-								.attr("data-reply-parent", response.replyDto[i].replyNo).click(childReply);
-						$(html).find(".reply-writer").append(childbtn);
+								.attr("data-reply-parent", response.replyDto[i].replyNo).attr("title","답글달기").click(childReply);
+						$(html).find(".reply-option").append(childbtn);
 					}
 					//좋아요 버튼
 					if(response.likeCount[i]==0){

@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class ReplyVO {
 	private List<ReplyDto> replyDto;
+	private List<ReplyDto> replyLike;
 	private List<Integer> likeCount;
 }

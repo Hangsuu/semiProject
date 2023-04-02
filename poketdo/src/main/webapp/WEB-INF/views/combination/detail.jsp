@@ -25,7 +25,7 @@ $(function(){
 <script src="/static/js/reply.js"></script>
 <!-- 댓글창 템플릿 -->
 <script type="text/template" id="reply-template">
-	<div class="row reply-box float-box" style="border-bottom:1px solid lightgray; margin:0">
+	<div class="row reply-box float-box">
 		<div class="float-left remove-box" style="min-height:100px; width:5%">
 			<div class="align-center">
 				<i class="fa-solid fa-arrow-right-long" style="font-size:20px"></i>

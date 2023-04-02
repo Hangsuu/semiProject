@@ -38,7 +38,8 @@
 	filter:brightness(0.85);
 } 
 
-/* 오행서 summer-note용 css*/
+/* -------------오행서 summer-note용 css---------------*/
+/* 댓글창에 쓰이는 summernote 관련 css */
 .note-toolbar{
 	display:flex !important;
 	justify-content: flex-end !important;
@@ -58,4 +59,21 @@
 	background-color: #ebebeb;
 	outline: 0;
 	border-radius: 1px;
+}
+/* 댓글창 꾸미기 */
+.reply-box{
+	border-bottom:1px solid #ebebeb;
+	margin:0
+}
+/* 베스트 댓글 표시창 꾸미기 */
+.reply-best-target{
+	padding : 0.5em;
+	background-color:#F7F8FC;
+	border-radius:0.2em;
+}
+/* 수정, 삭제 대댓글 버튼 색 */
+.reply-box .fa-trash,
+.reply-box .fa-edit,
+.reply-box .fa-reply{
+	color:#999999;
 }

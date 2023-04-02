@@ -9,7 +9,7 @@
 	<aside></aside>
 	
 	<article class="mt-50 pocketdex-article">
-		<div class="pocket-detail-container pdc-color${list.get(0).getPocketTypeNoes().get(0)}">
+		<div class="pocket-detail-container pdc-color pdc-color${list.get(0).getPocketTypeNoes().get(0)}">
 			<div class="detail-image-container">
 				<div class="left-text">
 					

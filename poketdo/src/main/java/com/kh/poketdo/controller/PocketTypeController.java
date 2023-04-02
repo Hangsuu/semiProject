@@ -61,6 +61,7 @@ public class PocketTypeController {
 			) {
 		int totalCount = pocketmonTypeWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);
+		vo.setSize(12);
 		
 		List<PocketmonTypeWithImageDto> list = pocketmonTypeWithImageDao.selectList(vo);
 		model.addAttribute("list", list);

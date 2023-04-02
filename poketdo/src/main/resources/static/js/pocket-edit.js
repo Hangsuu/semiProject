@@ -14,6 +14,7 @@
 				pocketEffortSpdValid:true,
 				pocketEffortSatkValid:true,
 				pocketEffortSdefValid:true,
+				pocketTypeValid:true,
 				isAllValid:function(){
 					return 	this.pocketNameValid
 								&& this.pocketBaseHpValid
@@ -27,7 +28,8 @@
 								&& this.pocketEffortDefValid
 								&& this.pocketEffortSpdValid
 								&& this.pocketEffortSatkValid
-								&& this.pocketEffortSdefValid;
+								&& this.pocketEffortSdefValid
+								&& this.pocketTypeValid;
 				}
 		};
 		
@@ -73,7 +75,8 @@
 		});
 		//기본 종족치, 노력치 0 이상 숫자
 		$("[name=pocketBaseHp]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketBaseHpValid = isValid;
 			if(isValid){
 				$("[name=pocketBaseHp]")
@@ -86,7 +89,8 @@
 			}
 		});
 		$("[name=pocketBaseAtk]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketBaseAtkValid = isValid;
 			if(isValid){
 				$("[name=pocketBaseAtk]")
@@ -99,7 +103,8 @@
 			}
 		});
 		$("[name=pocketBaseDef]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketBaseDefValid = isValid;
 			if(isValid){
 				$("[name=pocketBaseDef]")
@@ -112,7 +117,8 @@
 			}
 		});
 		$("[name=pocketBaseSpd]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketBaseSpdValid = isValid;
 			if(isValid){
 				$("[name=pocketBaseSpd]")
@@ -125,7 +131,8 @@
 			}
 		});
 		$("[name=pocketBaseSatk]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketBaseSatkValid = isValid;
 			if(isValid){
 				$("[name=pocketBaseSatk]")
@@ -138,7 +145,8 @@
 			}			
 		});
 		$("[name=pocketBaseSdef]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketBaseSdefValid = isValid;
 			if(isValid){
 				$("[name=pocketBaseSdef]")
@@ -151,7 +159,8 @@
 			}
 		});
 		$("[name=pocketEffortHp]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketEffortHpValid = isValid;
 			if(isValid){
 				$("[name=pocketEffortHp]")
@@ -164,7 +173,8 @@
 			}
 		});
 		$("[name=pocketEffortAtk]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketEffortAtkValid = isValid;
 			if(isValid){
 				$("[name=pocketEffortAtk]")
@@ -177,7 +187,8 @@
 			}
 		});
 		$("[name=pocketEffortDef]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketEffortDefValid = isValid;
 			if(isValid){
 				$("[name=pocketEffortDef]")
@@ -190,7 +201,8 @@
 			}
 		});
 		$("[name=pocketEffortSpd]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketEffortSpdValid = isValid;
 			if(isValid){
 				$("[name=pocketEffortSpd]")
@@ -203,7 +215,8 @@
 			}
 		});
 		$("[name=pocketEffortSatk]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketEffortSatkValid = isValid;
 			if(isValid){
 				$("[name=pocketEffortSatk]")
@@ -216,7 +229,8 @@
 			}
 		});
 		$("[name=pocketEffortSdef]").blur(function(){
-			var isValid = $(this).val() >= 0;
+			var regex = /^[0-9]+$/;
+			var isValid = regex.test($(this).val());
 			valid.pocketEffortSdefValid = isValid;
 			if(isValid){
 				$("[name=pocketEffortSdef]")
@@ -227,6 +241,41 @@
 				.removeClass("valid invalid invalid2")
 				.addClass("invalid");
 			}
+		});
+		
+		var typeCheck = $("[name=typeJoinNo").val() == $("[name=typeJoinNo2").val()
+		valid.pocketTypeValid = !typeCheck;
+
+		if(typeCheck){
+							$("[name=typeJoinNo2]")
+					.removeClass("valid invalid invalid2")
+					.addClass("invalid");
+		};
+		
+		$("[name=typeJoinNo").change(function(){
+				typeCheck = $("[name=typeJoinNo").val() == $("[name=typeJoinNo2").val()
+				valid.pocketTypeValid = !typeCheck;
+				if(typeCheck){
+						$("[name=typeJoinNo2]")
+				.removeClass("valid invalid invalid2")
+				.addClass("invalid");
+				
+				}else{
+					$("[name=typeJoinNo2]")
+							.removeClass("valid invalid invalid2");
+				}
+		});
+		$("[name=typeJoinNo2").change(function(){
+				typeCheck = $("[name=typeJoinNo").val() == $("[name=typeJoinNo2").val()
+				valid.pocketTypeValid = !typeCheck;
+				if(typeCheck){
+						$("[name=typeJoinNo2]")
+				.removeClass("valid invalid invalid2")
+				.addClass("invalid");
+				}else{
+					$("[name=typeJoinNo2]")
+							.removeClass("valid invalid invalid2");
+				}
 		});
 		
 		//폼 검사

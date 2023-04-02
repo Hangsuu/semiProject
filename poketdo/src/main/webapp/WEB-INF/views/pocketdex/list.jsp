@@ -112,7 +112,7 @@
 						<c:forEach var="pocketmonDto"  items="${list3}">
 							 <a href="detail?pocketNo=${pocketmonDto.pocketNo}" class="pocket-box-a">
 							  <li class="pocket-li row">
-							    <div class="pocket-box">
+							    <div class="pocket-box ">
 							      <div></div>
 							      <div></div>
 							      <div class="image-container">
@@ -128,7 +128,7 @@
 													<c:when test="${pocketmonDto.getPocketTypes().get(i).equals('없음')}">
 													</c:when>
 													<c:otherwise>
-														<div class="type-back-color${pocketmonDto.getPocketTypeNoes().get(i)} ">
+														<div class="pdc-color type-back-color${pocketmonDto.getPocketTypeNoes().get(i)} ">
 															<span>
 																${pocketmonDto.getPocketTypes().get(i)}
 															</span>

@@ -165,7 +165,7 @@
 						<div class="pocket-input-box">
 							<select name="typeJoinNo" class="form-input neutral">
 								<c:forEach var="i" begin="0" end="${typeList.size()-1}">
-									<option value="${typeList.get(i).pocketTypeNo}">${typeList.get(i).pocketTypeName}</option>
+									<option value="${typeList.get(i).pocketTypeNo}">${typeList.get(i).pocketTypeNo}.${typeList.get(i).pocketTypeName}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -177,9 +177,10 @@
 						<div class="pocket-input-box">
 							<select name="typeJoinNo2" class="form-input neutral">
 								<c:forEach var="i" begin="0" end="${typeList.size()-1}">
-									<option value="${typeList.get(i).pocketTypeNo}">${typeList.get(i).pocketTypeName}</option>
+									<option value="${typeList.get(i).pocketTypeNo}">${typeList.get(i).pocketTypeNo}.${typeList.get(i).pocketTypeName}</option>
 								</c:forEach>
 							</select>
+							<span class="invalid-message">타입1, 타입2을 같은 타입으로 설정할 수 없습니다 </span>
 						</div>
 					</div>
 					<div>

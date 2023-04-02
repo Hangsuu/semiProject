@@ -1,43 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-	<h1>포켓몬스터 속성 목록</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>이미지</th>
-				<th>번호</th>
-				<th>이름</th>
-				<th>관리</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="pocketmonTypeWithImageDto" items="${list}">
-				<tr>
-					<td style="background-color:gray;">
-						<img width="200" height="200"
-							src="${pocketmonTypeWithImageDto.imageURL}">
-					</td>
-					<td>
-					${pocketmonTypeWithImageDto.pocketTypeNo}
-					</td>
-					<td>
-						<a href="detail?pocketTypeNo=${pocketmonTypeWithImageDto.pocketTypeNo}">
-							${pocketmonTypeWithImageDto.pocketTypeName}
-						</a>
-					</td>
-					<td>
-						<a href="edit?pocketTypeNo=${pocketmonTypeWithImageDto.pocketTypeNo}">수정</a>
-						<a href="delete?pocketTypeNo=${pocketmonTypeWithImageDto.pocketTypeNo}">삭제</a>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	<a href="insert">포켓몬스터 속성 신규 등록</a>
+
+<section class="container-1200 flex-box">
+
+	<aside></aside>
+	
+	<article class="mt-50 container-1200">
+
+			<div class="row center mb-30" >
+				<h1 class="mb-20">포켓몬스터 타입</h1>
+
+					<div class="pocket-insert-btn">
+						<a href="insert" class="form-btn positive" >포켓몬스터 타입 신규 등록</a>
+					</div>
+			</div>
+			
+			
+			<ul class="pocket-ul">
+				<c:forEach var="pocketmonTypeWithImageDto" items="${list}">
+					<a href="detail?pocketTypeNo=${pocketmonTypeWithImageDto.pocketTypeNo}" class="pocket-type-box-a">
+						<li class="pocket-li row">
+							<div class="pocket-type-box">
+								<div></div>
+								<div class="pdc-color type-back-color${pocketmonTypeWithImageDto.pocketTypeNo}" >
+									<img width="200" height="200" src="${pocketmonTypeWithImageDto.imageURL}">
+								</div>
+							</div>
+							<div class="pocket-data">
+								<h4>No.0${pocketmonTypeWithImageDto.pocketTypeNo}</h4>
+								<h3>${pocketmonTypeWithImageDto.pocketTypeName}</h3>
+							</div>
+						</li>
+					</a>
+				</c:forEach>
+			</ul>
+	
 	
 	<div class="row pagination mb-30">
 			<!-- 페이지 네비게이터-vo에 있는 데이터를 기반으로 구현  -->
@@ -112,5 +112,7 @@
 				<button type="submit" class="form-btn neutral">검색</button>
 			</form>
 		</div>
-
+		
+		</article>
+</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

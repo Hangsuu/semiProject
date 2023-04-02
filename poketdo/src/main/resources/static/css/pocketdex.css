@@ -11,6 +11,10 @@
 	text-decoration: none;
 	color: inherit;
 }
+.pocket-type-box-a {
+	text-decoration: none;
+	color: inherit;
+}
 /* 포켓몬 박스 ul */
 .pocket-ul {
 	display: flex;
@@ -48,8 +52,19 @@
 	margin-bottom: 1em;
 	transition: transform 0.2s ease-in-out;
 }
+/* 포켓몬 타입 박스 */
+.pocket-type-box {
+	width: 100%;
+	height: 250px;
+	border-radius: 20px;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 1em;
+	transition: transform 0.2s ease-in-out;
+}
 /* 호버 효과 */
-.pocket-box-a:hover>li>.pocket-box {
+.pocket-box-a:hover>li>.pocket-box,
+.pocket-type-box-a:hover>li>.pocket-type-box {
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 	transform: scale(1.02);
 }
@@ -69,6 +84,7 @@
 	position: absolute;
 	bottom: 0;
 }
+
 /* 포켓몬 박스 흰색 부분 */
 .pocket-box>div:last-child {
 	position: absolute;
@@ -80,8 +96,10 @@
 	background-color: white;
 	border-radius: 20px;
 }
+
 /* 포켓몬 이미지 */
-.pocket-box>div:nth-child(3)>img {
+.pocket-box>div:nth-child(3)>img,
+.pocket-type-box>div:nth-child(2)>img {
 	display: inline-block;
 	width: 100%;
 	height: 100%;
@@ -128,10 +146,10 @@
 /* 
 	pocketdex list 속성 배경 색
  */
-.type-back-color0, .pdc-color {
+.pdc-color {
 	background-color: #999999;
 }
-.type-back-color1, .pdc-color {
+.type-back-color1, .pdc-color1 {
 	background-color: #999999;
 }
 
@@ -203,7 +221,7 @@
 	background-color: #FFB1FF;
 }
 
-.pdc-color0>div {
+.pdc-color>div {
 	background-color: #F9F9F9;
 }
 .pdc-color1>div {
@@ -278,7 +296,7 @@
 	background-color: #FFF4FF;
 }
 
-.pdc-color0 .icon-color i{
+.pdc-color .icon-color i{
 	color: #CCCCCC;
 	font-size: 4em;
 }
@@ -373,7 +391,7 @@
 	color: #FFCCFF;
 	font-size: 4em;
 }
-.pdc-color0 .icon-color:hover i{
+.pdc-color .icon-color:hover i{
 	color: #999999;
 	font-size: 4em;
 }

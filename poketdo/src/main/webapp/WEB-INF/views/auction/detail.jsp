@@ -24,7 +24,7 @@ $(function(){
 			window.location.href=$(this).attr("href");
 		}
 	})	
-})
+});
 </script>
 <!-- 댓글장 템플릿 -->
 <script type="text/template" id="reply-template">
@@ -35,7 +35,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="align-right remain-box" style="width:95%">
-			<div class="row flex-box">
+			<div class="row flex-box" style="align-items:center">
 				<div class="reply-writer"></div>
 				<div class="reply-time ms-20" style="font-size:14px"></div>
 				<div class="align-right reply-option me-20"></div>
@@ -55,7 +55,6 @@ $(function(){
 </script>
 <script type="text/template" id="reply-child-template">
 	<div class="row reply-child">
-	<hr>
 		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
@@ -64,6 +63,9 @@ $(function(){
 <div class="container-900 mt-50">
 	<div class="row">
 	제목 : ${auctionDto.auctionTitle}
+	<c:if test="${auctionDto.auctionFinish==0}">
+		<button class="form-btn negative finish-btn">거래 완료</button>
+	</c:if>
 	</div>
 	<div class="row">
 		<div class="row finished-auction">
@@ -72,14 +74,26 @@ $(function(){
 			</div>
 			<div class="row">
 			낙찰 가격 : <span class="final-price"></span>
-			</div>			
+			</div>	
+			<!-- 작성자 최대 입찰자 컨트롤 기능 -->
+			<div class="row writer-control-box">
+				낙찰자 : 
+				<div class="final-last-bid" style="display:inline-block"></div>
+				<a class="form-btn neutral send-message">쪽지 보내기</a>
+				<input type="hidden" class="finish-bid-id">
+			</div>		
 		</div>
 		<div class="row ing-auction">
 			<div class="row">
 				남은시간 : <span class="rest-time" data-finish-time="${auctionDto.finishTime}">${auctionDto.time}</span>
 			</div>
 			<div class="row">
-			최고 입찰 가격 : <span class="min-bid-price"></span>
+				<div style="display:inline-block">
+					최고 입찰 가격 : <span class="min-bid-price"></span>
+				</div>
+				<div style="display:inline-block" class="bid-info ms-10">
+					(입찰자 : <img class="board-seal last-bid-seal"><span class="last-bid-nick"></span>)
+				</div>
 			</div>
 			<div class="row">
 			즉시 입찰 가격 : <span class="max-bid-price"></span>
@@ -107,10 +121,12 @@ $(function(){
 	</div>
 	<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
 	<div class="row">
-	글쓴이 : <span class="auction-writer">${auctionDto.auctionWriter}</span>
+	글쓴이 : <span class="auction-writer"><img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}</span>
 	</div>
 <!-- 입찰기능 -->
 	<c:if test="${sessionScope.memberId!=auctionDto.auctionWriter}">
+		<div class="my-point"></div>
+		<input type="hidden" class="my-point-input">
 		<div class="row bid-form">
 			<form class="form-bid">
 				<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
@@ -120,13 +136,11 @@ $(function(){
 			</form>
 		</div>
 	</c:if>
-<!-- 입찰기능 끝 -->
+<!-- 입찰 기능 끝-->
+
 <!-- 댓글 -->
 	<!-- 표시 -->
 	<div class="row reply-best-target">
-		<div class="row" style="border-bottom:1.5px solid #9DACE4; padding-bottom:0.5em">
-			Best 댓글
-		</div>
 	</div>
 	<div class="row reply-target">
 	</div>

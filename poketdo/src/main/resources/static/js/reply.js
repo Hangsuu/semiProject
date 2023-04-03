@@ -1,9 +1,12 @@
 /*전역변수(memberId, boardWriter) 설정 필요*/
 $(function(){
+	var params = new URLSearchParams(location.search);
+	var allboardNo = params.get("allboardNo")
 	loadList();
 	
 	function loadList(){
 		$(".reply-target").empty();
+		$(".reply-best-target").empty();
 		$.ajax({
 			url:"/rest/reply/"+allboardNo,
 			method:"get",
@@ -13,11 +16,14 @@ $(function(){
 				//베스트 댓글
 				if(response.replyDto.length>3){
 					$(".reply-best-target").addClass("mt-30");
+					$(".reply-best-target").text("베스트 댓글").css("padding-top","1em").css("padding", "1em")
+							.append($("<div>").addClass("row").css("border-bottom", "1.5px solid #9DACE4").css("padding-bottom", "0.5em"));
 					for(var i=0; i<response.replyLike.length; i++){
 						var template = $("#reply-template").html();
 						var html = $.parseHTML(template);
 						var text = response.replyLike[i].replyContent;
-						$(html).find(".reply-writer").text(response.replyLike[i].replyWriter);
+						$(html).find(".reply-writer").text(response.replyLike[i].memberNick)
+							.prepend($("<img>").addClass("board-seal").attr("src", response.replyLike[i].urlLink));
 						//작성자 딱지 넣기
 						if(boardWriter==response.replyDto[i].replyWriter){
 							var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
@@ -54,7 +60,8 @@ $(function(){
 					var template = $("#reply-template").html();
 					var html = $.parseHTML(template);
 					var text = response.replyDto[i].replyContent;
-					$(html).find(".reply-writer").text(response.replyDto[i].replyWriter);
+					$(html).find(".reply-writer").text(response.replyDto[i].memberNick)
+						.prepend($("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink));
 					$(html).find(".reply-content").html(text);
 					//시간 넣는 자리
 					var thisTime = response.replyDto[i].time;

@@ -10,16 +10,15 @@ header {
 nav {
 }
 section {
+  width: 1200px;
   display: flex;
+  margin: 0 auto;
 }
 .aside {
   width: 220px;
-  padding: 1em;
 }
 article {
-  min-height: 1200px;
-  padding: 1em;
-  /* flex-grow: 1; */
+  min-height: 400px;
 }
 footer {
   padding: 1em;
@@ -148,6 +147,31 @@ footer {
 	display:inline-block;
 	color:white;
 	width:80px;
+}
+
+.back-sc-brighter {
+  background-color: #ebeefa;
+}
+.radius-1em {
+  border-radius: 1em;
+}
+.ph-h-em {
+  padding: 0 0.5em
+}
+.border-0 {
+  border: none;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.back-red-brighter {
+  background-color: #ffe6e6;
+}
+.inline-flex{
+  display: inline-flex;
+}
+.back-inherit {
+  background-color: inherit;
 }
 /* 홈화면 섹터 영역 */
 .home-sector{

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.poketdo.dto.PocketmonTradeDto;
-import com.kh.poketdo.vo.PaginationVO;
+import com.kh.poketdo.vo.PocketmonTradePageVO;
 
 @Repository
 @RequestMapping("/trade")
@@ -40,6 +40,7 @@ public class PocketmonTradeDao {
           .pocketmonTradeRead(rs.getInt("pocketmon_trade_read"))
           .pocketmonTradeReply(rs.getInt("pocketmon_trade_reply"))
           .pocketmonTradeLike(rs.getInt("pocketmon_trade_like"))
+          .pocketmonTradeIsblocked(rs.getInt("pocketmon_trade_isblocked"))
           .build();
     }
   };
@@ -52,7 +53,7 @@ public class PocketmonTradeDao {
 
   // C 포켓몬 교환 게시물 생성
   public void insert(PocketmonTradeDto pocketmonTradeDto) {
-    String sql = "insert into pocketmon_trade (pocketmon_trade_no, allboard_no, pocketmon_trade_title, pocketmon_trade_writer, pocketmon_trade_written_time, pocketmon_trade_content, pocketmon_trade_head, pocketmon_trade_trade_time, pocketmon_trade_complete, pocketmon_trade_read, pocketmon_trade_reply, pocketmon_trade_like) values (?, ?, ?, ?, sysdate, ?, ?, ?, 0, 0, 0, 0)";
+    String sql = "insert into pocketmon_trade (pocketmon_trade_no, allboard_no, pocketmon_trade_title, pocketmon_trade_writer, pocketmon_trade_written_time, pocketmon_trade_content, pocketmon_trade_head, pocketmon_trade_trade_time, pocketmon_trade_complete, pocketmon_trade_read, pocketmon_trade_reply, pocketmon_trade_like, pocketmon_trade_isblocked) values (?, ?, ?, ?, sysdate, ?, ?, ?, 0, 0, 0, 0, 0)";
     Object[] param = {
         pocketmonTradeDto.getPocketmonTradeNo(),
         pocketmonTradeDto.getAllboardNo(),
@@ -67,7 +68,7 @@ public class PocketmonTradeDao {
   }
 
   // R 포켓몬교환 게시물 리스트
-  public List<PocketmonTradeDto> selectList(PaginationVO pageVo) {
+  public List<PocketmonTradeDto> selectList(PocketmonTradePageVO pageVo) {
     String sql;
     Object[] param;
     if (pageVo.getKeyword().equals("")) {
@@ -100,7 +101,7 @@ public class PocketmonTradeDao {
   }
 
   // R 포켓몬교환 게시물 Cnt
-  public int getCount(PaginationVO pageVo) {
+  public int getCount(PocketmonTradePageVO pageVo) {
     String sql;
     int cnt;
     if (pageVo.getKeyword().equals("")) {

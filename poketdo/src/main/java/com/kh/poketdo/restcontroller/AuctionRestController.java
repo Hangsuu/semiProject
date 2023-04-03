@@ -78,6 +78,6 @@ public class AuctionRestController {
 		//마지막 입찰자의 정보
 		AuctionBidWithNickDto lastDto = auctionBidWithNickDao.lastBid(allboardNo);
 		//작성자에게 돈 줌
-		pointDao.addPoint(auctionDao.selectOne(allboardNo).getAuctionWriter(), lastDto.getAuctionBidPrice());
+		pointDao.addPoint(lastDto.getAuctionBidPrice(), auctionDao.selectOne(allboardNo).getAuctionWriter());
 	}
 }

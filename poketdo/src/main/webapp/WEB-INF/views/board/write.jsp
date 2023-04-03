@@ -40,7 +40,7 @@
                 <label>말머리</label>
                 <select name="boardHead">
                 <option value="">없음</option>
-                <c:if test="${memberLevel == '마스터'}">
+                <c:if test="${memberLevel == '관리자'}">
                     <option>공지</option>
                 </c:if>
                 <option>자유</option>
@@ -58,7 +58,7 @@
                 <button type="submit" class="form-btn positive w-100">등록</button>
             </div>
             <div class="row">
-            <a class="form-btn neutral w-100" href="list">목록</a>
+            	<a class="form-btn neutral w-100" href="memberManage">목록</a>
         	</div>
         </div>
     </form>

@@ -5,6 +5,16 @@
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
  
+ <style>
+ 	.member-login-section{
+ 	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ 	height: 100%;
+ 	margin: 0 auto;
+ 	}
+ </style>
+ 
 	<!-- section -->
 <section class="member-login-section">
 
@@ -12,7 +22,7 @@
     <form action="adminCheck" method="post">
       <div class="login-form">
         <div>
-            <div><h3>관리자 인증</h3></div>
+            <div class="center"><h3>관리자 인증</h3></div>
         </div>
         <div><input type="password" name="memberPw" placeholder="비밀번호" autocomplete="off" required></div>
         <div><button type="submit">로그인</button></div>
@@ -29,5 +39,6 @@
        </div>
     </form>
   </article>
+  </section>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

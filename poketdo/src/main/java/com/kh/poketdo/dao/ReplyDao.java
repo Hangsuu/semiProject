@@ -22,12 +22,10 @@ public class ReplyDao {
 
   @Autowired
   private RaidDao raidDao;
-  
+	@Autowired
+	private CombinationDao combinationDao;
   @Autowired
-  private CombinationDao combinationDao;
-  
-  @Autowired
-  private BoardWithImageDao boardWithImageDao;
+  private PocketmonTradeDao pocketmonTradeDao;
 
   RowMapper<ReplyDto> mapper = (rs, index) -> {
     return ReplyDto
@@ -38,19 +36,20 @@ public class ReplyDao {
         .replyContent(rs.getString("reply_content"))
         .replyTime(rs.getDate("reply_time"))
         .replyGroup(rs.getInt("reply_group"))
+        .replyLike(rs.getInt("reply_like"))
         .build();
   };
 
   public void insert(ReplyDto replyDto) {
-	    String sql = "insert into reply(reply_no, reply_writer, reply_origin, reply_time," +
-	        "reply_content, reply_group) values(reply_seq.nextval,?,?,sysdate,?,?)";
-	    Object[] param = {
-	        replyDto.getReplyWriter(),
-	        replyDto.getReplyOrigin(),
-	        replyDto.getReplyContent(),
-	        replyDto.getReplyGroup(),
-	    };
-	    jdbcTemplate.update(sql, param);
+    String sql = "insert into reply(reply_no, reply_writer, reply_origin, reply_time," +
+        "reply_content, reply_group) values(reply_seq.nextval,?,?,sysdate,?,?)";
+    Object[] param = {
+        replyDto.getReplyWriter(),
+        replyDto.getReplyOrigin(),
+        replyDto.getReplyContent(),
+        replyDto.getReplyGroup(),
+    };
+    jdbcTemplate.update(sql, param);
 
     // 게시글의 리플라이 개수를 판단해서 DB 입력
     int allboardNo = replyDto.getReplyOrigin();
@@ -61,6 +60,15 @@ public class ReplyDao {
     String sql = "SELECT * FROM reply where reply_origin=? CONNECT BY PRIOR reply_no = COALESCE(reply_group, 0) START WITH COALESCE(reply_group, 0) = 0 order siblings by reply_no ASC";
     Object[] param = { replyOrigin };
     return jdbcTemplate.query(sql, mapper, param);
+  }
+  public List<ReplyDto> selectLikeList(int replyOrigin){
+	  String sql="SELECT * FROM ("+
+				"SELECT tmp.*, rownum rn FROM ("+
+				"select * from reply where reply_origin=? and reply_like!=0 order by reply_like desc, reply_no asc"+
+				") tmp"+
+				") WHERE rn BETWEEN 1 AND 3";
+	  Object[] param= {replyOrigin};
+	  return jdbcTemplate.query(sql, mapper, param);
   }
 
   public void update(ReplyDto replyDto) {
@@ -100,27 +108,26 @@ public class ReplyDao {
     int replyCount = replyCount(allboardNo);
     String allboardType = allboardDto.getAllboardBoardType();
     switch (allboardType) {
-      case "board":
-    	boardWithImageDao.replySet(allboardNo, replyCount);
       case "auction":
         auctionDao.replySet(allboardNo, replyCount);
       case "raid":
         raidDao.replySet(allboardNo, replyCount);
       case "combination" : 
-    	combinationDao.replySet(allboardNo, replyCount);
+    	  combinationDao.replySet(allboardNo, replyCount);
+      case "pocketmon_trade" :
+        pocketmonTradeDao.replySet(allboardNo, replyCount);
     }
   }
 
-  // 댓글 시퀀스
   public int sequence() {
     String sql = "select reply_seq.nextval from dual";
     return jdbcTemplate.queryForObject(sql, int.class);
   }
   
-  // 답글 메서드
-  public void updateReplyGroup(int originId, int replyGroup) {
-	  String sql = "update reply set reply_group = ? where reply_origin = ?";
-	  Object[] param = {originId, replyGroup};
+  //좋아요 개수 입력
+  public void likeSet(int replyNo, int likeCount) {
+	  String sql = "update reply set reply_like=? where reply_no=?";
+	  Object[] param = {likeCount, replyNo};
 	  jdbcTemplate.update(sql, param);
   }
 }

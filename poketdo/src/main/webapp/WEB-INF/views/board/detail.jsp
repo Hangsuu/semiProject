@@ -25,42 +25,29 @@
 <script src="/static/js/board/board.js"></script>
 <script type="text/template" id="board-reply-template">
   <div class="row">
-    <div class="bold flex">
-      <div>댓글작성자</div>
-      <div class="writerTag">작성자</div>
-      <button class="board-btn ml-auto" type="button">수정</button>
-      <button class="board-btn" type="button">삭제</button>
+    <div>
+      <div class="bold flex">
+        <div class="board-reply-writer">댓글작성자</div>
+        <div class="writerTag">작성자</div>
+        <button class="board-reply-edit-btn ml-auto" type="button">수정</button>
+        <button class="board-reply-delete-btn" type="button">삭제</button>
+      </div>
+      <div class="board-reply-content"></div>
+      <div style="color:#979797;" class="flex">
+        <div class="board-reply-time">댓글시간</div>
+        <div class="ms-10 board-reply-re">답글쓰기</div>
+      </div>
     </div>
-    <div></div>
-    <div style="color:#979797;" class="flex">
-      <div>댓글시간</div>
-      <div class="ms-10">답글쓰기</div>
-    </div>
+    <hr/>
   </div>
-  <hr/>
 </script>
 <script type="text/template" id="board-reply-write">
-  <div class=row>
-    <form action="#" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="replyParent" value="0">
-      <input type="hidden" name="replyOrigin" value="${boardWithImageDto.getAllboardNo()}">
-      <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
-      <textarea class="summernote" name="replyContent"></textarea>
-      <div class="right">
-        <button class="board-btn" type="submit">취소</button>
-        <button class="board-btn" type="submit">등록</button>
-      </div>
-    </form>
-  </div>
-</script>
-<script type="text/template" id="board-reply-write2">
-  <div class=row>
-    <div class=row>
-      <textarea class="summernote" name="replyContent"></textarea>
-    </div>
+  <div class="row board-reply-reply">
+    <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
+    <textarea class="summernote" name="replyContent"></textarea>
     <div class="right">
-      <button class="board-btn" type="submit">취소</button>
-      <button class="board-btn" type="submit">등록</button>
+      <button class="board-reply-cancle-btn" type="button">취소</button>
+      <button class="board-reply-update-btn" type="button">수정</button>
     </div>
   </div>
 </script>
@@ -121,8 +108,6 @@
       </c:if>
       <a id="board-list-btn" class="board-btn" href="/board/list">목록</a>
       <hr>
-      <div class="reply-list">
-      </div>
       <div id="board-reply">
         <div class="row" id="board-replys">
         </div>
@@ -141,7 +126,6 @@
           </div>
         </c:if>
       </div>
-    </div>
-
   </article>
+  </section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

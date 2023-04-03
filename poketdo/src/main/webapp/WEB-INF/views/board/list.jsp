@@ -47,12 +47,6 @@
         <c:if test="${sessionScope.memberLevel == '관리자'}">
         <form action="deleteAll" method="post" onsubmit="return formCheck();">
         </c:if>
-        <div class="row right">
-            <c:if test="${sessionScope.memberLevel == '관리자'}">
-            <button type="submit" class="form-btn negative">삭제</button>
-            </c:if>
-            <a href="write" class="form-btn positive">글쓰기</a>
-        </div>
         <div class="row">
             <table class="table table-slit">
                 <thead>

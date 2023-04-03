@@ -3,20 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-<jsp:include page="/WEB-INF/views/template/adminheader.jsp"></jsp:include>  
+<jsp:include page="/WEB-INF/views/template/adminHeader.jsp"></jsp:include>  
 
-<div class = "container-800">
+<div class = "container-1000">
 	<div class="row center">
 		<h2>회원 현황</h2>
 	</div>
 
 	<!--  각종 정렬과 관련된 링크들 -->
 	<div class="row right">
-		<a class="link" href="member">등급순</a>
-		<a class="link" href="member?sort=cnt desc">인원많은 순</a>
-		<a class="link" href="member?sort=cnt asc">인원적은 순</a>
-		<a class="link" href="member?sort=total desc">포인트 합계↓</a>
-		<a class="link" href="member?sort=total asc">포인트 합계↑</a>
+		<a class="link" href="memberStat">등급 순</a>
+		<a class="link" href="memberStat?sort=cnt desc">인원많은 순</a>
+		<a class="link" href="memberStat?sort=cnt asc">인원적은 순</a>
+		<a class="link" href="memberStat?sort=total desc">포인트 합계↓</a>
+		<a class="link" href="memberStat?sort=total asc">포인트 합계↑</a>
 	</div>
 
 	<div class="row">
@@ -56,8 +56,8 @@
 		</table>
 	</div>
 </div>
-             </article>
-      </section>
-    </main>
+			</article>
+     </section>
+     </div>
 
-<jsp:include page="/WEB-INF/views/template/adminfooter.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -25,7 +25,7 @@
         <%-- home.css --%>
         <div class="home-board-title">
           <h2>오늘의 인기글</h2>
-          <a href="#">+더보기</a>
+          <a href="/board/hot">+더보기</a>
         </div>
         <div>내용</div>
       </div>

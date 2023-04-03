@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-<jsp:include page="/WEB-INF/views/template/adminheader.jsp"></jsp:include>  
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>  
 
 	<div class="container-800">
 	<form action="memberEdit" method="post">
@@ -98,4 +98,4 @@
 			</form>
 		</div>
 
-<jsp:include page="/WEB-INF/views/template/adminfooter.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

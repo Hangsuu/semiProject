@@ -6,29 +6,11 @@
 <script type="text/javascript">
 $(function () {
 	
-	$(".sell-form").click(function(e){
-	    e.preventDefault();
-	    if(!confirm("정말 삭제하시겠습니까?"))	return;
-	    window.location.href = $(this).attr("href");
-	});
-	
-	var memberPoint = ${point};
-	
-	$(".buy-form button[type='submit']").on("click", function(e) {
-		  var sealPrice = $(this).siblings("input[name='point']").val();
-		  var PointCheck = memberPoint > sealPrice;
-		  console.log(PointCheck);
-		  if (!PointCheck) {
-		    alert("포인트가 부족합니다!");
-		    e.preventDefault();
-		  }
-		});
-
-		$(".confirm-form").submit(function(e) {
+	$(".sell-form").submit(function(e) {
 		  if (!confirm("정말 구매하시겠습니까?")) {
 		    e.preventDefault();
 		  }
-		});
+	});
 });
 </script>
 
@@ -41,15 +23,15 @@ $(function () {
 
 		<div class="my-seal-information" >
 				<div>
-					<span>나의 인장</span>
+					<span>나의 인장 목록</span>
 				</div>
 				<div>
 					<span>보유 포인트 :  ${point} point</span>
 					<span>현재 적용 인장</span>
 					<img width="96" height="96" src="${selectAttachNo}">
 					<a href="/seal/list">
-						<i class="fa-solid fa-square-arrow-up-right"></i>
 						<span>인장 구매하러 가기</span>
+						<i class="fa-solid fa-square-arrow-up-right"></i>
 					</a>
 				</div>
 		</div>
@@ -67,19 +49,23 @@ $(function () {
 				<div>
 					<span>${mySeal.sealName}</span>
 				</div>
-				<div>
-					<span>판매가 : ${mySeal.getSellPrice()} </span>
+				<div >
+				<c:if test="${mySeal.sealPrice!=0}">
+					<span class="seal-price">(${mySeal.sealPrice})</span>
+				</c:if>
+					<span>${mySeal.getSellPrice()}</span>
+					<span>point</span>
 				</div>
 				<div class="my-seal-menu">
 							<div>
-								<form action="mysealSelect" method="post">
+								<form action="mysealSelect" method="post" >
 									<input type="hidden" name="mySealNo" value="${mySeal.mySealNo}">
 									<button class="form-btn positive">적용</button>
 								</form>
 							</div>
 							<c:if test="${mySeal.sealNo!=0}">
 							<div>
-								<form action="mysealSell" method="post">
+								<form action="mysealSell" method="post" class="sell-form">
 									<input type="hidden" name="mySealNo" value="${mySeal.mySealNo}">
 									<input type="hidden" name="sealPrice" value="${mySeal.getSellPrice()}">
 									<button class="form-btn negative">판매</button>

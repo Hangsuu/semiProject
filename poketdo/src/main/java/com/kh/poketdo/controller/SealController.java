@@ -66,7 +66,7 @@ public class SealController {
 	//인장 정보 입력 완료 페이지
 	@GetMapping("/insertFinish")
 	public String sealDataInsertFinish() {
-		return "/WEB-INF/views/seal/insertFinish.jsp";
+		return "redirect:list";
 	}
 	
 	//인장 정보 목록

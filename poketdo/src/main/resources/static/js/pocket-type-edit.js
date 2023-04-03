@@ -16,7 +16,7 @@ $(function(){
 		$("[name=pocketTypeName]").blur(function(){
 			var pocketTypeName = $(this).val(); 
 			var check =  pocketTypeName === existingTypeName;
-				if(pocketTypeName!=0){
+				if(pocketTypeName!=""){
 					if(check){
 					valid.pocketTypeNameValid = true;
 								$("[name=pocketTypeName]")

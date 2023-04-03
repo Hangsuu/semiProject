@@ -1,7 +1,7 @@
 $(function () {
   // 좋아요 누른 member는 채운 하트
 
-  console.log($("<div>").html("<hr/>"));
+  // console.log($("<div>").html("<hr/>"));
   loadReply();
   summernote();
   $.ajax({
@@ -200,9 +200,12 @@ $(function () {
       alert("로그인을 해야만 댓글을 작성할 수 있습니다.");
       return;
     }
+    // 댓글 데이터 추출
     let replyFormEle = document.querySelector(".pocketmonTrade-reply-form");
-    let summernoteEle = $(replyFormEle).find(".summernote");
     let data = $(replyFormEle).serialize();
+
+    // 댓글창 비우기
+    let summernoteEle = $(replyFormEle).find(".summernote");
     if(summernoteEle.summernote("isEmpty")){
       alert("댓글 내용을 작성해주세요");
       return;

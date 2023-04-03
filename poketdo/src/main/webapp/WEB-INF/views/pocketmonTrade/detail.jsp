@@ -18,8 +18,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
     const memberId = "${sessionScope.memberId}";
-    const allboardNo = parseInt("${pocketmonTradeDto.getAllboardNo()}");
-    const pocketmonTradeWriter = "${pocketmonTradeDto.getPocketmonTradeWriter()}";
+    const memberLevel = "${sessionScope.memberLevel}"
+    const allboardNo = parseInt("${pocketmonTradeMemberDto.getAllboardNo()}");
+    const pocketmonTradeWriter = "${pocketmonTradeMemberDto.getPocketmonTradeWriter()}";
     const likeTableDto = {
       memberId: memberId, 
       allboardNo: allboardNo
@@ -28,7 +29,6 @@
       replyOrigin: allboardNo,
       replyWriter: memberId,
     }
-    $.parseHTML()
 </script>
 <script src="/static/js/pocketmonTrade/pocketmonTrade.js"></script>
 <script type="text/template" id="pocketmonTrade-reply-template">
@@ -61,48 +61,42 @@
 </script>
 
 <!-- section -->
-<section >
-
-  <!-- aside -->
-  <aside></aside>
+<section class="container-1200 mt-50 mb-30">
   <!-- article -->
-  <article class="container-800">
-    <div class="row">
-        <h1>포켓몬교환 디테일</h1>
-    </div>
-    <div class="row">
+  <article class="w-100">
+    <div class="mb-30">
       <h1>
-        <c:if test="${pocketmonTradeDto.getPocketmonTradeHead() != null}">
-          [${pocketmonTradeDto.getPocketmonTradeHead()}] 
+        <c:if test="${pocketmonTradeMemberDto.getPocketmonTradeHead() != null}">
+          [${pocketmonTradeMemberDto.getPocketmonTradeHead()}] 
         </c:if>
-        ${pocketmonTradeDto.getPocketmonTradeTitle()}</h1>
+        ${pocketmonTradeMemberDto.getPocketmonTradeTitle()}</h1>
     </div>
     <div class="row">
-      <h2>${pocketmonTradeDto.getPocketmonTradeWriter()}</h2>
+      <h3>${pocketmonTradeMemberDto.getMemberNick()}<c:choose><c:when test="${sessionScope.memberLevel == '관리자'}">(${pocketmonTradeMemberDto.getPocketmonTradeWriter()})</c:when><c:otherwise>(${pocketmonTradeMemberDto.getPocketmonTradeWriter().length() < 5 ?pocketmonTradeMemberDto.getPocketmonTradeWriter() : pocketmonTradeMemberDto.getPocketmonTradeWriter().substring(0,4).concat("*".repeat(pocketmonTradeMemberDto.getPocketmonTradeWriter().length()-4))})</c:otherwise></c:choose></h3>
     </div>
     <div class="row pocketmonTrade-info-head">
-      <span>작성시간 <fmt:formatDate value="${pocketmonTradeDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m"/></span> 
-      <span class="pocketmonTradeRead">&nbsp;&nbsp;조회수 ${pocketmonTradeDto.getPocketmonTradeRead()}</span>
-      <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeDto.getPocketmonTradeReply()}</span></span>
+      <span>작성시간 <fmt:formatDate value="${pocketmonTradeMemberDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m"/></span> 
+      <span class="pocketmonTradeRead">&nbsp;&nbsp;조회수 ${pocketmonTradeMemberDto.getPocketmonTradeRead()}</span>
+      <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeMemberDto.getPocketmonTradeReply()}</span></span>
     </div>
     <hr/>
     <div class="row pocketmonTradeContent">
       <div>
-        ${pocketmonTradeDto.getPocketmonTradeContent()}
+        ${pocketmonTradeMemberDto.getPocketmonTradeContent()}
       </div>
     </div>
     <div class="row">
       <div>
-        <a class="link" href="/pocketmonTrade?column=pocketmon_trade_writer&keyword=${pocketmonTradeDto.getPocketmonTradeWriter()}"><b>${pocketmonTradeDto.getPocketmonTradeWriter()}</b>님의 게시글 더 보기</a>
+        <a class="link" href="/pocketmonTrade?column=pocketmon_trade_writer&keyword=${pocketmonTradeMemberDto.getPocketmonTradeWriter()}"><b>${pocketmonTradeMemberDto.getPocketmonTradeWriter()}</b>님의 게시글 더 보기</a>
       </div>
     </div>
 
     <!-- 좋아요 댓글 신고 -->
     <div class="row">
       <span id="pocketmonTrade-like">
-        <i class="fa-regular fa-heart fa-red" style="color:red"></i> 좋아요 <span id="pocketmonTrade-like-Cnt">${pocketmonTradeDto.getPocketmonTradeLike()}</span>
+        <i class="fa-regular fa-heart fa-red" style="color:red"></i> 좋아요 <span id="pocketmonTrade-like-Cnt">${pocketmonTradeMemberDto.getPocketmonTradeLike()}</span>
       </span>
-      <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeDto.getPocketmonTradeReply()}</span></span>
+      <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeMemberDto.getPocketmonTradeReply()}</span></span>
     </div>
     <hr>
     </div>
@@ -110,9 +104,9 @@
       <c:if test="${sessionScope.memberId != null}">
         <a class="pocketmonTrade-btn" href="write">글쓰기</a>
       </c:if>
-      <c:if test="${sessionScope.memberId == pocketmonTradeDto.getPocketmonTradeWriter() || sessionScope.memberLevel == '마스터'}">
-        <a class="pocketmonTrade-btn" href="/pocketmonTrade/${pocketmonTradeDto.getPocketmonTradeNo()}/edit">수정</a>
-        <a class="pocketmonTrade-btn" id="pocketmonTrade-delete-btn" href="/pocketmonTrade/delete/${pocketmonTradeDto.getPocketmonTradeNo()}">삭제</a>
+      <c:if test="${sessionScope.memberId == pocketmonTradeMemberDto.getPocketmonTradeWriter() || sessionScope.memberLevel == '관리자'}">
+        <a class="pocketmonTrade-btn" href="/pocketmonTrade/${pocketmonTradeMemberDto.getPocketmonTradeNo()}/edit">수정</a>
+        <a class="pocketmonTrade-btn" id="pocketmonTrade-delete-btn" href="/pocketmonTrade/delete/${pocketmonTradeMemberDto.getPocketmonTradeNo()}">삭제</a>
       </c:if>
       <a id="pocketmonTrade-list-btn" class="pocketmonTrade-btn" href="/pocketmonTrade">목록</a>
       <!-- <div>top으로</div> -->
@@ -130,10 +124,10 @@
           <div class="row">
             <form class="pocketmonTrade-reply-form" action="#" method="post" enctype="multipart/form-data">
               <input type="hidden" name="replyParent" value="0">
-              <input type="hidden" name="replyOrigin" value="${pocketmonTradeDto.getAllboardNo()}">
+              <input type="hidden" name="replyOrigin" value="${pocketmonTradeMemberDto.getAllboardNo()}">
               <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
               <textarea class="summernote" name="replyContent"></textarea>
-              <button class="pocketmonTrade-btn" style="position: relative; left: 94%; bottom: -5px;" id="pocketmonTrade-reply-btn" type="submit">등록</button>
+              <button class="pocketmonTrade-btn" style="position: relative; left: 96.5%; bottom: -5px;" id="pocketmonTrade-reply-btn" type="submit">등록</button>
             </form>
           </div>
         </c:if>

@@ -74,6 +74,9 @@ public class MemberController {
     public String logout(HttpSession session, HttpServletRequest request) {
         session.removeAttribute("memberId");
         session.removeAttribute("memberLevel");
+		if(request.getHeader("Referer").endsWith("/pocketmonTrade/write")){
+			return "redirect:/pocketmonTrade";
+		}
         return "redirect:" + request.getHeader("Referer");
     }
     

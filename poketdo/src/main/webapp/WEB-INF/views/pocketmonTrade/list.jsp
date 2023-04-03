@@ -4,65 +4,16 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
 uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<style>
-  .pocketmonTrade-ing {
-    border: 1px solid orange;
-    color: orange;
-    border-radius: 1em;
-    padding: 0 0.5em;
-  }
-  .pocketmonTrade-request {
-
-  }
-  .pocketmonTrade-done {
-    border: 1px solid forestgreen;
-    color: forestgreen;
-    border-radius: 1em;
-    padding: 0 0.5em;
-  }
-  .pocketmonTrade-head {
-    border-bottom: 2px #C2CCEE solid;
-  }
-  .pocketmonTrade-row:not(.pocketmonTrade-head) {
-    border-bottom: 2px #F2F4FB solid;
-  }
-  .pocketmonTrade-notice-tag {
-    color: red;
-    border: 1px solid red;
-    border-radius: 0.3em;
-  }
-</style>
-<script>
-  $(function(){
-    const queryString = new URLSearchParams(location.search);
-    const page = queryString.get("page") == null ? 1 : queryString.get("page");
-    const column = queryString.get("column");
-    const keyword = queryString.get("keyword");
-    const type = queryString.get("")
-    const pageVo = { page: page, column: column, keyword: keyword };
-    // 포켓몬 교환 타입 설정 시 queryString 추가
-    $(".pocketmonTrade-type").change(function(){
-      queryString.set("type", $(this).val());
-      window.location.href = window.location.origin + window.location.pathname + "?" + queryString.toString();
-    })
-
-    // 포켓몬 교환 isDone 설정 시 queryString 추가
-    $(".pocketmonTrade-isDone").change(function(){
-      queryString.set("isDone", $(this).val());
-      window.location.href = window.location.origin + window.location.pathname + "?" + queryString.toString();
-    })
-  })
-</script>
+<script src="/static/js/pocketmonTrade/pocketmonTradeList.js"></script>
 <!-- section -->
 <section>
-  <!-- article -->
   <article class="container-1200" style="min-height: 1000px">
     <div class="mt-50 mb-10">
       <a class="pocketmonTrade-list-banner" href="/pocketmonTrade">포켓몬교환</a>
     </div>
     <!-- 검색창 -->
     <div class="row flex">
-      <form action="pocketmonTrade" method="get" autocomplete="off">
+      <form action="/pocketmonTrade" method="get" autocomplete="off">
         <select name="column" class="form-input neutral">
           <option value="">선택</option>
           <c:choose>
@@ -94,52 +45,54 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         <input name="page" type="hidden" value="1" />
         <button class="form-btn neutral">검색</button>
       </form>
+
+      <!-- 검색옵션 -->
       <div class="ml-auto flex-all-center me-20">
         <b>검색옵션</b>
       </div>
       <select class="pocketmonTrade-type me-10 border-0">
         <option value="">구분선택</option>
         <c:choose>
-          <c:when test="${param.type=='trade'}">
-            <option value="trade" selected>교환</option>
+          <c:when test="${param.type=='교환'}">
+            <option selected>교환</option>
           </c:when>
           <c:otherwise>
-            <option value="trade">교환</option>
+            <option>교환</option>
           </c:otherwise>
         </c:choose>
         <c:choose>
-          <c:when test="${param.type=='share'}">
-            <option value="share" selected>나눔</option>
+          <c:when test="${param.type=='나눔'}">
+            <option selected>나눔</option>
           </c:when>
           <c:otherwise>
-            <option value="share">나눔</option>
+            <option>나눔</option>
           </c:otherwise>
         </c:choose>
         <c:choose>
-          <c:when test="${param.type=='request'}">
-            <option value="request" selected>요청</option>
+          <c:when test="${param.type=='요청'}">
+            <option selected>요청</option>
           </c:when>
           <c:otherwise>
-            <option value="request">요청</option>
+            <option>요청</option>
           </c:otherwise>
         </c:choose>
       </select>
       <select class="pocketmonTrade-isDone border-0">
-        <option value="">진행선택</option>
+        <option value="" selected>진행선택</option>
         <c:choose>
-          <c:when test="${param.isDone=='ing'}">
-            <option value="ing" selected>진행중</option>
+          <c:when test="${param.isDone=='0'}">
+            <option value="0" selected>진행중</option>
           </c:when>
           <c:otherwise>
-            <option value="ing">진행중</option>
+            <option value="0">진행중</option>
           </c:otherwise>
         </c:choose>
         <c:choose>
-          <c:when test="${param.isDone=='done'}">
-            <option value="done" selected>완료</option>
+          <c:when test="${param.isDone=='1'}">
+            <option value="1" selected>완료</option>
           </c:when>
           <c:otherwise>
-            <option value="done">완료</option>
+            <option value="1">완료</option>
           </c:otherwise>
         </c:choose>
       </select>
@@ -202,21 +155,30 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       <!-- 게시물 -->
       <c:forEach var="trade" items="${trades}">
         <div class="pocketmonTrade-row">
-          <div class="flex-all-center">${trade.getPocketmonTradeNo()}</div>
+          <c:choose>
+            <c:when test="${trade.getPocketmonTradeHead()=='공지'}">
+              <div class="flex-all-center pocketmonTrade-notice-tag">공지</div>
+            </c:when>
+            <c:otherwise>
+              <div class="flex-all-center">${trade.getPocketmonTradeNo()}</div>    
+            </c:otherwise>
+          </c:choose>
           <div class="flex-all-center bold">${trade.getPocketmonTradeHead()}</div>
           <div class="flex-align-center">
             <a
               class="pocketmonTrade-a-link"
               href="/pocketmonTrade/${trade.getPocketmonTradeNo()}"
             >
+            <c:if test="${trade.getPocketmonTradeHead()!='공지'}">
               <c:choose>
                 <c:when test="${trade.getPocketmonTradeComplete()==0}">
                   <span class="pocketmonTrade-ing">진행중</span>
                 </c:when>
-                <c:otherwise>
+                <c:when test="${trade.getPocketmonTradeComplete()==1}">
                   <span class="pocketmonTrade-done">완료</span>
-                </c:otherwise>
+                </c:when>
               </c:choose>
+            </c:if>
               &nbsp;${trade.getPocketmonTradeTitle()}
               <c:if test="${trade.getPocketmonTradeReply()!=0}">
                 <span style="color: red; font-weight: 600"
@@ -268,7 +230,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           </c:when>
           <c:otherwise>
             <a
-              href="/pocketmonTrade/?page=1&${pageVo.parameter}&${pageVo.addParameter}"
+              href="/pocketmonTrade/?page=1&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
               ><i class="fa-solid fa-angles-left"></i
             ></a>
           </c:otherwise>
@@ -277,7 +239,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:choose>
           <c:when test="${pageVo.prev}">
             <a
-              href="/pocketmonTrade/?page=${pageVo.prevPage}&${pageVo.parameter}&${pageVo.addParameter}"
+              href="/pocketmonTrade/?page=${pageVo.prevPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
               ><i class="fa-solid fa-angle-left"></i
             ></a>
           </c:when>
@@ -300,7 +262,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             >
             <c:otherwise
               ><a
-                href="/pocketmonTrade/?page=${i}&${pageVo.parameter}&${pageVo.addParameter}"
+                href="/pocketmonTrade/?page=${i}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
                 class=""
                 >${i}</a
               ></c:otherwise
@@ -311,7 +273,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:choose>
           <c:when test="${pageVo.next}">
             <a
-              href="/pocketmonTrade/?page=${pageVo.nextPage}&${pageVo.parameter}&${pageVo.addParameter}"
+              href="/pocketmonTrade/?page=${pageVo.nextPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
               class=""
               ><i class="fa-solid fa-angle-right"></i
             ></a>
@@ -324,7 +286,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:choose>
           <c:when test="${!pageVo.last}">
             <a
-              href="/pocketmonTrade/?page=${pageVo.totalPage}&${pageVo.parameter}&${pageVo.addParameter}"
+              href="/pocketmonTrade/?page=${pageVo.totalPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
               class=""
               ><i class="fa-solid fa-angles-right"></i
             ></a>
@@ -336,55 +298,40 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       </div>
       <!-- 페이지네이션 끝 -->
       
-      <div class="h-3em flex-all-center pb-10">
-        <form class="w-100 pocketmonTrade-search-form" action="" method="get">
-          <select class="w-20" name="column">
-            <option value="pocketmon_trade_title">선택</option>
-            <c:choose>
-              <c:when test="${pageVo.getColumn()=='pocketmon_trade_title'}">
-                <option value="pocketmon_trade_title" selected>제목</option>
-              </c:when>
-              <c:otherwise>
-                <option value="pocketmon_trade_title">제목</option>
-              </c:otherwise>
-            </c:choose>
-            <c:choose>
-              <c:when test="${pageVo.getColumn()=='pocketmon_trade_head'}">
-                <option value="pocketmon_trade_head" selected>말머리</option>
-              </c:when>
-              <c:otherwise>
-                <option value="pocketmon_trade_head">말머리</option>
-              </c:otherwise>
-            </c:choose>
-            <c:choose>
-              <c:when test="${pageVo.getColumn()=='pocketmon_trade_writer'}">
-                <option value="pocketmon_trade_writer" selected>
-                  글작성자
-                </option>
-              </c:when>
-              <c:otherwise>
-                <option value="pocketmon_trade_writer">글작성자</option>
-              </c:otherwise>
-            </c:choose>
-            <c:choose>
-              <c:when test="${pageVo.getColumn()=='pocketmon_trade_content'}">
-                <option value="pocketmon_trade_content" selected>내용</option>
-              </c:when>
-              <c:otherwise>
-                <option value="pocketmon_trade_content">내용</option>
-              </c:otherwise>
-            </c:choose>
-          </select>
-          <input
-            class="form-input"
-            type="search"
-            name="keyword"
-            value="${pageVo.getKeyword()}"
-            placeholder="검색어를 입력해주세요"
-          />
-          <button type="submit" class="form-btn neutral">검색</button>
-        </form>
-      </div>
+      <!-- 검색창 -->
+    <div class="row flex-all-center">
+      <form action="pocketmonTrade" method="get" autocomplete="off">
+        <select name="column" class="form-input neutral">
+          <option value="">선택</option>
+          <c:choose>
+            <c:when test="${pageVo.getColumn()=='pocketmon_trade_title'}">
+              <option value="pocketmon_trade_title" selected>제목</option>
+            </c:when>
+            <c:otherwise>
+              <option value="pocketmon_trade_title">제목</option>
+            </c:otherwise>
+          </c:choose>
+          <c:choose>
+            <c:when test="${pageVo.getColumn()=='pocketmon_trade_content'}">
+              <option value="pocketmon_trade_content" selected>내용</option>
+            </c:when>
+            <c:otherwise>
+              <option value="pocketmon_trade_content">내용</option>
+            </c:otherwise>
+          </c:choose>
+          <c:choose>
+            <c:when test="${pageVo.getColumn()=='member_nick'}">
+              <option value="member_nick" selected>글쓴이</option>
+            </c:when>
+            <c:otherwise>
+              <option value="member_nick">글쓴이</option>
+            </c:otherwise>
+          </c:choose>
+        </select>
+        <input name="keyword" class="form-input" placeholder="검색" value="${pageVo.getKeyword()}"/>
+        <input name="page" type="hidden" value="1" />
+        <button class="form-btn neutral">검색</button>
+      </form>
     </div>
   </article>
 

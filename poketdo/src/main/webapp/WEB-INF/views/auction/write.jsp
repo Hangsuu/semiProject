@@ -12,6 +12,16 @@
 <script src="/static/js/summernote.js"></script>
 <script>
 	$(function(){
+		$(".submit-btn").click(function(e){
+			if(!valid.isAllValid()){
+				if($("[name=lastDay]").val()==0){
+					alert("경매 기간을 선택하세요")
+				}
+				else{
+					alert("필수 입력항목을 입력하세요")
+				}
+			}
+		});
 		var valid={
 				titleValid:false,
 				lastDayValid:false,
@@ -127,29 +137,35 @@
 <div class="container-1200 mt-50">
 <form action="write" method="post" autocomplete="off" enctype="multipart/form-data">
 <input type="hidden" name="auctionWriter" value="${sessionScope.memberId}">
-	<div class="row">
-		제목<input class="form-input w-100" name="auctionTitle">
-		<div class="invalid-message">필수 입력 항목입니다</div>
-	</div>
-	<div class="row">
-		기간선택 : 
-		<select name="lastDay" class="form-input neutral">
-			<option value="0">선택</option>
-			<option value="1">1일</option>
-			<option value="3">3일</option>
-		</select>
-	</div>
-	<div class="row">
-	최소금액 : <input class="form-input w-40" name="auctionMinPrice" placeholder="경매 시작가 입력(미입력시 0원)">
-	</div>
-	<div class="row">
-	최대금액 : <input class="form-input w-40" name="auctionMaxPrice" placeholder="즉시 낙찰가 입력(미입력시 제한 없음)">
-	</div>
-	<div class="row">
-		대표이미지 등록<input class="form-btn neutral" name="attach" type="file">
-	</div>
-	<div class="row">
-		<img src="https://via.placeholder.com/150x150?text=mainImg" style="max-width:150px; height:auto; max-height:150px" class="preview">
+	<div class="flex-box">
+		<div class="w-60">
+			<div class="row">
+				제목<input class="form-input w-100" name="auctionTitle">
+				<div class="invalid-message">필수 입력 항목입니다</div>
+			</div>
+			<div class="row">
+				기간선택 : 
+				<select name="lastDay" class="form-input neutral">
+					<option value="0">선택</option>
+					<option value="1">1일</option>
+					<option value="3">3일</option>
+				</select>
+			</div>
+			<div class="row">
+			최소금액 : <input class="form-input w-40" name="auctionMinPrice" placeholder="경매 시작가 입력(미입력시 0원)">
+			</div>
+			<div class="row">
+			최대금액 : <input class="form-input w-40" name="auctionMaxPrice" placeholder="즉시 낙찰가 입력(미입력시 제한 없음)">
+			</div>
+		</div>
+		<div class="w-40">
+			<div class="row center">
+				<img src="/static/image/noimage.png" style="width:200px; height:200px;max-width:200px; height:auto; max-height:200px" class="preview">
+			</div>
+			<div class="row">
+				대표이미지 등록<input class="form-btn neutral" name="attach" type="file">
+			</div>
+		</div>
 	</div>
 	<div class="row w-100">
 		<textarea name="auctionContent" rows="10" class="form-input w-100 summernote"></textarea>

@@ -107,17 +107,18 @@ public class CombinationDao {
 	}
 	//태그 검색
 	public List<CombinationDto> tagSearchList(PaginationVO vo){
-		if(vo.tagList.length()==0) {
+		//태그 없고 검색어 없을떄
+		if(vo.tagList.length()==0 && !vo.isSearch()) {
 			String sql = "SELECT * FROM ("+
 					"SELECT tmp.*, rownum rn FROM ("+
-					"SELECT * FROM combination WHERE allboard_no IN"
-					+"(SELECT tag_origin FROM tag WHERE tag_name in(?) GROUP BY tag_origin HAVING count(DISTINCT tag_name)>0)"+
+					"select * from combination order by combination_no desc"+
 					") tmp"+
 					") WHERE rn BETWEEN ? AND ?";
-			Object[] param = {vo.getKeyword(), vo.getBegin(), vo.getEnd()};
+			Object[] param = {vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
-		else {
+		//태그 있고 검색어 없을 때
+		else if(vo.tagList.length()>0 && !vo.isSearch()) {
 			String[] list = vo.getTagList().split(",");
 			int n = list.length;
 			String question = "?";
@@ -141,16 +142,52 @@ public class CombinationDao {
 			param[n+1] = vo.getEnd();
 			return jdbcTemplate.query(sql, mapper, param);
 		}
+		//태그 없고 검색어 있을 때
+		else if(vo.tagList.length()==0 && vo.isSearch()) {
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"select * from combination where instr(#1, ?)>0 order by combination_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword(), vo.getBegin(),vo.getEnd()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		//다있을 때
+		else {
+			String[] list = vo.getTagList().split(",");
+			int n = list.length;
+			String question = "?";
+			for(int i=1; i<n; i++) {
+				question+=",?";
+			}
+			String sql = "SELECT * FROM ("+
+					"SELECT tmp.*, rownum rn FROM ("+
+					"SELECT * FROM combination WHERE allboard_no IN"
+					+ "(SELECT tag_origin FROM tag WHERE tag_name in("+question+") "
+					+ "GROUP BY tag_origin HAVING count(DISTINCT tag_name)=#1) "
+					+ "and instr(#2, ?)>0 "
+					+ "ORDER BY combination_no desc"+
+					") tmp"+
+					") WHERE rn BETWEEN ? AND ?";
+			sql = sql.replace("#1", n+"");
+			sql = sql.replace("#2", vo.getColumn());
+			Object[] param = new Object[n+3];
+			for(int i=0; i<n; i++) {
+				param[i]=list[i];
+			}
+			param[n] = vo.getKeyword();
+			param[n+1] = vo.getBegin();
+			param[n+2] = vo.getEnd();
+			return jdbcTemplate.query(sql, mapper, param);
+		}
 	}
 	public int tagListCount(PaginationVO vo) {
-		if(vo.tagList.length()==0) {
-			String sql = "SELECT count(*) FROM combination WHERE allboard_no IN"
-					+ "(SELECT tag_origin FROM tag WHERE tag_name in(?) GROUP BY tag_origin "
-					+ "HAVING count(DISTINCT tag_name)>0)";
-			Object[] param = {vo.getKeyword()};
-			return jdbcTemplate.queryForObject(sql, int.class, param);
+		if(vo.tagList.length()==0 && !vo.isSearch()) {
+			String sql = "select count(*) from combination";
+			return jdbcTemplate.queryForObject(sql, int.class);
 		}
-		else {
+		else if(vo.tagList.length()>0 && !vo.isSearch()) {
 			String[] list = vo.getTagList().split(",");
 			int n = list.length;
 			String question = "?";
@@ -165,6 +202,32 @@ public class CombinationDao {
 			for(int i=0; i<n; i++) {
 				param[i]=list[i];
 			}
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else if(vo.tagList.length()==0 && vo.isSearch()) {
+			String sql = "select count(*) from combination where instr(#1, ?)>0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String[] list = vo.getTagList().split(",");
+			int n = list.length;
+			String question = "?";
+			for(int i=1; i<n; i++) {
+				question+=",?";
+			}
+			String sql = "SELECT count(*) FROM combination WHERE allboard_no IN(SELECT tag_origin FROM tag "
+					+ "WHERE tag_name in("+question+")"
+					+ " GROUP BY tag_origin HAVING count(DISTINCT tag_name)=#1) "
+					+ "and instr(#2, ?)>0";
+			sql = sql.replace("#1", n+"");
+			sql = sql.replace("#2", vo.getColumn());
+			Object[] param = new Object[n+1];
+			for(int i=0; i<n; i++) {
+				param[i]=list[i];
+			}
+			param[n] = vo.getKeyword();
 			return jdbcTemplate.queryForObject(sql, int.class, param);
 		}
 	}

@@ -30,19 +30,22 @@ public class PaginationVO {
   public boolean isList() {
     return !isSearch();
   }
-
-  // 태그 검색을 위한 문자열 입력
-  public String tagList = "";
-
-  // 태그 검색용 파라미터 자동 생성
-  public String getTagParameter() {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("size=");
-    buffer.append(size);
-    buffer.append("&tagList=");
-    buffer.append(tagList);
-    return buffer.toString();
-  }
+	//태그 검색을 위한 문자열 입력
+	public String tagList="";
+	//태그 검색용 파라미터 자동 생성
+	public String getTagParameter() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("size=");
+		buffer.append(size);
+		buffer.append("&tagList=");
+		buffer.append(tagList);
+	    buffer.append("&column=");
+	    buffer.append(column);
+	    buffer.append("&keyword=");
+	    buffer.append(keyword);
+		return buffer.toString();
+	}
+	
 
   // 파라미터 자동 생성
   public String getParameter() {

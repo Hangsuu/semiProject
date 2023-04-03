@@ -42,7 +42,7 @@ public class CombinationVODao {
 				+ "AND tag_name NOT IN ("+question+")"
 				+ "GROUP BY tag_name ORDER BY tag_count DESC"+
 				") tmp"+
-				") WHERE rn BETWEEN 1 AND 15";
+				") WHERE rn BETWEEN 1 AND 10";
 		sql = sql.replace("#1", n+"");
 		Object[] param = new Object[n*2];
 		for(int i=0; i<n*2; i++) {

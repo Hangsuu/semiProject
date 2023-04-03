@@ -28,5 +28,6 @@ public class PocketmonWithTypesVO {
   private int pocketEffortSatk;
   private int pocketEffortSdef;
   private List<String> pocketTypes;
+  private List<Integer> pocketTypeNoes;
   private String imageURL;
 }

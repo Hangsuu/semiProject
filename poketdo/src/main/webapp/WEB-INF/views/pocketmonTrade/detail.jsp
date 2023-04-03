@@ -5,7 +5,6 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <!-- summernote css, jQuery CDN -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet"/>
-=======
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <style>
   .pocketmonTrade-reply-re:hover {
@@ -33,6 +32,7 @@
     }
 </script>
 <script src="/static/js/pocketmonTrade/pocketmonTrade.js"></script>
+
 <script type="text/template" id="pocketmonTrade-reply-template">
   <div class="row">
     <div>
@@ -51,6 +51,7 @@
     <hr/>
   </div>
 </script>
+
 <script type="text/template" id="pocketmonTrade-reply-write">
   <div class="row pocketmonTrade-reply-reply">
     <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
@@ -63,7 +64,7 @@
 </script>
 
 <!-- section -->
-<section class="container-1200 mt-50 mb-30">
+<section class="container-1200 mt-50 mb-30 ps-30 pe-30">
   <!-- article -->
   <article class="w-100">
     <div class="mb-30">

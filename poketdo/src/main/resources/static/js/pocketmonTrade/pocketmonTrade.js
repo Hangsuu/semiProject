@@ -23,17 +23,19 @@ $(function () {
     $.ajax({
       url: "/rest/reply/" + String(allboardNo),
       method: "get",
-      data: { allboardNo: allboardNo },
+      // data: { allboardNo: allboardNo },
       success: function (response) {
+        console.log(response);
         let replyContainer = $("#pocketmonTrade-replys");
         replyContainer.empty();
-        for (let i = 0; i < response.length; i++) {
-          const replyDto = response[i];
-
+        for (let i = 0; i < response.replyDto.length; i++) {
+          const replyDto = response.replyDto[i];
+          console.log(replyDto)
           const newReplyEle = $(
             $.parseHTML($("#pocketmonTrade-reply-template").html())
           );
-
+          // 댓글 전체에 replyOrigin data attr 추가
+          newReplyEle.attr("data-replygroup", replyDto.replyNo)
           // 댓글 작성자
           newReplyEle.find(".pocketmonTrade-reply-writer").text(replyDto.replyWriter);
 
@@ -61,6 +63,77 @@ $(function () {
           newReplyEle.find(".pocketmonTrade-reply-re").click(function(){
             if(!removeNewReply()) return;
             const newReReplyEle = $.parseHTML($("#pocketmonTrade-reply-write").html());
+            const reRelyContent = $(newReReplyEle).find("[name=replyContent]");
+            // 대댓글은 마진 처리
+            $(newReReplyEle).addClass("ms-50");
+
+            // 취소버튼 처리
+            $(newReReplyEle).find(".pocketmonTrade-reply-cancle-btn").click(function(){
+              let isEmpty = reRelyContent.summernote('isEmpty');
+              if(!isEmpty && !confirm("등록되지 않은 내용은 삭제됩니다\n댓글 등록을 취소하시겠습니까?")){
+                return;
+              }
+              $(this).parent().parent().remove();
+            });
+
+            // 등록버튼 처리
+            $(newReReplyEle).find(".pocketmonTrade-reply-update-btn").text("등록").click(function(){
+              if (memberId == "") {
+                alert("로그인을 해야만 댓글을 작성할 수 있습니다.");
+                return;
+              }
+              if(reRelyContent.summernote('isEmpty')){
+                return;
+              }
+
+              // replyNo; replyOrigin; replyWriter; replyContent; replyTime; replyGroup; replyLike;
+              console.log($(this).parent().parent().parent().data("replygroup"));
+              console.log(memberId);
+              console.log(reRelyContent.summernote("code"));
+              console.log(allboardNo);
+              // let data = $(replyFormEle).serialize();
+
+              // $.ajax({
+
+              // })
+              // loadReply();
+            });
+
+            $("#pocketmonTrade-reply-btn").click(function (e) {
+              e.preventDefault();
+              if(!removeNewReply()) return;
+          
+              if (memberId == "") {
+                alert("로그인을 해야만 댓글을 작성할 수 있습니다.");
+                return;
+              }
+              // 댓글 데이터 추출
+              let replyFormEle = document.querySelector(".pocketmonTrade-reply-form");
+              let data = $(replyFormEle).serialize();
+          
+              // 댓글창 비우기
+              let summernoteEle = $(replyFormEle).find(".summernote");
+              if(summernoteEle.summernote("isEmpty")){
+                alert("댓글 내용을 작성해주세요");
+                return;
+              }
+              // 댓글 테이블에 데이터 생성
+              $.ajax({
+                url: "/rest/reply/",
+                method: "post",
+                data: data,
+                success: function () {
+                  // 폼 초기화
+                  replyFormEle.reset();
+                  summernoteEle.summernote("code","");
+                  loadReply();
+                },
+                error: function () {},
+              });
+            });
+
+
+
             $(this).parent().parent().after(newReReplyEle);
             summernote();
           })

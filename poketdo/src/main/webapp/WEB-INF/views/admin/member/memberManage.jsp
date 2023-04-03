@@ -18,7 +18,7 @@
           <th>닉네임</th>
           <th>등급</th>
           <th>포인트</th>
-          <th>관리</th>
+          <th style="width:200px;">관리</th>
         </tr>
       </thead>
       <tbody class="center">

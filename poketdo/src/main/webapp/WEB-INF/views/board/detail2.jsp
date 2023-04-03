@@ -60,7 +60,7 @@
   <!-- article -->
   <article class="container-800">
     <div class="row center">
-        <h1>자유 게시판</h1>
+        <h1>인기 게시판</h1>
     </div>
     <div class="row">
       <h1>
@@ -85,7 +85,7 @@
     </div>
     <div class="row">
       <div>
-        <a class="link" href="/board/list?column=board_writer&keyword=${boardWithImageDto.getBoardWriter()}"><b>${boardWithImageDto.getBoardWriter()}</b>님의 게시글 더 보기</a>
+        <a class="link" href="/board/hot?column=board_writer&keyword=${boardWithImageDto.getBoardWriter()}"><b>${boardWithImageDto.getBoardWriter()}</b>님의 게시글 더 보기</a>
       </div>
     </div>
 
@@ -97,9 +97,6 @@
       <span class="boardReply">댓글 <span class="board-replyCnt">${boardWithImageDto.getBoardReply()}</span></span>
     </div>
     <hr>
-    <c:if test="${sessionScope.memberId != null}">
-        <a class="board-btn" href="write">글쓰기</a>
-      </c:if>
       <c:if test="${sessionScope.memberId == boardWithImageDto.getBoardWriter()}">
       <a class="board-btn" href="/board/edit?boardNo=${boardWithImageDto.getBoardNo()}">수정</a>
       </c:if>

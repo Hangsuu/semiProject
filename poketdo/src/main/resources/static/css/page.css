@@ -190,7 +190,7 @@ section.member-login-section form {
 }
 .pocketmonTrade-row {
   display: flex;
-  height: 2.5em;
+  height: 2.8em;
   padding: 4px;
 }
 .pocketmonTrade-row > * {
@@ -396,4 +396,9 @@ a.link:hover {
 }
 .red {
   color: red;
+}
+
+.pocketmonTrade-type, 
+.pocketmonTrade-isDone {
+  font-size: 1em;
 }

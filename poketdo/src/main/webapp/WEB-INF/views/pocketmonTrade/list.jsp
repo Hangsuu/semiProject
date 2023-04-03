@@ -5,6 +5,27 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script src="/static/js/pocketmonTrade/pocketmonTradeList.js"></script>
+<style>
+  .typeTag {
+    text-decoration: none;
+  }
+</style>
+<script>
+  // console.log(window.location);
+  console.log(window.location.origin)
+  $(function(){
+    $(".typeTag").click(function(e){
+      e.preventDefault();
+      const queryString = new URLSearchParams(location.search);
+      queryString.set("type", $(this).text());
+      console.log(queryString.toString());
+
+      const newUrl = window.location.origin + location.pathname + "?" + queryString.toString();
+      console.log(newUrl)
+      location.href=newUrl;
+    })
+  })
+</script>
 <!-- section -->
 <section>
   <article class="container-1200" style="min-height: 1000px">
@@ -163,7 +184,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               <div class="flex-all-center">${trade.getPocketmonTradeNo()}</div>    
             </c:otherwise>
           </c:choose>
-          <div class="flex-all-center bold">${trade.getPocketmonTradeHead()}</div>
+          <div class="flex-all-center bold"><a class="typeTag" href="#">${trade.getPocketmonTradeHead()}</a></div>
           <div class="flex-align-center">
             <a
               class="pocketmonTrade-a-link"

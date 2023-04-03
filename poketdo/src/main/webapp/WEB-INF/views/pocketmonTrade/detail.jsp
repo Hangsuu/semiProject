@@ -13,6 +13,17 @@
   .pocketmonTrade-reply-form {
     position: relative;
   }
+  .reReply {
+    display: flex;
+    align-items: start;
+  }
+  .reReply > *:first-child {
+    margin-top: 5px;
+    margin-right: 10px;
+  }
+  .reReply > *:last-child {
+    flex-grow: 1;
+  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <!-- 모먼트 -->
@@ -34,7 +45,7 @@
 <script src="/static/js/pocketmonTrade/pocketmonTrade.js"></script>
 
 <script type="text/template" id="pocketmonTrade-reply-template">
-  <div class="row">
+  <div class="pt-10 pb-10">
     <div>
       <div class="bold flex">
         <div class="pocketmonTrade-reply-writer">댓글작성자</div>
@@ -47,8 +58,8 @@
         <div class="pocketmonTrade-reply-time">댓글시간</div>
         <div class="ms-10 pocketmonTrade-reply-re">답글쓰기</div>
       </div>
+      <hr/>
     </div>
-    <hr/>
   </div>
 </script>
 
@@ -90,7 +101,7 @@
     </div>
     <div class="row">
       <div>
-        <a class="link" href="/pocketmonTrade?column=pocketmon_trade_writer&keyword=${pocketmonTradeMemberDto.getPocketmonTradeWriter()}"><b>${pocketmonTradeMemberDto.getPocketmonTradeWriter()}</b>님의 게시글 더 보기</a>
+        <a class="link" href="/pocketmonTrade?column=pocketmon_trade_writer&keyword=${pocketmonTradeMemberDto.getPocketmonTradeWriter()}"><b>${pocketmonTradeMemberDto.getMemberNick()}</b>님의 게시글 더 보기</a>
       </div>
     </div>
 

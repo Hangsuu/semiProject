@@ -49,4 +49,10 @@ public class ReplyWithNickDao {
 		    List<ReplyWithNickDto> list = jdbcTemplate.query(sql, mapper, param);
 		    return list.isEmpty() ? null : list.get(0);
 	  }
+
+	  public int replyWithNickCount(int replyOrigin) {
+		String sql = "select count(*) from (SELECT * FROM reply_with_nick where reply_origin=? CONNECT BY PRIOR reply_no = COALESCE(reply_group, 0) START WITH COALESCE(reply_group, 0) = 0 order siblings by reply_no ASC)";
+		Object[] param = { replyOrigin };
+		return jdbcTemplate.queryForObject(sql, int.class, param);
+	  }
 }

@@ -98,11 +98,13 @@ public class PocketmonTradeController {
   public String edit(@PathVariable int pocketmonTradeNo, Model model) {
     PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
         pocketmonTradeNo);
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-    String formattedDate = formatter.format(
+    if(pocketmonTradeDto.getPocketmonTradeTradeTime() != null){
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+      String formattedDate = formatter.format(
         pocketmonTradeDto.getPocketmonTradeTradeTime());
+        model.addAttribute("formattedDate", formattedDate);
+    }
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
-    model.addAttribute("formattedDate", formattedDate);
     return "/WEB-INF/views/pocketmonTrade/edit.jsp";
   }
 
@@ -110,7 +112,7 @@ public class PocketmonTradeController {
   public String edit(
       @PathVariable int pocketmonTradeNo,
       @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
-      @RequestParam String promise) throws ParseException {
+      @RequestParam(required = false, defaultValue = "") String promise) throws ParseException {
     pocketmonTradeService.update(pocketmonTradeDto, promise);
     return "redirect:/pocketmonTrade/" + pocketmonTradeNo;
   }

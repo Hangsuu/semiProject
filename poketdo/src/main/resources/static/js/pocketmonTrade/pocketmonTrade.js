@@ -36,8 +36,36 @@ $(function () {
           );
           // 댓글 전체에 replyOrigin data attr 추가
           newReplyEle.attr("data-replygroup", replyDto.replyNo)
+
+          // 내가 쓴 글이라면 배경 gray
+          if(replyDto.replyWriter == memberId){
+            newReplyEle.css("background-color", "#F9F9FA");
+          }
+          // 댓글 계층 처리
+          let level;
+          $.ajax({
+            url: "/rest/reply/level/" + replyDto.replyNo,
+            method: "get",
+            async: false,
+            success: function(response){
+              level = response;
+            },
+            error: function(){
+              console.log("댓글 레벨 구하기 통신 에러 !!!!");
+            }
+          })
+          // if(replyDto.replyGroup != 0){
+          //   newReplyEle.addClass("ms-30");
+          // }
+          console.log(level);
+          level *= 30;
+          newReplyEle.css("margin-left", level+ "px");
+          if(level!=0){
+            newReplyEle.prepend($("<i>").addClass("fa-solid fa-reply fa-rotate-180"));
+            newReplyEle.addClass("reReply");
+          }
           // 댓글 작성자
-          newReplyEle.find(".pocketmonTrade-reply-writer").text(replyDto.replyWriter);
+          newReplyEle.find(".pocketmonTrade-reply-writer").text(replyDto.memberNick);
 
           // 댓글 내용
           newReplyEle.find(".pocketmonTrade-reply-content").append($("<div>" + replyDto.replyContent + "</div>").html());
@@ -46,8 +74,8 @@ $(function () {
 
           // 글쓴이 표기
           let writerEle = newReplyEle.find(".writerTag");
-          const replyWriter = newReplyEle.find(".pocketmonTrade-reply-writer").text();
-          if (replyWriter == pocketmonTradeWriter) {
+          const replyWriter = replyDto.replyWriter;
+          if (replyDto.replyWriter == pocketmonTradeWriter) {
             writerEle.addClass("writer");
           } else {
             writerEle.remove();
@@ -86,17 +114,24 @@ $(function () {
                 return;
               }
 
-              // replyNo; replyOrigin; replyWriter; replyContent; replyTime; replyGroup; replyLike;
-              console.log($(this).parent().parent().parent().data("replygroup"));
-              console.log(memberId);
-              console.log(reRelyContent.summernote("code"));
-              console.log(allboardNo);
-              // let data = $(replyFormEle).serialize();
+              // 등록 비동기 처리
+              // replyOrigin; replyWriter; replyContent; replyTime; replyGroup;
+              let replyGroup = $(this).parent().parent().parent().data("replygroup");
+              let replyWriter = memberId;
+              let replyContent = reRelyContent.summernote("code");
+              let replyOrigin = allboardNo;
 
-              // $.ajax({
-
-              // })
-              // loadReply();
+              $.ajax({
+                url: "/rest/reply/",
+                method: "post",
+                data: { replyOrigin: replyOrigin, replyWriter: replyWriter, replyContent: replyContent, replyGroup: replyGroup },
+                success: function(){
+                  loadReply();
+                },
+                error: function(){
+                  console.log("대댓글 작성 통신에러!!!!");
+                }
+              })
             });
 
             $("#pocketmonTrade-reply-btn").click(function (e) {
@@ -151,9 +186,7 @@ $(function () {
             
             // 취소 버튼 처리
             $(newReReplyEle).find(".pocketmonTrade-reply-cancle-btn").click(function () {
-                if (confirm("댓글 수정을 취소하시겠습니까?")) {
-                  replyEle.show().next().remove();
-                }
+                replyEle.show().next().remove();
             });
 
             // 수정 버튼 처리

@@ -27,6 +27,12 @@
 	  flex-wrap: wrap;
 	  align-content: flex-start;
 	}
+	.seal-information>div:nth-child(2) > a > span:nth-child(1){
+	position:absolute;
+	bottom:15px;
+	right:25px;
+	font-size:16px;
+	}
 	.seal-information>div:nth-child(2) > a > span:nth-child(2){
 	position:absolute;
 	bottom:43px;
@@ -83,8 +89,12 @@
 	.seal-admin {
 	display:flex;
 	width:160px;
-	justify-content: space-between;
+	align-content: flex-start;
+	justify-content: center;
 	margin-top:10px;
+	}
+	.seal-admin > div {
+	margin: 0 auto;
 	}
 	
 	.seal-price > span{

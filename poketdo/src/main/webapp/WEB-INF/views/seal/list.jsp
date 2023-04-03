@@ -94,13 +94,26 @@
 			<div>
 				<span>인장 판매 목록</span>
 			</div>
-			<div>
-				<a href="/member/myseal">
-					<i class="fa-solid fa-square-arrow-up-right"></i>
-					<span>내 인장 목록 보러가기</span>
-					<span>보유 포인트 : ${point} point</span>
-				</a>
-			</div>
+			
+			<c:choose>
+				<c:when test="${sessionScope.memberLevel != null}">
+					<div>
+						<a href="/member/myseal">
+							<i class="fa-solid fa-square-arrow-up-right"></i>
+							<span>내 인장 목록 보러가기</span>
+							<span>보유 포인트 : ${point} point</span>
+						</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div>
+						<a href="/login">
+							<span>로그인 후 이용하세요.</span>
+						</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
 		</div>
 		<div class="seal-container">
 			<c:if test="${sessionScope.memberLevel=='관리자' }">
@@ -129,12 +142,14 @@
 								<button type="submit" class="form-btn positive">구매</button>
 							</form>
 							</div>
-							<div>
-								<a href="edit?sealNo=${list.get(0).sealNo}" class="form-btn neutral" >수정</a>
-							</div>
-							<div>
-								<a href="delete?sealNo=${list.get(0).sealNo}" class="form-btn negative" >삭제</a>
-							</div>
+							<c:if test="${sessionScope.memberLevel=='관리자' }">
+								<div>
+									<a href="edit?sealNo=${list.get(0).sealNo}" class="form-btn neutral" >수정</a>
+								</div>
+								<div>
+									<a href="delete?sealNo=${list.get(0).sealNo}" class="form-btn negative" >삭제</a>
+								</div>
+							</c:if>
 						</div>
 					</div>
 			</c:if>
@@ -152,7 +167,7 @@
 					<div>
 						<span>
 						${sealWithImageDto.sealName}
-						<c:if test="${sessionScope.memberLevel=='관리자' }">
+						<c:if test="${sessionScope.memberLevel != null}">
 							<c:forEach var="list2" items="${list2}">
 								<c:choose>
 									<c:when test="${list2 eq sealWithImageDto.sealNo}">
@@ -179,12 +194,14 @@
 						<button type="submit" class="form-btn positive">구매</button>
 					</form>
 					</div>
-					<div>
-						<a href="edit?sealNo=${sealWithImageDto.sealNo}" class="form-btn neutral" >수정</a>
-					</div>
-					<div>
-						<a href="delete?sealNo=${sealWithImageDto.sealNo}" class="form-btn negative" >삭제</a>
-					</div>
+					<c:if test="${sessionScope.memberLevel=='관리자' }">
+						<div>
+							<a href="edit?sealNo=${sealWithImageDto.sealNo}" class="form-btn neutral" >수정</a>
+						</div>
+						<div>
+							<a href="delete?sealNo=${sealWithImageDto.sealNo}" class="form-btn negative" >삭제</a>
+						</div>
+					</c:if>
 				</div>
 			</div>
 			</c:forEach>

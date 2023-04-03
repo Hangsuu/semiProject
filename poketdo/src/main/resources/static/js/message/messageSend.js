@@ -5,8 +5,7 @@ $(function () {
     queryString.get("column") == null ? "" : queryString.get("column");
   let keyword =
     queryString.get("keyword") == null ? "" : queryString.get("keyword");
-  let mode = queryString.get("mode") == null ? "" : queryString.get("mode");
-  let data = { page: page, column: column, keyword: keyword, mode: mode };
+  let data = { page: page, column: column, keyword: keyword };
 
   loadList();
 
@@ -19,6 +18,7 @@ $(function () {
   checkAllEle.change(function () {
     $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
   });
+
   // 메세지 개별 버튼과 check-all 동기화
   checkOneBtn.change(function () {
     var checkedOneBtn = $(".message-check-one:checked");
@@ -47,7 +47,7 @@ $(function () {
       // for문으로 delete 실행
       for (var i = 0; i < list.length; i++) {
         $.ajax({
-          url: "/rest/message/receive",
+          url: "/rest/message/send",
           method: "put",
           data: { messageNo: list[i] },
           success: function () {
@@ -69,68 +69,65 @@ $(function () {
   });
 
   // 4. 메세지 검색
-  $(".message-receive-search-form").submit(function (e) {
+  $(".message-send-search-form").submit(function (e) {
     e.preventDefault();
-    const messageSearchForm = $(".message-receive-search-form");
+    const messageSearchForm = $(".message-send-search-form");
     column = messageSearchForm.find("[name=column]").val();
     keyword = messageSearchForm.find("[name=keyword]").val();
     const searchQueryString = new URLSearchParams(location.search);
-    mode =
-      searchQueryString.get("mode") == null
-        ? ""
-        : searchQueryString.get("mode");
     page = 1;
-    data = { page: page, column: column, keyword: keyword, mode: mode };
+    data = { page: page, column: column, keyword: keyword };
     loadList();
   });
 
-  // 받은 메세지 레스트 api 콜
+  // 메세지 비동기 load
   function loadList() {
     $.ajax({
-      url: "/rest/message/receive/",
+      url: "/rest/message/send",
       method: "get",
       data: data,
       success: function (response) {
         var messageList = response.list;
         var sendTimeList = response.sendTimeList;
+        var readTimeList = response.readTimeList;
         const pageVo = response.pageVoList[0];
-
         // target 비우고 다시 로드
         $(".target").empty();
-        for (let i = 0; i < messageList.length; i++) {
+        for (var i = 0; i < messageList.length; i++) {
           const message = messageList[i];
-          if (mode === "new" && message.messageReadTime != null) {
-            continue;
-          }
           const sendTime = sendTimeList[i];
-
-          var newReceiveMsgRow = $.parseHTML($("#receive-message-row").html());
+          const readTime = readTimeList[i];
+          const newReceiveMsgRow = $.parseHTML($("#send-message-row").html());
 
           // 체크박스의에 PK(messageNo) 설정
           $(newReceiveMsgRow)
             .find("input.message-check-one")
             .val(message.messageNo);
-          // 메세지 보낸사람
-          const messageSender = message.messageSender;
+          // 메세지 받은사람
+          const messageRecipient = message.messageRecipient;
           $(newReceiveMsgRow)
-            .find(".message-sender-col")
+            .find(".message-recipient-col")
             .text(
-              message.messageSenderNick +
+              message.messageRecipientNick +
                 `(${
-                  messageSender.length >= 4
-                    ? messageSender.substring(0, 4) +
-                      "*".repeat(messageSender.length - 4)
-                    : messageSender
+                  messageRecipient.length >= 4
+                    ? messageRecipient.substring(0, 4) +
+                      "*".repeat(messageRecipient.length - 4)
+                    : messageRecipient
                 })`
+              //   message.messageRecipient
             )
-            .attr("href", "/message/write?recipient=" + message.messageSender);
+            .attr(
+              "href",
+              "/message/write?recipient=" + message.messageRecipient
+            );
           // 메세지 제목
           $(newReceiveMsgRow)
             .find(".message-title-col")
             .text(message.messageTitle)
             .attr(
               "href",
-              "/message/receive/detail?messageNo=" + message.messageNo
+              "/message/send/detail?messageNo=" + message.messageNo
             );
 
           // 현재시간 연월일 추출
@@ -145,52 +142,100 @@ $(function () {
           const sendMonth = sendTimeDate.getMonth();
           const sendDay = sendTimeDate.getDate();
 
-          const isToday =
+          // 읽은시간 연월일 추출
+          const readTimeDate = new Date(readTime);
+          const readYear = readTimeDate.getFullYear();
+          const readMonth = readTimeDate.getMonth();
+          const readDay = readTimeDate.getDate();
+
+          const sendToday =
             nowYear === sendYear &&
             nowMonth === sendMonth &&
             nowDay === sendDay;
+          const readToday =
+            nowYear === readYear &&
+            nowMonth === readMonth &&
+            nowDay === readDay;
 
-          // 메세지 보낸 시간(오늘 보냈으면 시간만 출력)
+          // 메세지 보낸 시간
           $(newReceiveMsgRow)
             .find(".message-send-time-col")
-            .text(isToday ? sendTime.slice(-5) : sendTime)
+            .text(sendToday ? sendTime.slice(-5) : sendTime)
             .attr(
               "href",
-              "/message/receive/detail?messageNo=" + message.messageNo
+              "/message/send/detail?messageNo=" + message.messageNo
             );
 
-          // 메세지 색상 설정 (읽은 메세지는 회색, 안 읽은 메세지는 블루)
-          if (message.messageReadTime != null) {
-            $(newReceiveMsgRow).find("a").addClass("gray");
+          // 메세지 읽은 시간
+          if (readTimeList[i] == null) {
+            $(newReceiveMsgRow)
+              .find(".message-read-time-col")
+              .text("읽지않음")
+              .attr(
+                "href",
+                "/message/send/detail?messageNo=" + message.messageNo
+              )
+              .css("font-weight", "bold");
           } else {
-            $(newReceiveMsgRow).find("a").addClass("blue");
+            $(newReceiveMsgRow)
+              .find(".message-read-time-col")
+              .text(readToday ? readTime.slice(-5) : readTime)
+              .attr(
+                "href",
+                "/message/send/detail?messageNo=" + message.messageNo
+              );
           }
+
+          // 발송취소
+          $(newReceiveMsgRow)
+            .find(".message-send-cancle-btn")
+            .text(readTimeList[i] == null ? "발송취소" : "")
+            .css("text-decoration", "underline")
+            .click(function () {
+              console.log("message.messageNo: " + message.messageNo);
+              if (
+                confirm(
+                  message.messageRecipient +
+                    "님에게 보낸 쪽지를 발송취소 하시겠습니까?\n"
+                )
+              ) {
+                $.ajax({
+                  url: "/rest/message/" + message.messageNo,
+                  method: "delete",
+                  success: function () {
+                    loadList();
+                  },
+                  error: function () {
+                    console.log("메세지 발송취소 통신에러!!!!");
+                  },
+                });
+              }
+            });
+
           $(".target").append(newReceiveMsgRow);
         }
 
         // h1태그 옆 숫자 반영
         // 받은 메세지 전체 숫자
-        $(".message-receive-cnt").text(pageVo.count);
-        // 받은 메세지 중 안 읽은 숫자
-        $.ajax({
-          url: "/rest/message/receive/notReadCount",
-          method: "get",
-          data: data,
-          success: function (response) {
-            $(".message-not-read-cnt").text(response);
-          },
-          error: function () {
-            console.log("안 읽은 메세지 count 통신에러 !!!!");
-          },
-        });
+        $(".message-send-cnt").text(pageVo.count);
+
         // 비동기 페이지네이션
         loadPagination(pageVo);
       },
       error: function () {
-        console.log("받은 편지함 테스트 통신오류");
+        console.log("메세지 비동기 list 통신에러!!!!!");
       },
     });
   }
+
+  // 새로고침 비동기 로드
+  $(".message-refresh-btn").click(function () {
+    loadList();
+    $(".fa-rotate-right").addClass("custom-spin");
+    setTimeout(function () {
+      $(".fa-rotate-right").removeClass("custom-spin");
+    }, 500);
+  });
 
   function loadPagination(pageVo) {
     const paginationContainer = $(".pagination");
@@ -208,7 +253,7 @@ $(function () {
         $("<a>")
           .attr(
             "href",
-            `/message/receive?${pageVo.parameter}&page=1&${pageVo.addParameter}`
+            `/message/send?${pageVo.parameter}&page=1&${pageVo.addParameter}`
           )
           .append($("<i>").addClass("fa-solid fa-angles-left"))
       );
@@ -219,7 +264,7 @@ $(function () {
         $("<a>")
           .attr(
             "href",
-            `/message/receive?${pageVo.parameter}&page=${pageVo.prevPage}&${pageVo.addParameter}`
+            `/message/send?${pageVo.parameter}&page=${pageVo.prevPage}&${pageVo.addParameter}`
           )
           .append($("<i>").addClass("fa-solid fa-angle-left"))
       );
@@ -241,7 +286,7 @@ $(function () {
           $("<a>")
             .attr(
               "href",
-              `/message/receive?${pageVo.parameter}&page=${i}&${pageVo.addParameter}`
+              `/message/send?${pageVo.parameter}&page=${i}&${pageVo.addParameter}`
             )
             .text(`${i}`)
         );
@@ -253,7 +298,7 @@ $(function () {
         $("<a>")
           .attr(
             "href",
-            `/message/receive?${pageVo.parameter}&page=${pageVo.nextPage}&${pageVo.addParameter}`
+            `/message/send?${pageVo.parameter}&page=${pageVo.nextPage}&${pageVo.addParameter}`
           )
           .append($("<i>").addClass("fa-solid fa-angle-right"))
       );
@@ -276,7 +321,7 @@ $(function () {
         $("<a>")
           .attr(
             "href",
-            `/message/receive?${pageVo.parameter}&page=${pageVo.totalPage}&${pageVo.addParameter}`
+            `/message/send?${pageVo.parameter}&page=${pageVo.totalPage}&${pageVo.addParameter}`
           )
           .append($("<i>").addClass("fa-solid fa-angles-right"))
       );

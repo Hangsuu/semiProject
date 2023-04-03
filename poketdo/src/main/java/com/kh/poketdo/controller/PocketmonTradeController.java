@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.poketdo.dao.PocketmonTradeDao;
+import com.kh.poketdo.dao.PocketmonTradeMemberDao;
 import com.kh.poketdo.dto.PocketmonTradeDto;
+import com.kh.poketdo.dto.PocketmonTradeMemberDto;
 import com.kh.poketdo.service.PocketmonTradeService;
-import com.kh.poketdo.vo.PaginationVO;
+import com.kh.poketdo.vo.PocketmonTradePageVO;
 
 @Controller
 @RequestMapping("/pocketmonTrade")
@@ -32,18 +34,21 @@ public class PocketmonTradeController {
   private PocketmonTradeDao pocketmonTradeDao;
 
   @Autowired
+  private PocketmonTradeMemberDao pocketmonTradeMemberDao;
+  
+  @Autowired
   private PocketmonTradeService pocketmonTradeService;
 
   // 포켓몬 교환 리스트
   @GetMapping("")
   public String list(
-      @ModelAttribute("pageVo") PaginationVO pageVo,
-      Model model) {
-    List<PocketmonTradeDto> pockmonTradelists = pocketmonTradeService.getPocketmonTradeList(
+      @ModelAttribute("pageVo") PocketmonTradePageVO pageVo,
+      Model model, @RequestParam(required = false, defaultValue = "") String type, @RequestParam(required = false, defaultValue = "") String isDone) {
+    List<PocketmonTradeMemberDto> pockmonTradeMemberlists = pocketmonTradeService.getPocketmonTradeList(
         pageVo);
-    List<PocketmonTradeDto> pocketmonTradeNotices = pocketmonTradeDao.selectNotice();
-    model.addAttribute("trades", pockmonTradelists);
-    model.addAttribute("notices", pocketmonTradeNotices);
+    List<PocketmonTradeMemberDto> pocketmonTradeMemberNotices = pocketmonTradeMemberDao.selectNotice();
+    model.addAttribute("trades", pockmonTradeMemberlists);
+    model.addAttribute("notices", pocketmonTradeMemberNotices);
     long now = new Date().getTime();
     model.addAttribute("now", now);
     return "/WEB-INF/views/pocketmonTrade/list.jsp";

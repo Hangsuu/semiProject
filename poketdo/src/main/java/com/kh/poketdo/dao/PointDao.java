@@ -13,7 +13,7 @@ public class PointDao {
 	
 	public boolean addPoint(String memberId, int point) {
 		String sql="update member set member_point = member_point + ? where member_id = ?";
-		Object [] param = {memberId, point};
+		Object [] param = {point, memberId};
 		return jdbcTemplate.update(sql,param)>0;
 	}
 	

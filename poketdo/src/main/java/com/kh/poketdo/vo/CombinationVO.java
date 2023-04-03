@@ -2,7 +2,7 @@ package com.kh.poketdo.vo;
 
 import java.util.List;
 
-import com.kh.poketdo.dto.CombinationDto;
+import com.kh.poketdo.dto.CombinationWithNickDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class CombinationVO {
 	private String tagName;
 	private int tagCount;
-	private List<CombinationDto> list;
+	private List<CombinationWithNickDto> list;
 	private PaginationVO vo;
 }

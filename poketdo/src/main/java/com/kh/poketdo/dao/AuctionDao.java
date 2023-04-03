@@ -39,6 +39,7 @@ public class AuctionDao {
 					.auctionReply(rs.getInt("auction_reply"))
 					.auctionRead(rs.getInt("auction_read"))
 					.auctionMainImg(rs.getInt("auction_main_img"))
+					.auctionFinish(rs.getInt("auction_finish"))
 					.build();
 		}
 	};
@@ -237,5 +238,11 @@ public class AuctionDao {
 			Object[] param = {memberId};
 			return jdbcTemplate.queryForObject(sql, int.class, param);
 		}
+	}
+	
+	public boolean changeFinish(int allboardNo) {
+		String sql = "update auction set auction_finish=1 where allboard_no=?";
+		Object[] param = {allboardNo};
+		return jdbcTemplate.update(sql, param)==1;
 	}
 }

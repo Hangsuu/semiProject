@@ -3,17 +3,13 @@ package com.kh.poketdo.dto;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.kh.poketdo.dao.MemberDao;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class AuctionDto {
+public class AuctionWithNickDto {
 	private int allboardNo;
 	private int auctionNo;
 	private String auctionWriter;
@@ -29,6 +25,8 @@ public class AuctionDto {
 	private int auctionRead;
 	private Integer auctionMainImg;
 	private int auctionFinish;
+	private String memberNick;
+	private Integer attachmentNo;
 	
 	public String getTime() {
 		java.util.Date currentTime = new java.util.Date();
@@ -67,5 +65,14 @@ public class AuctionDto {
 	public String getImageURL() {
 		if(auctionMainImg==null) return "https://via.placeholder.com/150x150?text=mainImg";
 		else return "/attachment/download?attachmentNo="+auctionMainImg;
+	}
+	
+	public String getUrlLink() {
+		if(attachmentNo>0) {
+			return "/attachment/download?attachmentNo="+attachmentNo;
+		}
+		else {
+			return "/static/image/noimage.png";
+		}
 	}
 }

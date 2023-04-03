@@ -148,6 +148,31 @@ footer {
 	color:white;
 	width:80px;
 }
+
+.back-sc-brighter {
+  background-color: #ebeefa;
+}
+.radius-1em {
+  border-radius: 1em;
+}
+.ph-h-em {
+  padding: 0 0.5em
+}
+.border-0 {
+  border: none;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.back-red-brighter {
+  background-color: #ffe6e6;
+}
+.inline-flex{
+  display: inline-flex;
+}
+.back-inherit {
+  background-color: inherit;
+}
 /* 홈화면 섹터 영역 */
 .home-sector{
 	margin-top:20px;

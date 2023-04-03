@@ -4,41 +4,14 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<style>
-  .message-content {
-    min-height: 200px;
-  }
-</style>
 <script>
-  var messageNo = parseInt("${messageDto.getMessageNo()}");
-  var messageSender = "${messageDto.getMessageSender()}";
+  const messageNo = parseInt("${messageWithNickDto.getMessageNo()}");
+  const messageSender = "${messageWithNickDto.getMessageSender()}";
 </script>
-<script>
-  $(function(){
-    $(".message-delete-btn").click(function(e){
-      if(!confirm("정말 삭제하시겠습니까?")){
-        e.preventDefault();
-        return;
-      }
-      $.ajax({
-        url: "/rest/message/receive",
-        method: "put",
-        data: { messageNo: messageNo },
-        success: function(){
-          window.location.href="/message/receive";
-        },
-        error: function(){
-          console.log("받은 메세지 삭제 통신 에러!!!!");
-        },
-      })
-    })
-  })
-</script>
-
+<script src="/static/js/message/messageReceiveDetail.js"></script>
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
-  
-    <div class="row">
-      <h1>${messageDto.getMessageTitle()}</h1>
+    <div>
+      <h1>${messageWithNickDto.getMessageTitle()}</h1>
     </div>
     <hr/>
     <div class="row flex">
@@ -55,15 +28,15 @@
     <hr/>
     <div class="row">
       <b>보낸사람</b> 
-      ${messageDto.getMessageSender()} [<fmt:formatDate value="${messageDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/>]
+      ${messageWithNickDto.getMessageSenderNick()}(${messageWithNickDto.getMessageSender().length() < 5 ?messageWithNickDto.getMessageSender():messageWithNickDto.getMessageSender().substring(0,4).concat("*".repeat(messageWithNickDto.getMessageSender().length()-4))}) [<fmt:formatDate value="${messageWithNickDto.getMessageSendTime()}" pattern="yyyy.MM.dd. H:m"/>]
     </div>
     <div class="row">
       <b>받은사람</b> 
-      ${messageDto.getMessageRecipient()} [<fmt:formatDate value="${messageDto.getMessageReadTime()}" pattern="yyyy.MM.dd. H:m"/>]
+      ${messageWithNickDto.getMessageRecipientNick()}(${messageWithNickDto.getMessageRecipient()}) [<fmt:formatDate value="${messageWithNickDto.getMessageReadTime()}" pattern="yyyy.MM.dd. H:m"/>]
     </div>
     <hr/>
-    <div class="row message-content">
-      ${messageDto.getMessageContent()}
+    <div class="row message-content" style="min-height: 200px;">
+      ${messageWithNickDto.getMessageContent()}
     </div>
     <hr/>
   </article>

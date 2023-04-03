@@ -8,27 +8,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
   var memberId = "${sessionScope.memberId}";
 </script>
 <script src="/static/js/message/messageReceive.js"></script>
-<script type="text/template" id="receive-message-row">
-  <hr class="mg-0"/>
-  <div class="flex-row-grow message-row">
-    <div class="flex-all-center message-check-column">
-      <input class="message-check-one" type="checkbox"/>
-    </div>
-    <div>
-      <a class="link message-sender-col">메세지 보낸 사람</a>
-    </div>
-    <a class="link message-title-col">메세지 제목</a>
-    <a class="link message-send-time-col">메세지 보낸 시간</a>
-  </div>
-</script>
-
-
   <!-- aside -->
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
-
-
     <div class="mb-30">
-        <h1>받은 쪽지함 <a class="deco-none message-not-read-cnt" href="/message/receive?mode=new" style="color:#5E78D3">${notReadCnt}</a>/<a class="deco-none message-receive-cnt" style="color:black" href="/message/receive"></a></h1>
+        <h1>받은 쪽지함 <a class="deco-none message-not-read-cnt" href="/message/receive?mode=new" style="color:#5E78D3">${notReadCnt}</a><c:if test="${param.mode != 'new'}">/<a class="deco-none message-receive-cnt" style="color:black" href="/message/receive"></a></c:if></h1>
     </div>
     <div class="row flex">
       <div class="pocketmonTrade-btn message-delete-btn">
@@ -50,77 +33,23 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       <div class="target"></div>
     </div>
     <!-- 페이지네이션 -->
-    <div class="row center pagination">
-      <!-- 1페이지로 이동 -->
-      <%-- <c:choose>
-        <c:when test="${vo.first}">
-          <a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
-        </c:when>
-        <c:otherwise>
-          <a href="/message/receive?${vo.parameter}&page=1&${vo.addParameter}"
-            ><i class="fa-solid fa-angles-left"></i
-          ></a>
-        </c:otherwise>
-      </c:choose>
-      <!-- 이전 페이지로 이동 -->
-      <c:choose>
-        <c:when test="${vo.prev}">
-          <a href="/message/receive?${vo.parameter}&page=${vo.prevPage}&${vo.addParameter}"
-            ><i class="fa-solid fa-angle-left"></i
-          ></a>
-        </c:when>
-        <c:otherwise>
-          <a class="disabled"
-            ><i class="fa-solid fa-angle-left disabled"></i
-          ></a>
-        </c:otherwise>
-      </c:choose>
-      <!-- 번호들 -->
-      <c:forEach
-        var="i"
-        begin="${vo.startBlock}"
-        end="${vo.finishBlock}"
-        step="1"
-      >
-        <c:choose>
-          <c:when test="${vo.page==i}"><a class="on disabled">${i}</a></c:when>
-          <c:otherwise
-            ><a
-              href="/message/receive?${vo.parameter}&page=${i}&${vo.addParameter}"
-              class=""
-              >${i}</a
-            ></c:otherwise
-          >
-        </c:choose>
-      </c:forEach>
-      <!-- 다음 페이지 -->
-      <c:choose>
-        <c:when test="${vo.next}">
-          <a
-            href="/message/receive?${vo.parameter}&page=${vo.nextPage}&${vo.addParameter}"
-            class=""
-            ><i class="fa-solid fa-angle-right"></i
-          ></a>
-        </c:when>
-        <c:otherwise
-          ><a class="disabled"> <i class="fa-solid fa-angle-right"></i></a>
-        </c:otherwise>
-      </c:choose>
-      <!-- 마지막페이지로 -->
-      <c:choose>
-        <c:when test="${!vo.last}">
-          <a
-            href="/message/receive?${vo.parameter}&page=${vo.totalPage}&${vo.addParameter}"
-            class=""
-            ><i class="fa-solid fa-angles-right"></i
-          ></a>
-        </c:when>
-        <c:otherwise>
-          <a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
-        </c:otherwise>
-      </c:choose> --%>
+    <div class="mt-50 center pagination"></div>
+    <!-- 검색창 -->
+    <div class="row center">
+      <form class="message-receive-search-form" action="/message/receive" method="get" autocomplete="off">
+        <select name="column" class="form-input">
+          <option class="column-option" value="message_title">제목</option>
+          <option class="column-option" value="message_sender_nick">닉네임</option>
+          <option class="column-option" value="message_sender">아이디</option>
+          <option class="column-option" value="message_content">내용</option>
+        </select>
+        <input name="keyword" class="form-input" value="${param.keyword}" placeholder="검색" />
+        <input name="item" type="hidden" value="${param.item}" />
+        <input name="order" type="hidden" value="${param.order}" />
+        <input name="special" type="hidden" value="${param.special}" />
+        <button class="form-btn neutral">검색</button>
+      </form>
     </div>
-    <!-- 페이지네이션 끝 -->
   </article>
 
   <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

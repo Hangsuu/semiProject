@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.PocketmonTradeDao;
 import com.kh.poketdo.dto.PocketmonTradeDto;
-import com.kh.poketdo.vo.PaginationVO;
+import com.kh.poketdo.vo.PocketmonTradePageVO;
 
 @CrossOrigin
 @RestController
@@ -21,7 +21,7 @@ public class PocketmonTradeRestController {
     private PocketmonTradeDao pocketmonTradeDao;
 
     @GetMapping("/list")
-    public List<PocketmonTradeDto> selectList(PaginationVO pageVo) {
+    public List<PocketmonTradeDto> selectList(PocketmonTradePageVO pageVo) {
         pageVo.setCount(pocketmonTradeDao.getCount(pageVo));
         return pocketmonTradeDao.selectList(pageVo);
     }

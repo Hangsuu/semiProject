@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.poketdo.dto.PocketmonTradeDto;
-import com.kh.poketdo.vo.PaginationVO;
+import com.kh.poketdo.vo.PocketmonTradePageVO;
 
 @Repository
 @RequestMapping("/trade")
@@ -68,7 +68,7 @@ public class PocketmonTradeDao {
   }
 
   // R 포켓몬교환 게시물 리스트
-  public List<PocketmonTradeDto> selectList(PaginationVO pageVo) {
+  public List<PocketmonTradeDto> selectList(PocketmonTradePageVO pageVo) {
     String sql;
     Object[] param;
     if (pageVo.getKeyword().equals("")) {
@@ -101,7 +101,7 @@ public class PocketmonTradeDao {
   }
 
   // R 포켓몬교환 게시물 Cnt
-  public int getCount(PaginationVO pageVo) {
+  public int getCount(PocketmonTradePageVO pageVo) {
     String sql;
     int cnt;
     if (pageVo.getKeyword().equals("")) {

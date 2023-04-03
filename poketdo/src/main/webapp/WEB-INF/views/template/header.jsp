@@ -37,45 +37,41 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
 <header class="container-1200" style="min-height:70px;">
     <!-- header -->
-<div class="link right mb-20" style="background-color:#9DACE4">
-   	<div style="display:inline-block; padding:10px">
+<div class="right mb-20" style="background-color:#9DACE4">
+   	<div style="display:inline-block;">
 		<c:choose>
 			<c:when test="${empty sessionScope.memberId}">
 			<!-- css:commons, base -->
-				<a href="/member/login" class="link right"><span class="header-menu">로그인</span></a>
-				<a href="/member/join" class="link right"><span class="header-menu">회원가입</span></a>
+				<div class="row me-40">
+					<a href="/member/login" class="link right"><span class="header-menu">로그인</span></a>
+					<a href="/member/join" class="link right"><span class="header-menu">회원가입</span></a>
+				</div>
+			</c:when>
+			<c:when test="${sessionScope.memberId!=null && sessionScope.memberLevel!='관리자'}">
+				<div class="row me-40">
+					<a href="/member/logout" class="link center"><span class="header-menu">로그아웃</span></a>
+					<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
+					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
+					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+				</div>
 			</c:when>
 			<c:otherwise>
-				<a href="/member/logout" class="link"><span class="header-menu">로그아웃</span></a>
+				<div class="row me-40">
+					<a href="/member/logout" class="link center"><span class="header-menu">로그아웃</span></a>
+					<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
+					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
+					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+					<a href="/admin/adminCheck" class="link center"><span class="header-menu">관리 페이지</span></a>
+				</div>
 			</c:otherwise>
 		</c:choose>
      </div>
-	<div style="display:inline-block; padding:10px">
-		<c:if test="${sessionScope.memberId != null}">
-			<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
-		</c:if>
-	</div>
-	<div style="display:inline-block">
-		<c:if test="${sessionScope.memberId != null}">
-			<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
-		</c:if>
-	</div>
-	<div style="display:inline-block">
-		<c:if test="${sessionScope.memberLevel == '관리자'}">
-			<a href="/admin/adminCheck" class="link center"><span class="header-menu">관리 페이지</span></a>
-		</c:if>
-	</div>
-	<div style="display:inline-block" class="me-30">
-		<c:if test="${sessionScope.memberId != null}">
-			<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
-		</c:if>
-	</div>
 </div>
       <%-- base.css --%>
     <div class="float-box">
       <div class="float-left w-20">
         <a href="/">
-          <img src="/static/image/logo_final.png" style="width:300px;" class="ms-30 mt-10 mb-10" >
+          <img src="/static/image/logo_final.png" style="width:300px;" class="ms-40 mt-10 mb-10" >
         </a>
       </div>
     <div class="float-right w-70">

@@ -47,7 +47,7 @@
     	}
  
    
-     a {
+     .ablock {
     
      text-decoration-line: none;
      text-decoration: none;
@@ -56,10 +56,10 @@
      
      }
      
-	    a:visited { text-decoration: none; }
-	    a:hover { text-decoration: none; }
-	    a:focus { text-decoration: none; }
-	    a:hover, a:active { text-decoration: none; }
+	    ablock:visited { text-decoration: none; }
+	    ablock:hover { text-decoration: none; }
+	    ablock:focus { text-decoration: none; }
+	    ablock:hover, ablock:active { text-decoration: none; }
 	    
 	    
     
@@ -71,10 +71,12 @@
   <article class="flex-all-center">
      <div class= "container-500">
 	    <c:choose>
-	    <c:when test = "${Profile != null}">
-	    	<img width="500" height="300" src="/attachment/download?attachmentNo=${Profile.attachmentNo}"> 
+	    <c:when test = "${profile != null}">
+	    	<img width="500" height="300" src="/attachment/download?attachmentNo=${profile.attachmentNo}"> 
 
-		<img src="${image.data}" alt="">
+			<button type="button" class = "form-btn positive w-100 mt-30" onclick="MakeCard()">다시 만들기</button>
+			
+			<br>
 	    	카카오톡으로 공유하기 :
 	    	<br>
 	    	트위터로 공유하기 : 
@@ -83,9 +85,9 @@
  		<c:otherwise>
  			<div class="row center mb-30"><h2>트레이너 카드 없음</h2></div>
  			
- 			<button type="button" class = "form-btn positive w-100" onclick="MakeCard()">만들기</button>
+ 			<button type="button" class = "form-btn positive w-100 mt-30" onclick="MakeCard()">만들기</button>
  		
- 			<div></div>
+ 		
  		
  		</c:otherwise>
  		</c:choose>

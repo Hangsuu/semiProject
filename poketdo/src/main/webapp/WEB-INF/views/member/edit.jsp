@@ -40,7 +40,8 @@
     	}
  
    
-     a {
+     
+     .ablock {
     
      text-decoration-line: none;
      text-decoration: none;
@@ -49,10 +50,10 @@
      
      }
      
-	    a:visited { text-decoration: none; }
-	    a:hover { text-decoration: none; }
-	    a:focus { text-decoration: none; }
-	    a:hover, a:active { text-decoration: none; }
+	    ablock:visited { text-decoration: none; }
+	    ablock:hover { text-decoration: none; }
+	    ablock:focus { text-decoration: none; }
+	    ablock:hover, ablock:active { text-decoration: none; }
 	    
 	    
     
@@ -65,8 +66,8 @@
   
   
   <!-- article -->
-  <article class="flex-all-center">
-    	<form style="height: 60vh" action="edit" method="post">
+  <article>
+    	<form class="flex-all-center" style="height: 60vh" action="edit" method="post">
      	<div class="container-500 center">
         
             <div class="row center">
@@ -94,13 +95,13 @@
         	class="form-input w-100" autocomplete="off" required>
         </div>
         
-        <div class="row left">
+        <div class="row left mb-30">
         	회원 등급 : ${memberDto.memberLevel}
         </div>
         
         
         <div>
-        <button type="submit" class="form-btn w-100 positive mt-30">수정</button>
+        <button type="submit" class="form-btn w-100 positive">수정</button>
         </div>
 
 

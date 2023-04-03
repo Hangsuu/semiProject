@@ -40,7 +40,7 @@
     	}
  
    
-     a {
+     .ablock {
     
      text-decoration-line: none;
      text-decoration: none;
@@ -49,10 +49,10 @@
      
      }
      
-	    a:visited { text-decoration: none; }
-	    a:hover { text-decoration: none; }
-	    a:focus { text-decoration: none; }
-	    a:hover, a:active { text-decoration: none; }
+	    ablock:visited { text-decoration: none; }
+	    ablock:hover { text-decoration: none; }
+	    ablock:focus { text-decoration: none; }
+	    ablock:hover, ablock:active { text-decoration: none; }
 	    
 	    
     

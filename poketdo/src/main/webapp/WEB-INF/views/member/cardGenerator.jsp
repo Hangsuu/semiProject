@@ -84,7 +84,7 @@
 	
 	
 		
-	
+	<!-- 바로 이미지 다운받기 -->
 	
 	<script>
 	
@@ -170,6 +170,8 @@
 		    	error:function(){}
 		    });
 		  });
+		
+		  alert("마이페이지에서 확인 가능합니다");
 		}
 		
 	
@@ -202,6 +204,7 @@
 		    	  error: function(xhr, status, error) { // 요청이 실패했을 때 실행될 콜백 함수입니다.
 		                if(xhr.status == 500) {
 		                    alert("정확한 포켓몬 이름을 입력해주세요");
+		                    currentInputNo--;
 		                    return;
 		                }
 		    		  console.log("error: " + error); // 오류 메시지를 콘솔에 출력합니다.
@@ -422,7 +425,7 @@
   <article>
 <!--     <form class="super-center mt-50 mb-50" style="height:90vh;" method="get" enctype="multipart/form-data" autocomplete="off"> -->
         
-        <form class="super-center mt-50 mb-50">
+        <div class="super-center mt-50 mb-50">
       <div class= "container-500 center" >
       
     
@@ -513,6 +516,7 @@
          
         </div>
 	
+<!--     <form method="post" enctype="multipart/form-data">		 -->
 		
 		<div class="row center">
 			
@@ -525,15 +529,15 @@
 			
 	
 	    </div>	       
-		
+<!-- 	</form> -->
+   
 	    
 	    </div>
 	    
 	   
-    </form>
+    </div>
     
-<!--     </form> -->
-   
+    
         
     
          <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">

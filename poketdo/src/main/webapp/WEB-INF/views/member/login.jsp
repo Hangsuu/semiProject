@@ -55,13 +55,13 @@
         </div>
         
         <div>
-        	<button class="row form-btn positive w-100" type="submit" style="">로그인</button>
+        	<button class="row form-btn positive w-100" type="submit">로그인</button>
         </div>
         
         <div>
           <c:choose>
             <c:when test="${valid == 'no'}">
-              <span style="font-color: red">아이디 또는 비밀번호가 잘못 입력되었습니다</span>
+              <span>아이디 또는 비밀번호가 잘못 입력되었습니다</span>
             </c:when>
             <c:otherwise>
               &nbsp;

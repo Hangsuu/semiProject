@@ -10,9 +10,9 @@
   <aside class="flex-all-center">
   
 	<div class= "flex-column ml-auto" style="width: 300px; ">
-        <a class="w-100 mb-10" href="/member/edit"><button class="form-btn neutral w-100">개인정보수정</button></a>
-        <a class="w-100 mb-10" href="/member/myseal"><button class="form-btn neutral w-100">나의 인장</button></a>
-        <a class="w-100 mb-10" href="/member/exit"><button class="form-btn neutral w-100">회원탈퇴</button></a>
+        <a class="ablock w-100 mb-10" href="/member/myseal"><button class="form-btn neutral  w-100">나의 인장</button></a>
+        <a class="ablock w-100 mb-10" href="/member/edit"><button class="form-btn neutral w-100">개인정보수정</button></a>
+        <a class="ablock w-100 mb-10" href="/member/exit"><button class="form-btn neutral  w-100">회원탈퇴</button></a>
   	</div>
   
   

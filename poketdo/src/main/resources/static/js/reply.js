@@ -91,7 +91,7 @@ $(function(){
 					if(memberId!=null && response.replyDto[i].replyGroup==0){
 						$(html).find(".remove-box").remove();
 						$(html).find(".remain-box").removeClass("float-right").css("width","100%")
-						var childbtn = $("<i>").addClass("fa-solid fa-reply ms-10")
+						var childbtn = $("<i>").addClass("fa-solid fa-reply fa-flip-both ms-10 reply-child-btn")
 								.attr("data-reply-parent", response.replyDto[i].replyNo).attr("title","답글달기").click(childReply);
 						$(html).find(".reply-option").append(childbtn);
 					}
@@ -181,7 +181,11 @@ $(function(){
 			},
 			success:function(response){
 				if(response==true){
-					thisLike.removeClass("fa-solid fa-regular").addClass("fa-solid").css("color","#FF3040");
+					thisLike.removeClass("fa-solid fa-regular").addClass("fa-solid fa-beat").css("color","#FF3040");
+					//시간 지나면 fa-beat 제거
+					setTimeout(function(){
+						thisLike.removeClass("fa-beat")
+					}, 700)
 				}
 				else{
 					thisLike.removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");

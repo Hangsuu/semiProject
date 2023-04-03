@@ -74,6 +74,6 @@
 /* 수정, 삭제 대댓글 버튼 색 */
 .reply-box .fa-trash,
 .reply-box .fa-edit,
-.reply-box .fa-reply{
+.reply-box .reply-child-btn{
 	color:#999999;
 }

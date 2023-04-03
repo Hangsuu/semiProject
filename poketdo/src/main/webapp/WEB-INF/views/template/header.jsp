@@ -41,6 +41,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			<c:when test="${empty sessionScope.memberId}">
 			<!-- css:commons, base -->
 				<a href="/member/login" class="link center"><span class="header-menu">로그인</span></a>
+				<a href="/member/join" class="link center"><span class="header-menu">회원가입</span></a>
 			</c:when>
 			<c:otherwise>
 				<a href="/member/logout" class="link center"><span class="header-menu">로그아웃</span></a>

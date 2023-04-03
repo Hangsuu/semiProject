@@ -48,14 +48,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		</c:choose>
      </div>
 	<div style="display:inline-block">
-<<<<<<< HEAD
-		<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
-
-=======
 		<c:if test="${sessionScope.memberId != null}">
 			<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
 		</c:if>
->>>>>>> refs/remotes/origin/main
 	</div>
 	<div style="display:inline-block">
 		<c:if test="${sessionScope.memberId != null}">

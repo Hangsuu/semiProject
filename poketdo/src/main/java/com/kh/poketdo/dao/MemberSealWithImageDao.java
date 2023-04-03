@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.MemberSealWithImageDto;
+import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Repository
@@ -110,5 +111,12 @@ public class MemberSealWithImageDao {
 		}
 	}
 
+	//상세
+	public List<String> selectSealNo(String memberId) {
+		String sql ="select distinct seal_join_no from member_seal_with_image where member_join_id = ?";
+		Object [] param = {memberId};
+		return jdbcTemplate.queryForList(sql, String.class ,param);
+	}
+	
 	
 }

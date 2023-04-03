@@ -133,10 +133,17 @@ public class PocketmonDao {
 		return jdbcTemplate.update(sql,param)>0;
 		}
 	
-	//포켓몬스터 정보 상세조회
+	//포켓몬스터 정보 상세조회(번호)
 	public PocketmonDto selectOne(int pocketNo) {
 		String sql = "select * from pocketmon where pocket_no=? ";
 		Object [] param = {pocketNo};
+		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	//포켓몬스터 정보 상세조회(이름)
+	public PocketmonDto selectNameOne(String pocketName) {
+		String sql = "select * from pocketmon where pocket_name=? ";
+		Object [] param = {pocketName};
 		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty() ? null : list.get(0);
 	}

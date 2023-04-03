@@ -61,6 +61,7 @@ public class PocketTypeController {
 			) {
 		int totalCount = pocketmonTypeWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);
+		vo.setSize(12);
 		
 		List<PocketmonTypeWithImageDto> list = pocketmonTypeWithImageDao.selectList(vo);
 		model.addAttribute("list", list);
@@ -85,7 +86,7 @@ public class PocketTypeController {
 			RedirectAttributes attr
 			) throws IllegalStateException, IOException {
 		pocketmonTypeService.pocketmonEdit(pocketmonTypeDto, attach, pocketTypeNo, attr );
-		return "redirect:detail";
+		return "redirect:detail?pocketTypeNo="+pocketTypeNo;
 	}
 	
 	  //포켓몬스터 속성 정보 상세

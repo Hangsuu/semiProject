@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
 import com.kh.poketdo.dao.PocketmonNameImageDao;
+import com.kh.poketdo.dao.PocketmonTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.PocketmonNameImageDto;
@@ -38,6 +39,9 @@ public class PocketmonRestController {
 	  
 	  @Autowired
 	  private PocketmonService pocketmonService;
+	  
+	  @Autowired
+	  private PocketmonTypeDao pocketmonTypeDao;
 	  
 	  //포켓몬스터 기본 정보 처리
 	  @PostMapping("/")
@@ -71,6 +75,21 @@ public class PocketmonRestController {
 		return dto;
 	}
 
-
+	@GetMapping("/pocketNo/{pocketNo}")
+	public String findPocketNo (@PathVariable int pocketNo) {
+		return pocketmonDao.selectOne(pocketNo)==null?"Y":"N";
+	}
+	@GetMapping("/pocketName/{pocketName}")
+	public String findPocketName (@PathVariable String pocketName) {
+		return pocketmonDao.selectNameOne(pocketName)==null?"Y":"N";
+	}
+	@GetMapping("/pocketTypeNo/{pocketTypeNo}")
+	public String findPocketTypeNo (@PathVariable int pocketTypeNo) {
+		return pocketmonTypeDao.selectOne(pocketTypeNo)==null?"Y":"N";
+	}
+	@GetMapping("/pocketTypeName/{pocketTypeName}")
+	public String findPocketTypeName (@PathVariable String pocketTypeName) {
+		return pocketmonTypeDao.selectNameOne(pocketTypeName)==null?"Y":"N";
+	}
 
 }

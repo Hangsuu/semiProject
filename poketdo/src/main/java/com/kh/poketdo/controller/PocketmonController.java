@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,8 +54,9 @@ public class PocketmonController {
   
   //포켓몬스터 기본 정보 입력 페이지
   @GetMapping("/insert")
-  public String pocketDataInsert() {
-	
+  public String pocketDataInsert(Model model) {
+	List<PocketmonTypeDto> typeList = pocketmonTypeDao.selectList();
+	model.addAttribute("typeList", typeList);
     return "/WEB-INF/views/pocketdex/insert.jsp";
   }
 
@@ -64,6 +66,7 @@ public class PocketmonController {
     @ModelAttribute PocketmonDto pocketmonDto, //포켓몬스터 기본 정보
     @RequestParam int typeJoinNo, //포켓몬스터 속성 번호1
     @RequestParam int typeJoinNo2, //포켓몬스터 속성 번호2
+    @RequestParam int pocketNo,
     @RequestParam MultipartFile attach
   ) throws IllegalStateException, IOException {
     //포켓몬스터 기본 정보 입력
@@ -73,7 +76,8 @@ public class PocketmonController {
     //포켓몬스터 속성 번호 입력
     pocketmonJoinTypeDao.insert(pocketJoinNo, typeJoinNo);
     pocketmonJoinTypeDao.insert(pocketJoinNo, typeJoinNo2);
-    return "redirect:insertFinish";
+    return "redirect:detail?pocketNo="+pocketNo;
+    
   }
 
   //포켓몬스터 기본 정보 입력 완료 페이지
@@ -134,7 +138,7 @@ public class PocketmonController {
   			pocketmonJoinTypeDao.edit(typeJoinNo, firstTypeNo);
   			pocketmonJoinTypeDao.edit(typeJoinNo2, secondTypeNo);
   			
-  			return "redirect:detail";
+  			return "redirect:detail?pocketNo="+pocketNo;
   	}
 
   //포켓몬스터 정보 상세

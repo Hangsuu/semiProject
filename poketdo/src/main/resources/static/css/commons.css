@@ -93,13 +93,14 @@
 .form-input {
   font-size:16px;
   padding: 0.4em;
-  outline: none; /*선택 시 강조 효과 제거*/
+/*   outline: none; 선택 시 강조 효과 제거 */
   border: 2px solid #F2F4FB;
   border-radius: 0.2em;
 }
 .form-input:focus {
   /*커서가 위치했을 때*/
-  border-color: black;
+/*   border-color: black; */
+border: 2px solid #F2F4FB;
 }
 .form-input.neutral{
   background-color: #F2F4FB;

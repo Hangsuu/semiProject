@@ -3,50 +3,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script type="text/javascript">
-	$(function(){
-		$(".left").mouseenter(function() {
-			$(this).find("i").addClass('fa-shake');
-		}).mouseleave(function(){
-			$(this).find("i").removeClass('fa-shake');
-		});
-		$(".right").mouseenter(function() {
-			$(this).find("i").addClass('fa-shake');
-		}).mouseleave(function(){
-			$(this).find("i").removeClass('fa-shake');
-		});
-		$(".bottom-list-icon").mouseenter(function() {
-			$(this).find("i").addClass('fa-beat');
-		}).mouseleave(function(){
-			$(this).find("i").removeClass('fa-beat');
-		});
-		$(".bottom-edit-icon").mouseenter(function() {
-			$(this).find("i").addClass('fa-beat');
-		}).mouseleave(function(){
-			$(this).find("i").removeClass('fa-beat');
-		});
-		$(".bottom-delete-icon").mouseenter(function() {
-			$(this).find("i").addClass('fa-beat');
-		}).mouseleave(function(){
-			$(this).find("i").removeClass('fa-beat');
-		});
-        $(".confirm-delete").click(function(e){
-            e.preventDefault();
-            if(!confirm("정말 삭제하시겠습니까?"))	return;
-            window.location.href = $(this).attr("href");
-           
-        });
-		
-	});	
-	
-</script>
 
 <section class="container-1200 flex-box">
 
 	<aside></aside>
 	
-	<article class="mt-50 pocket-detail-article">
-		<div class="pocket-detail-container pdc-color${list.get(0).getPocketTypeNoes().get(0)}">
+	<article class="mt-50 pocketdex-article">
+		<div class="pocket-detail-container pdc-color pdc-color${list.get(0).getPocketTypeNoes().get(0)}">
 			<div class="detail-image-container">
 				<div class="left-text">
 					
@@ -200,6 +163,12 @@
 						</a>
 					</div>
 				<c:if test="${sessionScope.memberLevel=='관리자' }">
+					<div class="bottom-edit-icon icon-color">
+						<a href="insert">
+							<span>신규 등록</span>
+							<i class="fa-solid fa-square-plus"></i>
+						</a>
+					</div>
 					<div class="bottom-edit-icon icon-color">
 						<a href="edit?pocketNo=${pocketmonWithImageDto.pocketNo}">
 							<span>수정</span>

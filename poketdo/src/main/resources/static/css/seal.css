@@ -1,0 +1,103 @@
+	/*상부 정보*/
+	.seal-information{
+	width:1000px;
+	height:100px;
+	flex-wrap: wrap;
+	display:flex;
+	justify-content: space-between;
+	align-content: flex-start;
+	margin : auto;
+	}
+	.seal-information>div:first-child{
+	position:relative;
+	width:250px;
+	height:100px;
+	}
+	.seal-information>div:first-child>span{
+	position:absolute;
+	bottom:5px;
+	left:20px;
+	font-size:30px;
+	}
+	.seal-information>div:nth-child(2){
+	position:relative;
+	width:300px;
+	height:100px;
+	display:flex;
+	  flex-wrap: wrap;
+	  align-content: flex-start;
+	}
+	.seal-information>div:nth-child(2) > a > span:nth-child(1){
+	position:absolute;
+	bottom:15px;
+	right:25px;
+	font-size:16px;
+	}
+	.seal-information>div:nth-child(2) > a > span:nth-child(2){
+	position:absolute;
+	bottom:43px;
+	right:25px;
+	font-size:16px;
+	}
+	.seal-information>div:nth-child(2) >a> span:nth-child(3){
+	position:absolute;
+	bottom:15px;
+	right:0px;
+	font-size:16px;
+	}
+	.seal-information>div:nth-child(2)>a> i{
+	position:absolute;
+	bottom:45px;
+	right:0px;
+	font-size:20px;
+	}
+	
+	/*인장 목록*/
+	.seal-container {
+	  display: flex;
+	  flex-wrap: wrap;
+	  align-content: flex-start;
+	  width: 1000px;
+	  height: 1000px;
+	  margin : auto;
+	  
+	}
+	
+	.seal-container > div{
+	  width: 200px;
+	  height: 250px;
+	  border:1px solid #C2CCEE;
+	  display:flex;
+	  flex-direction: column;
+  	  justify-content: center;
+	  align-items: center;
+	  border-radius: 10px;
+	  background-color: #F6F8FC;
+	  text-align:center;
+	}
+	
+	.seal-container img{
+	width: 90px; 
+	height: 90px; 
+	border:1px solid #C2CCEE;
+	border-radius: 5px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+	margin: 0 auto;
+	margin-bottom:10px;
+	}
+	
+	.seal-admin {
+	display:flex;
+	width:160px;
+	align-content: flex-start;
+	justify-content: center;
+	margin-top:10px;
+	}
+	.seal-admin > div {
+	margin: 0 auto;
+	}
+	
+	.seal-price > span{
+	font-size:15px;
+	color:gray;
+	}

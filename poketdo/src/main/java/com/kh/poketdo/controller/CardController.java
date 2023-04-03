@@ -1,6 +1,7 @@
 package com.kh.poketdo.controller;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class CardController {
     
     @PostMapping("/cardGenerator")
     public String profile(@ModelAttribute MemberProfileDto memberProfileDto,
-    			@RequestParam MultipartFile attach) {
+    			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
     
 		memberProfileDao.insert(memberProfileDto);
 	

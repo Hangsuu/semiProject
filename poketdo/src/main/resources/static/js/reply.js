@@ -19,7 +19,8 @@ $(function(){
 						var template = $("#reply-template").html();
 						var html = $.parseHTML(template);
 						var text = response.replyLike[i].replyContent;
-						$(html).find(".reply-writer").text(response.replyLike[i].replyWriter);
+						$(html).find(".reply-writer").text(response.replyLike[i].memberNick)
+							.prepend($("<img>").addClass("board-seal").attr("src", response.replyLike[i].urlLink));
 						//작성자 딱지 넣기
 						if(boardWriter==response.replyDto[i].replyWriter){
 							var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
@@ -56,7 +57,8 @@ $(function(){
 					var template = $("#reply-template").html();
 					var html = $.parseHTML(template);
 					var text = response.replyDto[i].replyContent;
-					$(html).find(".reply-writer").text(response.replyDto[i].replyWriter);
+					$(html).find(".reply-writer").text(response.replyDto[i].memberNick)
+						.prepend($("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink));
 					$(html).find(".reply-content").html(text);
 					//시간 넣는 자리
 					var thisTime = response.replyDto[i].time;

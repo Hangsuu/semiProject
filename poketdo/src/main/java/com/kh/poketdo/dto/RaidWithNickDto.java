@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class RaidDto {
+public class RaidWithNickDto {
 	private int allboardNo;
 	private int raidNo;
 	private String raidWriter;
@@ -25,6 +25,9 @@ public class RaidDto {
 	private int raidLike;
 	private int raidRead;
 	private int raidType;
+	private String memberNick;
+	private Integer attachmentNo;
+	
 
 	public String getTime() {
 		SimpleDateFormat time = new SimpleDateFormat("M/d kk:mm");
@@ -38,5 +41,13 @@ public class RaidDto {
 		java.util.Date a =  new java.sql.Timestamp(raidStartTime.getTime());
 		java.util.Date currentTime = new java.util.Date();
 		return a.getTime()-currentTime.getTime()<0 || raidCount==4;
+	}
+	public String getUrlLink() {
+		if(attachmentNo>0) {
+			return "/attachment/download?attachmentNo="+attachmentNo;
+		}
+		else {
+			return "/static/image/noimage.png";
+		}
 	}
 }

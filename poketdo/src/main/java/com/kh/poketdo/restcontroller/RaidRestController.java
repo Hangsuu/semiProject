@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.RaidDao;
 import com.kh.poketdo.dao.RaidJoinDao;
+import com.kh.poketdo.dao.RaidJoinWithNickDao;
 import com.kh.poketdo.dto.RaidJoinDto;
+import com.kh.poketdo.dto.RaidJoinWithNickDto;
 import com.kh.poketdo.vo.RaidJoinVO;
 
 @RestController
@@ -27,6 +29,8 @@ public class RaidRestController {
 	private RaidDao raidDao;
 	@Autowired
 	private RaidJoinDao raidJoinDao;
+	@Autowired
+	private RaidJoinWithNickDao raidJoinWithNickDao;
 	
 	@PostMapping("/join")
 	public List<Integer> join(@ModelAttribute RaidJoinDto raidJoinDto){
@@ -43,12 +47,12 @@ public class RaidRestController {
 
 	}
 	@GetMapping("/{allboardNo}")
-	public List<RaidJoinDto> participant(@PathVariable int allboardNo){
-		return raidJoinDao.selectList(allboardNo);
+	public List<RaidJoinWithNickDto> participant(@PathVariable int allboardNo){
+		return raidJoinWithNickDao.selectList(allboardNo);
 	}
 	@GetMapping("/confirmed/{allboardNo}")
-	public List<RaidJoinDto> confirmed(@PathVariable int allboardNo){
-		return raidJoinDao.selectConfirmedList(allboardNo);
+	public List<RaidJoinWithNickDto> confirmed(@PathVariable int allboardNo){
+		return raidJoinWithNickDao.selectConfirmedList(allboardNo);
 	}
 	@GetMapping("/isjoiner/{allboardNo}")
 	public RaidJoinVO isJoiner(@PathVariable int allboardNo, HttpSession session) {

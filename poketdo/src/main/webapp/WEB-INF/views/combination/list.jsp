@@ -157,7 +157,7 @@ $(function(){
 					$(html).find(".list-no").text(response.list[i].combinationNo);
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
 							.text(response.list[i].combinationTitle);
-					$(html).find(".list-writer").text(response.list[i].combinationWriter);
+					$(html).find(".list-writer").text(response.list[i].memberNick).prepend($("<img>").addClass("board-seal").attr("src", response.list[i].urlLink));
 					$(html).find(".list-time").text(response.list[i].combinationTime);
 					$(html).find(".list-like").text(response.list[i].combinationLike);
 					$(html).find(".list-read").text(response.list[i].combinationRead);
@@ -259,7 +259,7 @@ $(function(){
 					$(html).find(".list-no").text(response.list[i].combinationNo);
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
 							.text("["+response.list[i].combinationType+"] "+response.list[i].combinationTitle+reply);
-					$(html).find(".list-writer").text(response.list[i].combinationWriter);
+					$(html).find(".list-writer").text(response.list[i].memberNick).prepend($("<img>").addClass("board-seal").attr("src", response.list[i].urlLink));
 					$(html).find(".list-time").text(response.list[i].combinationTime);
 					$(html).find(".list-like").text(response.list[i].combinationLike);
 					$(html).find(".list-read").text(response.list[i].combinationRead);

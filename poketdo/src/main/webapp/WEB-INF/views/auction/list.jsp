@@ -70,9 +70,9 @@
 					</a>
 				</div>
 		<!-- 닉네임 및 즐겨찾기 -->
-				<div class="row flex-box">
+				<div class="row flex-box"  style="align-items:center">
 					<div>
-						${auctionDto.auctionWriter}
+						<img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}
 					</div>
 					<div class="align-right">
 						<!-- 즐겨찾기 -->

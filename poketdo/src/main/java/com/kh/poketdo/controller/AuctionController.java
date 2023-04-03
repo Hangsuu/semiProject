@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.AuctionBidDao;
 import com.kh.poketdo.dao.AuctionDao;
+import com.kh.poketdo.dao.AuctionWithNickDao;
 import com.kh.poketdo.dto.AuctionBidDto;
 import com.kh.poketdo.dto.AuctionDto;
 import com.kh.poketdo.service.AuctionService;
@@ -31,9 +33,13 @@ public class AuctionController {
 	@Autowired
 	private AuctionDao auctionDao;
 	@Autowired
+	private AuctionWithNickDao auctionWithNickDao;
+	@Autowired
 	private AuctionBidDao auctionBidDao;
 	@Autowired
 	private AuctionService auctionService;
+	@Autowired
+	private AllboardDao allboardDao;
 	
 	@GetMapping("/list")
 	public String list(Model model, 
@@ -41,7 +47,7 @@ public class AuctionController {
 		//목록의 숫자 계산 후 VO count에 입력
 		vo.setCount(auctionDao.selectCount(vo));
 		
-		model.addAttribute("list", auctionDao.selectList(vo));
+		model.addAttribute("list", auctionWithNickDao.selectList(vo));
 		return "/WEB-INF/views/auction/list.jsp";
 	}
 	@GetMapping("/write")
@@ -84,7 +90,7 @@ public class AuctionController {
 			}
 			session.setAttribute("memory", memory);
 		}
-		model.addAttribute("auctionDto", auctionDao.selectOne(allboardNo));
+		model.addAttribute("auctionDto", auctionWithNickDao.selectOne(allboardNo));
 		model.addAttribute("vo", vo);
 		return "/WEB-INF/views/auction/detail.jsp";
 	}
@@ -120,7 +126,7 @@ public class AuctionController {
 		String memberId = auctionDao.selectOne(allboardNo).getAuctionWriter();
 		String sessionId = (String)session.getAttribute("memberId");
 		if(memberId.equals(sessionId)) {
-			auctionDao.delete(allboardNo);
+			allboardDao.delete(allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:list";
 		}

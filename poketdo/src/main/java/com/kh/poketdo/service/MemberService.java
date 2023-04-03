@@ -13,15 +13,10 @@ public class MemberService {
 	private MemberDao memberDao;
 	
 	
-	
-	
+
 	public void join(MemberDto memberDto){
 		memberDao.insert(memberDto);
-		
-		
 		}
 	
-	
-	
-	
+
 }

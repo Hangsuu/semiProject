@@ -3,47 +3,108 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
+    
+    <script type="text/javascript">           
+		function MakeCard() {
+			document.location.href="http://localhost:8080/cardGenerator"; <!-- 다른페이지로 이동하는 함수 -->
+		}                                      
+	</script>
+    
+    
+    
+    <style>
+    
+   
+   
+    aside {
+    	float: left;
+    	width: 20%;
+    
+    	}
+    
+    article {
+    	float: right;
+    	width: 80%
+    	}
+ 
+    
+    ul {
+    	width: 200px;
+    	
+    	height: 1000px;
+    	line-height : 30px;
+    	display : block;
+    	
+    	font-size : 15px;
+    	
+    }
+    
+    li {
+    	border : 1px solid;
+    	padding : 20px 20px;
+    }
+    
+     a {
+    
+     text-decoration-line: none;
+     text-decoration: none;
+     
+     
+     }
+     
+	    a:visited { text-decoration: none; }
+	    a:hover { text-decoration: none; }
+	    a:focus { text-decoration: none; }
+	    a:hover, a:active { text-decoration: none; }
+	    
+	    
+    
+    </style>
+    
+    
+    
+    
     <div class= "container-1000"> 
 
   <!-- aside -->
   <aside>
   
-  <div>
-  <a href="#">내활동</a>
-  </div>
-  <div>
-  <a href="/member/edit">개인정보수정</a>
-  </div>
-  <div>
-  <a href="#">트레이너카드</a>
-  </div>
-  <div>
-  <a href="/member/myseal">나의 인장</a>
-  </div>
-  <div>
-  <a href="/member/exit">회원탈퇴</a>
-  </div>
+  <ul class="row center mt-50">
+        <li><a href="/member/edit">개인정보수정</a></li>
+        <li> <a href="/member/myseal">나의 인장</a></li>
+        <li> <a href="/member/exit">회원탈퇴</a></li>
+       
+    </ul>
+
+  
+  
   
   </aside>
   
   <!-- article -->
   <article>
-     <div class= "container-500 center">
+     <div class= "row center mt-50">
 	    <c:choose>
 	    <c:when test = "${Profile != null}">
-	    	<img width="500" height="300" src="/attachment/download?attachmentNo=${profile.attachmentNo}">
-	    	<
-	    	
+	    	<img width="500" height="300" src="/attachment/download?attachmentNo=${Profile.attachmentNo}"> 
+
+		<img src="${image.data}" alt="">
+	    	카카오톡으로 공유하기 :
+	    	<br>
+	    	트위터로 공유하기 : 
 	    	
 	    </c:when>
  		<c:otherwise>
  			트레이너 카드 없음
- 			<br>
- 			<a href = "#">만들기</a>
+ 			<br><br>
+ 			<button type="button" class = "form-btn neutral w-50" onclick="MakeCard()">만들기</button>
  		</c:otherwise>
  		</c:choose>
  	</div>	
   </article>
+
+      <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : (header.referer.endsWith('/member/joinFinish') ? '/' : header.referer)}">
+
 
 
 </div>

@@ -24,5 +24,8 @@ public class MemberDto {
     private int memberLoginCnt;
     private Date memberDeadline;
     private int memberSealNo;
+    
+    
+    
 }
 

@@ -24,4 +24,5 @@ public class PocketmonTradeDto {
   private int pocketmonTradeRead;
   private int pocketmonTradeReply;
   private int pocketmonTradeLike;
+  private int pocketmonTradeIsblocked;
 }

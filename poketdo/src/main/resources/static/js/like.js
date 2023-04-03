@@ -1,68 +1,73 @@
-// [1] 시작하자마자 이글에 좋아요를 했는지 확인.
-// [2] 하트를 클릭하면 좋아요 설정 해제 페이지로 비동기 요청 (싫어요도 똑같음)
 $(function(){
-	//[1]
+	var params = new URLSearchParams(location.search);
+	var allboardNo = params.get("allboardNo");
 	$.ajax({
 		url:"/rest/like/check",
 		method:"post",
 		data:{
-			allboardNo : allboardNo,
-			memberId : memberId
+			allboardNo:allboardNo,
+			memberId:memberId,
 		},
 		success:function(response){
-			//console.log(response);
-			//console.log(typeof response);
-			if(response) {
-				$(".fa-heart").addClass("fa-solid");
+			if(response==true){
+				$(".detail-like").removeClass("fa-regular fa-solid").addClass("fa-solid").css("color","#FF3040");
 			}
-			else {
-				$(".fa-heart").addClass("fa-regular");
+			else{
+				$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
 			}
+			$.ajax({
+				url:"/rest/like/count?allboardNo="+allboardNo,
+				method:"get",
+				success:function(response){
+					if(response!=0){
+						$(".like-count").text(response);
+					}
+					else{
+						$(".like-count").text("");
+					}
+				}
+			});
 		},
 		error:function(){
-			$(".fa-heart").remove();
+			alert("통신에러");
 		}
-	});
+	});			
 	
-	//[2]
-	$(".fa-heart").click(function(){
+	$(".like-box").click(function(){ 
 		$.ajax({
 			url:"/rest/like/",
 			method:"post",
 			data:{
-				allboardNo : allboardNo,
-				memberId : memberId
+				allboardNo:allboardNo,
+				memberId:memberId,
 			},
 			success:function(response){
-				//response에는 result와 count가 들어있다
-				if(response.result) {//좋아요 된것
-					$(".fa-heart").removeClass("fa-solid fa-regular")
-										.addClass("fa-solid fa-shake");
-					//1초뒤에 .fa-shake를 제거(setTimeout 함수)
-					//- setTimeout(함수, 시간); 지정한 시간 이후에 함수 실행
-					//- setInterval(함수, 시간); 지정한 시간 간격으로 함수 실행
+				if(response==true){
+					$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-solid fa-beat").css("color","#FF3040");
+					//시간 지나면 fa-beat 제거
 					setTimeout(function(){
-						$(".fa-heart").removeClass("fa-shake");
-					}, 800);
-				
-					$(".heart-count").text(response.count);
+						$(".detail-like").removeClass("fa-beat")
+					}, 700)
 				}
-				else {//좋아요 풀린것
-					$(".fa-heart").removeClass("fa-solid fa-regular")
-										.addClass("fa-regular");
-					$(".heart-count").text(response.count);
+				else{
+					$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
 				}
+				$.ajax({
+					url:"/rest/like/count?allboardNo="+allboardNo,
+					method:"get",
+					success:function(response){
+						if(response!=0){
+							$(".like-count").text(response);
+						}
+						else{
+							$(".like-count").text("");
+						}
+					}
+				});
 			},
-			error:function(){}
+			error:function(){
+				alert("통신에러");
+			}
 		});
 	});
-	
-	//[3] mouseenter/mouseleave
-	$(".fa-heart").mouseenter(function(){
-		$(this).addClass("fa-beat");
-	})
-	.mouseleave(function(){
-		$(this).removeClass("fa-beat");
-	});
-	
 });

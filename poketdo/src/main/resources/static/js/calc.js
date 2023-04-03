@@ -1,5 +1,4 @@
 $(function () {
-   $(".pocketmon-img").hide();
 
 $(".monster-search").click(function(){
 	var name =$("[name=pocketmonNumber]").val().trim(); 
@@ -8,7 +7,7 @@ $(".monster-search").click(function(){
 		return;
 	}
 	$.ajax({
-		url:"/rest/pocketmon/"+name,
+		url:"/rest/pocketmon/stats/"+name,
 		method:"get",
 		success:function(response){
 			$("[name=baseHp]").val(response.pocketBaseHp);

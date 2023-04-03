@@ -19,7 +19,7 @@
                <input name="pocketmonNumber" class="form-input mt-70" placeholder="포켓몬 검색">
                <button type="button" class="form-btn neutral monster-search">검색</button>
            </div>
-           <img class="pocketmon-img float-right me-50" src="" width=180 height=180>
+           <img class="pocketmon-img float-right me-50" src="/static/image/leaf.png" width=180 height=180>
        </div>
            <div class="row">
 
@@ -118,7 +118,7 @@
                레벨 : <input name="level" value="50" class="form-input w-20">
            </div>
            <div class="row">
-               성격 : <select name="personality" class="form-input w-40">
+               성격 : <select name="personality" class="form-input w-40 neutral">
                    <option value='{"hp":1,"atk":1,"def":1,"spatk":1,"spdef":1,"spd":1}'>선택</option>
                    <option value='{"hp":1,"atk":1.1,"def":1,"spatk":1,"spdef":0.9,"spd":1}'>개구쟁이</option>
                    <option value='{"hp":1,"atk":1,"def":1,"spatk":1,"spdef":1.1,"spd":0.9}'>건방진</option>

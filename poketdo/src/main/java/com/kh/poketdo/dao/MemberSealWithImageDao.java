@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.MemberSealWithImageDto;
+import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Repository
@@ -47,6 +48,12 @@ public class MemberSealWithImageDao {
 		String sql ="select attachment_no from member_seal_with_image where member_join_id =? and my_seal_no =? ";
 		Object[] param = {memberId, memberSealNo};
 		return jdbcTemplate.queryForObject(sql, String.class, param);
+	}
+	//memberId 로 attachmentNo 검색
+	public int basicSealNo (String memberId) {
+		String sql ="select my_seal_no from member_seal_with_image where member_join_id =? ";
+		Object[] param = {memberId};
+		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
 	
 	//페이징 적용된 조회 및 카운트
@@ -110,5 +117,12 @@ public class MemberSealWithImageDao {
 		}
 	}
 
+	//상세
+	public List<String> selectSealNo(String memberId) {
+		String sql ="select distinct seal_join_no from member_seal_with_image where member_join_id = ?";
+		Object [] param = {memberId};
+		return jdbcTemplate.queryForList(sql, String.class ,param);
+	}
+	
 	
 }

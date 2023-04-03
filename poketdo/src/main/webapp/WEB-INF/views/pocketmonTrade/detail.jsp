@@ -5,6 +5,16 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <!-- summernote css, jQuery CDN -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet"/>
+=======
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
+<style>
+  .pocketmonTrade-reply-re:hover {
+    cursor: pointer;
+  }
+  .pocketmonTrade-reply-form {
+    position: relative;
+  }
+</style>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <!-- 모먼트 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -25,42 +35,29 @@
 <script src="/static/js/pocketmonTrade/pocketmonTrade.js"></script>
 <script type="text/template" id="pocketmonTrade-reply-template">
   <div class="row">
-    <div class="bold flex">
-      <div>댓글작성자</div>
-      <div class="writerTag">작성자</div>
-      <button class="pocketmonTrade-btn ml-auto" type="button">수정</button>
-      <button class="pocketmonTrade-btn" type="button">삭제</button>
+    <div>
+      <div class="bold flex">
+        <div class="pocketmonTrade-reply-writer">댓글작성자</div>
+        <div class="writerTag">작성자</div>
+        <button class="pocketmonTrade-reply-edit-btn ml-auto" type="button">수정</button>
+        <button class="pocketmonTrade-reply-delete-btn" type="button">삭제</button>
+      </div>
+      <div class="pocketmonTrade-reply-content"></div>
+      <div style="color:#979797;" class="flex">
+        <div class="pocketmonTrade-reply-time">댓글시간</div>
+        <div class="ms-10 pocketmonTrade-reply-re">답글쓰기</div>
+      </div>
     </div>
-    <div></div>
-    <div style="color:#979797;" class="flex">
-      <div>댓글시간</div>
-      <div class="ms-10">답글쓰기</div>
-    </div>
+    <hr/>
   </div>
-  <hr/>
 </script>
 <script type="text/template" id="pocketmonTrade-reply-write">
-  <div class=row>
-    <form action="#" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="replyParent" value="0">
-      <input type="hidden" name="replyOrigin" value="${pocketmonTradeDto.getAllboardNo()}">
-      <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
-      <textarea class="summernote" name="replyContent"></textarea>
-      <div class="right">
-        <button class="pocketmonTrade-btn" type="submit">취소</button>
-        <button class="pocketmonTrade-btn" type="submit">등록</button>
-      </div>
-    </form>
-  </div>
-</script>
-<script type="text/template" id="pocketmonTrade-reply-write2">
-  <div class=row>
-    <div class=row>
-      <textarea class="summernote" name="replyContent"></textarea>
-    </div>
+  <div class="row pocketmonTrade-reply-reply">
+    <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
+    <textarea class="summernote" name="replyContent"></textarea>
     <div class="right">
-      <button class="pocketmonTrade-btn" type="submit">취소</button>
-      <button class="pocketmonTrade-btn" type="submit">등록</button>
+      <button class="pocketmonTrade-reply-cancle-btn" type="button">취소</button>
+      <button class="pocketmonTrade-reply-update-btn" type="button">수정</button>
     </div>
   </div>
 </script>
@@ -110,7 +107,6 @@
       <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeDto.getPocketmonTradeReply()}</span></span>
     </div>
     <hr>
-    </div>
     <div class="row pocketmonTrade-info-footer">
       <c:if test="${sessionScope.memberId != null}">
         <a class="pocketmonTrade-btn" href="write">글쓰기</a>
@@ -133,12 +129,12 @@
             <b>${sessionScope.memberId}</b>
           </div>
           <div class="row">
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form class="pocketmonTrade-reply-form" action="#" method="post" enctype="multipart/form-data">
               <input type="hidden" name="replyParent" value="0">
               <input type="hidden" name="replyOrigin" value="${pocketmonTradeDto.getAllboardNo()}">
               <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
               <textarea class="summernote" name="replyContent"></textarea>
-              <button id="pocketmonTrade-reply-btn" type="submit">등록</button>
+              <button class="pocketmonTrade-btn" style="position: relative; left: 94%; bottom: -5px;" id="pocketmonTrade-reply-btn" type="submit">등록</button>
             </form>
           </div>
         </c:if>

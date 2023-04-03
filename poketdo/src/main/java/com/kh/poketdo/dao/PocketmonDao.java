@@ -74,6 +74,27 @@ public class PocketmonDao {
 		String sql ="select * from pocketmon order by pocket_no asc";
 		return jdbcTemplate.query(sql, mapper);
 	}
+		//	포켓몬스터 목록
+		public List<PocketmonDto> selectPrevOne(int pocketNo){
+			String sql =" SELECT * FROM ( "
+							  + " SELECT * FROM pocketmon "
+							  + " WHERE pocket_no < ? "
+							  + " ORDER BY pocket_no DESC "
+							+ " ) WHERE ROWNUM = 1 " ;
+
+			Object[] param = {pocketNo};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		//	포켓몬스터 목록
+		public List<PocketmonDto> selectNextOne(int pocketNo){
+			String sql =" SELECT *	FROM ( "
+						    +" SELECT * FROM pocketmon "
+						    +" WHERE pocket_no > ? "
+						    +" ORDER BY pocket_no ASC "
+						+ " ) WHERE ROWNUM <= 1";
+			Object[] param = {pocketNo};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
 
 	//	포켓몬스터 타입 이름 검색
 	public List<PocketmonDto> selectListAddType(int pocketNo){
@@ -112,10 +133,17 @@ public class PocketmonDao {
 		return jdbcTemplate.update(sql,param)>0;
 		}
 	
-	//포켓몬스터 정보 상세조회
+	//포켓몬스터 정보 상세조회(번호)
 	public PocketmonDto selectOne(int pocketNo) {
 		String sql = "select * from pocketmon where pocket_no=? ";
 		Object [] param = {pocketNo};
+		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	//포켓몬스터 정보 상세조회(이름)
+	public PocketmonDto selectNameOne(String pocketName) {
+		String sql = "select * from pocketmon where pocket_name=? ";
+		Object [] param = {pocketName};
 		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty() ? null : list.get(0);
 	}

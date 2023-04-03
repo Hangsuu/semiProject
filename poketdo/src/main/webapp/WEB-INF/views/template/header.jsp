@@ -16,6 +16,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/pocketdex.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/seal.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/reply.css" />
@@ -23,24 +24,26 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    />
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     <!-- 링크확인창 CDN -->
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
-    <title>Document</title>
+    <script src="/static/js/pocketdex.js"></script>
+    <title>POCKETDO!</title>
   </head>
   <body>
     <main>
+
 <header class="container-1200" style="min-height:70px;">
     <!-- header -->
-<div class="right mb-30" style="background-color:#9DACE4">
+<div class="right mb-20" style="background-color:#9DACE4">
    	<div style="display:inline-block; padding:10px">
 		<c:choose>
 			<c:when test="${empty sessionScope.memberId}">
 			<!-- css:commons, base -->
 				<a href="/member/login" class="link center"><span class="header-menu">로그인</span></a>
+				<a href="/member/join" class="link center"><span class="header-menu">회원가입</span></a>
 			</c:when>
 			<c:otherwise>
 				<a href="/member/logout" class="link center"><span class="header-menu">로그아웃</span></a>
@@ -48,7 +51,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		</c:choose>
      </div>
 	<div style="display:inline-block">
-		<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
+		<c:if test="${sessionScope.memberId != null}">
+			<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
+		</c:if>
 	</div>
 	<div style="display:inline-block">
 		<c:if test="${sessionScope.memberId != null}">
@@ -61,19 +66,21 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		</c:if>
 	</div>
 	<div style="display:inline-block" class="me-30">
-		<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+		<c:if test="${sessionScope.memberId != null}">
+			<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+		</c:if>
 	</div>
 </div>
       <%-- base.css --%>
-    <div class="float-box" style="hegith:80px">
-      <div class="float-left w-30">
+    <div class="float-box">
+      <div class="float-left w-20">
         <a href="/">
-          <img src="/static/image/main.png" style="width:300px"/>
+          <img src="/static/image/logo_final.png" style="width:300px;" class="ms-30 mt-10 mb-10" >
         </a>
       </div>
     <div class="float-right w-70">
     <!-- nav -->
-     <nav class="flex-box flex-auto-width" style="hegith:80px">
+     <nav class="flex-box flex-auto-width">
        <%-- base.css --%>
        <div class="nav-bar flex-box align-center">
          <div>
@@ -88,9 +95,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			<div>
 			  <a href="/auction/list?page=1"><span>굿즈 경매 게시판</span></a>
 			</div>
-			<div>
-              <a href="/combination/list?page=1"><span>공략 게시판</span></a>
-            </div>
 		</div>
          </div>
          <div>
@@ -105,13 +109,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
              <div>
                <a href="/calculator"><span>스탯 계산기</span></a>
              </div>
-             <div>
-               <a href="/combination/simulator?page=1&tagList="><span>조합시뮬레이터</span></a>
+			 <div>
+               <a href="/combination/list?page=1&tagList=&keyword=&column="><span>공략 게시판</span></a>
              </div>
            </div>
          </div>
          <div>
-           <a href="#"><span>포켓몬 게임</span></a>
+           <a href="#"><span>포켓몬게임</span></a>
            <div>
              <div>
                <a href="/raid/list?page=1"><span>레이드 참가</span></a>
@@ -121,8 +125,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
              </div>
            </div>
          </div>
-         <div>
-           <a href="#"><span>트레이너카드</span></a>
+         <div class="me-10">
+           <a href="/cardGenerator"><span>트레이너카드</span></a>
          </div>
        </div>
      </nav>
@@ -130,7 +134,5 @@ uri="http://java.sun.com/jsp/jstl/core" %>
      </div>
     </header>
     </main>
-
-
-             
+  
 <div style="border-top:2px solid #9DACE4"></div>

@@ -10,16 +10,16 @@ $(function(){
 			var min = Math.floor(timeDif/1000/60)%60;
 			var sec = Math.floor(timeDif/1000)%60;
 			if(timeDif/1000/60/60/24>=1) {
-				$(this).text(days+"일");
+				$(this).text("남은시간 : "+days+"일");
 			}
 			else if(timeDif/1000/60/60>=1) {
-				$(this).text(hour+"시간");
+				$(this).text("남은시간 : "+hour+"시간");
 			}
 			else if(timeDif>0) {
-				$(this).text(min+":"+String(sec).padStart(2, '0'));
+				$(this).text("남은시간 : "+min+":"+String(sec).padStart(2, '0'));
 			}
 			else {
-				$(this).text("종료");
+				$(this).text("종료된 상품");
 			}
 		});
 	}

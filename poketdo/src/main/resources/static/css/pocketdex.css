@@ -1,53 +1,813 @@
-@charset "UTF-8";
-
-/* HTML 5 layout */
+/* 자식 요소 우측 여백 (4,8,12,16...제외) */
+.pocket-ul>:not(:nth-child(4n)) {
+	margin-right: 50px;
+}
+/* 자식 요소 1,5,9,13... 좌측 여백*/
+.pocket-ul>:nth-child(4n-3) {
+	margin-left: 10px;
+}
+/* a태그 효과 */
+.pocket-box-a {
+	text-decoration: none;
+	color: inherit;
+}
+.pocket-type-box-a {
+	text-decoration: none;
+	color: inherit;
+}
+/* 포켓몬 박스 ul */
+.pocket-ul {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+/* 포켓몬 박스 li */
+.pocket-li {
+	display: flex;
+	width: 250px;
+	flex-direction: column;
+	margin-bottom: 2em;
+}
+/* 포켓몬 이름 글씨 */
+.pocket-data>h3 {
+	margin-left: 1.3em;
+}
+/* 포켓몬 번호 글씨 */
+.pocket-data>h4 {
+	font-weight: 300;
+	color: #808080;
+	margin-left: 1.5em;
+}
+/* 포켓몬박스 */
 .pocket-box {
-  width: 250px;
-  height: 250px;
-  background-color: white;
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  display: inline-block;
-  margin-left : 1em;
-  margin-right : 1em;
+	width: 100%;
+	height: 250px;
+	background-color: white;
+	border-radius: 20px;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 1em;
+	transition: transform 0.2s ease-in-out;
+}
+/* 포켓몬 타입 박스 */
+.pocket-type-box {
+	width: 100%;
+	height: 250px;
+	border-radius: 20px;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 1em;
+	transition: transform 0.2s ease-in-out;
+}
+/* 호버 효과 */
+.pocket-box-a:hover>li>.pocket-box,
+.pocket-type-box-a:hover>li>.pocket-type-box {
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+	transform: scale(1.02);
+}
+/* 포켓몬박스 위쪽 테두리 부분 */
+.pocket-box>div:first-child {
+	width: 100%;
+	height: 48%;
+	position: absolute;
+	top: 0;
+	background-color: #e53935;
+}
+/* 포켓몬 박스 아래쪽 테두리 부분*/
+.pocket-box>div:nth-child(2) {
+	width: 100%;
+	height: 48%;
+	background-color: #ececf4;
+	position: absolute;
+	bottom: 0;
+}
+
+/* 포켓몬 박스 흰색 부분 */
+.pocket-box>div:last-child {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 95%;
+	height: 95%;
+	background-color: white;
+	border-radius: 20px;
+}
+
+/* 포켓몬 이미지 */
+.pocket-box>div:nth-child(3)>img,
+.pocket-type-box>div:nth-child(2)>img {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 10%;
+	object-fit: cover;
+	border-radius: 20px;
 }
 
 
-.pocket-box:hover {
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+/* 포켓몬 데이터 자리 */
+.pocket-data {
+	width: 100%;
+	height: 100px;
+	overflow: hidden;
+	position: relative;
+	display: block;
 }
 
-.pocket-box > div:nth-child(1) {
-  width: 100%;
-  height: 48%;
-  background-color: #e53935;
+/* 속성 글자 */
+.pocket-data span {
+	padding: 0.5em;
+	display: block;
+	line-height: 0.8em;
+	color: white;
+}
+/* 	속성 데이터 div */
+.pocket-data>div {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 5%;
 }
 
-.pocket-box > div:nth-child(2) {
-  width: 100%;
-  height: 48%;
-  background-color: #ececf4;
-  position: absolute;
-  bottom: 0;
+/* 
+	속성 배경 모깍기
+ */
+.pocket-data>div div {
+	display: inline-block;
+	text-align: center;
+	width: 48%;
+	height: 30px;
+	padding: 0px;
+	clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px),
+		calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+/* 
+	pocketdex list 속성 배경 색
+ */
+.pdc-color {
+	background-color: #999999;
+}
+.type-back-color1, .pdc-color1{
+	background-color: #999999;
 }
 
-.pocket-box > div:nth-child(3) {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 95%;
-  height: 95%;
-  background-color: white;
-  border-radius: 20px;
+.type-back-color2, .pdc-color2 {
+	background-color: #FFA202;
 }
 
-.pocket-box > div:nth-child(3) > a > img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 10%;
-  object-fit: cover;
-  border-radius: 20px;
+.type-back-color3, .pdc-color3 {
+	background-color: #95C9FF;
+}
+
+.type-back-color4, .pdc-color4 {
+	background-color: #994DCF;
+}
+
+.type-back-color5, .pdc-color5 {
+	background-color: #AB7939;
+}
+
+.type-back-color6, .pdc-color6 {
+	background-color: #BCB889;
+}
+
+.type-back-color7, .pdc-color7 {
+	background-color: #9FA424;
+}
+
+.type-back-color8, .pdc-color8 {
+	background-color: #6E4570;
+}
+
+.type-back-color9, .pdc-color9 {
+	background-color: #6AAED3;
+}
+
+.type-back-color10, .pdc-color10 {
+	background-color: #FF612C;
+}
+
+.type-back-color11, .pdc-color11 {
+	background-color: #2992FF;
+}
+
+.type-back-color12, .pdc-color12 {
+	background-color: #42BF24;
+}
+
+.type-back-color13, .pdc-color13 {
+	background-color: #FFDB00;
+}
+
+.type-back-color14, .pdc-color14 {
+	background-color: #FF637F;
+}
+
+.type-back-color15, .pdc-color15 {
+	background-color: #42D8FF;
+}
+
+.type-back-color16, .pdc-color16 {
+	background-color: #5462D6;
+}
+
+.type-back-color17, .pdc-color17 {
+	background-color: #4F4747;
+}
+
+.type-back-color18, .pdc-color18 {
+	background-color: #FFB1FF;
+}
+
+.pdc-color>div {
+	background-color: #F9F9F9;
+}
+.pdc-color1>div {
+	background-color: #F9F9F9;
+}
+
+.pdc-color2>div {
+	background-color: #FFFBF4;
+}
+
+.pdc-color3>div {
+	background-color: #F4F9FF;
+}
+
+.pdc-color4>div {
+	background-color: #FAF6FC;
+}
+
+.pdc-color5>div {
+	background-color: #FCFAF7;
+}
+
+.pdc-color6>div {
+	background-color: #FBFBF8;
+}
+
+.pdc-color7>div {
+	background-color: #FCFDF6;
+}
+
+.pdc-color8>div {
+	background-color: #FBF8FB;
+}
+
+.pdc-color9>div {
+	background-color: #F7FAFC;
+}
+
+.pdc-color10>div {
+	background-color: #FFF7F4;
+}
+
+.pdc-color11>div {
+	background-color: #F4F9FF;
+}
+
+.pdc-color12>div {
+	background-color: #F7FDF6;
+}
+
+.pdc-color13>div {
+	background-color: #FFFDF4;
+}
+
+.pdc-color14>div {
+	background-color: #FFF4F6;
+}
+
+.pdc-color15>div {
+	background-color: #F4FCFF;
+}
+
+.pdc-color16>div {
+	background-color: #F6F7FD;
+}
+
+.pdc-color17>div {
+	background-color: #FAF9F9;
+}
+
+.pdc-color18>div {
+	background-color: #FFF4FF;
+}
+
+.pdc-color .icon-color i{
+	color: #CCCCCC;
+	font-size: 4em;
+}
+.pdc-color1 .icon-color i{
+	color: #CCCCCC;
+	font-size: 4em;
+}
+
+.pdc-color2 .icon-color i{
+	color: #FFD999;
+	font-size: 4em;
+}
+
+.pdc-color3 .icon-color i	{
+	color: #B2D7FF;
+	font-size: 4em;
+}
+
+.pdc-color4 .icon-color i	{
+	color: #D0AEE9;
+	font-size: 4em;
+}
+
+.pdc-color5 .icon-color i	{
+	color: #DAD7BD;
+	font-size: 4em;
+}
+
+.pdc-color6 .icon-color i	{
+	color: #DAD7BD;
+	font-size: 4em;
+}
+
+.pdc-color7 .icon-color i	{
+	color: #EAECAB;
+	font-size: 4em;
+}
+
+.pdc-color8 .icon-color i	{
+	color: #D7BFD8;
+	font-size: 4em;
+}
+
+.pdc-color9 .icon-color i	{
+	color: #B0D4E7;
+	font-size: 4em;
+}
+
+.pdc-color10 .icon-color i	{
+	color: #FFB299;
+	font-size: 4em;
+}
+
+.pdc-color11 .icon-color i
+	{
+	color: #99CAFF;
+	font-size: 4em;
+}
+
+ .pdc-color12 .icon-color i
+	{
+	color: #B7EEA9;
+	font-size: 4em;
+}
+
+.pdc-color13 .icon-color i	{
+	color: #FFF199;
+	font-size: 4em;
+}
+
+.pdc-color14 .icon-color i	{
+	color: #FF99AB;
+	font-size: 4em;
+}
+
+.pdc-color15 .icon-color i	{
+	color: #99EAFF;
+	font-size: 4em;
+}
+
+.pdc-color16 .icon-color i	{
+	color: #ACB3EB;
+	font-size: 4em;
+}
+
+.pdc-color17 .icon-color i	{
+	color: #CEC9C9;
+	font-size: 4em;
+}
+
+.pdc-color18 .icon-color i	{
+	color: #FFCCFF;
+	font-size: 4em;
+}
+.pdc-color .icon-color:hover i{
+	color: #999999;
+	font-size: 4em;
+}
+.pdc-color1 .icon-color:hover i{
+	color: #999999;
+	font-size: 4em;
+}
+
+.pdc-color2 .icon-color:hover i{
+	color: #FFA202;
+	font-size: 4em;
+}
+
+.pdc-color3 .icon-color:hover i{
+	color: #95C9FF;
+	font-size: 4em;
+}
+
+.pdc-color4 .icon-color:hover i{
+	color: #994DCF;
+	font-size: 4em;
+}
+
+.pdc-color5 .icon-color:hover i{
+	color: #AB7939;
+	font-size: 4em;
+}
+
+.pdc-color6 .icon-color:hover i{
+	color: #BCB889;
+	font-size: 4em;
+}
+
+.pdc-color7 .icon-color:hover i{
+	color: #9FA424;
+	font-size: 4em;
+}
+
+.pdc-color8 .icon-color:hover i{
+	color: #6E4570;
+	font-size: 4em;
+}
+
+.pdc-color9 .icon-color:hover i{
+	color: #6AAED3;
+	font-size: 4em;
+}
+
+.pdc-color10 .icon-color:hover i{
+	color: #FF612C;
+	font-size: 4em;
+}
+
+.pdc-color11 .icon-color:hover i
+	{
+	color: #2992FF;
+	font-size: 4em;
+}
+
+ .pdc-color12 .icon-color:hover i
+	{
+	color: #42BF24;
+	font-size: 4em;
+}
+
+.pdc-color13 .icon-color:hover i{
+	color: #FFDB00;
+	font-size: 4em;
+}
+
+.pdc-color14 .icon-color:hover i{
+	color: #FF637F;
+	font-size: 4em;
+}
+
+.pdc-color15 .icon-color:hover i{
+	color: #42D8FF;
+	font-size: 4em;
+}
+
+.pdc-color16 .icon-color:hover i{
+	color: #5462D6;
+	font-size: 4em;
+}
+
+.pdc-color17 .icon-color:hover i{
+	color: #4F4747;
+	font-size: 4em;
+}
+
+.pdc-color18 .icon-color:hover i{
+	color: #FFB1FF;
+	font-size: 4em;
+}
+
+.bottom-delete-icon i {
+	color: #FF0000;
+	font-size: 4em;
+}
+
+/* 포켓몬 상세 컨테이너 */
+.pocketdex-article {
+	width:1200px;
+	display: flex;
+	justify-content: center;
+}
+
+.pocket-detail-container {
+	position: relative;
+	width: 900px;
+	border-radius: 25px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+	margin-bottom:100px;
+}
+
+.pocket-detail-container>div {
+	position: relative;
+	border-radius: 25px;
+	display: flex;
+	width: 98%;
+	height: 98%;
+	top: 1%;
+	left: 1%;
+	flex-direction: column;
+	align-items: center;
+}
+.pocket-detail-container > div > .left-text {
+	position: absolute;
+	display: block;
+	left: 30px;
+	top: 185px;
+	text-align: left;
+}
+.pocket-detail-container > div > .left-text > span:nth-child(1) {
+	font-weight: 300;
+	font-size: 20px;
+	color: #808080;
+}
+.pocket-detail-container > div > .left-text > span:nth-child(2) {
+	font-weight: 400;
+	font-size: 30px;
+	display:block;
+}
+.pocket-detail-container > div > .right-text {
+	position: absolute;
+	display: block;
+	right: 30px;
+	top: 185px;
+	text-align: right;
+}
+.pocket-detail-container > div > .right-text > span:nth-child(1) {
+	font-weight: 300;
+	font-size: 20px;
+	color: #808080;
+}
+.pocket-detail-container > div > .right-text > span:nth-child(2) {
+	font-weight: 400;
+	font-size: 30px;
+	display:block;
+}
+.pocket-detail-container > div > .left {
+	position: absolute;
+	width: 90px;
+	height: 90px;
+	top: 260px;
+	left: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pocket-detail-container > div >.right {
+	position: absolute;
+	width: 90px;
+	height: 90px;
+	right:20px;
+	top: 260px; 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pocket-detail-container>div>.detail-image {
+	width: 400px;
+	height: 550px;
+	border-radius: 25px;
+	background-color: white;
+	border: 2px solid #E5E5E5;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+	text-align: center;
+	margin-top: 50px;
+}
+/* 이미지 패딩 */
+.pocket-detail-container>div>.detail-image>img {
+	padding :8%;
+}
+
+.pocket-detail-container>div>.detail-data {
+	position:relative;
+	width: 700px;
+	height: 380px;
+	border: 2px solid #E5E5E5;
+	border-radius: 25px;
+	background-color: white;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column; /* span이 세로로 나열되도록 추가 */
+	align-items: center;
+	margin-top: 20px;
+}
+
+/*타입*/
+.detail-data>div:nth-child(1) {
+	position: absolute;
+	left:50px;
+	top:25px;
+	width: 150px;
+	height: 30px;
+	display: flex;
+}
+
+.detail-data .type {
+	font-weight: 300;
+	font-size: 20px;
+	display: block;
+	color: #808080;
+	text-align: center;
+}
+
+/*이미지 */
+.detail-data>div:nth-child(2) {
+	position: absolute;
+	left:50px;
+	top:60px;
+	width: 150px;
+	height: 100px;
+	display: flex;
+	margin-top: 5px;
+}
+/*종족값*/
+.detail-data>div:nth-child(3) {
+	position: absolute;
+	left:50px;
+	top:170px;
+	width: 650px;
+	height: 30px;
+	display: flex;
+}
+
+.detail-data .basic-data div{
+	width: 650px;
+	height: 30px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+/*종족값 글씨속성*/
+.detail-data .basic > span {
+	font-weight: 300;
+	font-size: 20px;
+	color: #808080;
+}
+
+/*종족값 데이터 글씨 속성*/
+.detail-data .basic-data span {
+	display:inline-block;
+	width:15%;
+}
+
+/*기본노력치 데이터*/
+.detail-data>div:nth-child(4) {
+	position: absolute;
+	left:50px;
+	top:270px;
+	width: 650px;
+	height: 30px;
+	display: flex;
+}
+.detail-data .effort-data div{
+	width: 650px;
+	height: 30px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+/*기본노력치 글씨속성*/
+.detail-data .effort > span {
+	font-weight: 300;
+	font-size: 20px;
+	color: #808080;
+}
+.detail-data .effort-data span {
+	display:inline-block;
+	width:15%;
+}
+
+.detail-image>.name {
+	font-weight: 500;
+	font-size: 50px;
+	display: block;
+	text-align: center;
+}
+
+.detail-image>.no {
+	font-weight: 300;
+	font-size: 35px;
+	display: block;
+	color: #808080;
+	text-align: center;
+}
+
+.pocket-detail-container .bottom-icons{
+	display: flex;
+	justify-content: space-around;
+}
+
+.pocket-detail-container .bottom-icons>div>a {
+	width: 120px;
+	height: 50px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	margin-top:50px;
+	margin-bottom:50px;
+	text-decoration: none; /* 밑줄 없애기 */
+  	color: inherit; /* 기본 색상 상속 받기 */
+}
+.bottom-icons>div >a> i {
+	margin-top:10px;
+}
+
+.type-image-container {
+	width: 150px;
+	height: 60px;
+}
+
+
+/*이미지 감쌈*/
+.type-image-container>div {
+	display: flex;
+	width: 60px;
+	height: 60px;
+}
+
+.type-image-container>div>div {
+	display: inline-block;
+	border-radius: 5px;
+	text-align: center;
+}
+.type-image-container>div> div {
+	margin-right:10px;
+}
+
+.type-image-container>div>div>img {
+	width: 60px;
+	height: 60px;
+}
+
+
+/* 포켓몬스터 정보 수정 css*/
+
+.pocket-input-container {
+	width:500px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	margin : 0 auto;
+	margin-bottom:50px;
+	
+}
+.pocket-input-container > div:first-child {
+	margin-bottom : 30px;
+}
+.pocket-input-container > div:nth-child(n+2):nth-child(-n+5) > div {
+	display: flex;
+	flex-direction: row;
+	justify-content: center; /* 가운데 정렬 */
+  	align-items: center; /* 가운데 정렬 */
+}
+.pocket-input-container > div:last-child button {
+	margin-top : 20px;
+	width:100%;
+}
+.pocket-input-box {
+	margin-top:10px;
+	width:50%;
+	text-align:left;
+}
+.pocket-input-box > input {
+	width:100%;
+}
+.pocket-input-box > select {
+	width:100%;
+}
+
+.pocket-insert-btn {
+	display: flex;
+	justify-content: center; /* 가로 중앙 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	width:100%;
+	height:60px;
+	margin : auto;
+	margin-bottom:50px;
+}
+.pocket-insert-btn > a {
+	display:flex;
+	width:100%;
+	height:100%;
+	font-size: 20px;
+	justify-content: center;
+	align-items: center;
 }

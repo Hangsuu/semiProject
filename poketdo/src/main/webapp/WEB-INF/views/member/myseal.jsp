@@ -3,46 +3,53 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<form action="mysealSelect" method="post">
-	<h2>현재 적용 인장</h2>
-	<img width="96" height="96" src="${selectAttachNo}">
-	<h2>보유 인장 목록</h2>
-	<table>
-			<thead>
-				<tr>
-					<th>소유 번호</th>
-					<th>선택</th>
-					<th>이미지</th>
-					<th>인장 번호</th>
-					<th>인장 이름</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="mySeal" items="${list}"  varStatus="status"> 
-					<tr>
-						<td>
-							${status.index+1}
-						</td>
-						<td>
-							<input type="checkbox" name="mySealNo" value="${mySeal.mySealNo}">
-						</td>
-						<td>
-							<img width="96" height="96"
-									src="${mySeal.imageURL}">
-						</td>
-						<td>
-							${mySeal.sealNo}
-						</td>
-						<td>
-							${mySeal.sealName}
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-	</table>
-	<button>선택 완료</button>
-</form>
 
+<section class="container-1200 flex-box">
+
+	<aside></aside>
+	
+	<article class="mt-50 container-1200">
+		
+		
+		<div class="my-seal-information" >
+				<div>
+					<span>나의 인장</span>
+				</div>
+				<div>
+					<a href="/seal/list">
+						<i class="fa-solid fa-square-arrow-up-right"></i>
+						<span>인장 구매하러 가기</span>
+					</a>
+				</div>
+				<div class="my-seal-image">
+					<span>현재 적용 인장</span>
+					<img width="96" height="96" src="${selectAttachNo}">
+				</div>
+		</div>
+		<form action="mysealSelect" method="post">
+		<div class="seal-container">
+			<c:forEach var="mySeal" items="${list}"  varStatus="status"> 
+			<div>
+				<div>
+					<img width="96" height="96" 	src="${mySeal.imageURL}">
+				</div>
+				<div>
+					<span>No.0${mySeal.sealNo}</span>
+				</div>
+				<div>
+					<span>${mySeal.sealName}</span>
+				</div>
+				<div>
+					<input type="checkbox" name="mySealNo" value="${mySeal.mySealNo}">
+				</div>
+			</div>	
+			</c:forEach>
+		</div>
+			<div>
+				<button>선택 완료</button>
+			</div>
+			</form>
+	
 <div class="row pagination mb-30">
 			<!-- 페이지 네비게이터-vo에 있는 데이터를 기반으로 구현  -->
 
@@ -116,7 +123,8 @@
 				<button type="submit" class="form-btn neutral">검색</button>
 			</form>
 		</div>
-
-
+		
+			</article>
+</section>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

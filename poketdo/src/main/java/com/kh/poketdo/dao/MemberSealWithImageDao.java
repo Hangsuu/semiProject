@@ -49,6 +49,12 @@ public class MemberSealWithImageDao {
 		Object[] param = {memberId, memberSealNo};
 		return jdbcTemplate.queryForObject(sql, String.class, param);
 	}
+	//memberId 로 attachmentNo 검색
+	public int basicSealNo (String memberId) {
+		String sql ="select my_seal_no from member_seal_with_image where member_join_id =? ";
+		Object[] param = {memberId};
+		return jdbcTemplate.queryForObject(sql, int.class, param);
+	}
 	
 	//페이징 적용된 조회 및 카운트
 	public int selectCount(PocketPaginationVO vo) {

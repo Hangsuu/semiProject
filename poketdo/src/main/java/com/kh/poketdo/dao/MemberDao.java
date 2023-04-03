@@ -125,6 +125,12 @@ public class MemberDao {
 		Object [] param = {selectSealNo, memberId};
 		return jdbcTemplate.update(sql,param)>0;
 	}
+	//회원가입 시 나의 인장이미지 기본이미지 선택
+	public boolean insertMemberBasicSeal (int selectSealNo, String memberId) {
+		String sql ="update member set member_seal_no=? where member_id = ? ";
+		Object [] param = {selectSealNo, memberId};
+		return jdbcTemplate.update(sql,param)>0;
+	}
 	
 	//memberSealNo 조회
 	public String selectMemberSealNo (String memberId) {
@@ -143,7 +149,6 @@ public class MemberDao {
     	};
     	return jdbcTemplate.queryForObject(sql, String.class, param);
     }
-    
 
     public MemberDto selectByNickname(String memberNick) {
     	String sql = "select * from member where member_nick = ?";

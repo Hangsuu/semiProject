@@ -22,3 +22,8 @@ select * from message where message_no = 8 and (message_sender = 'testuser1' or 
 
 update message set message_receive_time = null where message_no = 8;
 select * from message where  message_no = 8;
+
+select * from member_seal_attachmentno where member_id = 'testuser1';
+select * from member_seal_attachmentno where member_nick = '테스트유저1234';
+select attachment_no from member_seal_attachmentNo where member_id = 'testuser1';
+select attachment_no from member_seal_attachmentno where member_nick = '테스트유저1234';

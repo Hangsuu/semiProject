@@ -32,6 +32,8 @@
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
+          <h2>오늘의 인기글</h2>
+          <a href="/board/hot">+더보기</a>
           <h2 class="mt-30">🔥인기글</h2>
           <a href="#">+더보기</a>
         </div>

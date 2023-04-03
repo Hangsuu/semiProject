@@ -47,6 +47,8 @@ public class MemberController {
     @Autowired
     private MemberJoinSealDao memberJoinSealDao;
     
+    
+    
    
  
 
@@ -87,6 +89,9 @@ public class MemberController {
     public String join(@ModelAttribute MemberDto memberDto) {
     		memberService.join(memberDto);
     		memberJoinSealDao.basicSealInsert(memberDto.getMemberId());
+    		
+    		int basicSealNo =memberSealWithImageDao.basicSealNo(memberDto.getMemberId()); 
+    		memberDao.insertMemberBasicSeal(basicSealNo,memberDto.getMemberId() );
     	return "redirect:joinFinish";
     }
         
@@ -102,8 +107,6 @@ public class MemberController {
     	MemberDto memberDto = memberDao.selectOne(memberId);
     	model.addAttribute("memberDto", memberDto);
     	model.addAttribute("profile", memberProfileDao.selectOne(memberId));
-    	
-
     	
     	return "/WEB-INF/views/member/mypage.jsp";
     }
@@ -123,7 +126,9 @@ public class MemberController {
     	String memberId = (String) session.getAttribute("memberId");
     	int totalCount = memberSealWithImageDao.mySelectCount(memberId, vo);
     	vo.setCount(totalCount);
+    	vo.setSize(20);
     	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
+    	System.out.println(list);
     	model.addAttribute("list",list);
     	model.addAttribute("selectAttachNo" , sealService.mySeal(session));
     	return "/WEB-INF/views/member/myseal.jsp";

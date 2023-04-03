@@ -1,9 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
+ 
+ <style>
+ 	.member-login-section{
+ 	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ 	height: 100%;
+ 	margin: 0 auto;
+ 	}
+ </style>
  
 	<!-- section -->
 <section class="member-login-section">
@@ -12,14 +22,14 @@
     <form action="adminCheck" method="post">
       <div class="login-form">
         <div>
-            <div><h3>°ü¸®ÀÚ ÀÎÁõ</h3></div>
+            <div class="center"><h3>ê´€ë¦¬ì ì¸ì¦</h3></div>
         </div>
-        <div><input type="password" name="memberPw" placeholder="ºñ¹Ğ¹øÈ£" autocomplete="off" required></div>
-        <div><button type="submit">·Î±×ÀÎ</button></div>
+        <div><input type="password" name="memberPw" placeholder="ë¹„ë°€ë²ˆí˜¸" autocomplete="off" required></div>
+        <div><button type="submit">ë¡œê·¸ì¸</button></div>
         <div>
           <c:choose>
             <c:when test="${valid == 'no'}">
-              ÀÌ¸ŞÀÏ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ Àß¸ø ÀÔ·ÂµÇ¾ú½À´Ï´Ù
+              ì´ë©”ì¼ ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì˜ëª» ì…ë ¥ë˜ì—ˆìŠµë‹ˆë‹¤
             </c:when>
             <c:otherwise>
               &nbsp;
@@ -29,5 +39,6 @@
        </div>
     </form>
   </article>
+  </section>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

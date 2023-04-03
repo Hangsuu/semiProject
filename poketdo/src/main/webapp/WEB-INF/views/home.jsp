@@ -14,13 +14,16 @@
   <aside></aside>
 
   <!-- 본문(article) -->
-  <article class="container-1200 mt-20">
+  <article class="container-1140 mt-30">
 
 <%-- 배너자리 --%>
     <%-- home.css / component.css --%>
-    <div class="home-raid-board title-body"  style="min-height:150px; border:1px solid gray">
+    <div class="row home-raid-board center">
       <%-- home.css --%>
-배너배너배너  1200x150
+      <a href="http://docs.sysout.co.kr">
+      	<img style="width:1100px" src="static/image/home_banner.png">
+      </a>
+      
     </div>
 <%-- 인기글, 오늘의 포켓몬--%>
     <%-- base.css / component.css --%>
@@ -29,7 +32,7 @@
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
-          <h2>오늘의 인기글</h2>
+          <h2 class="mt-30">🔥인기글</h2>
           <a href="#">+더보기</a>
         </div>
         <div>내용</div>
@@ -38,7 +41,7 @@
       <div class="home-cool-board title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
-          <h2>오늘의 포켓몬</h2>
+          <h2 class="mt-30">🦄오늘의 포켓몬</h2>
           <a href="#">+더보기</a>
         </div>
         <div>내용</div>
@@ -49,7 +52,7 @@
     <div class="home-sector home-raid-board title-body">
       <%-- home.css --%>
       <div class="home-board-title">
-        <h2>교환해요</h2>
+        <h2 class="mt-30">🤝교환해요</h2>
         <a href="/auction/list?page=1">+더보기</a>
       </div>
       <div>
@@ -126,7 +129,7 @@
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
-          <h2>레이드 모집중</h2>
+          <h2 class="mt-30">👨‍👩‍👧‍👦레이드 모집중</h2>
           <a href="#">+더보기</a>
         </div>
         <div>내용</div>
@@ -135,7 +138,7 @@
       <div class="home-cool-board title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
-          <h2>오늘의 핫 공략</h2>
+          <h2 class="mt-30">📝오늘의 핫 공략</h2>
           <a href="#">+더보기</a>
         </div>
         <div>내용</div>
@@ -148,7 +151,7 @@
     <div class="home-sector">
       <%-- home.css --%>
       <div class="home-board-title">
-        <h2>hot 경매</h2>
+        <h2 class="mt-30">⏱️hot 경매</h2>
         <a href="/auction/list?page=1">+더보기</a>
       </div>
 	<!-- 게시판 테이블(swiper) -->

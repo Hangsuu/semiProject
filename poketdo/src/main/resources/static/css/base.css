@@ -64,7 +64,7 @@ footer {
 .nav-bar > div > a {
   width: 100%;
   height: 80px;
-  padding-bottom: 3px;
+  padding-bottom: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,7 +147,7 @@ footer {
 .header-menu{
 	display:inline-block;
 	color:white;
-	width:80px
+	width:80px;
 }
 /* 홈화면 섹터 영역 */
 .home-sector{

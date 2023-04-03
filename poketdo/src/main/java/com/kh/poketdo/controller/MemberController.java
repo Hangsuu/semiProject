@@ -47,6 +47,7 @@ public class MemberController {
     @Autowired
     private MemberJoinSealDao memberJoinSealDao;
     
+   
  
 
     @GetMapping("/login")
@@ -94,7 +95,6 @@ public class MemberController {
     	return "/WEB-INF/views/member/joinFinish.jsp";
     }
     
-    
     //마이페이지
     @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model) {
@@ -102,8 +102,16 @@ public class MemberController {
     	MemberDto memberDto = memberDao.selectOne(memberId);
     	model.addAttribute("memberDto", memberDto);
     	model.addAttribute("profile", memberProfileDao.selectOne(memberId));
+    	
+
+    	
     	return "/WEB-INF/views/member/mypage.jsp";
     }
+    
+    
+   
+
+    
     
     //나의 인장
     @GetMapping("/myseal")

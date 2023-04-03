@@ -1,5 +1,5 @@
-// [1] 시작하자마자 이글에 좋아요를 했는지 확인.
-// [2] 하트를 클릭하면 좋아요 설정 해제 페이지로 비동기 요청 (싫어요도 똑같음)
+// [1] 시작하자마자 이글에 싫어요를 했는지 확인.
+// [2] 따봉 반대를 클릭하면 싫어요 설정 해제 페이지로 비동기 요청 (싫어요도 똑같음)
 $(function(){
 	
 	//Javascript에서 파라미터 읽기
@@ -39,7 +39,7 @@ $(function(){
         		$(".fa-thumbs-down").removeClass("fa-solid fa-regular")
                           			.addClass("fa-solid fa-shake");
         		setTimeout(function(){
-          		$(".fa-thumbs-down").removeClass("fa-shake");
+          			$(".fa-thumbs-down").removeClass("fa-shake");
         		}, 800);
       
         		$(".bad-count").text(response.count);
@@ -48,9 +48,9 @@ $(function(){
         		$(".fa-thumbs-down").removeClass("fa-solid fa-regular")
                           			.addClass("fa-regular");
         		$(".bad-count").text(response.count);
-      		}
-    	},
-    	error:function(){}
+      			}
+    		},
+    		error:function(){}
   		});
 	});
 

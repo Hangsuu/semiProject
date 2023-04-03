@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>  
 
-  <c:if test="${sessionScope.memberLevel == '∏∂Ω∫≈Õ'}">
+  <c:if test="${sessionScope.memberLevel == 'Í¥ÄÎ¶¨Ïûê'}">
 <script type="text/javascript">
 	function checkAll(){
 		var allCheckbox = document.querySelector(".check-all");
@@ -30,123 +30,118 @@
 		var checkboxes = document.querySelectorAll("input[type=checkbox][name=boardNo]:checked")
 		if(checkboxes.length == 0) return false;
 		
-		return confirm("¡§∏ª ªË¡¶«œΩ√∞⁄Ω¿¥œ±Ó?");
+		return confirm("Ï†ïÎßê ÏÇ≠Ï†úÌïòÏãúÍ≤†ÏäµÎãàÍπå?");
 	}
 </script>
 </c:if>
 
 
 <div class="container-800">
-    <div class="row center">
-        <h1>¿Œ±‚±€ ∞‘Ω√∆«</h1>
-    </div>
-    <div class="row center">
-        ¿Ã∞˜¿∫ ¿⁄Ω≈¿« ¿Œ±‚∑¬¿ª ≈◊Ω∫∆Æ«œ¥¬ ∞¯∞£¿‘¥œ¥Ÿ.
-    </div>
-    
-    <c:if test="${sessionScope.memberLevel == '∏∂Ω∫≈Õ'}">
-    <form action="deleteAll" method="post" onsubmit="return formCheck();">
-    </c:if>
-    <div class="row right">
-    	<c:if test="${sessionScope.memberLevel == '∏∂Ω∫≈Õ'}">
-    	<button type="submit" class="form-btn negative">ªË¡¶</button>
-    	</c:if>
-    </div>
-    <div class="row">
-        <table class="table table-slit">
-            <thead>
-            <tr>
-                <c:if test="${sessionScope.memberLevel == '∏∂Ω∫≈Õ'}">
-                <!--  ¿¸√º º±≈√ √º≈©π⁄Ω∫∏¶ πËƒ° -->
-                <th>
-                	<input type="checkbox" class="check-all" onchange="checkAll();">
-                </th>
-                </c:if>
-                    <th>π¯»£</th>
-                    <th class="w-40">¡¶∏Ò</th>
-                    <th class="left">¿€º∫¿⁄</th>
-                    <th>¿€º∫¿œ</th>
-                    <th>¡∂»∏ºˆ</th>
-                    <th>¡¡æ∆ø‰</th>
-                </tr>
-            </thead>
-            <tbody class="center">
-            
-            	<!-- ∞¯¡ˆªÁ«◊¿ª √‚∑¬ -->
-				<c:forEach var="boardDto" items="${noticeList}">
-				<tr style="background-color:#eee">
-					<c:if test="${sessionScope.memberLevel == '∏∂Ω∫≈Õ'}">
-					<td></td>
-					</c:if>
-					<td>${boardDto.boardNo}</td>
-					<td class="left">
-						<!-- ¡¶∏Ò¿ª ¥©∏£∏È ªÛºº∑Œ ¿Ãµø -->
-						<a href="detail?boardNo=${boardDto.boardNo}" class="link">
-							
-							<c:if test="${boardDto.boardHead != null}">
-								<!-- ∏ª∏”∏Æ∞° ¿÷¿∏∏È √‚∑¬ -->
-								[${boardDto.boardHead}]
-							</c:if>
-							
-							${boardDto.boardTitle}
-						</a>
-					</td>
-					<td class="left">${boardDto.boardWriter}</td>
-					
-					<%-- DTOø° ∏∏µÁ ∞°ªÛ¿« Getter ∏ﬁº“µÂ∏¶ ∫“∑Ø √≥∏Æ --%>
-					<td>${boardDto.boardTimeAuto}</td>
-					
-					<td>${boardDto.boardRead}</td>
-					<td>${boardDto.boardLike}</td>
-				</tr>
-				</c:forEach>
-				
-				<!-- ∞Àªˆ ∂«¥¬ ∏Ò∑œ ∞·∞˙∏¶ √‚∑¬ -->
-				<c:forEach var="boardDto" items="${list}">
-				<tr>
-				<c:if test="${sessionScope.memberLevel == '∏∂Ω∫≈Õ'}">
-				<!--  ∞≥∫∞ º±≈√ √º≈©π⁄Ω∫∏¶ πËƒ° -->
-					<td>
-					<input type="checkbox" name="boardNo" value="${boardDto.boardNo }"
-						onchange="checkUnit();">
-					</td>
-					</c:if>
-					<td>${boardDto.boardNo}</td>
-					<td class="left">
-						<!-- ¡¶∏Ò¿ª ¥©∏£∏È ªÛºº∑Œ ¿Ãµø -->
-						<a href="detail?boardNo=${boardDto.boardNo}" class="link">
-							
-							<c:if test="${boardDto.boardHead != null}">
-								<!-- ∏ª∏”∏Æ∞° ¿÷¿∏∏È √‚∑¬ -->
-								[${boardDto.boardHead}]
-							</c:if>
-							
-							${boardDto.boardTitle}
-							<c:if test="${boardDto.boardReply != 0}">(${board_reply})</c:if>
-						</a>
-					</td>
-					<td class="left">${boardDto.boardWriter}</td>
-					
-					<%-- DTOø° ∏∏µÁ ∞°ªÛ¿« Getter ∏ﬁº“µÂ∏¶ ∫“∑Ø √≥∏Æ --%>
-					<td>${boardDto.boardTimeAuto}</td>
-					
-					<td>${boardDto.boardRead}</td>
-					<td>${boardDto.boardLike}</td>
-				</tr>
-				</c:forEach>
-            </tbody>
-        </table>
-    </div>
-    <div class="row right">
-    <c:if test="${sessionScope.memberLevel == '∏∂Ω∫≈Õ'}">
-    	<button type="submit" class="form-btn negative">ªË¡¶</button>
-    	</c:if>
-    </div>
-    </form>
-    
+        <div class="row center">
+            <h1>Ïù∏Í∏∞ Í≤åÏãúÌåê</h1>
+        </div>
+        <div class="row center">
+            ÎÇ®ÏùÑ ÎπÑÎ∞©ÌïòÎäî Í≤ΩÏö∞ ÏòàÍ≥† ÏóÜÏù¥ ÏÇ≠Ï†úÎê† Ïàò ÏûàÏäµÎãàÎã§
+        </div>
+        
+        <c:if test="${sessionScope.memberLevel == 'Í¥ÄÎ¶¨Ïûê'}">
+        <form action="deleteAll" method="post" onsubmit="return formCheck();">
+        </c:if>
+        <div class="row">
+            <table class="table table-slit">
+                <thead>
+                <tr>
+                    <c:if test="${sessionScope.memberLevel == 'Í¥ÄÎ¶¨Ïûê'}">
+                    <!--  Ï†ÑÏ≤¥ ÏÑ†ÌÉù Ï≤¥ÌÅ¨Î∞ïÏä§Î•º Î∞∞Ïπò -->
+                    <th>
+                        <input type="checkbox" class="check-all" onchange="checkAll();">
+                    </th>
+                    </c:if>
+                        <th>Î≤àÌò∏</th>
+                        <th class="w-40">Ï†úÎ™©</th>
+                        <th class="left">ÏûëÏÑ±Ïûê</th>
+                        <th>ÏûëÏÑ±Ïùº</th>
+                        <th>Ï°∞ÌöåÏàò</th>
+                        <th>Ï¢ãÏïÑÏöî</th>
+                    </tr>
+                </thead>
+                <tbody class="center">
+                
+                    <!-- Í≥µÏßÄÏÇ¨Ìï≠ÏùÑ Ï∂úÎ†• -->
+                    <c:forEach var="boardWithImageDto" items="${noticeList}">
+                    <tr style="background-color:#eee">
+                        <c:if test="${sessionScope.memberLevel == 'Í¥ÄÎ¶¨Ïûê'}">
+                        <td></td>
+                        </c:if>
+                        <td>${boardWithImageDto.boardNo}</td>
+                        <td class="left">
+                            <!-- Ï†úÎ™©ÏùÑ ÎàÑÎ•¥Î©¥ ÏÉÅÏÑ∏Î°ú Ïù¥Îèô -->
+                            <a href="detail?boardNo=${boardWithImageDto.boardNo}" class="link">
+                                
+                                <c:if test="${boardWithImageDto.boardHead != null}">
+                                    <!-- ÎßêÎ®∏Î¶¨Í∞Ä ÏûàÏúºÎ©¥ Ï∂úÎ†• -->
+                                    [${boardWithImageDto.boardHead}]
+                                </c:if>
+                                
+                                ${boardWithImageDto.boardTitle}
+                            </a>
+                        </td>
+                        <td class="left">${boardWithImageDto.boardWriter}</td>
+                        
+                        <%-- DTOÏóê ÎßåÎì† Í∞ÄÏÉÅÏùò Getter Î©îÏÜåÎìúÎ•º Î∂àÎü¨ Ï≤òÎ¶¨ --%>
+                        <td>${boardWithImageDto.boardTimeAuto}</td>
+                        
+                        <td>${boardWithImageDto.boardRead}</td>
+                        <td>${boardWithImageDto.boardLike}</td>
+                    </tr>
+                    </c:forEach>
+                    
+                    <!-- Í≤ÄÏÉâ ÎòêÎäî Î™©Î°ù Í≤∞Í≥ºÎ•º Ï∂úÎ†• -->
+                    <c:forEach var="boardWithImageDto" items="${list}">
+                    <tr>
+                    <c:if test="${sessionScope.memberLevel == 'Í¥ÄÎ¶¨Ïûê'}">
+                    <!--  Í∞úÎ≥Ñ ÏÑ†ÌÉù Ï≤¥ÌÅ¨Î∞ïÏä§Î•º Î∞∞Ïπò -->
+                        <td>
+                        <input type="checkbox" name="boardNo" value="${boardWithImageDto.boardNo}"
+                            onchange="checkUnit();">
+                        </td>
+                        </c:if>
+                        <td>${boardWithImageDto.boardNo}</td>
+                        <td class="left">
+                            <!-- Ï†úÎ™©ÏùÑ ÎàÑÎ•¥Î©¥ ÏÉÅÏÑ∏Î°ú Ïù¥Îèô -->
+                            <a href="detail?boardNo=${boardWithImageDto.boardNo}" class="link">
+                                
+                                <c:if test="${boardWithImageDto.boardHead != null}">
+                                    <!-- ÎßêÎ®∏Î¶¨Í∞Ä ÏûàÏúºÎ©¥ Ï∂úÎ†• -->
+                                    [${boardWithImageDto.boardHead}]
+                                </c:if>
+                                
+                                ${boardWithImageDto.boardTitle}
+                                <span style="color:red;"><c:if test="${boardWithImageDto.boardReply != 0}">(${boardWithImageDto.boardReply})</c:if></span>
+                            </a>
+                        </td>
+                        <td class="left">${boardWithImageDto.boardWriter}</td>
+                        
+                        <%-- DTOÏóê ÎßåÎì† Í∞ÄÏÉÅÏùò Getter Î©îÏÜåÎìúÎ•º Î∂àÎü¨ Ï≤òÎ¶¨ --%>
+                        <td>${boardWithImageDto.boardTimeAuto}</td>
+                        
+                        <td>${boardWithImageDto.boardRead}</td>
+                        <td>${boardWithImageDto.boardLike}</td>
+                    </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="row right">
+        <c:if test="${sessionScope.memberLevel == 'Í¥ÄÎ¶¨Ïûê'}">
+            <button type="submit" class="form-btn negative">ÏÇ≠Ï†ú</button>
+            </c:if>
+        </div>
+        </form>
+        
     <div class="row pagination">
     
-    	<!-- √≥¿Ω -->
+    	<!-- Ï≤òÏùå -->
     	<c:choose>
 			<c:when test="${vo.first}">
 				<a class="disabled">&laquo;</a>
@@ -156,7 +151,7 @@
 			</c:otherwise>
 		</c:choose>
 		
-		<!-- ¿Ã¿¸ -->
+		<!-- Ïù¥Ï†Ñ -->
 		<c:choose>
 			<c:when test="${vo.prev}">
 				<a href="list?${vo.parameter}&page=${vo.prevPage}">&lt;</a>
@@ -166,7 +161,7 @@
 			</c:otherwise>
 		</c:choose>
 		
-        <!-- º˝¿⁄ -->
+        <!-- Ïà´Ïûê -->
         <c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}">
 			<c:choose>
 				<c:when test="${vo.page == i}">
@@ -178,7 +173,7 @@
 			</c:choose>
 		</c:forEach>	
 	
-		<!-- ¥Ÿ¿Ω -->
+		<!-- Îã§Ïùå -->
 		<c:choose>
 			<c:when test="${vo.next}">
 				<a href="list?${vo.parameter}&page=${vo.nextPage}">&gt;</a>
@@ -188,7 +183,7 @@
 			</c:otherwise>
 		</c:choose>
 		
-		<!-- ∏∂¡ˆ∏∑ -->
+		<!-- ÎßàÏßÄÎßâ -->
 		<c:choose>
 			<c:when test="${vo.last}">
 				<a class="disabled">&raquo;</a>
@@ -199,49 +194,49 @@
 		</c:choose>
     </div>
     
-    <!-- ∞Àªˆ√¢ -->
+    <!-- Í≤ÄÏÉâÏ∞Ω -->
     <div class="row center">
 		<form action="list" method="get">
 		
 			<c:choose>
 				<c:when test="${vo.column == 'board_content'}">
 					<select name="column" class="form-input">
-						<option value="board_title">¡¶∏Ò</option>
-						<option value="board_content" selected>≥ªøÎ</option>
-						<option value="board_writer">¿€º∫¿⁄</option>
-						<option value="board_head">∏ª∏”∏Æ</option>
+						<option value="board_title">Ï†úÎ™©</option>
+						<option value="board_content" selected>ÎÇ¥Ïö©</option>
+						<option value="board_writer">ÏûëÏÑ±Ïûê</option>
+						<option value="board_head">ÎßêÎ®∏Î¶¨</option>
 					</select>
 				</c:when>
 				<c:when test="${vo.column == 'board_writer'}">
 					<select name="column" class="form-input">
-						<option value="board_title">¡¶∏Ò</option>
-						<option value="board_content">≥ªøÎ</option>
-						<option value="board_writer" selected>¿€º∫¿⁄</option>
-						<option value="board_head">∏ª∏”∏Æ</option>
+						<option value="board_title">Ï†úÎ™©</option>
+						<option value="board_content">ÎÇ¥Ïö©</option>
+						<option value="board_writer" selected>ÏûëÏÑ±Ïûê</option>
+						<option value="board_head">ÎßêÎ®∏Î¶¨</option>
 					</select>
 				</c:when>
 				<c:when test="${vo.column == 'board_head'}">
 					<select name="column" class="form-input">
-						<option value="board_title">¡¶∏Ò</option>
-						<option value="board_content">≥ªøÎ</option>
-						<option value="board_writer">¿€º∫¿⁄</option>
-						<option value="board_head" selected>∏ª∏”∏Æ</option>
+						<option value="board_title">Ï†úÎ™©</option>
+						<option value="board_content">ÎÇ¥Ïö©</option>
+						<option value="board_writer">ÏûëÏÑ±Ïûê</option>
+						<option value="board_head" selected>ÎßêÎ®∏Î¶¨</option>
 					</select>
 				</c:when>
 				<c:otherwise>
 					<select name="column" class="form-input">
-						<option value="board_title" selected>¡¶∏Ò</option>
-						<option value="board_content">≥ªøÎ</option>
-						<option value="board_writer">¿€º∫¿⁄</option>
-						<option value="board_head">∏ª∏”∏Æ</option>
+						<option value="board_title" selected>Ï†úÎ™©</option>
+						<option value="board_content">ÎÇ¥Ïö©</option>
+						<option value="board_writer">ÏûëÏÑ±Ïûê</option>
+						<option value="board_head">ÎßêÎ®∏Î¶¨</option>
 					</select>
 				</c:otherwise>
 			</c:choose>
 			
 			
-			<input class="form-input" type="search" name="keyword" placeholder="∞ÀªˆæÓ" required value="${vo.keyword}">
+			<input class="form-input" type="search" name="keyword" placeholder="Í≤ÄÏÉâÏñ¥" required value="${vo.keyword}">
 			
-			<button type="submit" class="form-btn neutral">∞Àªˆ</button>
+			<button type="submit" class="form-btn neutral">Í≤ÄÏÉâ</button>
 		</form>
     </div>
 </div>

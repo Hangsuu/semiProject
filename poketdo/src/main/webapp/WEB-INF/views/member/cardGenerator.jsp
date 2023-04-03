@@ -130,12 +130,45 @@
 		  // div를 이미지로 변환하기
 		  html2canvas(div).then(function(canvas) {
 		    // 변환된 이미지 파일로 저장하기
-		    let link = document.createElement("a");
-		    document.body.appendChild(link);
-		    link.download = fileName;
-		    link.href = canvas.toDataURL();
-		    link.click();
-		    document.body.removeChild(link);
+		    var data = canvas.toDataURL();
+		    //console.log(data);
+		    
+		    //data에는 base64 형태로 이미지가 들어있다.
+		    //이 이미지에서 파일 내용만 꺼내서 비동기로 전송
+		    // base64 형식의 이미지 데이터
+			
+			// base64 디코딩하여 이진 데이터 추출
+			const imageData = atob(data.split(',')[1]);
+			
+			// ArrayBuffer 생성
+			const buffer = new ArrayBuffer(imageData.length);
+			
+			// ArrayBufferView 생성
+			const arrayView = new Uint8Array(buffer);
+			
+			// ArrayBufferView에 이진 데이터 쓰기
+			for (let i = 0; i < imageData.length; i++) {
+			  arrayView[i] = imageData.charCodeAt(i);
+			}
+			
+			// Blob 생성
+			const blob = new Blob([arrayView], { type: 'image/png' });
+			
+		    
+		    var fd = new FormData();
+		    fd.append("attach", blob);
+		    
+		    $.ajax({
+		    	url:"cardGenerator",
+		    	type:"post",
+		    	processData:false,
+		    	contentType:false,
+		    	data:fd,
+		    	success:function(response){
+		    		console.log(response);
+		    	},
+		    	error:function(){}
+		    });
 		  });
 		}
 		
@@ -387,8 +420,9 @@
   
   <!-- article -->
   <article>
-    <form class="super-center mt-50 mb-50" style="height:90vh;" method="get" enctype="multipart/form-data" autocomplete="off">
+<!--     <form class="super-center mt-50 mb-50" style="height:90vh;" method="get" enctype="multipart/form-data" autocomplete="off"> -->
         
+        <form class="super-center mt-50 mb-50">
       <div class= "container-500 center" >
       
     
@@ -485,7 +519,7 @@
 			<%-- 로그인 여부 확인 --%>
 			<c:if test="${not empty sessionScope.memberId}">
   			<%-- 로그인 했을 경우 버튼 노출 --%>
-			<button class= "form-btn neutral w-100 mb-10" type="file" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
+			<button class= "form-btn neutral w-100 mb-10" type="button" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
 			</c:if>
 			<button class= "form-btn positive w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
 			
@@ -496,9 +530,9 @@
 	    </div>
 	    
 	   
-    
-    
     </form>
+    
+<!--     </form> -->
    
         
     

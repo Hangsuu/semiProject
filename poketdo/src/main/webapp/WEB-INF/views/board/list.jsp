@@ -6,7 +6,7 @@
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>  
 
-  <c:if test="${sessionScope.memberLevel == '마스터'}">
+  <c:if test="${sessionScope.memberLevel == '관리자'}">
 <script type="text/javascript">
 	function checkAll(){
 		var allCheckbox = document.querySelector(".check-all");
@@ -44,11 +44,11 @@
             남을 비방하는 경우 예고 없이 삭제될 수 있습니다
         </div>
         
-        <c:if test="${sessionScope.memberLevel == '마스터'}">
+        <c:if test="${sessionScope.memberLevel == '관리자'}">
         <form action="deleteAll" method="post" onsubmit="return formCheck();">
         </c:if>
         <div class="row right">
-            <c:if test="${sessionScope.memberLevel == '마스터'}">
+            <c:if test="${sessionScope.memberLevel == '관리자'}">
             <button type="submit" class="form-btn negative">삭제</button>
             </c:if>
             <a href="write" class="form-btn positive">글쓰기</a>
@@ -57,7 +57,7 @@
             <table class="table table-slit">
                 <thead>
                 <tr>
-                    <c:if test="${sessionScope.memberLevel == '마스터'}">
+                    <c:if test="${sessionScope.memberLevel == '관리자'}">
                     <!--  전체 선택 체크박스를 배치 -->
                     <th>
                         <input type="checkbox" class="check-all" onchange="checkAll();">
@@ -74,72 +74,72 @@
                 <tbody class="center">
                 
                     <!-- 공지사항을 출력 -->
-                    <c:forEach var="boardDto" items="${noticeList}">
+                    <c:forEach var="boardWithImageDto" items="${noticeList}">
                     <tr style="background-color:#eee">
-                        <c:if test="${sessionScope.memberLevel == '마스터'}">
+                        <c:if test="${sessionScope.memberLevel == '관리자'}">
                         <td></td>
                         </c:if>
-                        <td>${boardDto.boardNo}</td>
+                        <td>${boardWithImageDto.boardNo}</td>
                         <td class="left">
                             <!-- 제목을 누르면 상세로 이동 -->
-                            <a href="detail?boardNo=${boardDto.boardNo}" class="link">
+                            <a href="detail?boardNo=${boardWithImageDto.boardNo}" class="link">
                                 
-                                <c:if test="${boardDto.boardHead != null}">
+                                <c:if test="${boardWithImageDto.boardHead != null}">
                                     <!-- 말머리가 있으면 출력 -->
-                                    [${boardDto.boardHead}]
+                                    [${boardWithImageDto.boardHead}]
                                 </c:if>
                                 
-                                ${boardDto.boardTitle}
+                                ${boardWithImageDto.boardTitle}
                             </a>
                         </td>
-                        <td class="left">${boardDto.boardWriter}</td>
+                        <td class="left">${boardWithImageDto.boardWriter}</td>
                         
                         <%-- DTO에 만든 가상의 Getter 메소드를 불러 처리 --%>
-                        <td>${boardDto.boardTimeAuto}</td>
+                        <td>${boardWithImageDto.boardTimeAuto}</td>
                         
-                        <td>${boardDto.boardRead}</td>
-                        <td>${boardDto.boardLike}</td>
+                        <td>${boardWithImageDto.boardRead}</td>
+                        <td>${boardWithImageDto.boardLike}</td>
                     </tr>
                     </c:forEach>
                     
                     <!-- 검색 또는 목록 결과를 출력 -->
-                    <c:forEach var="boardDto" items="${list}">
+                    <c:forEach var="boardWithImageDto" items="${list}">
                     <tr>
-                    <c:if test="${sessionScope.memberLevel == '마스터'}">
+                    <c:if test="${sessionScope.memberLevel == '관리자'}">
                     <!--  개별 선택 체크박스를 배치 -->
                         <td>
-                        <input type="checkbox" name="boardNo" value="${boardDto.boardNo }"
+                        <input type="checkbox" name="boardNo" value="${boardWithImageDto.boardNo}"
                             onchange="checkUnit();">
                         </td>
                         </c:if>
-                        <td>${boardDto.boardNo}</td>
+                        <td>${boardWithImageDto.boardNo}</td>
                         <td class="left">
                             <!-- 제목을 누르면 상세로 이동 -->
-                            <a href="detail?boardNo=${boardDto.boardNo}" class="link">
+                            <a href="detail?boardNo=${boardWithImageDto.boardNo}" class="link">
                                 
-                                <c:if test="${boardDto.boardHead != null}">
+                                <c:if test="${boardWithImageDto.boardHead != null}">
                                     <!-- 말머리가 있으면 출력 -->
-                                    [${boardDto.boardHead}]
+                                    [${boardWithImageDto.boardHead}]
                                 </c:if>
                                 
-                                ${boardDto.boardTitle}
-                                <c:if test="${boardDto.boardReply != 0}">(${board_reply})</c:if>
+                                ${boardWithImageDto.boardTitle}
+                                <span style="color:red;"><c:if test="${boardWithImageDto.boardReply != 0}">(${boardWithImageDto.boardReply})</c:if></span>
                             </a>
                         </td>
-                        <td class="left">${boardDto.boardWriter}</td>
+                        <td class="left">${boardWithImageDto.boardWriter}</td>
                         
                         <%-- DTO에 만든 가상의 Getter 메소드를 불러 처리 --%>
-                        <td>${boardDto.boardTimeAuto}</td>
+                        <td>${boardWithImageDto.boardTimeAuto}</td>
                         
-                        <td>${boardDto.boardRead}</td>
-                        <td>${boardDto.boardLike}</td>
+                        <td>${boardWithImageDto.boardRead}</td>
+                        <td>${boardWithImageDto.boardLike}</td>
                     </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </div>
         <div class="row right">
-        <c:if test="${sessionScope.memberLevel == '마스터'}">
+        <c:if test="${sessionScope.memberLevel == '관리자'}">
             <button type="submit" class="form-btn negative">삭제</button>
             </c:if>
             <a href="write" class="form-btn positive">글쓰기</a>

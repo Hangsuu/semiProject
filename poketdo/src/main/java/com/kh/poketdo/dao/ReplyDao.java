@@ -42,17 +42,15 @@ public class ReplyDao {
   };
 
   public void insert(ReplyDto replyDto) {
-    String sql = "insert into reply(reply_no, reply_origin, reply_writer," +
-        "reply_content, reply_time ,reply_group) values(reply_seq.nextval,?,?,?,sysdate,?)";
-    Object[] param = {
-        replyDto.getReplyWriter(),
-        replyDto.getReplyOrigin(),
-        replyDto.getReplyWriter(),
-        replyDto.getReplyContent(),
-        replyDto.getReplyTime(),
-        replyDto.getReplyGroup(),
-    };
-    jdbcTemplate.update(sql, param);
+	    String sql = "insert into reply(reply_no, reply_writer, reply_origin, reply_time," +
+	        "reply_content, reply_group) values(reply_seq.nextval,?,?,sysdate,?,?)";
+	    Object[] param = {
+	        replyDto.getReplyWriter(),
+	        replyDto.getReplyOrigin(),
+	        replyDto.getReplyContent(),
+	        replyDto.getReplyGroup(),
+	    };
+	    jdbcTemplate.update(sql, param);
 
     // 게시글의 리플라이 개수를 판단해서 DB 입력
     int allboardNo = replyDto.getReplyOrigin();

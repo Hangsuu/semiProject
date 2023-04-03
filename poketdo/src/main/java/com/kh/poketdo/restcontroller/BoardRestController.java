@@ -14,7 +14,7 @@ import com.kh.poketdo.dto.LikeTableDto;
 import com.kh.poketdo.vo.BoardLikeVO;
 
 @RestController
-@RequestMapping("/rest/board")
+@RequestMapping("/rest/like")
 public class BoardRestController {
 	
 	@Autowired
@@ -24,7 +24,7 @@ public class BoardRestController {
 	private BoardWithImageDao boardWithImageDao; 
 	
 	
-	@PostMapping("/like")
+	@PostMapping("/")
 	public BoardLikeVO like(HttpSession session,
 			@ModelAttribute LikeTableDto liketableDto) {
 		String memberId = (String)session.getAttribute("memberId");

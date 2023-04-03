@@ -1,7 +1,5 @@
 /*전역변수(memberId, boardWriter) 설정 필요*/
 $(function(){
-	var params = new URLSearchParams(location.search);
-	var allboardNo = params.get("allboardNo")
 	loadList();
 	
 	function loadList(){
@@ -122,10 +120,7 @@ var submitButton = function (context) {
 				replyGroup:replyGroup,
 			},
 			success:function(response){
-<<<<<<< HEAD
-=======
 				$(".summernote-reply").summernote("code", "");
->>>>>>> refs/remotes/origin/main
 				loadList();
 			},
 			error:function(){

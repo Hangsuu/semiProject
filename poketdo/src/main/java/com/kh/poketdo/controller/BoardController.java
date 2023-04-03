@@ -35,36 +35,58 @@ public class BoardController {
 	// 게시판 사이트 구현
 	@GetMapping("/list")
 	public String list(@ModelAttribute("vo") PaginationVO vo,
-			Model model) {
-		
+			Model model, @RequestParam(required = false, defaultValue = "boardTitle") String column, 
+			@RequestParam(required = true, defaultValue = "") String keyword) {
 		// 게시글 전체 개수
 		int totalCount = boardWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);
 		
-		//공지사항
-		model.addAttribute("noticeList", boardWithImageDao.selectNoticeList(1, 3));
-		
+		if(keyword.equals("")) {//키워드가 없다면 -> 목록
+
 		// 게시글
 		List<BoardWithImageDto> list = boardWithImageDao.selectList();
 		model.addAttribute("list", list);
+		}
+		else { //키워드가 있다면 -> 검색
+			model.addAttribute("column", column);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("list", boardWithImageDao.selectList(column, keyword));
+			
+			//검색 완료 후 검색어 창 비우기
+			model.addAttribute("keyword", keyword);
+		}
+		//검색 여부와 관계 없이 공지사항을 3개 조회해서 Model에 첨부
+		//공지사항
+		model.addAttribute("noticeList", boardWithImageDao.selectNoticeList(1, 3));
 		return "/WEB-INF/views/board/list.jsp";
 	}
 	
 	// 인기게시판 구현(추천 30이상)
 	@GetMapping("/hot")
 	public String hot(@ModelAttribute("vo") PaginationVO vo,
-			Model model) {
-		
+			Model model, @RequestParam(required = false, defaultValue = "boardTitle") String column, 
+			@RequestParam(required = true, defaultValue = "") String keyword) {
 		// 게시글 전체 개수
 		int totalCount = boardWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);
 		
-		//공지사항
-		model.addAttribute("noticeList", boardWithImageDao.selectNoticeList(1, 3));
-		
+		if(keyword.equals("")) {//키워드가 없다면 -> 목록
+
 		// 게시글
 		List<BoardWithImageDto> list = boardWithImageDao.hotSelectList();
 		model.addAttribute("list", list);
+		}
+		else { //키워드가 있다면 -> 검색
+			model.addAttribute("column", column);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("list", boardWithImageDao.selectList(column, keyword));
+			
+			//검색 완료 후 검색어 창 비우기
+			model.addAttribute("keyword", keyword);
+		}
+		//검색 여부와 관계 없이 공지사항을 3개 조회해서 Model에 첨부
+		//공지사항
+		model.addAttribute("noticeList", boardWithImageDao.selectNoticeList(1, 3));
 		return "/WEB-INF/views/board/hot.jsp";
 	}
 

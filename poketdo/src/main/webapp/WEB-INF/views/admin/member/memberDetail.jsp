@@ -1,63 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-<jsp:include page="/WEB-INF/views/template/adminheader.jsp"></jsp:include>  
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>  
 
 <div class="container-800">
 	<div class="row">
-		<h2>${memberWithImageDto.memberNick} ´ÔÀÇ °³ÀÎ ÇÁ·ÎÇÊ</h2>
+		<h2>${memberWithImageDto.memberNick} ë‹˜ì˜ ê°œì¸ í”„ë¡œí•„</h2>
 	</div>
 	<div class="row flex-box">
 		<div class="w-30">
 			<div class="row">
-				<img width="200" height="200" 
-					src="/attachment/${memberWithImageDto.imageURL}">
+				<c:choose>
+					<c:when test="${memberWithImageDto.attachmentNo == null}">
+    					<img width="200" height="200" src="/static/image/user.jpg">
+  					</c:when>
+  					<c:otherwise>
+    					<img width="200" height="200" src="/attachment/${memberWithImageDto.imageURL}">
+  					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="row center">
-				<h2><a href="memberEdit?memberId=${memberWithImageDto.memberId}" class="link">°³ÀÎÁ¤º¸ º¯°æ</a></h2>
+				<h2><a href="memberEdit?memberId=${memberWithImageDto.memberId}" class="link">ê°œì¸ì •ë³´ ë³€ê²½</a></h2>
 			</div>
 			<div class="row center">
-				<h2><a href="memberDelete?memberId=${memberWithImageDto.memberId}" class="link">È¸¿ø Å»Åğ</a></h2>
+				<h2><a href="memberDelete?memberId=${memberWithImageDto.memberId}" class="link">íšŒì› íƒˆí‡´</a></h2>
 			</div>
 		</div>
 		<div class="w-70">
 			<table class="table table-slit">
 				<tr>
-					<th>¾ÆÀÌµğ</th>
+					<th>ì•„ì´ë””</th>
 					<td>${memberWithImageDto.memberId}</td>
 				</tr>
 				<tr>
-					<th>´Ğ³×ÀÓ</th>
+					<th>ë‹‰ë„¤ì„</th>
 					<td>${memberWithImageDto.memberNick}</td>
 				</tr>
 				<tr>
-					<th>ÀÌ¸ŞÀÏ</th>
+					<th>ì´ë©”ì¼</th>
 					<td>${memberWithImageDto.memberEmail}</td>
 				</tr>
 				<tr>
-					<th>µî±Ş</th>
+					<th>ë“±ê¸‰</th>
 					<td>${memberWithImageDto.memberLevel}</td>
 				</tr>
 				<tr>
-					<th>Æ÷ÀÎÆ®</th>
+					<th>í¬ì¸íŠ¸</th>
 					<td>${memberWithImageDto.memberPoint}</td>
 				</tr>
 				<tr>
-					<th>°¡ÀÔ ÀÏ</th>
+					<th>ê°€ì… ì¼</th>
 					<td>
-						<fmt:formatDate value="${memberWithImageDto.memberJoin}" pattern="y³â M¿ù dÀÏ E a h½Ã mºĞ sÃÊ"/>
+						<fmt:formatDate value="${memberWithImageDto.memberJoin}" pattern="yë…„ Mì›” dì¼ E a hì‹œ më¶„ sì´ˆ"/>
 					</td>
 				</tr>
 				<tr>
-					<th>·Î±×ÀÎ ½Ã°£</th>
+					<th>ë¡œê·¸ì¸ ì‹œê°„</th>
 					<td>
-						<fmt:formatDate value="${memberWithImageDto.memberLogin}" pattern="y³â M¿ù dÀÏ E a h½Ã mºĞ sÃÊ"/>
+						<fmt:formatDate value="${memberWithImageDto.memberLogin}" pattern="yë…„ Mì›” dì¼ E a hì‹œ më¶„ sì´ˆ"/>
 					</td>
 				</tr>
 				<tr>
-					<th>»ı³â ¿ùÀÏ</th>
+					<th>ìƒë…„ ì›”ì¼</th>
 					<td>
 						${memberWithImageDto.memberBirth}
 					</td>
@@ -65,7 +71,7 @@
 			</table>
 		</div>
 	</div>
-	<a href="memberManage" class="form-btn w-100 neutral">¸ñ·ÏÀ¸·Î °¡±â</a>
+	<a href="memberManage" class="form-btn w-100 neutral">ëª©ë¡ìœ¼ë¡œ ê°€ê¸°</a>
 </div>
 
-<jsp:include page="/WEB-INF/views/template/adminfooter.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

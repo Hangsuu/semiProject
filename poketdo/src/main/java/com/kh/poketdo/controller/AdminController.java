@@ -3,8 +3,10 @@ package com.kh.poketdo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,14 +14,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.kh.poketdo.dao.MemberDao;
 import com.kh.poketdo.dao.MemberStatDao;
 import com.kh.poketdo.dao.MemberWithImageDao;
-import com.kh.poketdo.dao.PocketmonWithImageDao;
-import com.kh.poketdo.dto.MemberDto;
 import com.kh.poketdo.dto.MemberWithImageDto;
+import com.kh.poketdo.vo.PaginationVO;
 
 @Controller @RequestMapping("/admin")
 public class AdminController {
@@ -52,7 +53,7 @@ public class AdminController {
 	        attr.addAttribute("mode", "error");
 	    }
 
-	    return "redirect:/admin/memberStat";
+	    return "redirect:memberStat";
 	}
 	
 	@GetMapping("/memberStat")
@@ -63,41 +64,35 @@ public class AdminController {
 	}
 	
 	@GetMapping("/member/memberManage")
-	public String memberStat(Model model, 
-			@RequestParam(required = false, defaultValue = "1") int page,
-			@RequestParam(required = false, defaultValue = "15") int size) {
-		model.addAttribute("page", page);
-		model.addAttribute("page", size);
-		
-		int totalCount = memberWithImageDao.selectCount();
-		model.addAttribute("totalCount", totalCount);
-		
-		int totalPage = (totalCount + size - 1) / size;
-		model.addAttribute("totalPage", totalPage);
-		
-		List<MemberWithImageDto> list = memberWithImageDao.selectListPaging(page,size);
-		model.addAttribute("list", list);
-		
-		return "/WEB-INF/views/admin/member/memberManage.jsp";
+	public String memberManage(@ModelAttribute("vo") PaginationVO vo, Model model) {
+	    int totalCount = memberWithImageDao.selectCount();
+	    vo.setCount(totalCount);
+
+	    List<MemberWithImageDto> list = memberWithImageDao.selectAll();
+	    model.addAttribute("list", list);
+
+	    return "/WEB-INF/views/admin/member/memberManage.jsp";
 	}
+
+
 
 	@GetMapping("/member/memberDetail")
 	public String memberDetail(Model model,
 			@RequestParam String memberId) {
 		model.addAttribute("memberWithImageDto", memberWithImageDao.selectOne(memberId));
-		return "/WEB-INF/views/admin/member/memberDetail.jsp";
+		return "/WEB-INF/views/admin/member/memberDetail.jsp"; 
 	}
 	
+	//회원 삭제
 	@GetMapping("/member/memberDelete")
-	public String memberDelete(Model model, 
-			@RequestParam String memberId,
-			@RequestParam(required = false, defaultValue = "1") int page) {
-		memberWithImageDao.delete(memberId);
-		
-		model.addAttribute("page", page);
-		
-		return "redirect:/member/memberManage?page=" + page;
+	public String memberDelete(@RequestParam String memberId, @RequestParam(required = false, defaultValue = "1") int page, RedirectAttributes attr) {
+	    memberWithImageDao.delete(memberId);
+
+	    attr.addAttribute("page", page);
+	    return "redirect:/admin/member/memberManage?page=" + page;
 	}
+
+
 	
 	//회원 정보 변경
 	@GetMapping("/member/memberEdit")
@@ -110,13 +105,13 @@ public class AdminController {
 	
 	@PostMapping("/member/memberEdit")
 	public String memberEdit(@ModelAttribute MemberWithImageDto memberWithImageDto,
-			RedirectAttributes attr,
-			HttpSession session) {
+			@RequestParam String memberId,
+			RedirectAttributes attr) {
 		//정보 변경
-		String memberId = (String)session.getAttribute("memberId");
 		memberWithImageDto.setMemberId(memberId);
 		memberWithImageDao.changeInformationByAdmin(memberWithImageDto);
 		attr.addAttribute("memberId", memberWithImageDto.getMemberId());
+		
 		return "redirect:memberDetail";
 	}
 	

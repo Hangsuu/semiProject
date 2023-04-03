@@ -4,6 +4,8 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <!-- summernote css, jQuery CDN -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet"/>
+=======
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <style>
   .pocketmonTrade-reply-re:hover {
@@ -99,7 +101,6 @@
       <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeMemberDto.getPocketmonTradeReply()}</span></span>
     </div>
     <hr>
-    </div>
     <div class="row pocketmonTrade-info-footer">
       <c:if test="${sessionScope.memberId != null}">
         <a class="pocketmonTrade-btn" href="write">글쓰기</a>

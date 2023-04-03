@@ -1,130 +1,131 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-    
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:if test="${sessionScope.memberId != null}">
-<link rel="stylesheet" type="text/css" href="/static/css/board-like.css">
-<link rel="stylesheet" type="text/css" href="/static/css/board-dislike.css">
-<script src="/static/js/board-like.js"></script>
-<script src="/static/js/board-dislike.js"></script>
-</c:if>
-
-<link rel="stylesheet" type="text/css" href="/static/css/reply.css">
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<!-- summernote css, jQuery CDN -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<!-- ëª¨ë¨¼íŠ¸ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
-	var memberId = "${sessionScope.memberId}";
-	var boardWriter = "${boardDto.boardWriter}";
+    const memberId = "${sessionScope.memberId}";
+    const allboardNo = parseInt("${boardWithImageDto.getAllboardNo()}");
+    const boardWriter = "${boardWithImageDto.getBoardWriter()}";
+    const likeTableDto = {
+      memberId: memberId, 
+      allboardNo: allboardNo
+    };
+    const replyDto = {
+      replyOrigin: allboardNo,
+      replyWriter: memberId,
+    }
+    $.parseHTML()
 </script>
-<script src="/static/js/reply.js"></script>
-<script type="text/template" id="reply-template">
-	<div class="reply-item">
-		<div class="replyWriter">?</div>
-		<div class="replyContent">?</div>
-		<div class="replyTime">?</div>
-	</div>
+<script src="/static/js/board/board.js"></script>
+<script type="text/template" id="board-reply-template">
+  <div class="row">
+    <div>
+      <div class="bold flex">
+        <div class="board-reply-writer">ëŒ“ê¸€ì‘ì„±ì</div>
+        <div class="writerTag">ì‘ì„±ì</div>
+        <button class="board-reply-edit-btn ml-auto" type="button">ìˆ˜ì •</button>
+        <button class="board-reply-delete-btn" type="button">ì‚­ì œ</button>
+      </div>
+      <div class="board-reply-content"></div>
+      <div style="color:#979797;" class="flex">
+        <div class="board-reply-time">ëŒ“ê¸€ì‹œê°„</div>
+        <div class="ms-10 board-reply-re">ë‹µê¸€ì“°ê¸°</div>
+      </div>
+    </div>
+    <hr/>
+  </div>
 </script>
-    
-	<div class="container-800">
-        <div class="row center">
-            <h2>${boardDto.boardNo}¹ø °Ô½Ã±Û</h2>
-        </div>
-        
-        <div class="row">
-            <h3 style="color:gray;">${boardDto.boardHead}</h3>
-        </div>
-        
-        <div class="row">
-            <h3>${boardDto.boardTitle}</h3>
-        </div>
-        <hr>
-        <div class="row">
-            ${boardDto.boardWriter}
-        </div>
-        <hr>
-        <div class="row">
-            <fmt:formatDate value="${boardDto.boardTime}" 
-                                            pattern="y³â M¿ù dÀÏ H½Ã mºĞ sÃÊ"/>
-                    Á¶È¸ ${boardDto.boardRead}
-        </div>
-        <hr>
-        <div class="row" style="min-height:200px;">
-            ${boardDto.boardContent}
-        </div>
-        <hr>
-        <div class="row">
-  			ÁÁ¾Æ¿ä 
-  			<span class="heart-count">${boardDto.boardLike}</span>
+<script type="text/template" id="board-reply-write">
+  <div class="row board-reply-reply">
+    <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
+    <textarea class="summernote" name="replyContent"></textarea>
+    <div class="right">
+      <button class="board-reply-cancle-btn" type="button">ì·¨ì†Œ</button>
+      <button class="board-reply-update-btn" type="button">ìˆ˜ì •</button>
+    </div>
+  </div>
+</script>
 
-  			<c:if test="${sessionScope.memberId != null}">
-    		<!-- ÁÁ¾Æ¿ä ¹öÆ° -->
-    		<i class="fa-heart"></i>
-  			</c:if>
+<!-- section -->
+<section >
 
-  			½È¾î¿ä
-  			<span class="bad-count">${boardDto.boardDislike}</span>
-
-  			<c:if test="${sessionScope.memberId != null}">
-    		<!-- ½È¾î¿ä ¹öÆ° -->
-    		<i class="fa-thumbs-down"></i>
-  			</c:if>
-
-
-            
-            ´ñ±Û 
-            <span class="reply-count">${boardDto.boardReply}</span>
-        </div>
-        <hr>
-        <div class="row reply-list">
-            ´ñ±Û¸ñ·Ï À§Ä¡
-        </div>
-        <hr>
-        
-        <!-- ´ñ±Û ÀÛ¼º¶õ -->
-        <div class="row">
-            
-            <div class="row">
-                <c:choose>
-                    <c:when test="${sessionScope.memberId != null}">
-                        <textarea name="replyContent" class="form-input w-100"
-                                placeholder="´ñ±Û ³»¿ëÀ» ÀÛ¼ºÇÏ¼¼¿ä"></textarea>	
-                    </c:when>
-                    <c:otherwise>
-                        <textarea name="replyContent" class="form-input w-100"
-                                placeholder="·Î±×ÀÎ ÈÄ¿¡ ´ñ±Û ÀÛ¼ºÀÌ °¡´ÉÇÕ´Ï´Ù" disabled></textarea>	
-                    </c:otherwise>
-                </c:choose>
-                
-            </div>
-            <c:if test="${sessionScope.memberId != null}">		
-            <div class="row right">
-                <button type="submit" class="form-btn positive reply-insert-btn">´ñ±Û ÀÛ¼º</button>
-            </div>
-            </c:if>
-    
-        </div>
-        
-        <hr>
-        
-        <div class="row right">
-            <a class="form-btn positive" href="/board/write">±Û¾²±â</a>
-            
-            <c:if test="${owner}">
-            <!-- ³»°¡ ÀÛ¼ºÇÑ ±ÛÀÌ¶ó¸é ¼öÁ¤°ú »èÁ¦ ¸Ş´º¸¦ Ãâ·Â -->
-            <a class="form-btn negative" href="/board/edit?boardNo=${boardDto.boardNo}">¼öÁ¤</a>
-            </c:if>
-            
-            <c:if test="${owner || admin}">
-            <!-- ÆÄ¶ó¹ÌÅÍ ¹æ½ÄÀÏ °æ¿ìÀÇ ¸µÅ© -->
-            <a class="form-btn negative" href="/board/delete?boardNo=${boardDto.boardNo}">»èÁ¦</a>
-            <!-- °æ·Î º¯¼ö ¹æ½ÄÀÏ °æ¿ìÀÇ ¸µÅ© -->
-        <%-- 				<a href="/board/delete/${boardDto.boardNo}">»èÁ¦</a> --%>
-            </c:if>
-            <a class="form-btn neutral" href="/board/list">¸ñ·Ïº¸±â</a>
-        </div>
-        
+  <!-- aside -->
+  <aside></aside>
+  <!-- article -->
+  <article class="container-800">
+    <div class="row center">
+        <h1>ììœ  ê²Œì‹œíŒ</h1>
+    </div>
+    <div class="row">
+      <h1>
+        <c:if test="${boardWithImageDto.getBoardHead() != null}">
+          [${boardWithImageDto.getBoardHead()}] 
+        </c:if>
+        ${boardWithImageDto.getBoardTitle()}</h1>
+    </div>
+    <div class="row">
+      <h2>${boardWithImageDto.getBoardWriter()}</h2>
+    </div>
+    <div class="row board-info-head">
+      <span>ì‘ì„±ì‹œê°„ <fmt:formatDate value="${boardWithImageDto.getBoardTime()}" pattern="yyyy.MM.dd. H:m"/></span> 
+      <span class="boardRead">&nbsp;&nbsp;ì¡°íšŒìˆ˜ ${boardWithImageDto.getBoardRead()}</span>
+      <span class="boardReply">ëŒ“ê¸€ <span class="board-replyCnt">${boardWithImageDto.getBoardReply()}</span></span>
+    </div>
+    <hr/>
+    <div class="row boardContent">
+      <div>
+        ${boardWithImageDto.getBoardContent()}
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <a class="link" href="/board?column=board_writer&keyword=${boardWithImageDto.getBoardWriter()}"><b>${boardWithImageDto.getBoardWriter()}</b>ë‹˜ì˜ ê²Œì‹œê¸€ ë” ë³´ê¸°</a>
+      </div>
     </div>
 
+    <!-- ì¢‹ì•„ìš” ëŒ“ê¸€ ì‹ ê³  -->
+    <div class="row">
+      <span id="board-like">
+        <i class="fa-regular fa-heart fa-red" style="color:red"></i> ì¢‹ì•„ìš” <span id="board-like-Cnt">${boardWithImageDto.getBoardLike()}</span>
+      </span>
+      <span class="boardReply">ëŒ“ê¸€ <span class="board-replyCnt">${boardWithImageDto.getBoardReply()}</span></span>
+    </div>
+    <hr>
+    <c:if test="${sessionScope.memberId != null}">
+        <a class="board-btn" href="write">ê¸€ì“°ê¸°</a>
+      </c:if>
+      <c:if test="${sessionScope.memberId == boardWithImageDto.getBoardWriter()}">
+      <a class="board-btn" href="/board/edit?boardNo=${boardWithImageDto.getBoardNo()}">ìˆ˜ì •</a>
+      </c:if>
+      <c:if test="${sessionScope.memberId == boardWithImageDto.getBoardWriter() || sessionScope.memberLevel == 'ê´€ë¦¬ì'}">
+        <a class="board-btn" id="board-delete-btn" href="/board/delete/${boardWithImageDto.getBoardNo()}">ì‚­ì œ</a>
+      </c:if>
+      <a id="board-list-btn" class="board-btn" href="/board/list">ëª©ë¡</a>
+      <hr>
+      <div id="board-reply">
+        <div class="row" id="board-replys">
+        </div>
+        <c:if test="${sessionScope.memberId != null}">
+          <div class="row">
+            <b>${sessionScope.memberId}</b>
+          </div>
+          <div class="row">
+            <form action="#" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="replyParent" value="0">
+              <input type="hidden" name="replyOrigin" value="${boardWithImageDto.getAllboardNo()}">
+              <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
+              <textarea class="summernote" name="replyContent"></textarea>
+              <button id="board-reply-btn" type="submit">ë“±ë¡</button>
+            </form>
+          </div>
+        </c:if>
+      </div>
+  </article>
+  </section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -3,6 +3,36 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+
+<script type="text/javascript">
+$(function () {
+	
+	$(".confirm-delete").click(function(e){
+	    e.preventDefault();
+	    if(!confirm("정말 삭제하시겠습니까?"))	return;
+	    window.location.href = $(this).attr("href");
+	});
+	
+	var memberPoint = ${point};
+	
+	$(".buy-form button[type='submit']").on("click", function(e) {
+		  var sealPrice = $(this).siblings("input[name='point']").val();
+		  var PointCheck = memberPoint > sealPrice;
+		  console.log(PointCheck);
+		  if (!PointCheck) {
+		    alert("포인트가 부족합니다!");
+		    e.preventDefault();
+		  }
+		});
+
+		$(".buy-form").submit(function(e) {
+		  if (!confirm("정말 구매하시겠습니까?")) {
+		    e.preventDefault();
+		  }
+		});
+});
+</script>
+
 <section class="container-1200 flex-box">
 
 	<aside></aside>
@@ -107,7 +137,7 @@
 				</c:when>
 				<c:otherwise>
 					<div>
-						<a href="/login">
+						<a href="/member/login">
 							<span>로그인 후 이용하세요.</span>
 						</a>
 					</div>
@@ -136,18 +166,20 @@
 						</div>
 						<div class="seal-admin">
 							<div>
-								<form action="purchase" method="post">
+								<form action="purchase" method="post" class="buy-form">
+								<c:if test="${sessionScope.memberLevel != null}">
 									<input type="hidden" name="sealNo" value="${list.get(0).sealNo}"> 
 									<input type="hidden" name="point" value="${list.get(0).sealPrice}"> 
-								<button type="submit" class="form-btn positive">구매</button>
-							</form>
+									<button type="submit" class="form-btn positive">구매</button>
+								</c:if>
+								</form>
 							</div>
 							<c:if test="${sessionScope.memberLevel=='관리자' }">
 								<div>
 									<a href="edit?sealNo=${list.get(0).sealNo}" class="form-btn neutral" >수정</a>
 								</div>
 								<div>
-									<a href="delete?sealNo=${list.get(0).sealNo}" class="form-btn negative" >삭제</a>
+									<a href="delete?sealNo=${list.get(0).sealNo}" class="form-btn negative"  class="confirm-delete">삭제</a>
 								</div>
 							</c:if>
 						</div>
@@ -188,18 +220,20 @@
 				</div>
 				<div class="seal-admin">
 					<div>
-						<form action="purchase" method="post">
+					<c:if test="${sessionScope.memberLevel != null}">
+						<form action="purchase" method="post" class="buy-form">
 							<input type="hidden" name="sealNo" value="${sealWithImageDto.sealNo}"> 
 							<input type="hidden" name="point" value="${sealWithImageDto.sealPrice}"> 
-						<button type="submit" class="form-btn positive">구매</button>
-					</form>
+							<button type="submit" class="form-btn positive">구매</button>
+						</form>
+					</c:if>
 					</div>
 					<c:if test="${sessionScope.memberLevel=='관리자' }">
 						<div>
 							<a href="edit?sealNo=${sealWithImageDto.sealNo}" class="form-btn neutral" >수정</a>
 						</div>
 						<div>
-							<a href="delete?sealNo=${sealWithImageDto.sealNo}" class="form-btn negative" >삭제</a>
+							<a href="delete?sealNo=${sealWithImageDto.sealNo}" class="form-btn negative confirm-delete" >삭제</a>
 						</div>
 					</c:if>
 				</div>

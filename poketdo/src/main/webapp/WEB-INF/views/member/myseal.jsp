@@ -43,8 +43,7 @@ $(function () {
 				<div>
 					<span>나의 인장</span>
 				</div>
-				<div></div>
-				<div class="my-seal-image">
+				<div>
 					<span>보유 포인트 :  ${point} point</span>
 					<span>현재 적용 인장</span>
 					<img width="96" height="96" src="${selectAttachNo}">
@@ -68,11 +67,9 @@ $(function () {
 				<div>
 					<span>${mySeal.sealName}</span>
 				</div>
-				<c:if test="${mySeal.sealNo!=0}">
 				<div>
 					<span>판매가 : ${mySeal.getSellPrice()} </span>
 				</div>
-				</c:if>
 				<div class="my-seal-menu">
 							<div>
 								<form action="mysealSelect" method="post">

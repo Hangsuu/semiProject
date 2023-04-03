@@ -16,6 +16,12 @@ public class MemberJoinSealDao {
 		Object [] param = {memberId, sealNo};
 		jdbcTemplate.update(sql, param);
 	}
+	//memberId, sealNo 입력
+	public void delete (int sealNo) {
+		String sql ="delete member_join_seal where my_seal_no=?";
+		Object [] param = {sealNo};
+		jdbcTemplate.update(sql, param);
+	}
 	
     //회원가입 시 기본 멤버인장 등록
     public void basicSealInsert (String memberId) {

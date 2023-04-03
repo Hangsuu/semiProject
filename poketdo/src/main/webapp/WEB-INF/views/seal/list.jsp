@@ -119,12 +119,13 @@ $(function () {
 			<a href="insert" class="form-btn positive" >인장 신규 등록</a>
 		</div>
 	</c:if>
+	<c:choose>
+	<c:when test="${!list.isEmpty()}">
 
 		<div class="seal-information">
 			<div>
 				<span>인장 판매 목록</span>
 			</div>
-			
 			<c:choose>
 				<c:when test="${sessionScope.memberLevel != null}">
 					<div>
@@ -145,6 +146,7 @@ $(function () {
 			</c:choose>
 			
 		</div>
+
 		<div class="seal-container">
 			<c:if test="${sessionScope.memberLevel=='관리자' }">
 					<div>
@@ -175,6 +177,7 @@ $(function () {
 								</form>
 							</div>
 							<c:if test="${sessionScope.memberLevel=='관리자' }">
+							
 								<div>
 									<a href="edit?sealNo=${list.get(0).sealNo}" class="form-btn neutral" >수정</a>
 								</div>
@@ -240,7 +243,13 @@ $(function () {
 			</div>
 			</c:forEach>
 		</div>
-
+		        </c:when>
+		        <c:otherwise>
+		        	<div style=" text-align: center; margin:200px;">
+		        		<span>검색 결과가 없습니다.</span>
+		        	</div>
+		        </c:otherwise>
+			</c:choose>
 
 	
 	<c:if test="${sessionScope.memberLevel=='관리자' }">

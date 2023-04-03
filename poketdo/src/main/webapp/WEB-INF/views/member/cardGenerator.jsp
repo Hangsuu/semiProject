@@ -119,6 +119,7 @@
 		function saveImage2() {
 		  // 저장하려는 div의 id 가져오기
 		  const divId = "myDiv";
+		  
 		
 // 		  // 저장할 이미지 파일 이름
 // 		  const fileName = "TrainerCard.png";
@@ -190,7 +191,32 @@
 
 	<style>
 	
+		.super-center{
+ 			display: flex;
+		  flex-direction: row;
+		  align-items: center 
+          }
+          
+          
+ 	h1 {
+ 		font-size: 30px}
+ 	
+ 	.form-input {
+		display: block;
 		
+		padding: 15px;
+		font-size: 20px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+				
+			}	
+			
+	.form-btn {
+		padding: 15px;
+		font-size: 20px;
+	}
+          
+ 
 		#myDiv {
 			width: 500px;
 	      height: 300px;
@@ -361,12 +387,12 @@
   
   <!-- article -->
   <article>
-    <form method="get" enctype="multipart/form-data" autocomplete="off">
+    <form class="super-center mt-50 mb-50" style="height:90vh;" method="get" enctype="multipart/form-data" autocomplete="off">
         
       <div class= "container-500 center" >
       
     
-	        <h2 class="row center mt-10 mb-10">트레이너 카드 생성기</h2>
+	        <h1 class="row center mt-10 mb-20">트레이너 카드 생성기</h1>
 	        <div class="image-container row left" id="card-container">
 	             <div id="myDiv">
 		           <div class="code-overlay" id="overlay-number"></div>
@@ -459,9 +485,9 @@
 			<%-- 로그인 여부 확인 --%>
 			<c:if test="${not empty sessionScope.memberId}">
   			<%-- 로그인 했을 경우 버튼 노출 --%>
-			<button class= "form-btn neutral w-100 mb-20" type="file" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
+			<button class= "form-btn neutral w-100 mb-10" type="file" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
 			</c:if>
-			<button class= "form-btn neutral w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
+			<button class= "form-btn positive w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
 			
 	
 	    </div>	       

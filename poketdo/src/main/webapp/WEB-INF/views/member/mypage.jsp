@@ -14,11 +14,30 @@
     
     <style>
     
+    
+    
+ 	h1 {
+ 		font-size: 30px}
+ 	
+ 	.form-input {
+		display: block;
+		
+		padding: 15px;
+		font-size: 20px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+				
+			}	
+			
+	.form-btn {
+		padding: 15px;
+		font-size: 20px;
+	}
    
    
     aside {
     	float: left;
-    	width: 20%;
+    	width: 30%;
     
     	}
     
@@ -27,27 +46,12 @@
     	width: 80%
     	}
  
-    
-    ul {
-    	width: 200px;
-    	
-    	height: 1000px;
-    	line-height : 30px;
-    	display : block;
-    	
-    	font-size : 15px;
-    	
-    }
-    
-    li {
-    	border : 1px solid;
-    	padding : 20px 20px;
-    }
-    
+   
      a {
     
      text-decoration-line: none;
      text-decoration: none;
+     display: block;
      
      
      }
@@ -61,29 +65,11 @@
     
     </style>
     
-    
-    
-    
-    <div class= "container-1000"> 
-
-  <!-- aside -->
-  <aside>
-  
-  <ul class="row center mt-50">
-        <li><a href="/member/edit">개인정보수정</a></li>
-        <li> <a href="/member/myseal">나의 인장</a></li>
-        <li> <a href="/member/exit">회원탈퇴</a></li>
-       
-    </ul>
-
-  
-  
-  
-  </aside>
+  <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
   
   <!-- article -->
-  <article>
-     <div class= "row center mt-50">
+  <article class="flex-all-center">
+     <div class= "container-500">
 	    <c:choose>
 	    <c:when test = "${Profile != null}">
 	    	<img width="500" height="300" src="/attachment/download?attachmentNo=${Profile.attachmentNo}"> 
@@ -95,18 +81,21 @@
 	    	
 	    </c:when>
  		<c:otherwise>
- 			트레이너 카드 없음
- 			<br><br>
- 			<button type="button" class = "form-btn neutral w-50" onclick="MakeCard()">만들기</button>
+ 			<div class="row center mb-30"><h2>트레이너 카드 없음</h2></div>
+ 			
+ 			<button type="button" class = "form-btn positive w-100" onclick="MakeCard()">만들기</button>
+ 		
+ 			<div></div>
+ 		
  		</c:otherwise>
  		</c:choose>
  	</div>	
-  </article>
+ 
 
       <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : (header.referer.endsWith('/member/joinFinish') ? '/' : header.referer)}">
 
 
+ </article>
 
-</div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

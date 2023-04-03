@@ -35,20 +35,20 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
 <header class="container-1200" style="min-height:70px;">
     <!-- header -->
-<div class="right mb-20" style="background-color:#9DACE4">
+<div class="link right mb-20" style="background-color:#9DACE4">
    	<div style="display:inline-block; padding:10px">
 		<c:choose>
 			<c:when test="${empty sessionScope.memberId}">
 			<!-- css:commons, base -->
-				<a href="/member/login" class="link center"><span class="header-menu">로그인</span></a>
-				<a href="/member/join" class="link center"><span class="header-menu">회원가입</span></a>
+				<a href="/member/login" class="link right"><span class="header-menu">로그인</span></a>
+				<a href="/member/join" class="link right"><span class="header-menu">회원가입</span></a>
 			</c:when>
 			<c:otherwise>
-				<a href="/member/logout" class="link center"><span class="header-menu">로그아웃</span></a>
+				<a href="/member/logout" class="link"><span class="header-menu">로그아웃</span></a>
 			</c:otherwise>
 		</c:choose>
      </div>
-	<div style="display:inline-block">
+	<div style="display:inline-block; padding:10px">
 		<c:if test="${sessionScope.memberId != null}">
 			<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
 		</c:if>

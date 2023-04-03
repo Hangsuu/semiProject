@@ -15,6 +15,18 @@ $(function(){
 			else{
 				$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
 			}
+			$.ajax({
+				url:"/rest/like/count?allboardNo="+allboardNo,
+				method:"get",
+				success:function(response){
+					if(response!=0){
+						$(".like-count").text(response);
+					}
+					else{
+						$(".like-count").text("");
+					}
+				}
+			});
 		},
 		error:function(){
 			alert("통신에러");
@@ -31,7 +43,11 @@ $(function(){
 			},
 			success:function(response){
 				if(response==true){
-					$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-solid").css("color","#FF3040");
+					$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-solid fa-beat").css("color","#FF3040");
+					//시간 지나면 fa-beat 제거
+					setTimeout(function(){
+						$(".detail-like").removeClass("fa-beat")
+					}, 700)
 				}
 				else{
 					$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");

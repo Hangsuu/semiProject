@@ -362,7 +362,7 @@ $(function(){
 <script type="text/template" id="raid-control-template">
 	<div class="row id-box">
 		<span class="raid-control-member w-30" style="display:inline-block"></span>
-		<span class="raid-control-content w-60" style="display:inline-block; height:24px"></span>
+		<span class="raid-control-content" style="display:inline-block; height:24px; width:57%"></span>
 		<i class="fa-solid fa-check fa-check-control" style="color:green"></i>
 		<i class="fa-solid fa-xmark fa-xmark-control ms-10" style="color:red"></i>
 	</div>
@@ -371,7 +371,7 @@ $(function(){
 <script type="text/template" id="raid-control-confirmed-template">
 	<div class="row id-box">
 		<span class="raid-control-confirmed-member w-30" style="display:inline-block"></span>
-		<span class="raid-control-confirmed-content w-60" style="display:inline-block; height:24px"></span>
+		<span class="raid-control-confirmed-content" style="display:inline-block; height:24px; width:60%"></span>
 		<i class="fa-solid fa-xmark ms-10 fa-xmark-ban ms-10" style="color:red"></i>
 	</div>
 </script>
@@ -450,9 +450,6 @@ $(function(){
 <!-- 댓글 -->
 	<!-- 표시 -->
 	<div class="row reply-best-target">
-		<div class="row" style="border-bottom:1.5px solid #9DACE4; padding-bottom:0.5em">
-			Best 댓글
-		</div>
 	</div>
 	<div class="row reply-target">
 	</div>

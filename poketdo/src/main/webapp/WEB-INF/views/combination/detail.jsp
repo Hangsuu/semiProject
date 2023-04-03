@@ -92,9 +92,6 @@ $(function(){
 <!-- 댓글 -->
 	<!-- 표시 -->
 	<div class="row reply-best-target">
-		<div class="row" style="border-bottom:1.5px solid #9DACE4; padding-bottom:0.5em">
-			Best 댓글
-		</div>
 	</div>
 	<div class="row reply-target">
 	</div>

@@ -50,4 +50,9 @@ public class MemberRestController {
 	public String getSealUrlByNick(@PathVariable String memberNick) {
 		return memberSealAttachmentNoDao.getSealUrlByNick(memberNick);
 	}
+	//포인트 찾기
+	@GetMapping("/point/{memberId}")
+	public int getPoint(@PathVariable String memberId) {
+		return memberDao.selectMemberPoint(memberId);
+	}
 }

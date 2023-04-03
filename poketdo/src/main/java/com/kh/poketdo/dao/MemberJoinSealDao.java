@@ -24,6 +24,7 @@ public class MemberJoinSealDao {
     	Object [] param = {memberId};
     	jdbcTemplate.update(sql,param);
     }
+
 	
 
 	

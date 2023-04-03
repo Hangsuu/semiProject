@@ -14,3 +14,16 @@
 [test] a {
   border: 1px dotted black !important;
 }
+
+@media (max-width: 1200px) {
+  .media-css {
+    width: 1200px;
+  }
+}
+
+/* 1200px 이상에서는 너비를 100%로 설정 */
+@media (min-width: 1200px) {
+  .media-css {
+    width: 100%;
+  }
+}

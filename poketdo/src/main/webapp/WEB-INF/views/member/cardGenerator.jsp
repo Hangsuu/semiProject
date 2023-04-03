@@ -8,9 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
 	
-	
-<script src="/static/js/calc.js"></script>
-	
+
     
     <script type="text/javascript">
 
@@ -116,12 +114,34 @@
 	</script>
 	
 	
-	
 	<script>
 	
+		function saveImage2() {
+		  // 저장하려는 div의 id 가져오기
+		  const divId = "myDiv";
+		
+// 		  // 저장할 이미지 파일 이름
+// 		  const fileName = "TrainerCard.png";
+		
+		  // div 요소 가져오기
+		  const div = document.getElementById(divId);
+		  
+		  // div를 이미지로 변환하기
+		  html2canvas(div).then(function(canvas) {
+		    // 변환된 이미지 파일로 저장하기
+		    let link = document.createElement("a");
+		    document.body.appendChild(link);
+		    link.download = fileName;
+		    link.href = canvas.toDataURL();
+		    link.click();
+		    document.body.removeChild(link);
+		  });
+		}
 		
 	
 	</script>
+	
+	
 	
 	
 
@@ -169,6 +189,14 @@
 
 
 	<style>
+	
+		
+		#myDiv {
+			width: 500px;
+	      height: 300px;
+	    
+	    }
+	    
 	    .image-container {
 	      position: relative;
 	      display: inline-block;
@@ -322,7 +350,7 @@
 				
 			}					
 				
-				
+		
 				
 	  </style>
     
@@ -333,9 +361,9 @@
   
   <!-- article -->
   <article>
-<!--     <form action= "card" method="get" enctype="multipart/form-data" autocomplete="off"> -->
+    <form method="get" enctype="multipart/form-data" autocomplete="off">
         
-      <div class= "container-500 center" enctype="multipart/form-data" autocomplete="off">
+      <div class= "container-500 center" >
       
     
 	        <h2 class="row center mt-10 mb-10">트레이너 카드 생성기</h2>
@@ -361,11 +389,20 @@
 		             <img id="preview" name="cardSlot6" width="100px" height="60px" class="image-container slot-6">
 	         
      			</div>
-     		
-     			프로필 사진 업로드<input type="file" accept="image/*" onchange="previewImg(this);" >
      			
+     			
+     			 
+     		<div class="mt-20">
+     			<label>
+     			프로필 사진 업로드
+     			</label>
+     			<br>
+     			<input type="file" accept="image/*" onchange="previewImg(this);" >
+     		
+     		</div>	
+     		
      		 <div class="row">
-                <label>게임월드 선택</label>
+                <label style= "font-style:bold;">게임월드 선택</label>
                 <form>
                     <label>
                       <input type="radio" name="color" value="scarlet" checked>스칼렛
@@ -419,9 +456,12 @@
 		
 		<div class="row center">
 			
-			<button class= "form-btn w-100" type="button" onclick="saveImage2()" name="attach">내 정보에 저장</button> //회원 일경우 
-			
-			<button class= "form-btn w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
+			<%-- 로그인 여부 확인 --%>
+			<c:if test="${not empty sessionScope.memberId}">
+  			<%-- 로그인 했을 경우 버튼 노출 --%>
+			<button class= "form-btn neutral w-100 mb-20" type="file" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
+			</c:if>
+			<button class= "form-btn neutral w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
 			
 	
 	    </div>	       
@@ -432,7 +472,7 @@
 	   
     
     
-<!--     </form> -->
+    </form>
    
         
     

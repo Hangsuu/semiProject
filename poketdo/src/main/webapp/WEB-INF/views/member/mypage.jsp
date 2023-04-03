@@ -4,6 +4,14 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
     
+    <script type="text/javascript">           
+		function MakeCard() {
+			document.location.href="http://localhost:8080/cardGenerator"; <!-- 다른페이지로 이동하는 함수 -->
+		}                                      
+	</script>
+    
+    
+    
     <style>
     
    
@@ -89,7 +97,7 @@
  		<c:otherwise>
  			트레이너 카드 없음
  			<br><br>
- 			<button class = "form-btn w-50"><a href = "/cardGenerator">만들기</a></button>
+ 			<button type="button" class = "form-btn neutral w-50" onclick="MakeCard()">만들기</button>
  		</c:otherwise>
  		</c:choose>
  	</div>	

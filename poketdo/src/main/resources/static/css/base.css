@@ -6,10 +6,8 @@ main {
   margin: 0 auto;
 }
 header {
-  height: 50px;
 }
 nav {
-  height: 60px;
 }
 section {
   display: flex;
@@ -55,7 +53,7 @@ footer {
 /* 1차메뉴 */
 .nav-bar > div {
   height: 100%;
-  width: 25%; /*23_3_30 종권 수정내역_2*/
+  width: 20%; /*23_3_30 종권 수정내역_2*/
   position: relative;
   flex-grow: 1;
   
@@ -65,10 +63,10 @@ footer {
 /* 1차 메뉴 글씨 */
 .nav-bar > div > a {
   width: 100%;
-  height: 100%;
-  padding-bottom: 3px;
+  height: 80px;
+  padding-bottom: 15px;
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: center;
   text-decoration: none;
   transition: text-decoration-color 1s;
@@ -79,25 +77,34 @@ footer {
 /* 2차 메뉴 글씨 */
 .nav-bar > div > div > div> a {
   width: 100%;
-  height: 100%;
+  height: 60px;
   padding-top:0.5em;
   padding-bottom: 0.5em;
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: center;
   text-decoration: none;
   transition: text-decoration-color 1s;
   color: black;
   font-size: 18px;
+  border-bottom: 2px solid #C2CCEE;
+}
+.nav-bar > div > div > div:first-child > a{
+	border-top: 2px solid #9DACE4;
+}
+.nav-bar > div > div > div:last-child > a{
+	border-bottom: 3px solid #9DACE4;
 }
 /* 메뉴 글씨 */
 .nav-bar a > * {
   position: relative;
 }
+/* 메뉴 밑줄 표시 */
+/*
 .nav-bar a > *::after {
   content: "";
   position: absolute;
-  background-color: red;
+  background-color: #8699DE;
   width: 100%;
   height: 3px;
   bottom: -0.1em;
@@ -106,8 +113,12 @@ footer {
   transform-origin: top left;
   transition: transform 0.5s;
 }
-a:hover > *::after {
+*/
+/* a:hover > *::after {
   transform: scaleX(1);
+} */
+.nav-bar > div a:hover span{
+	color:#5E78D3;
 }
 
 /* 2차메뉴 */
@@ -129,4 +140,10 @@ a:hover > *::after {
 /* [Component] section-w1000 */
 .section-w1200 {
   width: 1200px;
+}
+/* 헤더 개인메뉴 */
+.header-menu{
+	display:inline-block;
+	color:white;
+	width:80px;
 }

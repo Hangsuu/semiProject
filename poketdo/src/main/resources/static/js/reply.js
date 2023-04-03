@@ -31,9 +31,13 @@ $(function(){
 						$(html).find(".reply-writer").append(editbtn).append(deletebtn);
 					}
 					//답글달기 버튼
-					var childbtn = $("<i>").addClass("fa-solid fa-reply ms-10")
-							.attr("data-reply-parent", response[i].replyNo).click(childReply);
-					$(html).find(".reply-writer").append(childbtn);
+					if(memberId && response[i].replyGroup==0){
+						$(html).find(".remove-box").remove();
+						$(html).find(".remain-box").removeClass("w-90 float-right").addClass("w-100")
+						var childbtn = $("<i>").addClass("fa-solid fa-reply ms-10")
+								.attr("data-reply-parent", response[i].replyNo).click(childReply);
+						$(html).find(".reply-writer").append(childbtn);
+					}
 					
 					$(".reply-target").append(html);
 				}
@@ -44,40 +48,22 @@ $(function(){
 		});
 		
 	};
+	//댓글에 수정 버튼 누르면 들어가는 함수
 	function editReply(){
+		$(" .reply-box").show();
+		$(" .reply-edit").remove();
+		$(" .reply-child").remove();
 		var template = $("#reply-edit-template").html();
 		var html = $.parseHTML(template);
 		var text = $(this).data("reply-content");
-		console.log(text);
-		$(html).find(".reply-edit-content").val(text);
-		$(this).parents(".reply-box").hide().after(html);
-				summernote();
 		var replyNo = $(this).data("reply-no");
-		$(".confirm-edit").click(function(){
-			if(confirm("수정하시겠습니까?")){
-				var newContent = $(".reply-edit-content").val();
-				$.ajax({
-					url:"/rest/reply/",
-					method:"put",
-					data:{
-						replyNo:replyNo,
-						replyContent:newContent,
-					},
-					success:function(){
-						$(".reply-edit-content").val("");
-						loadList();
-					},
-					error:function(){
-						alert("통신오류")
-					},
-				})									
-			}
-		});
-		$(".cancle-edit").click(function(){
-			$(".reply-edit-content").val("");
-			loadList();
-		});
+		$(html).find(".reply-edit-content").val(text);
+		var span = $("<span>").addClass("data-target").attr("data-reply-no", replyNo);
+		$(html).append(span);
+		$(this).parents(".reply-box").hide().after(html);
+		editSummernote();
 	};
+	//댓글에 삭제 버튼 누르면 들어가는 함수
 	function deleteReply(){
 		var isDelete = confirm("삭제하시겠습니까?")
 		if(isDelete){
@@ -95,63 +81,36 @@ $(function(){
 			})					
 		}
 	};
+	//댓글에 대댓글 버튼 클릭 시 들어가는 함수
 	function childReply(){
+		$(" .reply-box").show();
+		$(" .reply-edit").remove();
+		$(" .reply-child").remove();
 		var parentNo = $(this).data("reply-parent");
-		console.log(parentNo)
 		var template = $("#reply-child-template").html();
 		var html = $.parseHTML(template);
-		$(html).find("reply-submit").attr("data-reply-parent", parentNo);
-		$(this).parent().parent().after(html);
+		var span = $("<span>").addClass("data-target").attr("data-reply-parent", parentNo);
+		$(html).append(span);
+		$(this).parents(".reply-box").after(html);
+		childSummernote();
 	}
+/*----------------------summernote-------------------------*/
 
-	$(".reply-submit").click(function(){
-		console.log("입력");
-		if(!memberId){
-			alert("로그인 후 이용하세요");
-			return;
-		}
-		var content = $(this).parents(".summernote-reply").val();
-		if(content.trim().length==0) return;
-		var replyGroup=0;
-		if($(this).data("reply-parent")!=undefined){
-			replyGroup=$(this).data(reply-parent);
-		}
-		$.ajax({
-			url:"/rest/reply/",
-			method:"post",
-			data:{
-				replyWriter:memberId,
-				replyOrigin:allboardNo,
-				replyContent:content,
-				replyGroup:replyGroup,
-			},
-			success:function(response){
-				loadList();
-				$(".summernote-reply").val("");
-			},
-			error:function(){
-				alert("통신오류")
-			},
-		});
-	});
-	
-	
+//작성버튼 생성	
 var submitButton = function (context) {
   var ui = $.summernote.ui;
-
-  // create button
   var button = ui.button({
-    contents: $("<button>").addClass("reply-submit").text("댓글등록"),
+    contents: $("<button>").addClass("reply-btn").text("댓글등록"),
     click: function () {
 		if(!memberId){
 			alert("로그인 후 이용하세요");
 			return;
 		}
-		var content = $(this).parent().parent().parent().parent().children(".summernote-reply").val();
+		var content = $(this).parent().parent().parent().parent().children(".reply-textarea").val();
 		if(content.trim().length==0) return;
 		var replyGroup=0;
-		if($(this).data("reply-parent")!=undefined){
-			replyGroup=$(this).data(reply-parent);
+		if($(this).parent().parent().parent().parent().children(".data-target").data("reply-parent")!=undefined){
+			replyGroup=$(this).parent().parent().parent().parent().children(".data-target").data("reply-parent");
 		}
 		$.ajax({
 			url:"/rest/reply/",
@@ -163,8 +122,8 @@ var submitButton = function (context) {
 				replyGroup:replyGroup,
 			},
 			success:function(response){
-				loadList();
 				$(".summernote-reply").summernote("code", "");
+				loadList();
 			},
 			error:function(){
 				alert("통신오류")
@@ -172,19 +131,63 @@ var submitButton = function (context) {
 		});
     }
   });
-  
   return button.render();   // return button as jquery object
 }
+//수정버튼 생성	
+var editButton = function (context) {
+  var ui = $.summernote.ui;
+  var button = ui.button({
+    contents: $("<button>").addClass("reply-btn").text("수정"),
+    click: function () {
+		var newContent = $(this).parent().parent().parent().parent().children(".summernote-reply-edit").val();
+		var replyNo=$(this).parent().parent().parent().parent().children(".data-target").data("reply-no");
+		if(confirm("수정하시겠습니까?")){
+			$.ajax({
+				url:"/rest/reply/",
+				method:"put",
+				data:{
+					replyNo:replyNo,
+					replyContent:newContent,
+				},
+				success:function(){
+					$(".summernote-reply").summernote("code", "");
+					loadList();
+				},
+				error:function(){
+					alert("통신오류")
+				},
+			})									
+		}
+    }
+  });
+  return button.render();   // return button as jquery object
+}
+//취소버튼 생성	
+var cancleButton = function (context) {
+  var ui = $.summernote.ui;
+  var button = ui.button({
+    contents: $("<button>").addClass("reply-btn").text("취소"),
+    click: function () {
+		$(this).parent().parent().parent().parent().children(".summernote-reply-edit").summernote("code", "");
+		$(this).parent().parent().parent().parent().prev().show();
+		$(this).parent().parent().parent().parent().remove();
+    }
+  });
+  return button.render();   // return button as jquery object
+}
+/*----------------------summernote 호출 함수-------------------------*/
+
 summernote();
+//댓글 작성 summernote
 function summernote(){	
-	$(" .summernote-reply").summernote({
+	$(".summernote-reply").summernote({
 	  disableResizeEditor: true,
 	  toolbarPosition:'bottom',
 	  placeholder: "댓글 작성",
 	  //탭키를 누르면 띄어쓰기 몇 번 할지(통상적으로 4 씀)
 	  tabsize: 4,
 	  //최초 표시될 높이(px)
-	  height: 50,
+	  height: 100,
 	  //메뉴 설정
 	  toolbar: [
         ["color", ["color"]],
@@ -213,7 +216,104 @@ function summernote(){
 	    		$("form").prepend(input);
 	    		//에디터에 추가할 이미지 생성
 	     		var imgNode=$("<img>").attr("src", "/rest/attachment/download/"+response.attachmentNo);
-	     		$(".summernote").summernote('insertNode', imgNode.get(0));
+	     		$(".summernote-reply").summernote('insertNode', imgNode.get(0));
+	    	 },
+	    	 error:function(){},
+	      });
+	    }
+	  }
+	});
+}
+//댓글 수정 summernote
+function editSummernote(){	
+	$(" .summernote-reply-edit").summernote({
+	  disableResizeEditor: true,
+	  toolbarPosition:'bottom',
+	  placeholder: "수정내용 입력",
+	  //탭키를 누르면 띄어쓰기 몇 번 할지(통상적으로 4 씀)
+	  tabsize: 4,
+	  //최초 표시될 높이(px)
+	  height: 100,
+	  //메뉴 설정
+	  toolbar: [
+        ["color", ["color"]],
+		["insert", ["picture"]],
+	    ["mybutton", ["edit", "cancle"]],
+	  ],
+	
+	  buttons: {
+		submit: submitButton,
+	    edit: editButton,
+	    cancle: cancleButton,
+	  },
+	  callbacks: {
+  	    onImageUpload: function(files) {
+  	      //[1]FormData [2]processData [3]contentType
+  	      if(files.length!=1) return;
+  	      var fd = new FormData();
+  	      fd.append("attach", files[0]);//파일이 한개밖에 없어서 [0]
+  	      $.ajax({
+  	    	 url:"/rest/attachment/upload",
+  	    	 method:"post",
+  	    	 data:fd,
+  	    	 processData:false,
+  	    	 contentType:false,
+  	    	 success:function(response){
+  	    		//서버로 전송할 이미지 번호 정보 생성
+  	    		var input = $("<input>").attr("type","hidden").attr("name","attachmentNo").val(response.attachmentNo);
+  	    		$("form").prepend(input);
+  	    		//에디터에 추가할 이미지 생성
+	     		var imgNode=$("<img>").attr("src", "/rest/attachment/download/"+response.attachmentNo);
+	     		$(".summernote-reply-edit").summernote('insertNode', imgNode.get(0));
+  	    	 },
+  	    	 error:function(){},
+  	      });
+  	    }
+  	  }
+	});
+}
+
+//답글작성 summernote
+function childSummernote(){	
+	$(" .summernote-reply-child").summernote({
+	  disableResizeEditor: true,
+	  toolbarPosition:'bottom',
+	  placeholder: "대댓글 입력",
+	  //탭키를 누르면 띄어쓰기 몇 번 할지(통상적으로 4 씀)
+	  tabsize: 4,
+	  //최초 표시될 높이(px)
+	  height: 100,
+	  //메뉴 설정
+	  toolbar: [
+        ["color", ["color"]],
+		["insert", ["picture"]],
+	    ["mybutton", ["submit", "cancle"]],
+	  ],
+	
+	  buttons: {
+		submit: submitButton,
+	    edit: editButton,
+	    cancle: cancleButton,
+	  },
+	  callbacks: {
+	    onImageUpload: function(files) {
+	      //[1]FormData [2]processData [3]contentType
+	      if(files.length!=1) return;
+	      var fd = new FormData();
+	      fd.append("attach", files[0]);//파일이 한개밖에 없어서 [0]
+	      $.ajax({
+	    	 url:"/rest/attachment/upload",
+	    	 method:"post",
+	    	 data:fd,
+	    	 processData:false,
+	    	 contentType:false,
+	    	 success:function(response){
+	    		//서버로 전송할 이미지 번호 정보 생성
+	    		var input = $("<input>").attr("type","hidden").attr("name","attachmentNo").val(response.attachmentNo);
+	    		$("form").prepend(input);
+	    		//에디터에 추가할 이미지 생성
+	     		var imgNode=$("<img>").attr("src", "/rest/attachment/download/"+response.attachmentNo);
+	     		$(".summernote-reply-child").summernote('insertNode', imgNode.get(0));
 	    	 },
 	    	 error:function(){},
 	      });

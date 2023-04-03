@@ -1,6 +1,5 @@
 package com.kh.poketdo.controller;
 
-import java.awt.Image;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;

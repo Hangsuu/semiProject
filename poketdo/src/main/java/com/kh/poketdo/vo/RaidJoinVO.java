@@ -10,4 +10,5 @@ public class RaidJoinVO {
 	private boolean isJoiner;
 	private String raidJoinContent;
 	private boolean isConfirmed;
+	private String raidCode;
 }

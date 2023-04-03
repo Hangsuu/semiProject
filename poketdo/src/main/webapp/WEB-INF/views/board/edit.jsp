@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
@@ -16,7 +16,7 @@
 <script type="text/javascript">
 	$(function(){
 		$('[name=boardContent]').summernote({
-            placeholder: '³»¿ë ÀÛ¼º',
+            placeholder: 'ë‚´ìš© ì‘ì„±',
             tabsize: 4,
             height: 250,
             toolbar: [
@@ -33,56 +33,56 @@
 
     <form action="edit" method="post">
         <div class="container-800">
-            <!-- Á¦¸ñ -->
+            <!-- ì œëª© -->
 			<div class="row center">
-				<h2>${boardDto.boardNo}¹ø °Ô½Ã±Û ¼öÁ¤</h2>
+				<h2>${boardDto.boardNo}ë²ˆ ê²Œì‹œê¸€ ìˆ˜ì •</h2>
 			</div>
 	
 			<div class="row">
-		<label class="form-label w-100">¸»¸Ó¸®</label>
+		<label class="form-label w-100">ë§ë¨¸ë¦¬</label>
 			<c:choose>
-				<c:when test="${boardDto.boardHead == '¾øÀ½'}">
+				<c:when test="${boardDto.boardHead == 'ì—†ìŒ'}">
 					<select name="boardHead" class="form-input">
-						<option selected value="">¾øÀ½</option>
-						<c:if test="${memberLevel == '¸¶½ºÅÍ'}">
-						<option>°øÁö</option>
+						<option selected value="">ì—†ìŒ</option>
+						<c:if test="${memberLevel == 'ë§ˆìŠ¤í„°'}">
+						<option>ê³µì§€</option>
 						</c:if>
-						<option>ÀÚÀ¯</option>
+						<option>ììœ </option>
 					</select>
 				</c:when>
-				<c:when test="${boardDto.boardHead == 'ÀÚÀ¯'}">
+				<c:when test="${boardDto.boardHead == 'ììœ '}">
 					<select name="boardHead" class="form-input">
-						<option value="">¾øÀ½</option>
-						<c:if test="${memberLevel == '¸¶½ºÅÍ'}">
-						<option>°øÁö</option>
+						<option value="">ì—†ìŒ</option>
+						<c:if test="${memberLevel == 'ë§ˆìŠ¤í„°'}">
+						<option>ê³µì§€</option>
 						</c:if>
-						<option selected>ÀÚÀ¯</option>
+						<option selected>ììœ </option>
 					</select>
 				</c:when>
 				<c:otherwise>
 					<select name="boardHead" class="form-input">
-						<option value="">¾øÀ½</option>
-						<c:if test="${memberLevel == '¸¶½ºÅÍ'}">
-						<option selected>°øÁö</option>
+						<option value="">ì—†ìŒ</option>
+						<c:if test="${memberLevel == 'ë§ˆìŠ¤í„°'}">
+						<option selected>ê³µì§€</option>
 						</c:if>
-						<option>ÀÚÀ¯</option>
+						<option>ììœ </option>
 					</select>
 				</c:otherwise>
 			</c:choose>
 			</div>
 			
 			<div class="row">
-		<label>Á¦¸ñ<i class="fa-solid fa-asterisk"></i></label>
+		<label>ì œëª©<i class="fa-solid fa-asterisk"></i></label>
 		<input type="text" name="boardTitle" required class="form-input w-100" value="${boardDto.boardTitle}">
 	</div>
 	
 	<div class="row">
-		<label>³»¿ë<i class="fa-solid fa-asterisk"></i></label>
+		<label>ë‚´ìš©<i class="fa-solid fa-asterisk"></i></label>
 		<textarea name="boardContent" required class="form-input w-100" style="min-height: 300px;">${boardDto.boardContent}</textarea>
 	</div>
 	
 	<div class="row">
-		<button type="submit" class="form-btn positive w-100">º¯°æ</button>
+		<button type="submit" class="form-btn positive w-100">ë³€ê²½</button>
 	</div>
 	
 		</div>

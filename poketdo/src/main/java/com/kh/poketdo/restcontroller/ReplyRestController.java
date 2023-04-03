@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.ReplyDao;
 import com.kh.poketdo.dao.ReplyLikeDao;
-import com.kh.poketdo.dto.LikeTableDto;
 import com.kh.poketdo.dto.ReplyDto;
 import com.kh.poketdo.dto.ReplyLikeDto;
 import com.kh.poketdo.vo.ReplyVO;

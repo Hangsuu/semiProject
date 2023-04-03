@@ -12,7 +12,6 @@ public class MemberWithImageDto {
 	 	private String memberId;
 	    private String memberPw;
 	    private String memberNick;
-	    private Date memberBirth;
 	    private String memberEmail;
 	    private String memberLevel;
 	    private int memberPoint;
@@ -20,11 +19,13 @@ public class MemberWithImageDto {
 	    private Date memberLogin;
 	    private int memberLoginCnt;
 	    private Date memberDeadline;
+	    private String memberBirth;
+	    private int memberSealNo;
 	    private Integer attachmentNo;
 	    
-	    //이미지의 URL을 반환하는 메소드
-	    public String getImageURL() {
-			if(attachmentNo == null) return "https://via.placeholder.com/150x150";
-			else return "download?attachmentNo="+attachmentNo;
+	  //이미지의 URL을 반환하는 메소드
+		public String getImageURL() {
+			if(attachmentNo==null) return "https://via.placeholder.com/150x150";
+			else return "/attachment/download?attachmentNo="+ attachmentNo ;
 		}
 }

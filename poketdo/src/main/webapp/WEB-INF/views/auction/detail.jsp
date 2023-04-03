@@ -26,11 +26,12 @@ $(function(){
 	})	
 })
 </script>
+<!-- 댓글장 템플릿 -->
 <script type="text/template" id="reply-template">
 	<div class="row reply-box flex-box">
 		<div class="remove-box" style="width:5%">
-			<div class="align-center" style="padding-top:1em">
-				<i class="fa-solid fa-arrow-right-long" style="font-size:16px"></i>
+			<div class="align-center center" style="padding-top:1em">
+				<i class="fa-solid fa-reply fa-flip-both" style="font-size:16px"></i>
 			</div>
 		</div>
 		<div class="align-right remain-box" style="width:95%">

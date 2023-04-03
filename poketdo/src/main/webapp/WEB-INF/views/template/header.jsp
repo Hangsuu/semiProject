@@ -26,13 +26,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+<<<<<<< HEAD
+    <title>POCKETDO!</title>
+=======
     <title>세미프로젝트 A조 POCKETDO!</title>
+>>>>>>> refs/remotes/origin/main
   </head>
   <body>
     <main>
+
 <header class="container-1200" style="min-height:70px;">
     <!-- header -->
-<div class="right mb-30" style="background-color:#9DACE4">
+<div class="right mb-20" style="background-color:#9DACE4">
    	<div style="display:inline-block; padding:10px">
 		<c:choose>
 			<c:when test="${empty sessionScope.memberId}">
@@ -45,9 +50,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		</c:choose>
      </div>
 	<div style="display:inline-block">
+<<<<<<< HEAD
+		<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
+
+=======
 		<c:if test="${sessionScope.memberId != null}">
 			<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
 		</c:if>
+>>>>>>> refs/remotes/origin/main
 	</div>
 	<div style="display:inline-block">
 		<c:if test="${sessionScope.memberId != null}">
@@ -66,15 +76,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	</div>
 </div>
       <%-- base.css --%>
-    <div class="float-box" style="hegith:80px">
-      <div class="float-left w-30">
+    <div class="float-box">
+      <div class="float-left w-20">
         <a href="/">
-          <img src="/static/image/main.png" style="width:300px"/>
+          <img src="/static/image/logo_final.png" style="width:300px;" class="ms-30 mt-10 mb-10" >
         </a>
       </div>
     <div class="float-right w-70">
     <!-- nav -->
-     <nav class="flex-box flex-auto-width" style="hegith:80px">
+     <nav class="flex-box flex-auto-width">
        <%-- base.css --%>
        <div class="nav-bar flex-box align-center">
          <div>
@@ -109,7 +119,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
            </div>
          </div>
          <div>
-           <a href="#"><span>포켓몬 게임</span></a>
+           <a href="#"><span>포켓몬게임</span></a>
            <div>
              <div>
                <a href="/raid/list?page=1"><span>레이드 참가</span></a>
@@ -119,8 +129,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
              </div>
            </div>
          </div>
-         <div>
-           <a href="#"><span>트레이너카드</span></a>
+         <div class="me-10">
+           <a href="/cardGenerator"><span>트레이너카드</span></a>
          </div>
        </div>
      </nav>

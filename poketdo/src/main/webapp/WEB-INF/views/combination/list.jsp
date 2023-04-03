@@ -1,23 +1,376 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<div class="container-1200 mt-50">
-	<div class="row"><h1 style="font-size:2em">추천 조합 게시판</h1></div>
+<script>
+	/* 전역변수 설정 */
+	var memberId = "${sessionScope.memberId}";
+</script>
+<script src="/static/js/timer.js"></script>
+<script type="text/javascript">
+$(function(){
+	//초기 상태 구현
+	var params = new URLSearchParams(location.search);
+	var paramTagList = params.get("tagList");
+	var tagList = new Set();
+	var list = [];
+	//파라미터에 tagList를 달고 왔을 시
+	if(paramTagList){
+		var arr = paramTagList.split(",");
+		$.each(arr, function(index, value){
+			tagList.add(value);
+		});
+		selectedTag();
+		listTag();
+		makeList();
+	}
+	else{
+		makeList();
+	}
+	
+	//태그 입력 시
+	var preValue = $(".tag-search-input").val();
+	$(".tag-search-input").on("input", function(){
+		var text = $(this).val();
+		if(preValue!=text){
+			var regex = /^#(.*?)#/;
+			var list = text.match(regex);
+			
+			if(list!=null && list.length!=0){
+				var textVal = list[1];
+				if(!tagList.has(textVal)&&textVal){
+					tagList.add(textVal);
+	
+					list.length=0;
+					$(this).val("#");
+					
+					selectedTag();
+					listTag();
+				}
+				else{
+					list.length=0;
+					$(this).val("#");
+				}
+			}
+		}
+		preValue = text;
+	})
+	$(".tag-search-input").change(function(){
+		var text = $(this).val();
+		text = text.replace("#", "").trim();
+		if(preValue!=text){
+			if(!tagList.has(text)){
+				tagList.add(text);
+				//set을 전송 가능한 문자열 형태로 반환
+				var setList = Array.from(tagList);
+				var setListString = setList.join(",");
+				$("[name=tagList]").val(setListString);
+	
+				$(this).val("#");
+				tagList.add(text);
+				selectedTag();
+				listTag();
+			}
+		}
+		preValue = text;
+	})	
+
+	//선택된 태그 창 생성
+	function selectedTag(){
+		$(".search-tag-target").empty();
+		tagList.forEach(function(value){
+			var selectedTag = $("<span>").addClass("form-input hash-tag").text(value).css("margin",0)
+			var cancle = $("<i>").addClass("fa-solid fa-xmark").attr("data-tag-name", value)
+					.click(removeTag);
+			selectedTag.append(cancle);
+			$(".search-tag-target").append(selectedTag);
+		});
+	}
+	//태그 검색 함수
+	function searchTag(){
+		tagList.add($(this).data("tag-name"));
+		selectedTag();
+		listTag();
+	}
+	//태그 삭제 함수
+	function removeTag(){
+		tagList.delete($(this).data("tag-name"));
+		if(tagList.length==0) return;
+		var setList = Array.from(tagList);
+		var setListString = setList.join(",");
+		selectedTag();
+		listTag();
+	}
+	//추천 태그 목록 생성 함수
+	function listTag(){
+		$(".recommand-tag-target").empty();
+		var recommandText = $("<span>").text("추천 태그 : ");
+		$(".recommand-tag-target").append(recommandText);
+		var setList = Array.from(tagList);
+		var setListString = setList.join(",");
+		$.ajax({
+			url:"/rest/combination/"+setListString,
+			method:"get",
+			success:function(response){
+				if(response.length==0){
+					var tagSpan = $("<span>").addClass("form-input")
+						.text("검색결과가 없습니다.")
+					$(".recommand-tag-target").append(tagSpan);
+				}
+				else{
+					for(var i=0; i<response.length; i++){
+						var tagSpan = $("<span>").addClass("hash-tag").attr("data-tag-name", response[i].tagName)
+								.text(response[i].tagName+"("+response[i].tagCount+")").click(searchTag);
+						$(".recommand-tag-target").append(tagSpan);
+					}
+				}
+			},
+			error:function(){
+				
+			},
+		});
+	}
+	//리스트 검색 버튼 클릭 시
+	$(".select-list").click(function(){
+		var page = 1;
+		var column = $("[name=column]").val();
+		var keyword = $("[name=keyword]").val();
+		$("[name=keyword]").val("")
+		
+		var setList = Array.from(tagList);
+		var setListString = setList.join(",");
+		$(".list-target").empty();
+		$(".pagination").empty();
+		$.ajax({
+			url:"/rest/combination/",
+			method:"post",
+			data:{
+				keyword:keyword,
+				column:column,
+				tagList:setListString,
+				page:page,
+			},
+			success:function(response){
+				for(var i=0; i<response.list.length; i++){
+					var template = $("#list-template").html();
+					var html = $.parseHTML(template);
+					$(html).find(".list-no").text(response.list[i].combinationNo);
+					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
+							.text(response.list[i].combinationTitle);
+					$(html).find(".list-writer").text(response.list[i].combinationWriter);
+					$(html).find(".list-time").text(response.list[i].combinationTime);
+					$(html).find(".list-like").text(response.list[i].combinationLike);
+					$(html).find(".list-read").text(response.list[i].combinationRead);
+					$(".list-target").append(html);
+				};
+				var target = $(".pagination");
+				$(".pagination").empty();
+				if(response.vo.first){
+					var a = $("<a>").addClass("disabled");
+					var i = $("<i>").addClass("fa-solid fa-angles-left");
+					a.append(i);
+					target.append(a);
+				}
+				else{
+					var a = $("<a>").attr("href", "list?page=1&"+response.vo.tagParameter);
+					var i = $("<i>").addClass("fa-solid fa-angles-left");
+					a.append(i);
+					target.append(a);
+				}
+				if(response.vo.prev){
+					var a = $("<a>").attr("href", "list?page="+response.vo.prevPage+"&"+response.vo.tagParameter);
+					var i = $("<i>").addClass("fa-solid fa-angle-left")
+					a.append(i);
+					target.append(a);
+				}
+				else{
+					var a = $("<a>").addClass("disabled");
+					var i = $("<i>").addClass("fa-solid fa-angle-left")
+					a.append(i);
+					target.append(a);
+				}
+				for(var n=response.vo.startBlock; n<=response.vo.finishBlock; n++){
+					if(response.vo.page==n){
+						var a = $("<a>").addClass("on disabled").text(n);
+						target.append(a);
+					}
+					else{
+						var a = $("<a>").attr("href", "list?page="+n+"&"+response.vo.tagParameter).text(n);
+						target.append(a);
+					}
+				}
+				if(response.vo.next){
+					var a = $("<a>").attr("href", "list?page="+response.vo.nextPage+"&"+response.vo.tagParameter);
+					var i = $("<i>").addClass("fa-solid fa-angle-right")
+					a.append(i);
+					target.append(a);
+				}
+				else{
+					var a = $("<a>").addClass("disabled");
+					var i = $("<i>").addClass("fa-solid fa-angle-right")
+					a.append(i);
+					target.append(a);
+				}
+				if(response.vo.last){
+					var a = $("<a>").addClass("disabled");
+					var i = $("<i>").addClass("fa-solid fa-angles-right");
+					a.append(i);
+					target.append(a);
+				}
+				else{
+					var a = $("<a>").attr("href", "list?page="+response.vo.totalPage+"&"+response.vo.tagParameter);
+					var i = $("<i>").addClass("fa-solid fa-angles-right");
+					a.append(i);
+					target.append(a);
+				}
+			},
+			error:function(){
+				alert("리스트 오류")
+			}
+		})
+	});
+	//리스트 생성 함수
+	function makeList(){
+		var column = params.get("column");
+		var keyword = params.get("keyword");
+		var page = params.get("page");
+		
+		var setList = Array.from(tagList);
+		var setListString = setList.join(",");
+		$(".list-target").empty();
+		$(".pagination").empty();
+		$.ajax({
+			url:"/rest/combination/",
+			method:"post",
+			data:{
+				keyword:keyword,
+				column:column,
+				tagList:setListString,
+				page:page,
+			},
+			success:function(response){
+				for(var i=0; i<response.list.length; i++){
+					var template = $("#list-template").html();
+					var html = $.parseHTML(template);
+					var reply = ""
+					if(response.list[i].combinationReply>0){
+						reply = " ("+response.list[i].combinationReply+")";
+					}
+					$(html).find(".list-no").text(response.list[i].combinationNo);
+					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
+							.text("["+response.list[i].combinationType+"] "+response.list[i].combinationTitle+reply);
+					$(html).find(".list-writer").text(response.list[i].combinationWriter);
+					$(html).find(".list-time").text(response.list[i].combinationTime);
+					$(html).find(".list-like").text(response.list[i].combinationLike);
+					$(html).find(".list-read").text(response.list[i].combinationRead);
+					$(".list-target").append(html);
+				};
+				var target = $(".pagination");
+				$(".pagination").empty();
+				if(response.vo.first){
+					var a = $("<a>").addClass("disabled");
+					var i = $("<i>").addClass("fa-solid fa-angles-left");
+					a.append(i);
+					target.append(a);
+				}
+				else{
+					var a = $("<a>").attr("href", "list?page=1&"+response.vo.tagParameter);
+					var i = $("<i>").addClass("fa-solid fa-angles-left");
+					a.append(i);
+					target.append(a);
+				}
+				if(response.vo.prev){
+					var a = $("<a>").attr("href", "list?page="+response.vo.prevPage+"&"+response.vo.tagParameter);
+					var i = $("<i>").addClass("fa-solid fa-angle-left")
+					a.append(i);
+					target.append(a);
+				}
+				else{
+					var a = $("<a>").addClass("disabled");
+					var i = $("<i>").addClass("fa-solid fa-angle-left")
+					a.append(i);
+					target.append(a);
+				}
+				for(var n=response.vo.startBlock; n<=response.vo.finishBlock; n++){
+					if(response.vo.page==n){
+						var a = $("<a>").addClass("on disabled").text(n);
+						target.append(a);
+					}
+					else{
+						var a = $("<a>").attr("href", "list?page="+n+"&"+response.vo.tagParameter).text(n);
+						target.append(a);
+					}
+				}
+				if(response.vo.next){
+					var a = $("<a>").attr("href", "list?page="+response.vo.nextPage+"&"+response.vo.tagParameter);
+					var i = $("<i>").addClass("fa-solid fa-angle-right")
+					a.append(i);
+					target.append(a);
+				}
+				else{
+					var a = $("<a>").addClass("disabled");
+					var i = $("<i>").addClass("fa-solid fa-angle-right")
+					a.append(i);
+					target.append(a);
+				}
+				if(response.vo.last){
+					var a = $("<a>").addClass("disabled");
+					var i = $("<i>").addClass("fa-solid fa-angles-right");
+					a.append(i);
+					target.append(a);
+				}
+				else{
+					var a = $("<a>").attr("href", "list?page="+response.vo.totalPage+"&"+response.vo.tagParameter);
+					var i = $("<i>").addClass("fa-solid fa-angles-right");
+					a.append(i);
+					target.append(a);
+				}
+			},
+			error:function(){
+				alert("리스트 오류")
+			}
+		})
+	}
+	
+});
+</script>
+<script type="text/template" id="list-template">
+	<tr>
+		<td class="list-no"></td>
+		<td>
+			<a class="link list-title">
+			</a>
+		</td>
+		<td class="list-writer"></td>
+		<td class="list-time"></td>
+		<td class="list-like"></td>
+		<td class="list-read"></td>
+	</tr>
+</script>
+<div class="container-1200 mt-50" style="min-height:1200px">
+	<div class="row"><h1 style="font-size:2em">공략 게시판</h1></div>
+<!-- 검색 -->
 	<div class="row">
-		<form action="list" method="get" autocomplete="off">
-			<select name="column" class="form-input">
-				<option value="combination_title">제목</option>
-				<option value="combination_type">타입</option>
-				<option value="combination_content">내용</option>
-			</select>
-			<input name="keyword" class="form-input" placeholder="검색어">
-			<input name="page" type="hidden" value="${param.page}">
-			<button class="form-btn neutral">검색</button>
-		</form>
+		<input class="form-input tag-search-input w-10" value="#" style="display:inline-block">
+<!-- 선택한 태그 들어가는 자리 -->
+		<div class="search-tag-target" style="display:inline-block">
+		</div>
 	</div>
-<!-- 테이블 시작 -->
 	<div class="row">
+		<select name="column" class="form-input neutral">
+			<option value="combination_title">제목</option>
+			<option value="combination_type">타입</option>
+			<option value="combination_content">내용</option>
+		</select>
+		<input name="keyword" class="form-input search-list" placeholder="공략글 검색">
+		<button class="form-btn neutral select-list">검색</button>
+	</div>
+<!-- 추천 태그 들어가는 자리 -->
+		<div class="row recommand-tag-target">
+			&nbsp;
+		</div>
+<!-- 게시판 테이블 -->
+	<div class="row table-box mt-20">
 		<table class="table table-slit center">
 			<thead>
 				<tr>
@@ -29,68 +382,13 @@
 					<th>조회수</th>
 				</tr>
 			</thead>
-			<tbody>
-				<c:forEach var="combinationDto" items="${list}">
-					<tr>
-						<td>${combinationDto.combinationNo}</td>
-						<td><a href="detail?allboardNo=${combinationDto.allboardNo}&page=${param.page}" class="link">
-							[${combinationDto.combinationType}] ${combinationDto.combinationTitle}
-						</a></td>
-						<td>${combinationDto.combinationWriter}</td>
-						<td>${combinationDto.combinationTime}</td>
-						<td>${combinationDto.combinationLike}</td>
-						<td>${combinationDto.combinationRead}</td>
-					</tr>
-				</c:forEach>				
+			<tbody class="list-target">
 			</tbody>
 		</table>
 	</div>
 <!-- 테이블 끝 -->
 <!-- 페이지네이션 -->
 	<div class="row center pagination">
-	<!-- 1페이지로 이동 -->
-		<c:choose>
-			<c:when test="${vo.first}">
-				<a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
-			</c:when>
-			<c:otherwise>
-				<a href="list?page=1"><i class="fa-solid fa-angles-left"></i></a>
-			</c:otherwise>
-		</c:choose>
-	<!-- 이전 페이지로 이동 -->
-		<c:choose>
-			<c:when test="${vo.prev}">
-				<a href="list?page=${vo.prevPage}"><i class="fa-solid fa-angle-left"></i></a>
-			</c:when>
-			<c:otherwise>
-				<a class="disabled"><i class="fa-solid fa-angle-left disabled"></i></a>
-			</c:otherwise>
-		</c:choose>
-	<!-- 번호들 -->
-		<c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}" step="1">
-			<c:choose>
-				<c:when test="${vo.page==i}"><a class="on disabled">${i}</a></c:when>
-				<c:otherwise><a href="list?${vo.parameter}&page=${i}" class="">${i}</a></c:otherwise>
-			</c:choose>
-		</c:forEach>
-	<!-- 다음 페이지 -->
-		<c:choose>
-			<c:when test="${vo.next}">
-				<a href="list?page=${vo.nextPage}" class=""><i class="fa-solid fa-angle-right"></i></a>
-			</c:when>
-			<c:otherwise><a class="disabled">
-				<i class="fa-solid fa-angle-right"></i></a>
-			</c:otherwise>
-		</c:choose>
-	<!-- 마지막페이지로 -->
-		<c:choose>
-			<c:when test="${!vo.last}">
-				<a href="list?page=${vo.totalPage}" class=""><i class="fa-solid fa-angles-right"></i></a>
-			</c:when>
-			<c:otherwise>
-				<a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
-			</c:otherwise>
-		</c:choose>
 	</div>
 <!-- 페이지네이션 끝 -->
 	<div class="row">

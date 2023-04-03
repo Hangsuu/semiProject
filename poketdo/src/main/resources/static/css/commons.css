@@ -427,6 +427,11 @@ a.form-btn {
 .table {
   width: 100%;
   border-spacing: 0;
+
+}
+.table-box{
+  border-radius:0.5em;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 /* 
     이렇게 만들면 테이블이 중첩되는 경우 내부 테이블까지 영향을 미침
@@ -434,12 +439,14 @@ a.form-btn {
     .table td 
 */
 .table > thead > tr > th,
-.table > thead > tr > td,
+.table > thead > tr > td{
+  padding: 0.8em;
+}
 .table > tbody > tr > th,
 .table > tbody > tr > td,
 .table > tfoot > tr > th,
 .table > tfoot > tr > td {
-  padding: 0.5em;
+  padding: 0.6em;
 }
 
 /* 
@@ -464,8 +471,7 @@ a.form-btn {
     hover 서브 스타일
 */
 .table.table-hover > tbody > tr:hover {
-  background-color: black;
-  color: white;
+  background-color: #F2F4FB;
 }
 
 /*
@@ -486,20 +492,20 @@ a.form-btn {
 */
 .table.table-slit {
   border-collapse: collapse;
-  border-top: 4px black double;
-  border-bottom: 4px black double;
+/*   border-top: 2px #C2CCEE solid;
+  border-bottom: 2px #C2CCEE solid; */
 }
 .table.table-slit > thead {
-  border-bottom: 4px black double;
+  border-bottom: 2px #C2CCEE solid;
 }
 .table.table-slit > tfoot {
-  border-top: 4px black double;
+  border-top: 2px #C2CCEE solid;
 }
 /* 
     마지막 줄은 제외하고 하려면 :not(선택자)를 붙인다
 */
 .table.table-slit > tbody > tr:not(:last-child) {
-  border-bottom: 1px black dotted;
+  border-bottom: 2px #F2F4FB solid;
 }
 
 /*
@@ -770,12 +776,13 @@ input [name="memberPw"] {
 main section article h1 {
   font-size: 2em;
 }
+/* 해시태그 css */
 .hash-tag{
 	background-color:white;
 	border:2px solid lightgray;
 	margin-left:10px;
 	border-radius:0.4em;
-	padding:0.4em;
+	padding:0.3em;
 	text-decoration:none;
 	
 }
@@ -784,4 +791,24 @@ main section article h1 {
 }
 .hash-tag>.fa-xmark{
 	color:#eb4d4b;
+}
+/* 좋아요 css */
+.like-box{
+	min-width:50px;
+	border:1px solid #F2F2F2;
+	background-color:#F2F2F2;
+	border-radius:1em;
+	padding-left:0.5em;
+	padding-right:0.5em;
+	cursor:pointer
+}
+/* 댓글 좋아요 css */
+.reply-like-box{
+	min-width:50px;
+	border:1px solid #F2F2F2;
+	background-color:#F2F2F2;
+	border-radius:1em;
+	padding-left:0.5em;
+	padding-right:0.5em;
+	cursor:pointer
 }

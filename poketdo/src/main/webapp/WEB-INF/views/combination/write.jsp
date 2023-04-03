@@ -142,7 +142,7 @@
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
 	<div class="row">
-		타입 : <select class="form-input" name="combinationType">
+		타입 : <select class="form-input neutral" name="combinationType">
 			<option>일반</option>
 			<option>몬스터</option>
 			<option>필드</option>

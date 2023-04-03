@@ -6,7 +6,7 @@
 	<div class="row"><h1 style="font-size:2em">레이드</h1></div>
 	<div class="row">
 		<form action="list" method="get" autocomplete="off">
-			<select name="column" class="form-input">
+			<select name="column" class="form-input neutral">
 				<option value="raid_title">제목</option>
 				<option value="raid_monster">몬스터</option>
 				<option value="raid_content">내용</option>
@@ -20,8 +20,8 @@
 		</form>
 	</div>
 <!-- 테이블 시작 -->
-	<div class="row">
-		<table class="table table-slit center">
+	<div class="row table-box">
+		<table class="table table-slit table-hover center">
 			<thead>
 				<tr>
 					<th><a class="link" href="list?page=1&${vo.parameter}">글번호<i class="fa-solid fa-sort ms-10"></i></a></th>

@@ -8,9 +8,9 @@
 $(function () {
 	
 	$(".confirm-delete").click(function(e){
-	    e.preventDefault();
-	    if(!confirm("정말 삭제하시겠습니까?"))	return;
-	    window.location.href = $(this).attr("href");
+	    if(!confirm("정말 삭제하시겠습니까?")){
+		    e.preventDefault();
+	    }
 	});
 	
 	var memberPoint = ${point};
@@ -56,10 +56,10 @@ $(function () {
 			<c:choose>
 				<c:when test="${sessionScope.memberLevel != null}">
 					<div>
-						<a href="/member/myseal">
-							<i class="fa-solid fa-square-arrow-up-right"></i>
-							<span>내 인장 목록 보러가기</span>
 							<span>보유 포인트 : ${point} point</span>
+						<a href="/member/myseal">
+							<span>내 인장 목록 보러가기</span>
+							<i class="fa-solid fa-square-arrow-up-right"></i>
 						</a>
 					</div>
 				</c:when>

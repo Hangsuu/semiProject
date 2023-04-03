@@ -7,7 +7,7 @@
 $(function () {
 	
 	$(".sell-form").submit(function(e) {
-		  if (!confirm("정말 구매하시겠습니까?")) {
+		  if (!confirm("정말 판매하시겠습니까?")) {
 		    e.preventDefault();
 		  }
 	});

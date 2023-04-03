@@ -109,7 +109,7 @@ public class SealController {
 			RedirectAttributes attr
 			) throws IllegalStateException, IOException {
 		sealService.sealEdit(sealDto, attach, sealNo, attr);
-		return "redirect:detail";
+		return "redirect:list";
 	}
 	
   //인장 정보 상세

@@ -123,6 +123,7 @@ public class MemberController {
     	String memberId = (String) session.getAttribute("memberId");
     	int totalCount = memberSealWithImageDao.mySelectCount(memberId, vo);
     	vo.setCount(totalCount);
+    	vo.setSize(20);
     	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
     	model.addAttribute("list",list);
     	model.addAttribute("selectAttachNo" , sealService.mySeal(session));

@@ -226,7 +226,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             >
           </div>
           <div class="flex-align-center">
-            ${trade.getMemberNick()}
+            <img height="100%" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${trade.getMemberNick()}
           </div>
           <div class="flex-all-center">
             <c:choose>

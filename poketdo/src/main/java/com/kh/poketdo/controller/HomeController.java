@@ -54,7 +54,7 @@ public class HomeController {
 
 	@GetMapping("/test")
   public String test() {
-    return "/WEB-INF/views/test.jsp";
+    return "/WEB-INF/views/sealTest.jsp";
   }
 
 }

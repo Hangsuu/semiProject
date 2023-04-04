@@ -108,7 +108,7 @@ $(function(){
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">
 		<span class="board-detail-origin">굿즈 경매 게시판</span>
-		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+		<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
 	<div class="row board-detail-title">
 		${auctionDto.auctionTitle}
@@ -175,7 +175,7 @@ $(function(){
 		</div>
 	<!-- 경매 진행 관련 끝 -->
 		<!-- 본문 -->
-		<div class="row w-100 board-detail-content" style="min-height:400px; padding-left:1em; padding-right:1em">${auctionDto.auctionContent}</div>
+		<div class="row w-100" style="min-height:400px; padding-left:1em; padding-right:1em">${auctionDto.auctionContent}</div>
 		<div class="row">
 			<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">${auctionDto.memberNick}님의 게시글 더 보기</a>
 		</div>
@@ -223,7 +223,7 @@ $(function(){
 			<a href="write" class="board-detail-btn">글쓰기</a>
 		</div>
 		<div class="row align-right">
-			<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+			<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 		</div>
 	</div>
 </div>

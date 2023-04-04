@@ -4,7 +4,7 @@
       //탭키를 누르면 띄어쓰기 몇 번 할지(통상적으로 4 씀)
       tabsize: 4,
       //최초 표시될 높이(px)
-      height: 250,
+      height: 400,
       //메뉴 설정
       toolbar: [
         ["style", ["style"]],

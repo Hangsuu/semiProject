@@ -20,6 +20,7 @@ import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.CombinationDao;
 import com.kh.poketdo.dao.CombinationWithNickDao;
 import com.kh.poketdo.dao.TagDao;
+import com.kh.poketdo.dto.AuctionDto;
 import com.kh.poketdo.dto.CombinationDto;
 import com.kh.poketdo.vo.PaginationVO;
 
@@ -107,9 +108,18 @@ public class CombinationController {
 			return "redirect:detail";
 		}
 	}
-	
-//	@GetMapping("/simulator")
-//	public String simulator() {
-//		return "/WEB-INF/views/combination/simulator.jsp";
-//	}
+	@GetMapping("/edit")
+	public String edit(@ModelAttribute PaginationVO vo, @RequestParam int allboardNo, Model model) {
+		model.addAttribute("vo", vo.getParameter());
+		model.addAttribute("combinationDto", combinationWithNickDao.selectOne(allboardNo));
+		return "/WEB-INF/views/combination/edit.jsp";
+	}
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute PaginationVO vo, @ModelAttribute CombinationDto combinationDto,
+			RedirectAttributes attr) {
+		combinationDao.edit(combinationDto);
+		attr.addAttribute("allboardNo", combinationDto.getAllboardNo());
+		attr.addAttribute("vo",vo.getParameter());
+		return "redirect:detail";
+	}
 }

@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.kh.poketdo.dao.AuctionDao;
+import com.kh.poketdo.dao.CombinationWithNickDao;
+import com.kh.poketdo.dao.RaidWithNickDao;
 import com.kh.poketdo.vo.PaginationVO;
 import com.kh.poketdo.vo.SimulatorVO;
 
@@ -16,6 +18,10 @@ import com.kh.poketdo.vo.SimulatorVO;
 public class HomeController {
 	@Autowired
 	private AuctionDao auctionDao;
+	@Autowired
+	private RaidWithNickDao raidWithNickDao;
+	@Autowired
+	private CombinationWithNickDao combinationWithNickDao;
 	
 	@GetMapping("/")
 	public String home(Model model) {
@@ -29,6 +35,21 @@ public class HomeController {
 		auctionPagination.setSpecial("auction_finish_time>sysdate and (auction_max_price=0 or auction_min_price<auction_max_price)");
 		model.addAttribute("auctionList", auctionDao.selectList(auctionPagination));
 		//------------경매 끝--------------
+		//------------레이드---------------
+		PaginationVO raidPagination = new PaginationVO();
+		raidPagination.setSize(10);
+		raidPagination.setCount(10);
+		raidPagination.setItem("raid_start_time");
+		raidPagination.setOrder("asc");
+		raidPagination.setSpecial("raid_start_time>sysdate and raid_count<4");
+		model.addAttribute("raidList", raidWithNickDao.selectList(raidPagination));
+		//------------레이드 끝---------------
+		//------------공략---------------
+		PaginationVO combinationPagination = new PaginationVO();
+		combinationPagination.setSize(10);
+		combinationPagination.setCount(10);
+		model.addAttribute("combinationList", combinationWithNickDao.tagSearchList(combinationPagination));
+		//------------공략 끝---------------
 		return "/WEB-INF/views/home.jsp";
 	}
 	@GetMapping("/sample")

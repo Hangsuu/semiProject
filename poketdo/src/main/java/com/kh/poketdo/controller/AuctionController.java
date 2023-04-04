@@ -140,10 +140,30 @@ public class AuctionController {
 	public String bookmark() {
 		return "/WEB-INF/views/auction/bookmark.jsp";
 	}
+	@GetMapping("/bookmarkDetail")
+	public String bookmarkDetail(@RequestParam int allboardNo, Model model, HttpSession session,
+			@ModelAttribute PaginationVO vo) {
+		AuctionDto auctionDto = auctionDao.selectOne(allboardNo);
+		String auctionWriter = auctionDto.getAuctionWriter();
+		String memberId = (String) session.getAttribute("memberId");
+		boolean owner = auctionWriter!=null && auctionWriter.equals(memberId);
+		if(!owner) {
+			Set<Integer> memory = (Set<Integer>)session.getAttribute("memory");
+			if(memory==null) memory = new HashSet<Integer>();
+			if(!memory.contains(allboardNo)) {
+				auctionDao.readCount(allboardNo);
+				memory.add(allboardNo);
+			}
+			session.setAttribute("memory", memory);
+		}
+		model.addAttribute("auctionDto", auctionWithNickDao.selectOne(allboardNo));
+		model.addAttribute("vo", vo);
+		return "/WEB-INF/views/auction/bookmarkDetail.jsp";
+	}
 	@GetMapping("/edit")
 	public String edit(@ModelAttribute PaginationVO vo, @RequestParam int allboardNo, Model model) {
 		model.addAttribute("vo", vo.getParameter());
-		model.addAttribute("auctionDto", auctionDao.selectOne(allboardNo));
+		model.addAttribute("auctionDto", auctionWithNickDao.selectOne(allboardNo));
 		return "/WEB-INF/views/auction/edit.jsp";
 	}
 	@PostMapping("/edit")

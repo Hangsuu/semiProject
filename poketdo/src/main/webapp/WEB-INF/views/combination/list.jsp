@@ -160,7 +160,7 @@ $(function(){
 							.addClass("do-not-over").text(response.list[i].combinationTitle);
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
-					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink);
+					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink).css("vertical-align", "middle");
 					var nick = response.list[i].memberNick;
 					nickLink.append(seal).append(nick);
 					$(html).find(".list-writer").append(nickLink);
@@ -266,9 +266,9 @@ $(function(){
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
 							.text("["+response.list[i].combinationType+"] "+response.list[i].combinationTitle+reply);
 					//작성자 검색 링크 생성
-					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
-					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink);
-					var nick = response.list[i].memberNick;
+					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick).css("vertical-align","middle")
+					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink).css("vertical-align","middle");
+					var nick = $("<span>").text(response.list[i].memberNick).css("vertical-align","middle");
 					nickLink.append(seal).append(nick);
 					$(html).find(".list-writer").append(nickLink);
 					$(html).find(".list-time").text(response.list[i].combinationTime);
@@ -346,16 +346,16 @@ $(function(){
 });
 </script>
 <script type="text/template" id="list-template">
-	<tr>
-		<td class="list-no"></td>
-		<td>
+	<tr style="vertical-align:middle">
+		<td class="list-no" style="vertical-align:middle"></td>
+		<td style="vertical-align:middle">
 			<a class="link list-title">
 			</a>
 		</td>
-		<td class="list-writer"></td>
-		<td class="list-time"></td>
-		<td class="list-like"></td>
-		<td class="list-read"></td>
+		<td class="list-writer" style="vertical-align:middle"></td>
+		<td class="list-time" style="vertical-align:middle"></td>
+		<td class="list-like" style="vertical-align:middle"></td>
+		<td class="list-read" style="vertical-align:middle"></td>
 	</tr>
 </script>
 <div class="container-1000 mt-50" style="min-height:1200px">

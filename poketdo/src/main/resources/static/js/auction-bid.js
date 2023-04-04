@@ -66,7 +66,7 @@ $(function(){
 					$(".last-bid-nick").text(response.memberNick);
 					$(".last-bid-seal").attr("src", response.urlLink);
 					$(".final-last-bid").text(response.memberNick)
-						.prepend($("<img>").addClass("board-seal").attr("src", response.urlLink));
+						.prepend($("<img>").addClass("board-seal").attr("src", response.urlLink).css("vertical-align","middle"));
 					$(".send-message").attr("href", "/message/write?recipient="+response.auctionBidMember)
 					$(".finish-bid-id").val(response.auctionBidMember)
 				}

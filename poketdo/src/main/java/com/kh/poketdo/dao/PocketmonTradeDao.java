@@ -53,7 +53,7 @@ public class PocketmonTradeDao {
 
   // C 포켓몬 교환 게시물 생성
   public void insert(PocketmonTradeDto pocketmonTradeDto) {
-    String sql = "insert into pocketmon_trade (pocketmon_trade_no, allboard_no, pocketmon_trade_title, pocketmon_trade_writer, pocketmon_trade_written_time, pocketmon_trade_content, pocketmon_trade_head, pocketmon_trade_trade_time, pocketmon_trade_complete, pocketmon_trade_read, pocketmon_trade_reply, pocketmon_trade_like, pocketmon_trade_isblocked) values (?, ?, ?, ?, sysdate, ?, ?, ?, 0, 0, 0, 0, 0)";
+    String sql = "insert into pocketmon_trade (pocketmon_trade_no, allboard_no, pocketmon_trade_title, pocketmon_trade_writer, pocketmon_trade_written_time, pocketmon_trade_content, pocketmon_trade_head, pocketmon_trade_trade_time, pocketmon_trade_complete, pocketmon_trade_read, pocketmon_trade_reply, pocketmon_trade_like, pocketmon_trade_isblocked) values (?, ?, ?, ?, sysdate, ?, ?, ?, ?, 0, 0, 0, 0)";
     Object[] param = {
         pocketmonTradeDto.getPocketmonTradeNo(),
         pocketmonTradeDto.getAllboardNo(),
@@ -62,7 +62,7 @@ public class PocketmonTradeDao {
         pocketmonTradeDto.getPocketmonTradeContent(),
         pocketmonTradeDto.getPocketmonTradeHead(),
         pocketmonTradeDto.getPocketmonTradeTradeTime(),
-        // new Timestamp(pocketmonTradeDto.getPocketmonTradeTradeTime().getTime()),
+        "공지".equals(pocketmonTradeDto.getPocketmonTradeHead())?2:0
     };
     jdbcTemplate.update(sql, param);
   }
@@ -71,11 +71,13 @@ public class PocketmonTradeDao {
   public List<PocketmonTradeDto> selectList(PocketmonTradePageVO pageVo) {
     String sql;
     Object[] param;
+    String optionString = pageVo.getOptionQueryString();
+
     if (pageVo.getKeyword().equals("")) {
-      sql = "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
+      sql = "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade" + (!("".equals(optionString))?"":" where ".concat(optionString)) + " order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
       param = new Object[] { pageVo.getBegin(), pageVo.getEnd() };
     } else {
-      sql = "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade where instr(#1, ?) > 0 order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
+      sql = "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade where instr(#1, ?) > 0" + (!"".equals(optionString)?"":" where ".concat(optionString)) + " order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
       sql = sql.replace("#1", pageVo.getColumn());
       param = new Object[] {
           pageVo.getKeyword(),
@@ -104,12 +106,19 @@ public class PocketmonTradeDao {
   public int getCount(PocketmonTradePageVO pageVo) {
     String sql;
     int cnt;
+    String optionString = pageVo.getOptionQueryString();
     if (pageVo.getKeyword().equals("")) {
       sql = "select count(*) from pocketmon_trade";
+      if(!("".equals(optionString))){
+        sql += " where " + optionString;
+      }
       cnt = jdbcTemplate.queryForObject(sql, int.class);
     } else {
       sql = "select count(*) from pocketmon_trade where instr(#1, ?) > 0";
       sql = sql.replace("#1", pageVo.getColumn());
+      if(!("".equals(optionString))){
+        sql += " and " + optionString;
+      }
       Object[] param = { pageVo.getKeyword() };
       cnt = jdbcTemplate.queryForObject(sql, int.class, param);
     }

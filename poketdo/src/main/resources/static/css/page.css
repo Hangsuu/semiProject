@@ -190,17 +190,12 @@ section.member-login-section form {
 }
 .pocketmonTrade-row {
   display: flex;
-  height: 2.5em;
+  height: 2.8em;
   padding: 4px;
 }
 .pocketmonTrade-row > * {
   width: 10%;
   /* text-align: center; */
-}
-.pocketmonTrade-row > *:first-child {
-}
-.pocketmonTrade-row > *:nth-child(2) {
-  /* text-align: start; */
 }
 .pocketmonTrade-row > *:nth-child(3) {
   width: 45%;
@@ -209,6 +204,38 @@ section.member-login-section form {
 .pocketmonTrade-row > *:nth-child(4) {
   width: 15%;
 }
+.pocketmonTrade-cancle-btn {
+  background-color: #ff9999;
+  border: 1px solid #ff9999;
+}
+
+.pocketmonTrade-ing {
+  border: 1px solid orange;
+  color: orange;
+  border-radius: 1em;
+  padding: 0 0.5em;
+}
+.pocketmonTrade-request {
+
+}
+.pocketmonTrade-done {
+  border: 1px solid forestgreen;
+  color: forestgreen;
+  border-radius: 1em;
+  padding: 0 0.5em;
+}
+.pocketmonTrade-head {
+  border-bottom: 2px #C2CCEE solid;
+}
+.pocketmonTrade-row:not(.pocketmonTrade-head) {
+  border-bottom: 2px #F2F4FB solid;
+}
+.pocketmonTrade-notice-tag {
+  color: red;
+  border: 1px solid red;
+  border-radius: 0.3em;
+}
+
 .pocketmonTrade-pagination > * {
   width: 1.5em;
   height: 1.5em;
@@ -369,4 +396,9 @@ a.link:hover {
 }
 .red {
   color: red;
+}
+
+.pocketmonTrade-type, 
+.pocketmonTrade-isDone {
+  font-size: 1em;
 }

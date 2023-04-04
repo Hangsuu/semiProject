@@ -63,11 +63,12 @@ public class PocketmonRestController {
 	    return "redirect:insertFinish";
 	  }
 	  
+	  
+	  //포켓몬스터 능력치
 	  @GetMapping("/stats/{pocketmonName}")
 	  public PocketmonWithImageDto selectOne(@PathVariable String pocketmonName) {
 		  return pocketmonWithImageDao.selectName(pocketmonName);
 	  };
-
 	@GetMapping("/{pocketName}")
 	public PocketmonNameImageDto findId(@PathVariable String pocketName) {
 		PocketmonNameImageDto dto = pocketmonNameImageDao.selectOne(pocketName);
@@ -75,18 +76,22 @@ public class PocketmonRestController {
 		return dto;
 	}
 
+	//포켓몬스터 번호 중복검사
 	@GetMapping("/pocketNo/{pocketNo}")
 	public String findPocketNo (@PathVariable int pocketNo) {
 		return pocketmonDao.selectOne(pocketNo)==null?"Y":"N";
 	}
+	//포켓몬스터 이름 중복검사
 	@GetMapping("/pocketName/{pocketName}")
 	public String findPocketName (@PathVariable String pocketName) {
 		return pocketmonDao.selectNameOne(pocketName)==null?"Y":"N";
 	}
+	//포켓몬스터 타입 번호 중복검사
 	@GetMapping("/pocketTypeNo/{pocketTypeNo}")
 	public String findPocketTypeNo (@PathVariable int pocketTypeNo) {
 		return pocketmonTypeDao.selectOne(pocketTypeNo)==null?"Y":"N";
 	}
+	//포켓몬스터 타입 이름 중복검사
 	@GetMapping("/pocketTypeName/{pocketTypeName}")
 	public String findPocketTypeName (@PathVariable String pocketTypeName) {
 		return pocketmonTypeDao.selectNameOne(pocketTypeName)==null?"Y":"N";

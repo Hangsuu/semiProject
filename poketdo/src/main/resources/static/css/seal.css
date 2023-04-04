@@ -10,12 +10,17 @@
 	margin : auto;
 	position:relative;
 	}
-	.seal-information>div:first-child,
-	.my-seal-information>div:first-child{
+	.seal-information>div:first-child{
 	position:relative;
-	width:250px;
+	width:300px;
 	height:100px;
 	}
+	.my-seal-information>div:first-child{
+	position:relative;
+	width:300px;
+	height:100px;
+	}
+	.seal-information,
 	.my-seal-information {
 	margin-top:100px;
 	}
@@ -26,102 +31,61 @@
 	left:20px;
 	font-size:35px;
 	}
-	.seal-information>div:nth-child(2){
-	position:absolute;
-	width:500px;
-	height:100px;
-	display:flex;
-	right:10px;
-	  flex-wrap: wrap;
-	  align-content: flex-start;
-	}
+	.seal-information>div:nth-child(2),
 	.my-seal-information>div:nth-child(2){
 	position:absolute;
-	width:500px;
+	width:800px;
 	height:100px;
 	display:flex;
-	right:80px;
-	  flex-wrap: wrap;
-	  align-content: flex-start;
-	}
-	.my-seal-information>div:nth-child(3){
-	position:relative;
-	width:150px;
-	height:100px;
-	display:flex;
+	right:10px;
 	  flex-wrap: wrap;
 	  align-content: flex-start;
 	}
 	
-	.seal-information>div:nth-child(2) > a > span:nth-child(1){
+	.seal-information>div:nth-child(2)>span:nth-child(1),
+	.my-seal-information>div:nth-child(2)>span:nth-child(1){
 	position:absolute;
-	bottom:15px;
-	right:25px;
-	font-size:16px;
-	}
-	
-	.seal-information>div:nth-child(2) > a > span:nth-child(2){
-	position:absolute;
-	bottom:43px;
-	right:25px;
-	font-size:16px;
-	}
-	
-	.seal-information>div:nth-child(2) >a> span:nth-child(3){
-	position:absolute;
-	bottom:15px;
 	right:0px;
-	font-size:16px;
+	bottom:5px;
+	}
+	.seal-information>div:nth-child(2)>span:nth-child(2),
+	.my-seal-information>div:nth-child(2)>span:nth-child(2){
+	position:absolute;
+	left:253px;
+	bottom:120px;
+	}
+	.seal-information>div:nth-child(2)>a,
+	.my-seal-information>div:nth-child(2)>a{
+	position:absolute;
+	right:0px;
+	bottom:25px;
+	text-decoration: none;
+ 	color: inherit;	
+	}
+	.seal-information>div:nth-child(2)>a>i,
+	.my-seal-information>div:nth-child(2)>a>i{
+	font-size:20px;
 	}
 	
-	.seal-information>div:nth-child(2) span{
+	.my-seal-information>div:nth-child(2) img{
 	position:absolute;
 	bottom:15px;
-	right:180px;
-	font-size:16px;
-	}
-	.my-seal-information>div:nth-child(3) span{
-	position:absolute;
-	bottom:15px;
-	right:10px;
-	font-size:16px;
-	}
-	
-	.my-seal-information>div:nth-child(3) img{
-	position:absolute;
-	bottom:40px;
-	right:10px;
+	left:260px;
 	font-size:16px;
 	border:1px solid #C2CCEE;
 	border-radius: 5px;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
 	}
-	.seal-information>div:nth-child(2)>a> i{
-	position:absolute;
-	bottom:45px;
-	right:0px;
-	font-size:20px;
-	}
-	.my-seal-information>div:nth-child(2)>a> i{
-	position:absolute;
-	bottom:15px;
-	left:300px;
-	font-size:20px;
-	}
-	.my-seal-information>div:nth-child(2)>a> span{
-	position:absolute;
-	bottom:15px;
-	left:325px;
-	}
-	
+
 	/*인장 목록*/
 	.seal-container {
 	  display: flex;
 	  flex-wrap: wrap;
 	  align-content: flex-start;
 	  width: 1000px;
-	  height: 1000px;
+	  min-height: 400px;
 	  margin : auto;
+	  margin-bottom:50px;
 	  
 	}
 	
@@ -148,14 +112,16 @@
 	margin-bottom:10px;
 	}
 	
-	.seal-admin {
+	.seal-admin,
+	.my-seal-menu {
 	display:flex;
 	width:160px;
 	align-content: flex-start;
 	justify-content: center;
 	margin-top:10px;
 	}
-	.seal-admin > div {
+	.seal-admin > div,
+	.my-seal-menu div {
 	margin: 0 auto;
 	}
 	
@@ -168,4 +134,12 @@
 	width:20px;
 	height:20px;
 	margin-right:5px;
+	}
+	
+	.seal-price{
+	  text-decoration: line-through;
+	  text-decoration-color: gray; /* 가운데 줄 색상 */
+	  text-decoration-thickness: 1px; /* 가운데 줄 굵기 */
+	  text-decoration-skip-ink: none; /* 브라우저 기본값 사용 */
+	  color:gray
 	}

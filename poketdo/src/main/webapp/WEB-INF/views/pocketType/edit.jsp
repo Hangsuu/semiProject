@@ -37,7 +37,7 @@
 				</div>	
 				<div>
 					<div class="pocket-input-box">
-						<span>포켓몬스터 이미지(png, gif, jpg)</span>
+						<span>포켓몬스터 타입 이미지</span>
 					</div>
 					<div class="pocket-input-box">
 						<input type="file" name="attach" accept=".png, .gif, .jpg" class="form-input" >

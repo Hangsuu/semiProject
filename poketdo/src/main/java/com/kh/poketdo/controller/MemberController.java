@@ -19,6 +19,7 @@ import com.kh.poketdo.dao.MemberDao;
 import com.kh.poketdo.dao.MemberJoinSealDao;
 import com.kh.poketdo.dao.MemberProfileDao;
 import com.kh.poketdo.dao.MemberSealWithImageDao;
+import com.kh.poketdo.dao.PointDao;
 import com.kh.poketdo.dto.MemberDto;
 import com.kh.poketdo.dto.MemberSealWithImageDto;
 import com.kh.poketdo.service.MemberService;
@@ -47,7 +48,8 @@ public class MemberController {
     @Autowired
     private MemberJoinSealDao memberJoinSealDao;
     
-    
+    @Autowired
+    private PointDao pointDao;
     
    
  
@@ -76,6 +78,9 @@ public class MemberController {
     public String logout(HttpSession session, HttpServletRequest request) {
         session.removeAttribute("memberId");
         session.removeAttribute("memberLevel");
+		if(request.getHeader("Referer").endsWith("/pocketmonTrade/write")){
+			return "redirect:/pocketmonTrade";
+		}
         return "redirect:" + request.getHeader("Referer");
     }
     
@@ -128,8 +133,8 @@ public class MemberController {
     	vo.setCount(totalCount);
     	vo.setSize(20);
     	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
-    	System.out.println(list);
     	model.addAttribute("list",list);
+    	model.addAttribute("point" , memberDao.selectMemberPoint(memberId));
     	model.addAttribute("selectAttachNo" , sealService.mySeal(session));
     	return "/WEB-INF/views/member/myseal.jsp";
     }
@@ -241,5 +246,18 @@ public class MemberController {
     		return "redirect:find";
     	}
     }
+    
+	//인장 판매 처리
+	@PostMapping("/mysealSell")
+	public String mysealSell(
+			@RequestParam int sealPrice,
+			@RequestParam int mySealNo,
+			HttpSession session
+			) {
+		String memberId = (String) session.getAttribute("memberId");
+		pointDao.addPoint(sealPrice, memberId);
+		memberJoinSealDao.delete(mySealNo);
+		return "redirect:myseal";
+	}
     
 }

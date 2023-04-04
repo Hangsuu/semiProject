@@ -3,6 +3,10 @@ pageEncoding="UTF-8"%> <%@taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+
+</style>
+
 <!-- summernote css, jQuery CDN -->
 <link
   href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
@@ -12,13 +16,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="/static/js/pocketmonTrade/pocketmonTradeWrite.js"></script>
 <script>
   const memberId = "${sessionScope.memberId}";
+  const memberLevel = "${sessionScope.memberLevel}";
 </script>
 <!-- section -->
-<section>
-  <!-- aside -->
-  <aside></aside>
+<section class="mt-50 mb-30">
   <!-- article -->
-  <article class="container-800">
+  <article class="container-1200">
     <form
       action="/pocketmonTrade/write"
       method="post"
@@ -31,7 +34,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         value="${sessionScope.memberId}"
         required
       />
-      <div class="row center">
+      <div class=" center">
         <h1>포켓몬 교환</h1>
       </div>
       <div class="row">
@@ -39,7 +42,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           말머리
           <select class="form-input w-100" name="pocketmonTradeHead">
             <option value="">선택</option>
-            <c:if test="${sessionScope.memberLevel == '마스터'}">
+            <c:if test="${sessionScope.memberLevel == '관리자'}">
               <option>공지</option>
             </c:if>
             <option>교환</option>
@@ -78,7 +81,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             type="datetime-local"
             class="form-input w-50"
             name="promise"
-            required
           />
         </label>
         <button type="button" class="plus-1h-btn form-input">
@@ -93,7 +95,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       </div>
       <div class="w-100 right">
         <button
-          class="white-bold pocketmonTrade-cancle-btn w-20 form-btn neutral"
+          class="white-bold pocketmonTrade-cancle-btn w-20 form-btn"
           type="button"
         >
           취소

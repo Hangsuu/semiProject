@@ -131,18 +131,38 @@
         <%-- home.css --%>
         <div class="home-board-title">
           <h2>👨‍👩‍👧‍👦레이드 모집중</h2>
-          <a href="#">+더보기</a>
+          <a href="/raid/list?page=1">+더보기</a>
         </div>
-        <div>내용</div>
+        <div class="home-board-list">
+        	<c:forEach var="raidDto" items="${raidList}">
+        	    <div class="row" style="font-size:17px">
+	            	<a href="/raid/detail?page=1&allboardNo=${raidDto.allboardNo}" class="link">
+	            		<span class="home-board-type">[${raidDto.raidMonster}]</span>
+	            		 ${raidDto.raidTitle} 
+	            		<span class="home-board-reply">(${raidDto.raidReply})</span>
+	            	</a>
+            	</div>
+        	</c:forEach>
+        </div>
       </div>
       <%-- home.css / component.css --%>
       <div class="home-cool-board title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
           <h2>📝오늘의 핫 공략</h2>
-          <a href="#">+더보기</a>
+          <a href="/combination/list?page=1">+더보기</a>
         </div>
-        <div>내용</div>
+        <div class="home-board-list">
+            <c:forEach var="combinationDto" items="${combinationList}">
+            	<div class="row" style="font-size:17px">
+	            	<a href="/combination/detail?page=1&allboardNo=${combinationDto.allboardNo}" class="link">
+	            		<span class="home-board-type">[${combinationDto.combinationType}]</span>
+	            		 ${combinationDto.combinationTitle} 
+	            		<span class="home-board-reply">(${combinationDto.combinationReply})</span>
+	            	</a>
+            	</div>
+        	</c:forEach>
+        </div>
       </div>
     </div>
     

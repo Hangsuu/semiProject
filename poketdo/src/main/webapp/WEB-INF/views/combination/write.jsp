@@ -162,7 +162,8 @@
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
 	<div class="row right">
-		<button class="form-btn neutral submit-btn" type="button"><i class="fa-solid fa-pen-to-square me-10"></i>작성</button>
+		<a href="list?page=1" class="form-btn negative w-20">취소</a>
+		<button class="form-btn positive submit-btn w-20" type="button"><i class="fa-solid fa-pen-to-square me-10" style="color:white"></i>작성</button>
 	</div>
 </form>
 </div>

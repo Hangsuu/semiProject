@@ -153,27 +153,26 @@
 	<div class="flex-box">
 		<div class="w-60">
 			<div class="row">
-				제목<input class="form-input w-100" name="auctionTitle">
+				<input class="form-input w-100" name="auctionTitle" placeholder="제목을 입력하세요">
 				<div class="invalid-message">필수 입력 항목입니다</div>
 			</div>
 			<div class="row">
-				기간선택 : 
 				<select name="lastDay" class="form-input neutral">
-					<option value="0">선택</option>
+					<option value="0">기간선택</option>
 					<option value="1">1일</option>
 					<option value="3">3일</option>
 				</select>
 			</div>
 			<div class="row">
-			최소금액 : <input class="form-input w-40" name="auctionMinPrice" placeholder="경매 시작가 입력(미입력시 0원)">
+			<input class="form-input w-100" name="auctionMinPrice" placeholder="경매 시작가 입력(미입력시 0원)">
 			</div>
 			<div class="row">
-			최대금액 : <input class="form-input w-40" name="auctionMaxPrice" placeholder="즉시 낙찰가 입력(미입력시 제한 없음)">
+			<input class="form-input w-100" name="auctionMaxPrice" placeholder="즉시 낙찰가 입력(미입력시 제한 없음)">
 			</div>
 		</div>
-		<div class="w-40">
+		<div class="w-40" style="padding-left:10px">
 			<div class="row center">
-				<img src="/static/image/noimage.png" style="width:200px; height:200px;max-width:200px; height:auto; max-height:200px" class="preview">
+				<img src="/static/image/noimage.png" style="width:150px; height:150px;max-width:150px; height:auto; max-height:150px" class="preview">
 			</div>
 			<div class="row">
 				대표이미지 등록<input class="form-btn neutral" name="attach" type="file">
@@ -184,7 +183,10 @@
 		<textarea name="auctionContent" rows="10" class="form-input w-100 summernote"></textarea>
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
-	<button type="button" class="form-btn neutral submit-btn"><i class="fa-solid fa-pen-to-square me-10"></i>작성</button>
+	<div class="row right">
+		<a href="list?page=1" class="form-btn negative w-20">취소</a>
+		<button type="button" class="form-btn positive submit-btn w-20"><i class="fa-solid fa-pen-to-square me-10" style="color:white"></i>작성</button>
+	</div>
 </form>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

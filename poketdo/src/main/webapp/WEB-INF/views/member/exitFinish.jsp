@@ -6,9 +6,6 @@
 
   <!-- aside -->
  
-
-  <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
-  
 	
   
   <!-- article -->

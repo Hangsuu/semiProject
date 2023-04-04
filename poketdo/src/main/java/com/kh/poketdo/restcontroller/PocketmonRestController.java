@@ -69,12 +69,15 @@ public class PocketmonRestController {
 	  public PocketmonWithImageDto selectOne(@PathVariable String pocketmonName) {
 		  return pocketmonWithImageDao.selectName(pocketmonName);
 	  };
-	@GetMapping("/{pocketName}")
-	public PocketmonNameImageDto findId(@PathVariable String pocketName) {
-		PocketmonNameImageDto dto = pocketmonNameImageDao.selectOne(pocketName);
+	  
+	@GetMapping("/{pocketmonName}")
+	public PocketmonWithImageDto findId(@PathVariable String pocketmonName) {
+		PocketmonWithImageDto dto = pocketmonWithImageDao.selectName(pocketmonName);
 		if(dto == null) throw new NoSuchElementException();
 		return dto;
 	}
+	
+	
 
 	//포켓몬스터 번호 중복검사
 	@GetMapping("/pocketNo/{pocketNo}")

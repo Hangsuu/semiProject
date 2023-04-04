@@ -98,37 +98,42 @@
 		});
 	});
 </script>
-<div class="container-1200 mt-50">
+<div class="container-1000 mt-50">
 <form action="write" method="post" autocomplete="off">
 <input type="hidden" name="raidWriter" value="${sessionScope.memberId}">
 	<div class="row">
-		제목 : <input class="form-input" name="raidTitle">
+		<input class="form-input w-100" name="raidTitle" placeholder="제목을 입력해주세요">
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
-	<div class="row">
-		몬스터 : <input class="form-input" name="raidMonster">
-		<div class="invalid-message">필수 입력 항목입니다</div>
+	<div class="flex-box row">
+		<div class="row" style="display:inline-block">
+			<select class="form-input neutral" name="raidType">
+				<option value='0'>모집</option>
+				<option value='1'>선착순</option>
+			</select>
+		</div>
+		<div class="row" style="display:inline-block">
+			<input class="form-input w-100" name="raidMonster" placeholder="레이드 몬스터 입력">
+			<div class="invalid-message">필수 입력 항목입니다</div>
+		</div>
+		<div class="row ms-10" style="display:inline-block">
+			<span class="form-input neutral">시작시간</span><input class="form-input set-date" type="datetime-local">
+			<div class="invalid-message">필수 입력 항목입니다</div>
+			<input type="hidden" name="raidStartTime">
+		</div>
 	</div>
 	<div class="row">
-		날짜 : <input class="form-input set-date" type="datetime-local">
-		<div class="invalid-message">필수 입력 항목입니다</div>
-		<input type="hidden" name="raidStartTime">
-	</div>
-	<div class="row">
-		레이드타입 : <select class="form-input" name="raidType">
-			<option value='0'>모집</option>
-			<option value='1'>선착순</option>
-		</select>
-	</div>
-	<div class="row">
-		레이드코드 : <input class="form-input" name="raidCode">
+		<input class="form-input" name="raidCode" placeholder="레이드 코드 입력">
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
 	<div class="row w-100">
 		<textarea name="raidContent" rows="10" class="form-input w-100 summernote"></textarea>
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
-	<button class="form-btn neutral submit-btn">작성</button>
+	<div class="row right">
+		<a href="list?page=1" class="form-btn negative w-20">취소</a>
+		<button class="form-btn positive submit-btn w-20"><i class="fa-solid fa-pen-to-square me-10" style="color:white"></i>작성</button>
+	</div>
 </form>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

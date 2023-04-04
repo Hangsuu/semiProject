@@ -5,13 +5,10 @@
     
 
   <!-- aside -->
-  <aside></aside>
-  
-  
   
   
   <!-- article -->
-  <article>
+  <article class="flex-all-center">
      <div class= "container-500 center">
     	<h1>아이디 찾기 결과</h1>
 

@@ -32,10 +32,9 @@
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
-          <h2>오늘의 인기글</h2>
+          <h2>🔥인기글</h2>
           <a href="/board/hot">+더보기</a>
-          <h2 class="mt-30">🔥인기글</h2>
-          <a href="#">+더보기</a>
+         
         </div>
         <div>내용</div>
       </div>
@@ -43,7 +42,7 @@
       <div class="home-cool-board title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
-          <h2 class="mt-30">🦄오늘의 포켓몬</h2>
+          <h2>🦄오늘의 포켓몬</h2>
           <a href="#">+더보기</a>
         </div>
         <div>내용</div>
@@ -54,7 +53,7 @@
     <div class="home-sector home-raid-board title-body">
       <%-- home.css --%>
       <div class="home-board-title">
-        <h2 class="mt-30">🤝교환해요</h2>
+        <h2>🤝교환해요</h2>
         <a href="/auction/list?page=1">+더보기</a>
       </div>
       <div>
@@ -131,7 +130,7 @@
       <div class="home-cool-monster title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
-          <h2 class="mt-30">👨‍👩‍👧‍👦레이드 모집중</h2>
+          <h2>👨‍👩‍👧‍👦레이드 모집중</h2>
           <a href="#">+더보기</a>
         </div>
         <div>내용</div>
@@ -140,7 +139,7 @@
       <div class="home-cool-board title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
-          <h2 class="mt-30">📝오늘의 핫 공략</h2>
+          <h2>📝오늘의 핫 공략</h2>
           <a href="#">+더보기</a>
         </div>
         <div>내용</div>
@@ -153,7 +152,7 @@
     <div class="home-sector">
       <%-- home.css --%>
       <div class="home-board-title">
-        <h2 class="mt-30">⏱️hot 경매</h2>
+        <h2>⏱️hot 경매</h2>
         <a href="/auction/list?page=1">+더보기</a>
       </div>
 	<!-- 게시판 테이블(swiper) -->

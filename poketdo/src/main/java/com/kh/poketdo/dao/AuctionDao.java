@@ -239,8 +239,13 @@ public class AuctionDao {
 			return jdbcTemplate.queryForObject(sql, int.class, param);
 		}
 	}
-	
+	//거래종료, 배송중일 때 상태 처리
 	public boolean changeFinish(int allboardNo) {
+		String sql = "update auction set auction_finish=2 where allboard_no=?";
+		Object[] param = {allboardNo};
+		return jdbcTemplate.update(sql, param)==1;
+	}
+	public boolean changeDelivery(int allboardNo) {
 		String sql = "update auction set auction_finish=1 where allboard_no=?";
 		Object[] param = {allboardNo};
 		return jdbcTemplate.update(sql, param)==1;

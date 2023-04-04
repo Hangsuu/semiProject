@@ -70,6 +70,9 @@ public class PocketmonRestController {
 		  return pocketmonWithImageDao.selectName(pocketmonName);
 	  };
 	  
+	  
+	  
+	  //포켓몬카드 -- 애연
 	@GetMapping("/{pocketmonName}")
 	public PocketmonWithImageDto findId(@PathVariable String pocketmonName) {
 		PocketmonWithImageDto dto = pocketmonWithImageDao.selectName(pocketmonName);

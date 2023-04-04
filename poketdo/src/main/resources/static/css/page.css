@@ -208,27 +208,14 @@ section.member-login-section form {
   background-color: #ff9999;
   border: 1px solid #ff9999;
 }
-
-.pocketmonTrade-ing {
-  border: 1px solid orange;
-  color: orange;
-  border-radius: 1em;
-  padding: 0 0.5em;
-}
 .pocketmonTrade-request {
+}
 
-}
-.pocketmonTrade-done {
-  border: 1px solid forestgreen;
-  color: forestgreen;
-  border-radius: 1em;
-  padding: 0 0.5em;
-}
 .pocketmonTrade-head {
-  border-bottom: 2px #C2CCEE solid;
+  border-bottom: 2px #c2ccee solid;
 }
 .pocketmonTrade-row:not(.pocketmonTrade-head) {
-  border-bottom: 2px #F2F4FB solid;
+  border-bottom: 2px #f2f4fb solid;
 }
 .pocketmonTrade-notice-tag {
   color: red;
@@ -262,7 +249,7 @@ section.member-login-section form {
 }
 .pocketmonTrade-search-form > *:nth-child(3) {
   width: 8%;
-  background-color: #9DACE4;
+  background-color: #9dace4;
   font-weight: bold;
   border: none;
 }
@@ -398,7 +385,7 @@ a.link:hover {
   color: red;
 }
 
-.pocketmonTrade-type, 
+.pocketmonTrade-type,
 .pocketmonTrade-isDone {
   font-size: 1em;
 }

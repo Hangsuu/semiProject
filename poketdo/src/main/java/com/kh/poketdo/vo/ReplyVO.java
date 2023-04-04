@@ -15,4 +15,5 @@ public class ReplyVO {
 	private List<ReplyWithNickDto> replyDto;
 	private List<ReplyWithNickDto> replyLike;
 	private List<Integer> likeCount;
+	private int replyCount;
 }

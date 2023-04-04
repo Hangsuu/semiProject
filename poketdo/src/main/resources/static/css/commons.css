@@ -796,9 +796,8 @@ main section article h1 {
 }
 /* 좋아요 css */
 .like-box {
-  min-width: 50px;
-  border: 1px solid #f2f2f2;
-  background-color: #f2f2f2;
+  min-width: 120px;
+  border: 2px solid #f2f2f2;
   border-radius: 1em;
   padding-left: 0.5em;
   padding-right: 0.5em;
@@ -825,4 +824,31 @@ main section article h1 {
   color: forestgreen;
   border-radius: 1em;
   padding: 0 0.5em;
+}
+/* ------- detail 공통 css -------- */
+.board-detail-origin{
+	color:#555555;
+}
+.board-detail-title{
+	font-size:26px;
+}
+.board-detail-btn{
+	color:#999999;
+	text-decoration: none;
+	margin-left:10px
+}
+.board-detai-btn:hover{
+	filter: brightness(101%);
+}
+.board-detail-time{
+	font-size:14px;
+	margin-left:10px
+}
+.reply-number-box {
+  min-width: 70px;
+  border: 2px solid #f2f2f2;
+  border-radius: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  cursor: default;
 }

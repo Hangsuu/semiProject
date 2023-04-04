@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.kh.poketdo.dto.PocketmonNameImageDto;
 import com.kh.poketdo.dto.PocketmonWithImageDto;
 import com.kh.poketdo.vo.PocketPaginationVO;
 
@@ -121,4 +122,11 @@ public class PocketmonWithImageDao {
 		List<PocketmonWithImageDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty()? null: list.get(0);
 	}
+	
+	
+	
+
+	
+	
+	
 }

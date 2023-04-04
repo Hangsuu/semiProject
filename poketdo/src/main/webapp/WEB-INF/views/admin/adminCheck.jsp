@@ -39,7 +39,7 @@
 
   <article class="center">
     <form class="flex-all-center" style="height:60vh;" action="adminCheck" method="post">
-      <div class="container-500 center">
+      <div class="container-400 center">
         <div>
            <h1 class="pb-30">관리자 인증</h1>
         

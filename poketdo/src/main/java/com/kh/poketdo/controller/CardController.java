@@ -83,10 +83,6 @@ public class CardController {
 			memberProfileDao.insert(MemberProfileDto.builder().memberId(memberId).attachmentNo(attachmentNo).build());
 			
 		}
-
-		
-		
-	
 			
 			if (!attach.isEmpty()) {
 				int attachmentNo = attachmentDao.sequence();
@@ -106,5 +102,6 @@ public class CardController {
 			
 		}
 
+		
 	}
 }

@@ -109,7 +109,7 @@
                         <td>${boardWithImageDto.boardNo}</td>
                         <td class="left">
                             <!-- 제목을 누르면 상세로 이동 -->
-                            <a href="detail?boardNo=${boardWithImageDto.boardNo}" class="link">
+                            <a href="detail2?boardNo=${boardWithImageDto.boardNo}" class="link">
                                 
                                 <c:if test="${boardWithImageDto.boardHead != null}">
                                     <!-- 말머리가 있으면 출력 -->

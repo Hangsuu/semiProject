@@ -6,6 +6,7 @@
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
 	var boardWriter = "${auctionDto.auctionWriter}";
+	var auctionFinish="${auctionDto.auctionFinish}";
 </script>
 <script src="/static/js/timer.js"></script>
 <script src="/static/js/auction-bid.js"></script>
@@ -58,14 +59,55 @@ $(function(){
 		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
+<script type="text/template" id="auction-delivery-template">
+<div class="flex-box p-20" style="height:220px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+	<div class="w-25 flex-box align-center" style="font-size:60px;">
+		<div class="row">
+			<div class="row flex-box align-center" style=" height:100px">
+				<i class="fa-solid fa-credit-card" style="color:#c9c9c9"></i>
+			</div>
+			<div class="row flex-box align-center" style=" height:30px">
+				<span style="font-size:16px">낙찰자</span><span class="finish-bid-nick ms-10" style="font-size:16px"></span>
+			</div>
+			<div class="row flex-box align-center" style=" height:30px">
+				<a class="form-btn neutral send-message">쪽지보내기</a>
+			</div>
+		</div>
+	</div>
+	<div class="flex-box align-center" style="font-size:40px; width:12.5%">
+		<i class="fa-solid fa-arrow-right" style="color:#c9c9c9"></i>
+	</div>
+	<div class="w-25 flex-box align-center" style="font-size:60px;">
+		<div class="row">
+			<div class="row flex-box align-center" style=" height:100px">
+				<i class="fa-solid fa-truck" style="color:#c9c9c9"></i>
+			</div>
+			<div class="row flex-box align-center" style=" height:60px">
+				<button class="form-btn negative delivery-btn">배송 전</button>
+			</div>
+		</div>
+	</div>
+	<div class="flex-box align-center" style="font-size:40px; width:12.5%">
+		<i class="fa-solid fa-arrow-right" style="color:#c9c9c9"></i>
+	</div>
+	<div class="w-25 flex-box align-center" style="font-size:60px">
+		<div class="row">
+			<div class="row flex-box align-center" style=" height:100px">
+				<i class="fa-solid fa-gift" style="color:#c9c9c9"></i>
+			</div>
+				<div class="row flex-box align-center" style=" height:60px">
+				<button class="form-btn negative finish-btn">수령 완료</button>
+			</div>
+		</div>
+	</div>
+</div>
+</script>
 <script src="/static/js/like.js"></script>
 <script src="/static/js/bookmark.js"></script>
 <div class="container-900 mt-50">
+<input type="hidden" class="finish-bid-id">
 	<div class="row">
 	제목 : ${auctionDto.auctionTitle}
-	<c:if test="${auctionDto.auctionFinish==0}">
-		<button class="form-btn negative finish-btn">거래 완료</button>
-	</c:if>
 	</div>
 	<div class="row">
 		<div class="row finished-auction">
@@ -79,8 +121,6 @@ $(function(){
 			<div class="row writer-control-box">
 				낙찰자 : 
 				<div class="final-last-bid" style="display:inline-block"></div>
-				<a class="form-btn neutral send-message">쪽지 보내기</a>
-				<input type="hidden" class="finish-bid-id">
 			</div>		
 		</div>
 		<div class="row ing-auction">
@@ -137,6 +177,10 @@ $(function(){
 		</div>
 	</c:if>
 <!-- 입찰 기능 끝-->
+<!-- 확정자 페이지 -->
+	<div class="row finish-target">
+
+	</div>
 
 <!-- 댓글 -->
 	<!-- 표시 -->
@@ -151,10 +195,10 @@ $(function(){
 <!-- 댓글 끝 -->
 	<div class="row">
 		<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-			<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="form-btn neutral delete-btn">삭제</a>
+			<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="form-btn negative delete-btn"><i class="fa-solid fa-trash-can me-10" style="color:white"></i>삭제</a>
 			<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="form-btn neutral">수정</a>
 		</c:if>
-		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="form-btn neutral">목록</a>
+		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="form-btn neutral"><i class="fa-solid fa-rectangle-list me-10"></i>목록으로</a>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

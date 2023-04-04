@@ -45,7 +45,7 @@ public class AuctionController {
 	public String list(Model model, 
 			@ModelAttribute("vo") PaginationVO vo) {
 		//목록의 숫자 계산 후 VO count에 입력
-		vo.setCount(auctionDao.selectCount(vo));
+		vo.setCount(auctionWithNickDao.selectCount(vo));
 		
 		model.addAttribute("list", auctionWithNickDao.selectList(vo));
 		return "/WEB-INF/views/auction/list.jsp";

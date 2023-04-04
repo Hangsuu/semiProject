@@ -38,6 +38,7 @@ $(function(){
 			
 			if(list!=null && list.length!=0){
 				var textVal = list[1];
+				textVal = textVal.trim();
 				if(!tagList.has(textVal)&&textVal){
 					tagList.add(textVal);
 	
@@ -58,7 +59,7 @@ $(function(){
 	$(".tag-search-input").change(function(){
 		var text = $(this).val();
 		text = text.replace("#", "").trim();
-		if(preValue!=text){
+		if(text.length>0 && preValue!=text){
 			if(!tagList.has(text)){
 				tagList.add(text);
 				//set을 전송 가능한 문자열 형태로 반환

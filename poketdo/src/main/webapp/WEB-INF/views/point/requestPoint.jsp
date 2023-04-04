@@ -65,11 +65,11 @@
 						</select>
 					</div>
 				</div>
-				<div>				
-					<div class="pocket-input-box">
+				<div class="mb-50">				
+					<div class="pocket-input-box ">
 						<span>입금 하실 금액</span>
 					</div>
-					<div class="pocket-input-box">
+					<div class="pocket-input-box ">
 						<span class="selectTarget">10000원</span>
 					</div>
 				</div>

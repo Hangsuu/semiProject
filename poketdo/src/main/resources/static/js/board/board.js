@@ -30,9 +30,8 @@ $(function () {
         for (let i = 0; i < response.length; i++) {
           const replyDto = response[i];
 
-          const newReplyEle = $(
-            $.parseHTML($("#board-reply-template").html())
-          );
+          const newReplyEle = $($($.parseHTML($("#board-reply-template").text())));
+
 
           // 댓글 작성자
           newReplyEle.find(".board-reply-writer").text(replyDto.replyWriter);
@@ -158,15 +157,15 @@ $(function () {
     let likeCntEle = $(this).children().eq(1);
     // 좋아요일 때 하트 채우기, 아닐 때 비우기
     $.ajax({
-      url: "/rest/like/",
-      method: "post",
-      data: likeTableDto,
-      success: function (responseIsLike) {
-        if (responseIsLike) {
-          heartEle.addClass("fas");
-        } else {
-          heartEle.removeClass("fas");
-        }
+  		url: "/rest/like/",
+  		method: "post",
+  		data: likeTableDto,
+  		success: function (responseIsLike) {
+    		if (responseIsLike.result) {
+      		heartEle.addClass("fas");
+    		} else {
+      			heartEle.removeClass("fas");
+        	}
         // 좋아요 갯수 반영
         $.ajax({
           url: "/rest/like/count",

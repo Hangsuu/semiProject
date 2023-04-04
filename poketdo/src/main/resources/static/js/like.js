@@ -19,12 +19,7 @@ $(function(){
 				url:"/rest/like/count?allboardNo="+allboardNo,
 				method:"get",
 				success:function(response){
-					if(response!=0){
-						$(".like-count").text(response);
-					}
-					else{
-						$(".like-count").text("");
-					}
+					$(".like-count").text(response);
 				}
 			});
 		},
@@ -56,12 +51,7 @@ $(function(){
 					url:"/rest/like/count?allboardNo="+allboardNo,
 					method:"get",
 					success:function(response){
-						if(response!=0){
-							$(".like-count").text(response);
-						}
-						else{
-							$(".like-count").text("");
-						}
+						$(".like-count").text(response);
 					}
 				});
 			},

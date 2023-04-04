@@ -6,6 +6,7 @@
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
 	var boardWriter = "${auctionDto.auctionWriter}";
+	var auctionFinish="${auctionDto.auctionFinish}";
 </script>
 <script src="/static/js/timer.js"></script>
 <script src="/static/js/auction-bid.js"></script>
@@ -58,15 +59,136 @@ $(function(){
 		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
+<script type="text/template" id="auction-delivery-template">
+<div class="flex-box p-20" style="height:220px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+	<div class="w-25 flex-box align-center" style="font-size:60px;">
+		<div class="row">
+			<div class="row flex-box align-center" style=" height:100px">
+				<i class="fa-solid fa-credit-card" style="color:#c9c9c9"></i>
+			</div>
+			<div class="row flex-box align-center" style=" height:30px">
+				<span style="font-size:16px">낙찰자</span><span class="finish-bid-nick ms-10" style="font-size:16px"></span>
+			</div>
+			<div class="row flex-box align-center" style=" height:30px">
+				<a class="form-btn neutral send-message">쪽지보내기</a>
+			</div>
+		</div>
+	</div>
+	<div class="flex-box align-center" style="font-size:40px; width:12.5%">
+		<i class="fa-solid fa-arrow-right" style="color:#c9c9c9"></i>
+	</div>
+	<div class="w-25 flex-box align-center" style="font-size:60px;">
+		<div class="row">
+			<div class="row flex-box align-center" style=" height:100px">
+				<i class="fa-solid fa-truck" style="color:#c9c9c9"></i>
+			</div>
+			<div class="row flex-box align-center" style=" height:60px">
+				<button class="form-btn negative delivery-btn">배송 전</button>
+			</div>
+		</div>
+	</div>
+	<div class="flex-box align-center" style="font-size:40px; width:12.5%">
+		<i class="fa-solid fa-arrow-right" style="color:#c9c9c9"></i>
+	</div>
+	<div class="w-25 flex-box align-center" style="font-size:60px">
+		<div class="row">
+			<div class="row flex-box align-center" style=" height:100px">
+				<i class="fa-solid fa-gift" style="color:#c9c9c9"></i>
+			</div>
+				<div class="row flex-box align-center" style=" height:60px">
+				<button class="form-btn negative finish-btn">수령 완료</button>
+			</div>
+		</div>
+	</div>
+</div>
+</script>
 <script src="/static/js/like.js"></script>
 <script src="/static/js/bookmark.js"></script>
 <div class="container-900 mt-50">
-	<div class="row">
-	제목 : ${auctionDto.auctionTitle}
-	<c:if test="${auctionDto.auctionFinish==0}">
-		<button class="form-btn negative finish-btn">거래 완료</button>
-	</c:if>
+<input type="hidden" class="finish-bid-id">
+	<div class="row flex-box">
+		<span class="board-detail-origin">굿즈 경매 게시판</span>
+		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
+	<div class="row board-detail-title">
+		${auctionDto.auctionTitle}
+	</div>
+	<div class="row flex-box">
+		<div class="row">
+			<span class="auction-writer">
+			<!-- 작성자 검색 링크 -->
+				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
+					<img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}
+				</a>
+			</span>
+			<span class="board-detail-time">${auctionDto.boardTime}</span>
+			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
+			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn">삭제</a>
+			</c:if>
+		</div>
+		<div class="row align-right">
+			조회수 : ${auctionDto.auctionRead}
+		</div>
+	</div>
+
+	<div class="row" style="border-top:3px solid #f2f4fb; border-bottom: 3px solid #f2f4fb">
+		<!-- 본문 -->
+		<div class="row w-100" style="min-height:400px">${auctionDto.auctionContent}</div>
+		<div class="row">
+			<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">${auctionDto.memberNick}님의 게시글 더 보기</a>
+		</div>
+		<div class="row">
+		<!-- 좋아요 -->
+			<div class="left like-box" style="display:inline-block">
+				<i class="fa-heart detail-like"></i>
+				좋아요 :<span class="like-count" style="margin-left:0.5em">${auctionDto.auctionLike}</span>
+			</div>
+		<!-- 댓글 개수 댓글 span(class=reply-count)에 카운트 처리되도록 함-->
+			<div class="reply-number-box" style="display:inline-block">
+				댓글 :<span class="reply-count" style="margin-left:0.5em">${auctionDto.auctionReply}</span>
+			</div>
+		</div>
+	</div>
+	
+<!-- 댓글 -->
+	<!-- 표시 -->
+	<div class="row reply-best-target">
+	</div>
+	<div class="row reply-target">
+	</div>
+	<!-- 신청 -->
+	<div class="row mt-30">
+		<textarea class="form-input w-100 summernote-reply reply-textarea"></textarea>
+	</div>
+<!-- 댓글 끝 -->
+<!-- 마지막 줄 -->
+	<div class="row flex-box">
+		<div class="row">
+			<a href="write" class="board-detail-btn">글쓰기</a>
+		</div>
+		<div class="row align-right">
+			<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+		</div>
+	</div>
+<!-- 입찰기능 -->
+	<c:if test="${sessionScope.memberId!=auctionDto.auctionWriter}">
+		<div class="my-point"></div>
+		<input type="hidden" class="my-point-input">
+		<div class="row bid-form">
+			<form class="form-bid">
+				<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
+				<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
+				<input class="form-input" name="auctionBidPrice">
+				<button type="button" class="form-btn neutral bid-btn">입찰</button>
+			</form>
+		</div>
+	</c:if>
+<!-- 입찰 기능 끝-->
+<!-- 확정자 페이지 -->
+	<div class="row finish-target"></div>
+<!-- 경매 진행 관련 -->
 	<div class="row">
 		<div class="row finished-auction">
 			<div class="row">
@@ -79,8 +201,6 @@ $(function(){
 			<div class="row writer-control-box">
 				낙찰자 : 
 				<div class="final-last-bid" style="display:inline-block"></div>
-				<a class="form-btn neutral send-message">쪽지 보내기</a>
-				<input type="hidden" class="finish-bid-id">
 			</div>		
 		</div>
 		<div class="row ing-auction">
@@ -100,61 +220,11 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	<div class="row">
-	조회수 : ${auctionDto.auctionRead}
-	</div>
-	<div class="row flex-box">
-		<div>
-			내용
-		</div>
-		<div class="align-right">
-	<!-- 좋아요 -->
-			<div class="left like-box" style="display:inline-block">
-				<i class="fa-heart detail-like"></i>
-				<span class="like-count"></span>
-			</div>
-	<!-- 즐겨찾기 -->
-			<div class="right user-bookmark" style="display: inline-block">
-				<i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
-			</div>
-		</div>
-	</div>
-	<div class="row form-input w-100" style="min-height:200px">${auctionDto.auctionContent}</div>
-	<div class="row">
-	글쓴이 : <span class="auction-writer"><img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}</span>
-	</div>
-<!-- 입찰기능 -->
-	<c:if test="${sessionScope.memberId!=auctionDto.auctionWriter}">
-		<div class="my-point"></div>
-		<input type="hidden" class="my-point-input">
-		<div class="row bid-form">
-			<form class="form-bid">
-				<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
-				<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
-				<input class="form-input" name="auctionBidPrice">
-				<button type="button" class="form-btn neutral bid-btn">입찰</button>
-			</form>
-		</div>
-	</c:if>
-<!-- 입찰 기능 끝-->
+<!-- 경매 진행 관련 끝 -->
 
-<!-- 댓글 -->
-	<!-- 표시 -->
-	<div class="row reply-best-target">
-	</div>
-	<div class="row reply-target">
-	</div>
-	<!-- 신청 -->
-	<div class="row mt-30">
-		<textarea class="form-input w-100 summernote-reply reply-textarea"></textarea>
-	</div>
-<!-- 댓글 끝 -->
-	<div class="row">
-		<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-			<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="form-btn neutral delete-btn">삭제</a>
-			<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="form-btn neutral">수정</a>
-		</c:if>
-		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="form-btn neutral">목록</a>
+	<!-- 즐겨찾기 -->
+	<div class="right user-bookmark" style="display: inline-block">
+		<i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

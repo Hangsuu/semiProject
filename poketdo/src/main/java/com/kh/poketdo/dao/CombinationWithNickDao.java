@@ -113,6 +113,55 @@ public class CombinationWithNickDao {
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 	}
+	public int tagListCount(PaginationVO vo) {
+		if(vo.tagList.length()==0 && !vo.isSearch()) {
+			String sql = "select count(*) from combination_with_nick";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+		else if(vo.tagList.length()>0 && !vo.isSearch()) {
+			String[] list = vo.getTagList().split(",");
+			int n = list.length;
+			String question = "?";
+			for(int i=1; i<n; i++) {
+				question+=",?";
+			}
+			String sql = "SELECT count(*) FROM combination_with_nick WHERE allboard_no IN(SELECT tag_origin FROM tag "
+					+ "WHERE tag_name in("+question+")"
+					+ " GROUP BY tag_origin HAVING count(DISTINCT tag_name)=#1)";
+			sql = sql.replace("#1", n+"");
+			Object[] param = new Object[n];
+			for(int i=0; i<n; i++) {
+				param[i]=list[i];
+			}
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else if(vo.tagList.length()==0 && vo.isSearch()) {
+			String sql = "select count(*) from combination_with_nick where instr(#1, ?)>0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String[] list = vo.getTagList().split(",");
+			int n = list.length;
+			String question = "?";
+			for(int i=1; i<n; i++) {
+				question+=",?";
+			}
+			String sql = "SELECT count(*) FROM combination_with_nick WHERE allboard_no IN(SELECT tag_origin FROM tag "
+					+ "WHERE tag_name in("+question+")"
+					+ " GROUP BY tag_origin HAVING count(DISTINCT tag_name)=#1) "
+					+ "and instr(#2, ?)>0";
+			sql = sql.replace("#1", n+"");
+			sql = sql.replace("#2", vo.getColumn());
+			Object[] param = new Object[n+1];
+			for(int i=0; i<n; i++) {
+				param[i]=list[i];
+			}
+			param[n] = vo.getKeyword();
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+	}
 	public CombinationWithNickDto selectOne(int allboardNo) {
 		String sql = "select * from combination_with_nick where allboard_no=?";
 		Object[] param = {allboardNo};

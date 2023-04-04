@@ -18,7 +18,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 </script>
 <!-- section -->
 <section>
-  <article class="container-1200" style="min-height: 1000px">
+  <article class="container-1100" style="min-height: 1000px">
     <div class="mt-50 mb-10">
       <a class="pocketmonTrade-list-banner" href="/pocketmonTrade">포켓몬교환</a>
     </div>
@@ -199,7 +199,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             >
           </div>
           <div class="flex-align-center">
-            <img height="100%" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${trade.getMemberNick()}
+            <img class="board-seal" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${trade.getMemberNick()}
           </div>
           <div class="flex-all-center">
             <c:choose>

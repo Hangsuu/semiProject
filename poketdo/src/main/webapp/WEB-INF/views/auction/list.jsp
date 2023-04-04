@@ -8,7 +8,7 @@
 </script>
 <script src="/static/js/timer.js"></script>
 <script src="/static/js/bookmark.js"></script>
-<div class="container-1200 mt-50">
+<div class="container-1100 mt-50">
 	<div class="row"><h1 style="font-size:2em">경매</h1></div>
 <!-- 검색 -->
 	<div class="row flex-box ms-10 me-20">
@@ -47,17 +47,23 @@
 					</c:choose>
 				</div>
 		<!-- 남은시간 -->
-				<div class="row">
-					<c:choose>
-						<c:when test="${auctionDto.finish==true}">
-							<span>종료된 상품</span>
-						</c:when>
-						<c:otherwise>
-							<div class="rest-time" data-finish-time="${auctionDto.finishTime}" >
-								남은시간 : ${auctionDto.time}
-							</div>
-						</c:otherwise>
-					</c:choose>
+				<div class="row flex-box">
+					<div class="w-100" style="display:inline-box">
+						<c:choose>
+							<c:when test="${auctionDto.finish==true}">
+								<span>종료된 상품</span>
+							</c:when>
+							<c:otherwise>
+								<div class="rest-time" data-finish-time="${auctionDto.finishTime}" >
+									남은시간 : ${auctionDto.time}
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>
+			<!-- 즐겨찾기 -->
+					<div class="align-right">
+						<i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
+					</div>
 				</div>
 		<!-- 제목 -->
 				<div class="row" style="width:185px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" title="${auctionDto.auctionTitle}">
@@ -67,13 +73,10 @@
 					</a>
 				</div>
 		<!-- 닉네임 및 즐겨찾기 -->
-				<div class="row flex-box"  style="align-items:center">
-					<div>
-						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}</a>
-					</div>
-					<div class="align-right">
-						<!-- 즐겨찾기 -->
-						<i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
+				<div class="row flex-box board-nick-image">
+					<div class="do-not-line-over" style="width:185px">
+						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${auctionDto.urlLink}">
+						<span>${auctionDto.memberNick}</span></a>
 					</div>
 				</div>
 			</div>

@@ -11,7 +11,7 @@ $(function () {
         var now = new Date();
         var nowTime = now.getTime();
         //베스트 댓글
-        if (response.replyDto.length > 3) {
+        if (response.replyDto.length > 3 && response.replyLike.length>0) {
           $(".reply-best-target").addClass("mt-30");
           $(".reply-best-target")
             .text("베스트 댓글")
@@ -22,13 +22,13 @@ $(function () {
             var template = $("#reply-template").html();
             var html = $.parseHTML(template);
             var text = response.replyLike[i].replyContent;
-            $(html)
-              .find(".reply-writer")
-              .text(response.replyLike[i].memberNick)
-              .prepend($("<img>").addClass("board-seal").attr("src", response.replyLike[i].urlLink));
+			//인장 처리
+			var memberNick = $("<span>").text(response.replyLike[i].memberNick).css("vertical-align", "middle");
+			var seal = $("<img>").addClass("board-seal").attr("src", response.replyLike[i].urlLink).css("vertical-align", "middle");
+			$(html).find(".reply-writer").css("vertical-align", "middle").append(seal).append(memberNick);
             //작성자 딱지 넣기
             if (boardWriter == response.replyDto[i].replyWriter) {
-              var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
+              var span = $("<span>").text(" (작성자)").css("color", "#AD000E").css("vertical-align", "middle");
               $(html).find(".reply-writer").append(span);
             }
             $(html).find(".reply-content").html(text);
@@ -38,15 +38,15 @@ $(function () {
             if (timeDif / 1000 / 60 / 60 / 24 >= 1) {
               $(html)
                 .find(".reply-time")
-                .text("(" + response.replyDto[i].replyTime + ")");
+                .text("(" + response.replyDto[i].replyTime + ")").css("vertical-align", "middle");
             } else if (timeDif / 1000 / 60 / 60 >= 1) {
               $(html)
                 .find(".reply-time")
-                .text((Math.floor(timeDif / 1000 / 60 / 60) % 24) + "시간 전");
+                .text((Math.floor(timeDif / 1000 / 60 / 60) % 24) + "시간 전").css("vertical-align", "middle");
             } else {
               $(html)
                 .find(".reply-time")
-                .text((Math.floor(timeDif / 1000 / 60) % 60) + "분 전");
+                .text((Math.floor(timeDif / 1000 / 60) % 60) + "분 전").css("vertical-align", "middle");
             }
             //대댓글 여부 판단
             if (memberId != null && response.replyLike[i].replyGroup == 0) {
@@ -65,31 +65,32 @@ $(function () {
           var template = $("#reply-template").html();
           var html = $.parseHTML(template);
           var text = response.replyDto[i].replyContent;
-          $(html)
-            .find(".reply-writer")
-            .text(response.replyDto[i].memberNick)
-            .prepend($("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink));
           $(html).find(".reply-content").html(text);
+
+			//인장 처리
+			var memberNick = $("<span>").text(response.replyDto[i].memberNick).css("vertical-align", "middle");
+			var seal = $("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink).css("vertical-align", "middle");
+			$(html).find(".reply-writer").css("vertical-align", "middle").append(seal).append(memberNick);
           //시간 넣는 자리
           var thisTime = response.replyDto[i].time;
           var timeDif = nowTime - thisTime;
           if (timeDif / 1000 / 60 / 60 / 24 >= 1) {
             $(html)
               .find(".reply-time")
-              .text("(" + response.replyDto[i].replyTime + ")");
+              .text("(" + response.replyDto[i].replyTime + ")").css("vertical-align", "middle");
           } else if (timeDif / 1000 / 60 / 60 >= 1) {
             $(html)
               .find(".reply-time")
-              .text((Math.floor(timeDif / 1000 / 60 / 60) % 24) + "시간 전");
+              .text((Math.floor(timeDif / 1000 / 60 / 60) % 24) + "시간 전").css("vertical-align", "middle");
           } else {
             $(html)
               .find(".reply-time")
-              .text((Math.floor(timeDif / 1000 / 60) % 60) + "분 전");
+              .text((Math.floor(timeDif / 1000 / 60) % 60) + "분 전").css("vertical-align", "middle");
           }
 
           //작성자인지 판단해서 (작성자) 딱지 넣기
           if (boardWriter == response.replyDto[i].replyWriter) {
-            var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
+            var span = $("<span>").text(" (작성자)").css("color", "#AD000E").css("vertical-align", "middle");
             $(html).find(".reply-writer").append(span);
           }
           // 채택하기

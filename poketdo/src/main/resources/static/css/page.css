@@ -193,6 +193,31 @@ section.member-login-section form {
   height: 2.8em;
   padding: 4px;
 }
+.pocketmonTrade-row2 {
+   display:flex;
+  height: 2.8em;
+  justify-content: space-between;
+  padding: 4px;
+}
+.pocketmonTrade-row2 > * {
+  width: 25%;
+  /* text-align: center; */
+}
+.pocketmonTrade-row2 > *:nth-child(1) {
+  width: 10%;
+  /* text-align: start; */
+}
+.pocketmonTrade-row2 > *:nth-child(2) {
+  width: 25%;
+  /* text-align: start; */
+}
+.pocketmonTrade-row2 > *:nth-child(3) {
+  width: 65%;
+  /* text-align: start; */
+}
+.pocketmonTrade-row2 > *:nth-child(4) {
+  width: 35%;
+}
 .pocketmonTrade-row > * {
   width: 10%;
   /* text-align: center; */

@@ -9,8 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.kh.poketdo.dto.AuctionBidDto;
 import com.kh.poketdo.dto.AuctionBidWithNickDto;
+import com.kh.poketdo.dto.AuctionWithNickDto;
+import com.kh.poketdo.vo.PaginationVO;
 
 @Repository
 public class AuctionBidWithNickDao {
@@ -49,4 +50,5 @@ public class AuctionBidWithNickDao {
 		List<AuctionBidWithNickDto> list = selectList(allboardNo);
 		return list.isEmpty()? null:list.get(0);
 	}
+
 }

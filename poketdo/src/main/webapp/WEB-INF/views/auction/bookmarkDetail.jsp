@@ -108,7 +108,7 @@ $(function(){
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">
 		<span class="board-detail-origin">굿즈 경매 게시판</span>
-		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+		<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
 	<div class="row board-detail-title">
 		${auctionDto.auctionTitle}
@@ -118,18 +118,18 @@ $(function(){
 		</div>
 	</div>
 	<div class="row flex-box">
-		<div class="row" style="vertical-align:center; display:inline-block">
+		<div class="row">
 			<span class="auction-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
-					<img class="board-seal" src="${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
+					<img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}
 				</a>
 			</span>
-			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>
+			<span class="board-detail-time">${auctionDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
-				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">
@@ -151,9 +151,9 @@ $(function(){
 				낙찰 가격 : <span class="final-price"></span>
 				</div>	
 				<!-- 작성자 최대 입찰자 컨트롤 기능 -->
-				<div class="row writer-control-box board-nick-image">
+				<div class="row writer-control-box">
 					낙찰자 : 
-					<div class="final-last-bid" style="display:inline-block; vertical-align:middle"></div>
+					<div class="final-last-bid" style="display:inline-block"></div>
 				</div>		
 			</div>
 			<div class="row ing-auction">
@@ -175,7 +175,7 @@ $(function(){
 		</div>
 	<!-- 경매 진행 관련 끝 -->
 		<!-- 본문 -->
-		<div class="row w-100 board-detail-content do-not-over" style="min-height:400px; padding-left:1em; padding-right:1em">${auctionDto.auctionContent}</div>
+		<div class="row w-100" style="min-height:400px; padding-left:1em; padding-right:1em">${auctionDto.auctionContent}</div>
 		<div class="row">
 			<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">${auctionDto.memberNick}님의 게시글 더 보기</a>
 		</div>
@@ -223,7 +223,7 @@ $(function(){
 			<a href="write" class="board-detail-btn">글쓰기</a>
 		</div>
 		<div class="row align-right">
-			<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+			<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 		</div>
 	</div>
 </div>

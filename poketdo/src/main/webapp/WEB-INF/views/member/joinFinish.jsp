@@ -46,7 +46,7 @@
   
   <!-- article -->
   <article>
-     <div class= "container-500 super-center" style="height:60vh">
+     <div class= "container-500 flex-all-center" style="height:60vh">
 		<div>
 			<h1>회원가입을 환영합니다!</h1>
  		</div>

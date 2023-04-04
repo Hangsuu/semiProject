@@ -11,6 +11,7 @@ $(function(){
 			url:"/rest/reply/"+allboardNo,
 			method:"get",
 			success:function(response){
+				$(".reply-count").text(response.replyCount);
 				var now = new Date();
 				var nowTime = now.getTime();
 				//베스트 댓글
@@ -145,8 +146,9 @@ $(function(){
 			$.ajax({
 				url:"/rest/reply/"+replyNo,
 				method:"delete",
-				success:function(){
+				success:function(response){
 					loadList();
+					
 				},
 				error:function(){
 					alert("통신오류")

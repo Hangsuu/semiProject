@@ -56,6 +56,14 @@ public class AttachmentDao {
 
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	
+	public void delete(int attachmentNo) {
+	    String sql = "delete from attachment where attachment_no = ?";
+	        jdbcTemplate.update(sql, attachmentNo);
+	    }
+		
+	}
 
-}
+
 

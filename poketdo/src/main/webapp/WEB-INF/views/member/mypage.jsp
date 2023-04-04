@@ -11,6 +11,25 @@
 	</script>
     
     
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+  integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
+<script>
+  Kakao.init('c089c8172def97eb00c07217cae17495'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+    
+    
+    <script>
+  Kakao.Share.createCustomButton({
+    container: '#kakaotalk-sharing-btn',
+    templateId: 82775,
+    templateArgs: {
+      title: '국내 최대 포켓몬 커뮤니티 POCKETDO!',
+      description: '나만의 포켓몬 트레이너 카드를 만들어봐요!',
+    },
+  });
+</script>
+    
+    
     
     <style>
     
@@ -77,7 +96,10 @@
 			<button type="button" class = "form-btn positive w-100 mt-30" onclick="MakeCard()">다시 만들기</button>
 			
 			<br>
-	    	카카오톡으로 공유하기 :
+	    	<a id="kakaotalk-sharing-btn" href="javascript:;">
+			  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+			    alt="카카오톡 공유 보내기 버튼" />
+			</a>
 	    	<br>
 	    	트위터로 공유하기 : 
 	    	

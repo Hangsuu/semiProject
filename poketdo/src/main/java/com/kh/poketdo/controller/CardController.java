@@ -58,8 +58,35 @@ public class CardController {
 		String memberId = (String) session.getAttribute("memberId");
 
 		
+		
+		// 기존 파일 삭제
+		MemberProfileDto memberProfileDto = memberProfileDao.selectOne(memberId);
+		if (memberProfileDto != null) {
+		    int attachmentNo = memberProfileDto.getAttachmentNo();
+		    AttachmentDto attachmentDto = attachmentDao.selectOne(attachmentNo);
+		    if (attachmentDto != null) {
+		        File existingFile = new File(dir, String.valueOf(attachmentNo));
+		        if (existingFile.exists()) {
+		            existingFile.delete();
+		        }
+		        attachmentDao.delete(attachmentNo);
+		    }
+		    
+		    File target = new File(dir, String.valueOf(attachmentNo));
+			attach.transferTo(target);		
+			
+			attachmentDao.insert(
+					AttachmentDto.builder().attachmentNo(attachmentNo).attachmentName(attach.getOriginalFilename())
+							.attachmentType(attach.getContentType()).attachmentSize(attach.getSize()).build());
+
+			// 연결정보 등록
+			memberProfileDao.insert(MemberProfileDto.builder().memberId(memberId).attachmentNo(attachmentNo).build());
+			
+		}
 
 		
+		
+	
 			
 			if (!attach.isEmpty()) {
 				int attachmentNo = attachmentDao.sequence();
@@ -75,6 +102,8 @@ public class CardController {
 
 			// 연결정보 등록
 			memberProfileDao.insert(MemberProfileDto.builder().memberId(memberId).attachmentNo(attachmentNo).build());
+			
+			
 		}
 
 	}

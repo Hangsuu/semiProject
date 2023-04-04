@@ -162,7 +162,6 @@ public class AuctionController {
 	}
 	@GetMapping("/edit")
 	public String edit(@ModelAttribute PaginationVO vo, @RequestParam int allboardNo, Model model) {
-		model.addAttribute("vo", vo.getParameter());
 		model.addAttribute("auctionDto", auctionWithNickDao.selectOne(allboardNo));
 		return "/WEB-INF/views/auction/edit.jsp";
 	}

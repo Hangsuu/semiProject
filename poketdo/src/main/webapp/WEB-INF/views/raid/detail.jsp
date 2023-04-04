@@ -394,15 +394,15 @@ $(function(){
 		<div class="row">
 			<span class="raid-writer">
 			<!-- 작성자 검색 링크 -->
-				<a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link">
-					<img class="board-seal" src="${raidDto.urlLink}">${raidDto.memberNick}
+				<a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link" style="vertical-align:middle">
+					<img class="board-seal" src="${raidDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${raidDto.memberNick}</span>
 				</a>
 			</span>
-			<span class="board-detail-time">${raidDto.boardTime}</span>
+			<span class="board-detail-time" style="vertical-align:middle">${raidDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==raidDto.raidWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn">수정</a>
-				<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn">삭제</a>
+				<a href="edit?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">

@@ -1,6 +1,7 @@
 package com.kh.poketdo.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,8 @@ import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.CombinationDao;
 import com.kh.poketdo.dao.CombinationWithNickDao;
 import com.kh.poketdo.dao.TagDao;
-import com.kh.poketdo.dto.AuctionDto;
 import com.kh.poketdo.dto.CombinationDto;
+import com.kh.poketdo.dto.TagDto;
 import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
@@ -88,8 +89,18 @@ public class CombinationController {
 			}
 			session.setAttribute("memory", memory);
 		}
+		List<TagDto> list = tagDao.selectList(allboardNo);
+		String tagList = "";
+		for(int i=0; i<list.size(); i++) {
+			tagList += list.get(i).getTagName();
+			if(i!=list.size()-1) {
+				tagList +=",";
+			}
+			System.out.println(tagList);
+		}
 		model.addAttribute("combinationDto", combinationWithNickDao.selectOne(allboardNo));
 		model.addAttribute("tagDto", tagDao.selectList(allboardNo));
+		model.addAttribute("tagList", tagList);
 		return "/WEB-INF/views/combination/detail.jsp";
 	}
 	@GetMapping("/delete")
@@ -119,7 +130,7 @@ public class CombinationController {
 			RedirectAttributes attr) {
 		combinationDao.edit(combinationDto);
 		attr.addAttribute("allboardNo", combinationDto.getAllboardNo());
-		attr.addAttribute("vo",vo.getParameter());
+		attr.addAttribute("page",vo.getPage());
 		return "redirect:detail";
 	}
 }

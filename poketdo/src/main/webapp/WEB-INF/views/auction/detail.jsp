@@ -128,7 +128,7 @@ $(function(){
 			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}&${vo.parameter}" class="board-detail-btn" style="vertical-align:middle">수정</a>
 				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>

@@ -50,14 +50,14 @@
 					<th>조회수</th> 
 				</tr>
 			</thead>
-			<tbody>
+			<tbody >
 				<c:forEach var="raidDto" items="${list}">
-					<tr>
+					<tr >
 						<td>${raidDto.raidNo}</td>
 						<td class="do-not-over left"><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
-						<td><a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link"><img class="board-seal" src="${raidDto.urlLink}">${raidDto.memberNick}</a></td>
+						<td><a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link" ><img style="vertical-align:middle;" class="board-seal" src="${raidDto.urlLink}" >${raidDto.memberNick}</a></td>
 						<td>${raidDto.time}</td>
 						<c:choose>
 							<c:when test="${raidDto.raidCount>=4}">

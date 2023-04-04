@@ -22,7 +22,7 @@
 					</div>
 					<div class="pocket-input-box">		
 						<input name="pocketTypeNo" class="form-input" >
-						<span class="valid-message">사용 가능 번호입니다!</span>
+						<span class="valid-message">사용 가능한 번호입니다!</span>
 						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>
 						<span class="invalid-message2">이미 사용중인 번호입니다!</span>
 					</div>
@@ -40,7 +40,7 @@
 				</div>
 				<div>
 					<div class="pocket-input-box" >
-						<span>포켓몬스터 이미지(png, gif, jpg)</span>
+						<span>포켓몬스터 타입 이미지(png, gif, jpg)</span>
 					</div>
 					<div class="pocket-input-box">
 						<input type="file" name="attach" accept=".png, .gif, .jpg" class="form-input" >

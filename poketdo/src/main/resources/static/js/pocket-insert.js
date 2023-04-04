@@ -75,7 +75,7 @@ $(function(){
 		//포켓몬 이름 중복 검사
 		$("[name=pocketName]").blur(function(){
 			var pocketName = $(this).val(); 
-			if(pocketName!=0){
+			if(pocketName!=""){
 				$.ajax({
 					url:"/rest/pocketmon/pocketName/" + pocketName,
 					method:"get",

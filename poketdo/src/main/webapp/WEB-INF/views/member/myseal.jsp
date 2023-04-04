@@ -3,6 +3,16 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<script type="text/javascript">
+$(function () {
+	
+	$(".sell-form").submit(function(e) {
+		  if (!confirm("정말 판매하시겠습니까?")) {
+		    e.preventDefault();
+		  }
+	});
+});
+</script>
 
 <section class="container-1200 flex-box">
 
@@ -10,23 +20,23 @@
 	
 	<article class="mt-50 container-1200">
 		
-		
+
 		<div class="my-seal-information" >
 				<div>
-					<span>나의 인장</span>
+					<span>나의 인장 목록</span>
 				</div>
 				<div>
-					<a href="/seal/list">
-						<i class="fa-solid fa-square-arrow-up-right"></i>
-						<span>인장 구매하러 가기</span>
-					</a>
-				</div>
-				<div class="my-seal-image">
+					<span>보유 포인트 :  ${point} point</span>
 					<span>현재 적용 인장</span>
 					<img width="96" height="96" src="${selectAttachNo}">
+					<a href="/seal/list">
+						<span>인장 구매하러 가기</span>
+						<i class="fa-solid fa-square-arrow-up-right"></i>
+					</a>
 				</div>
 		</div>
-		<form action="mysealSelect" method="post">
+		<c:choose>
+	<c:when test="${!list.isEmpty()}">
 		<div class="seal-container">
 			<c:forEach var="mySeal" items="${list}"  varStatus="status"> 
 			<div>
@@ -39,16 +49,41 @@
 				<div>
 					<span>${mySeal.sealName}</span>
 				</div>
-				<div>
-					<input type="checkbox" name="mySealNo" value="${mySeal.mySealNo}">
+				<div >
+				<c:if test="${mySeal.sealPrice!=0}">
+					<span class="seal-price">(${mySeal.sealPrice})</span>
+				</c:if>
+					<span>${mySeal.getSellPrice()}</span>
+					<span>point</span>
+				</div>
+				<div class="my-seal-menu">
+							<div>
+								<form action="mysealSelect" method="post" >
+									<input type="hidden" name="mySealNo" value="${mySeal.mySealNo}">
+									<button class="form-btn positive">적용</button>
+								</form>
+							</div>
+							<c:if test="${mySeal.sealNo!=0}">
+							<div>
+								<form action="mysealSell" method="post" class="sell-form">
+									<input type="hidden" name="mySealNo" value="${mySeal.mySealNo}">
+									<input type="hidden" name="sealPrice" value="${mySeal.getSellPrice()}">
+									<button class="form-btn negative">판매</button>
+								</form>
+							</div>
+							</c:if>
 				</div>
 			</div>	
 			</c:forEach>
 		</div>
-			<div>
-				<button>선택 완료</button>
-			</div>
-			</form>
+        </c:when>
+        <c:otherwise>
+        	<div style=" text-align: center; margin:200px;">
+        		<span>검색 결과가 없습니다.</span>
+        	</div>
+        </c:otherwise>
+	</c:choose>
+	
 	
 <div class="row pagination mb-30">
 			<!-- 페이지 네비게이터-vo에 있는 데이터를 기반으로 구현  -->

@@ -520,41 +520,41 @@
 	flex-direction: column;
 	align-items: center;
 }
-.pocket-detail-container > div > .left-text {
+.pocket-detail-container > div > .pocket-left-text {
 	position: absolute;
 	display: block;
 	left: 30px;
 	top: 185px;
 	text-align: left;
 }
-.pocket-detail-container > div > .left-text > span:nth-child(1) {
+.pocket-detail-container > div > .pocket-left-text > span:nth-child(1) {
 	font-weight: 300;
 	font-size: 20px;
 	color: #808080;
 }
-.pocket-detail-container > div > .left-text > span:nth-child(2) {
+.pocket-detail-container > div > .pocket-left-text > span:nth-child(2) {
 	font-weight: 400;
 	font-size: 30px;
 	display:block;
 }
-.pocket-detail-container > div > .right-text {
+.pocket-detail-container > div > .pocket-right-text {
 	position: absolute;
 	display: block;
 	right: 30px;
 	top: 185px;
 	text-align: right;
 }
-.pocket-detail-container > div > .right-text > span:nth-child(1) {
+.pocket-detail-container > div > .pocket-right-text > span:nth-child(1) {
 	font-weight: 300;
 	font-size: 20px;
 	color: #808080;
 }
-.pocket-detail-container > div > .right-text > span:nth-child(2) {
+.pocket-detail-container > div > .pocket-right-text > span:nth-child(2) {
 	font-weight: 400;
 	font-size: 30px;
 	display:block;
 }
-.pocket-detail-container > div > .left {
+.pocket-detail-container > div > .pocket-left {
 	position: absolute;
 	width: 90px;
 	height: 90px;
@@ -565,7 +565,7 @@
 	align-items: center;
 }
 
-.pocket-detail-container > div >.right {
+.pocket-detail-container > div >.pocket-right {
 	position: absolute;
 	width: 90px;
 	height: 90px;

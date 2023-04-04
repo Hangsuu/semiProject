@@ -101,9 +101,9 @@ $(function(){
 	</div>
 <!-- 댓글 끝 -->
 	<div class="row">
-		<a href="list?page=${param.page}&tagList=${param.tagList}&column=${param.column}&keyword=${param.keyword}" class="form-btn neutral">목록으로</a>
+		<a href="list?page=${param.page}&tagList=${param.tagList}&column=${param.column}&keyword=${param.keyword}" class="form-btn neutral"><i class="fa-solid fa-rectangle-list me-10"></i>목록으로</a>
 		<c:if test="${sessionScope.memberId==combinationDto.combinationWriter}">
-			<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="form-btn neutral delete-btn">삭제</a>
+			<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="form-btn negative delete-btn"><i class="fa-solid fa-trash-can me-10" style="color:white"></i>삭제</a>
 		</c:if>
 	</div>
 </div>

@@ -50,7 +50,7 @@ public class RaidController {
 	@GetMapping("/list")
 	public String list(Model model,
 			@ModelAttribute("vo") PaginationVO vo) {
-		vo.setCount(raidDao.selectCount(vo));
+		vo.setCount(raidWithNickDao.selectCount(vo));
 		model.addAttribute("list", raidWithNickDao.selectList(vo));
 		return "/WEB-INF/views/raid/list.jsp";
 	}

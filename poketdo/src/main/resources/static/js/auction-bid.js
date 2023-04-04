@@ -5,7 +5,6 @@ $(function(){
 	getMinPrice();
 	getMaxPrice();
 	isFinish();
-	$(".finish-btn").hide();
 	if(memberId) getMyPoint();
 
 	function isFinish(){
@@ -14,17 +13,35 @@ $(function(){
 			method:"get",
 			success:function(response){
 				if(response){
+					console.log("들어옴")
 					$(".bid-form").hide();
 					$(".ing-auction").hide();
 					$(".finished-auction").show();
-					if(memberId==boardWriter){
-						$(".send-message").show();
-					}
-					else{
-						$(".send-message").hide();
-					}
-					if(memberId!=null && memberId==$(".finish-bid-id").val()){
-						$(".finish-btn").show();
+					
+				/* ---- 구매자, 판매자 창 ---- */
+					if(memberId==boardWriter || memberId==$(".finish-bid-id").val()){
+						var template = $("#auction-delivery-template").html();
+						var html = $.parseHTML(template);
+						$(html).find(".finish-bid-nick").text($(".final-last-bid").text());
+						if(memberId==boardWriter){
+							$(html).find(".send-message").attr("href", "/message/write?recipient="+$(".finish-bid-id").val())
+						}
+						else{
+							$(html).find(".send-message").attr("href", "/message/write?recipient="+boardWriter);
+						}
+						if(auctionFinish==0){
+							$(html).find(".delivery-btn").click(delivery);
+							$(html).find(".finish-btn").click(finish);
+						}
+						else if(auctionFinish==1){
+							$(html).find(".delivery-btn").removeClass("negative").addClass("neutral").text("배송 시작");
+							$(html).find(".finish-btn").click(finish);
+						}
+						else{
+							$(html).find(".delivery-btn").removeClass("negative").addClass("neutral").text("배송 시작");
+							$(html).find(".finish-btn").removeClass("negative").addClass("neutral");
+						}
+						$(".finish-target").append(html);
 					}
 					return true;
 				}
@@ -32,8 +49,6 @@ $(function(){
 					$(".finished-auction").hide();
 					$(".bid-form").show();
 					$(".ing-auction").show();
-					$(".send-message").hide();
-					$(".finish-btn").hide();
 					return false;
 				}
 			}
@@ -83,7 +98,7 @@ $(function(){
 			alert("로그인 후 이용하세요");
 			return;
 		}
-		if(memberId==$(".auction-writer").text()){
+		if(memberId==boardWriter){
 			$(".form-bid").get(0).reset();
 			alert("작성자는 입찰을 할 수 없습니다");
 			return;
@@ -142,7 +157,10 @@ $(function(){
 		})
 	}
 	
-	$(".finish-btn").click(function(){
+	function finish(){
+		if(memberId==null || memberId!=$(".finish-bid-id").val() || $(this).hasClass("neutral")){
+			return;
+		}
 		if(!confirm("정말로 거래 완료 처리 하시겠습니까?\n확정 후에는 되돌릴 수 없습니다.")){
 			return;
 		}
@@ -150,11 +168,30 @@ $(function(){
 			url:"/rest/auction/finish/"+allboardNo,
 			method:"get",
 			success:function(){
-				$(".finish-btn").remove();
+				$(".finish-btn").removeClass("negative").addClass("neutral");
 			},
 			error:function(){
 				
 			}
 		})
-	});
+	};
+	function delivery(){
+		if(memberId==null || memberId!=boardWriter){
+			return;
+		}
+		if(!confirm("배송 시작 상태로 변경하시겠습니까?")){
+			return;
+		}
+		$.ajax({
+			url:"/rest/auction/delivery/"+allboardNo,
+			method:"get",
+			success:function(){
+				$(".delivery-btn").removeClass("negative").addClass("neutral").text("배송 시작");
+				auctionFinish=2;
+			},
+			error:function(){
+				
+			}
+		})
+	};
 });

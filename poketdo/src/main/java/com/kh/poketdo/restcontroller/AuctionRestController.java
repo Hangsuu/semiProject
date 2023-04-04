@@ -80,4 +80,8 @@ public class AuctionRestController {
 		//작성자에게 돈 줌
 		pointDao.addPoint(auctionDao.selectOne(allboardNo).getAuctionWriter(), lastDto.getAuctionBidPrice());
 	}
+	@GetMapping("/delivery/{allboardNo}")
+	public void delivery(@PathVariable int allboardNo) {
+		auctionDao.changeDelivery(allboardNo);
+	}
 }

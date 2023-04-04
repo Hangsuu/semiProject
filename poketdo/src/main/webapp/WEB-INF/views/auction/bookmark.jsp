@@ -56,9 +56,15 @@ $(function(){
 					var template = $("#list-template").html();
 					var html = $.parseHTML(template);
 					$(html).find(".list-no").text(response.list[i].auctionNo);
-					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.parameter)
+					$(html).find(".list-title").attr("href", "bookmarkDetail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.parameter)
 							.text(response.list[i].auctionTitle);
-					$(html).find(".list-writer").text(response.list[i].auctionWriter);
+					//작성자 검색 링크 생성
+					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
+					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink);
+					var nick = response.list[i].memberNick;
+					nickLink.append(seal).append(nick);
+					$(html).find(".list-writer").append(nickLink);
+					
 					if(response.list[i].finish){
 						$(html).find(".list-time").text("종료");
 					}
@@ -155,24 +161,16 @@ $(function(){
 		<td><i class="fa-solid fa-bookmark" style="color:gray" data-bookmark-type="auction"></i></td>
 	</tr>
 </script>
-<div class="container-1200 mt-50">
-	<div class="row"><h1 style="font-size:2em">경매</h1></div>
+<div class="container-1000 mt-50" style="min-height:700px">
 <!-- 검색 -->
-	<div class="row">
-		<form action="bookmark" method="get" autocomplete="off">
-			<select name="column" class="form-input">
-				<option value="auction_title">제목</option>
-				<option value="auction_content">내용</option>
-				<option value="auction_writer">글쓴이</option>
-			</select>
-			<input name="keyword" class="form-input" placeholder="검색">
-			<input name="page" type="hidden" value="${param.page}">
-			<button class="form-btn neutral">검색</button>
-		</form>
-		<a href="list?page=1" class="form-btn neutral">전체 게시글 보기</a> 
+	<div class="row flex-box">
+		<div class="row"><h1 style="font-size:2em">즐겨찾기 목록</h1></div>
+		<div class="row align-right" style="display:inline-block; align-items:flex-end">
+			<a href="list?page=1" class="form-btn neutral">전체 보기</a> 
+		</div>
 	</div>
 <!-- 게시판 테이블 -->
-	<div class="row">
+	<div class="row" style="padding:1em; border:1px solid #F2F4FB; border-radius:0.5em; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05)">
 		<table class="table table-slit center">
 			<thead>
 				<tr>
@@ -194,8 +192,5 @@ $(function(){
 	<div class="row center pagination">
 	</div>
 <!-- 페이지네이션 끝 -->
-	<div class="row">
-		<a href="write" class="form-btn neutral">글쓰기</a>
-	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

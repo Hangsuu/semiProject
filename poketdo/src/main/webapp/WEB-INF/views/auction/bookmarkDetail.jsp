@@ -108,7 +108,7 @@ $(function(){
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">
 		<span class="board-detail-origin">굿즈 경매 게시판</span>
-		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+		<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
 	<div class="row board-detail-title">
 		${auctionDto.auctionTitle}
@@ -223,7 +223,7 @@ $(function(){
 			<a href="write" class="board-detail-btn">글쓰기</a>
 		</div>
 		<div class="row align-right">
-			<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+			<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 		</div>
 	</div>
 </div>

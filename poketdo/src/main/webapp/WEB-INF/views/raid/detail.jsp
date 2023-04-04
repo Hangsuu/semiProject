@@ -50,7 +50,6 @@ transform: scale(1.01);
 $(function(){
 	var params = new URLSearchParams(location.search);
 	var allboardNo = params.get("allboardNo");
-	var participantCount = $(".participant-count");
 	//작성자일 경우 참가신청 숨기고 관리창 노출
 	if(memberId==boardWriter) {
 		$(".raid-join").hide();
@@ -233,7 +232,7 @@ $(function(){
 	//신청 수락 했을 때의 함수
 	function controlConfirm(){
 		var count = $(".participant-count").text()
-		if(count>=4){
+		if(parseInt(count)>=4){
 			alert("최대 인원을 초과했습니다");
 			return;
 		}
@@ -297,8 +296,6 @@ $(function(){
 	}
 	//확정 참가자가 4명이 됐을 때의 함수
 	function finishedRaid(){
-		var time = $(".raid-start-time").text();
-		var participant = $(".participant-count").text();
 		if(isFinished()){
 			$(".ing-raid").hide();
 			$(".finished-raid").show();
@@ -310,8 +307,9 @@ $(function(){
 	}
 	function isFinished(){
 		var time = $(".raid-start-time").text();
+		console.log(time);
 		var participant = $(".participant-count").text();
-		return time.trim()=="종료" || participant>=4;
+		return time.trim()=="종료" || parseInt(participant)>=4;
 	}
 	//삭제버튼 누를 시 확인창
 	
@@ -376,49 +374,76 @@ $(function(){
 	</div>
 </script>
 <script src="/static/js/like.js"></script>
-<div class="container-1200 mt-50">
-	<div class="row">
-	제목 : [${raidDto.raidMonster}]${raidDto.raidTitle}
+<div class="container-1000 mt-50">
+	<div class="row flex-box">
+		<span class="board-detail-origin">공략 게시판</span>
+		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
-	<div class="row">
-		타입 : 
-		<c:choose>
-			<c:when test="${raidDto.raidType==0}">
-				모집
-			</c:when>
-			<c:otherwise>
-				선착순
-			</c:otherwise>
-		</c:choose>
+	<div class="row board-detail-title">
+		[${raidDto.raidMonster}] ${raidDto.raidTitle}
+			<c:choose>
+				<c:when test="${raidDto.raidType==0}">
+					(모집)
+				</c:when>
+				<c:otherwise>
+					(선착순)
+				</c:otherwise>
+			</c:choose>
 	</div>
-	<div class="row ing-raid">
+	<div class="row flex-box">
 		<div class="row">
-			참가자 : <span class="participant-count">${raidDto.raidCount}</span>/4
+			<span class="raid-writer">
+			<!-- 작성자 검색 링크 -->
+				<a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link">
+					<img class="board-seal" src="${raidDto.urlLink}">${raidDto.memberNick}
+				</a>
+			</span>
+			<span class="board-detail-time">${raidDto.boardTime}</span>
+			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
+			<c:if test="${sessionScope.memberId==raidDto.raidWriter}">
+				<a href="edit?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn">삭제</a>
+			</c:if>
 		</div>
-		<div class="row raid-start-time">
-			${raidDto.time}
+		<div class="row align-right">
+			조회수 : ${raidDto.raidRead}
 		</div>
 	</div>
-	<div class="row finished-raid">
-		모집 종료
-	</div>
-	<div class="row">
-		<div class="float-box">
-			<div class="float-left">내용</div>
-	<!-- 좋아요 -->
-			<div class="float-right like-box" style="display:inline-block">
-				<i class="fa-heart detail-like"></i>
-				<span class="like-count"></span>
+<!-- 본문 시작 -->
+	<div class="row" style="border-top:3px solid #f2f4fb; border-bottom: 3px solid #f2f4fb">
+	<!-- 진행/모집 종료된 레이드 -->
+		<div class="row ing-raid flex-box">
+			<div class="row reply-number-box" style="display:inline-block; padding:0.3em">
+				참가자 : <span class="participant-count">${raidDto.raidCount}</span>/4
+			</div>
+			<div class="row reply-number-box" style="display:inline-block; padding:0.3em">
+				시작시간 : <span class="raid-start-time">${raidDto.time}</span>
 			</div>
 		</div>
-		<div class="row form-input w-100" style="min-height:400px">
-		${raidDto.raidContent}
+		<div class="row finished-raid reply-number-box" style="display:inline-block;padding:0.3em">
+			모집 종료
+		</div>
+		<!-- 본문 -->
+		<div class="row w-100" style="min-height:400px; padding-left:1em; padding-right:1em">${raidDto.raidContent}</div>
+		<div class="row">
+			<a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link">${raidDto.memberNick}님의 게시글 더 보기</a>
+		</div>
+		<div class="row">
+		<!-- 좋아요 -->
+			<div class="left like-box" style="display:inline-block">
+				<i class="fa-heart detail-like"></i>
+				좋아요 :<span class="like-count" style="margin-left:0.5em">${raidDto.raidLike}</span>
+			</div>
+		<!-- 댓글 개수 댓글 span(class=reply-count)에 카운트 처리되도록 함-->
+			<div class="reply-number-box" style="display:inline-block">
+				댓글 :<span class="reply-count" style="margin-left:0.5em">${raidDto.raidReply}</span>
+			</div>
 		</div>
 	</div>
-
+<!-- 본문 끝 -->
 <!-- 레이드 참가 신청 -->
 	<div class="row raid-join mt-30 w-50">
-		<span class="raid-join-status"></span>
+		<span class="raid-join-status" style="margin-bottom:10px" ></span>
 		<form class="raid-join-form">
 			<input type="hidden" name="raidJoinOrigin" value="${raidDto.allboardNo}">
 			<input type="hidden" name="raidJoinMember" value="${sessionScope.memberId}">
@@ -458,11 +483,14 @@ $(function(){
 		<textarea class="form-input w-100 summernote-reply reply-textarea"></textarea>
 	</div>
 <!-- 댓글 끝 -->
-	<div class="row">
-		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="form-btn neutral"><i class="fa-solid fa-rectangle-list me-10"></i>목록으로</a>
-		<c:if test="${sessionScope.memberId==raidDto.raidWriter}">
-			<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="form-btn negative delete-btn"><i class="fa-solid fa-trash-can me-10" style="color:white"></i>삭제</a>
-		</c:if>
+<!-- 마지막 줄 -->
+	<div class="row flex-box">
+		<div class="row">
+			<a href="write" class="board-detail-btn">글쓰기</a>
+		</div>
+		<div class="row align-right">
+			<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+		</div>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

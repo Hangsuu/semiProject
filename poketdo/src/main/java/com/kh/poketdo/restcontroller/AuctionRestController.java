@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.poketdo.dao.AuctionBidDao;
 import com.kh.poketdo.dao.AuctionBidWithNickDao;
 import com.kh.poketdo.dao.AuctionDao;
+import com.kh.poketdo.dao.AuctionWithNickDao;
 import com.kh.poketdo.dao.PointDao;
 import com.kh.poketdo.dto.AuctionBidDto;
 import com.kh.poketdo.dto.AuctionBidWithNickDto;
@@ -32,6 +33,8 @@ public class AuctionRestController {
 	private AuctionBidWithNickDao auctionBidWithNickDao;
 	@Autowired
 	private PointDao pointDao;
+	@Autowired
+	private AuctionWithNickDao auctionWithNickDao;
 	
 	@PostMapping("/")
 	public AuctionBidWithNickDto insert(@ModelAttribute AuctionBidDto auctionBidDto) {
@@ -70,7 +73,7 @@ public class AuctionRestController {
 	public BookmarkVO list(@ModelAttribute PaginationVO vo, HttpSession session){
 		String memberId = (String)session.getAttribute("memberId");
 		vo.setCount(auctionDao.bookmarkCount(vo, memberId));
-		return BookmarkVO.builder().vo(vo).list(auctionDao.bookmarkList(vo, memberId)).build();
+		return BookmarkVO.builder().vo(vo).list(auctionWithNickDao.bookmarkList(vo, memberId)).build();
 	}
 	@GetMapping("/finish/{allboardNo}")
 	public void finish(@PathVariable int allboardNo) {

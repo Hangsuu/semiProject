@@ -67,9 +67,10 @@
 					</a>
 				</div>
 		<!-- 닉네임 및 즐겨찾기 -->
-				<div class="row flex-box"  style="align-items:center">
+				<div class="row flex-box board-nick-image">
 					<div>
-						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}</a>
+						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${auctionDto.urlLink}">
+						<span>${auctionDto.memberNick}</span></a>
 					</div>
 					<div class="align-right">
 						<!-- 즐겨찾기 -->

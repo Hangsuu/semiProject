@@ -31,6 +31,23 @@
 .flex-box {
   display: flex;
 }
+.board-nick-image{
+	align-items:center;
+}
+.board-nick-image > div:first-child{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+.board-nick-image > div:first-child a{
+	height:100%; 
+	display: inline-flex; 
+	align-items: center; 
+	justify-content: center;
+}
+.board-nick-image > div:first-child span{
+	display: inline-block;
+}
 
 .flex-box.flex-auto-width > * {
   flex-grow: 1;

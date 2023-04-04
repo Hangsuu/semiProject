@@ -6,6 +6,20 @@
 <script src="/static/js/seal-insert.js"></script>
 
 <script type="text/javascript">
+	$(function () {
+		
+		$(".confirm-delete").click(function(e){
+		    if(!confirm("정말 삭제하시겠습니까?")){
+			    e.preventDefault();
+		    }
+		});
+
+		$(".buy-point-form").submit(function(e) {
+			  if (!confirm("정말 처리 완료 하시겠습니까?")) {
+			    e.preventDefault();
+			  }
+			});
+	
 </script>
 
 <section class="container-1200 flex-box flex-vertical">
@@ -17,6 +31,9 @@
 	<form action="pointProcess" method="post" enctype="multipart/form-data" class="form point-form">
 		<div class="pocket-input-container" >
 			<div>
+				<c:if test="${pointDto.getPointBoardHead()!=0}">
+					<h1>[처리완료]</h1>
+				</c:if>
 				<h1>포인트 요청서</h1>
 			</div>	
 			<div class="mb-50">
@@ -68,10 +85,21 @@
 				<div>
 				
 					<div class="pocket-input-box2">
+					<c:if test="${pointDto.getPointBoardHead()==0}">
 						<c:if test="${sessionScope.memberLevel=='관리자'}">
+								<div>
 									<button type="submit" class="form-btn positive" >처리 완료</button>
+								</div>
 						</c:if>
-						<a href="/point/delete?pointBoardNo=${pointDto.getPointBoardNo()}" class="form-btn negative" >삭제</a>
+					</c:if>
+						<div>	
+							<a href="list" class="form-btn positive" >목록</a>
+						</div>
+						<c:if test="${sessionScope.memberLevel=='관리자' || memberId == pointDto.getPointBoardWriter() || sessionScope.memberId != null}">
+							<div>	
+								<a href="/point/delete?pointBoardNo=${pointDto.getPointBoardNo()}" class="form-btn negative confirm-delete" >삭제</a>
+							</div>
+						</c:if>
 					</div>
 				</div>	
 			</div>	

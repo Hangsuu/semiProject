@@ -64,7 +64,11 @@ pageEncoding="UTF-8"%>
     <!-- 본문 -->
     <div class="pocketmonTrade-list">
       <div class="bold pocketmonTrade-row h-2p5em pocketmonTrade-head">
-        <div class="flex-all-center">번호</div>
+        <div class="flex-all-center">
+      <c:if test="${sessionScope.memberLevel=='관리자'}">
+        번호
+       </c:if>
+        </div>
         <div class="flex-all-center">구분</div>
         <div class="flex-all-center">제목</div>
         <div class="flex-align-center">작성자</div>
@@ -74,7 +78,11 @@ pageEncoding="UTF-8"%>
       <!-- 게시물 -->
       <c:forEach var="list" items="${list}">
         <div class="pocketmonTrade-row">
-          <div class="flex-all-center">${list.getPointBoardNo()}</div>
+          <div class="flex-all-center">
+        <c:if test="${sessionScope.memberLevel=='관리자'}">
+          ${list.getPointBoardNo()}
+         </c:if>
+          </div>
           <div class="flex-all-center bold">
           <c:choose>
           	<c:when test="${list.getPointBoardHead()==0}">

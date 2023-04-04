@@ -247,7 +247,17 @@ section.member-login-section form {
   border: 1px solid red;
   border-radius: 0.3em;
 }
-
+.typeTag {
+  text-decoration: none;
+}
+.ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
 .pocketmonTrade-pagination > * {
   width: 1.5em;
   height: 1.5em;
@@ -301,6 +311,7 @@ section.member-login-section form {
 #pocketmonTrade-list-btn {
   margin-left: auto;
 }
+
 .pocketmonTrade-btn {
   font-weight: bold;
   padding: 0.25em 0.5em;
@@ -331,6 +342,23 @@ textarea[name="replyContent"] {
   border: 1px solid red;
   border-radius: 45%;
   padding: 2px;
+}
+.pocketmonTrade-reply-re:hover {
+  cursor: pointer;
+}
+.pocketmonTrade-reply-form {
+  position: relative;
+}
+.reReply {
+  display: flex;
+  align-items: start;
+}
+.reReply > *:first-child {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+.reReply > *:last-child {
+  flex-grow: 1;
 }
 
 /* # Message receive */

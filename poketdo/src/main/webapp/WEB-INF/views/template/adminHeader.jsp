@@ -53,6 +53,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
 					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
 					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+					<a href="/point/list" class="link center"><span class="header-menu">P.충전💰</span></a>
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -62,6 +63,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
 					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
 					<a href="/admin/adminCheck" class="link center"><span class="header-menu">관리 페이지</span></a>
+					<a href="/point/list" class="link center"><span class="header-menu">P.충전💰</span></a>
 				</div>
 			</c:otherwise>
 		</c:choose>

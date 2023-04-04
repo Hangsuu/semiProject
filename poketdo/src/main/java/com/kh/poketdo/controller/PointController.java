@@ -50,7 +50,6 @@ public class PointController {
 		String memberId = (String)session.getAttribute("memberId");
 		pointDto.setPointBoardWriter(memberId);
 		pointDto.setPointBoardNo(boardNo);
-		System.out.println(pointDto);
 		pointDao.requestPointWrite(pointDto);
 		return "redirect:list";
 	}

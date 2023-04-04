@@ -767,6 +767,10 @@
 	text-align: center;
 	margin : 0 auto;
 	margin-bottom:50px;
+	background-color: #FAFAFF;
+	border-radius: 25px;
+	border : 2px solid #9DACE4;
+	padding:2em;
 	
 }
 .pocket-input-container > div:first-child {
@@ -786,6 +790,13 @@
 	margin-top:10px;
 	width:50%;
 	text-align:left;
+}
+.pocket-input-box2 {
+	margin-top:10px;
+	width:50%;
+	display: flex;
+	justify-content: center; /* 가운데 정렬 */
+  	align-items: center; /* 가운데 정렬 */
 }
 .pocket-input-box > input {
 	width:100%;

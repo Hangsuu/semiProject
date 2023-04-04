@@ -22,7 +22,7 @@
 	<article class="mt-50 container-1200 ">
 
 	<form action="requestPoint" method="post" enctype="multipart/form-data" class="form point-form">
-		<div class="pocket-input-container" >
+		<div class="pocket-input-container point-container" >
 			<div>
 				<h1>포인트 요청서</h1>
 			</div>	
@@ -30,8 +30,8 @@
 				<h3>입금 계좌</h3>
 				<h3>KH은행 2023-04-04</h3>
 				<h3>예금주 : POCKETDO</h3>
-				<h2 class="selectTarget2"></h2>
-				<h2 class="selectTarget"></h2>
+				<h2 class="selectTarget2">입금 하실 금액</h2>
+				<h2 class="selectTarget">10000원</h2>
 			</div>	
 			<div>
 				<div>
@@ -58,8 +58,7 @@
 					</div>
 					<div class="pocket-input-box">
 						<select name="requestPoint" class="form-input neutral selectPoint">
-							  <option value="0" selected>0</option>
-							  <option value="10000" >10000</option>
+							  <option value="10000" selected >10000</option>
 							  <option value="30000">30000</option>
 							  <option value="50000">50000</option>
 							  <option value="100000">100000</option>
@@ -71,12 +70,12 @@
 						<span>입금 하실 금액</span>
 					</div>
 					<div class="pocket-input-box">
-						<span class="selectTarget"></span>
+						<span class="selectTarget">10000원</span>
 					</div>
 				</div>
 				<div>
 					<div>
-						<button class="form-btn positive">입력 완료</button>
+						<button class="form-btn positive ">입력 완료</button>
 					</div>
 				</div>	
 			</div>	

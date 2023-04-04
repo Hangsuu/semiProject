@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <script src="/static/js/seal-insert.js"></script>
@@ -65,10 +66,11 @@
 					</div>
 				</div>
 				<div>
-					<div class="pocket-input-box">
-						<button type="submit" class="form-btn positive" >처리 완료</button>
-					</div>
-					<div class="pocket-input-box">
+				
+					<div class="pocket-input-box2">
+						<c:if test="${sessionScope.memberLevel=='관리자'}">
+									<button type="submit" class="form-btn positive" >처리 완료</button>
+						</c:if>
 						<a href="/point/delete?pointBoardNo=${pointDto.getPointBoardNo()}" class="form-btn negative" >삭제</a>
 					</div>
 				</div>	

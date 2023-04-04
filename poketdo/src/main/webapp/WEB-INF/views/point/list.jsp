@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
-uri="http://java.sun.com/jsp/jstl/fmt" %>
+pageEncoding="UTF-8"%> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
@@ -78,21 +78,40 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <div class="flex-all-center bold">
           <c:choose>
           	<c:when test="${list.getPointBoardHead()==0}">
-          		[진행중]
+          		[처리중]
           	</c:when>
           	<c:otherwise>[처리완료]</c:otherwise>
           </c:choose>
           
           </div>
           <div class="flex-align-center" >
+          
+          <c:choose>
+			<c:when test="${sessionScope.memberLevel=='관리자' || sessionScope.memberId== list.getPointBoardWriter() }">
+
             <a
               class="pocketmonTrade-a-link"
               href="detail?pointBoardNo=${list.getPointBoardNo()}">
               포인트 충전 요청!
               </a>
+              
+			</c:when>
+			<c:otherwise>
+			비밀글입니다 <i class="fa-solid fa-lock"></i>
+			</c:otherwise>              
+          </c:choose>
+              
           </div>
           <div class="flex-align-center">
-            <img height="100%" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${list.getPointBoardWriter()}
+          <c:choose>
+			<c:when test="${sessionScope.memberLevel=='관리자' || sessionScope.memberId == list.getPointBoardWriter() }">
+          
+            	<img height="100%" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${list.getPointBoardWriter()}
+ 	        </c:when>
+ 	        <c:otherwise>
+ 	        	포인트 구매자
+ 	        </c:otherwise>   
+           </c:choose> 
           </div>
           <div class="flex-all-center">
             ${list.getPointBoardTime()}
@@ -102,8 +121,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     </div>
     <div class="row right mt-20">
       <c:if test="${sessionScope.memberId != null}">
-        <a class="pocketmonTrade-a-btn" href="requestPoint">
-          <i class="fa-solid fa-pencil"></i> 글쓰기</a></c:if>
+        <a class="form-btn positive" href="requestPoint">
+          💰 충전 요청</a>
+        <a class="form-btn positive" href="list?column=point_board_writer&keyword=${sessionScope.memberId}">
+          <i class="fa-solid fa-magnifying-glass" style="color:white"></i> 내가 쓴 글</a>
+        <a class="form-btn positive" href="list">
+         <i class="fa-solid fa-bars" style="color:white"></i> 전체 목록</a>
+          
+          </c:if>
     </div>
     
     

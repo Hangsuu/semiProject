@@ -193,10 +193,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             <c:if test="${trade.getPocketmonTradeHead()!='공지'}">
               <c:choose>
                 <c:when test="${trade.getPocketmonTradeComplete()==0}">
-                  <span class="pocketmonTrade-ing">진행중</span>
+                  <span class="ing-tag">진행중</span>
                 </c:when>
                 <c:when test="${trade.getPocketmonTradeComplete()==1}">
-                  <span class="pocketmonTrade-done">완료</span>
+                  <span class="complete-tag">완료</span>
                 </c:when>
               </c:choose>
             </c:if>

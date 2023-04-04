@@ -267,9 +267,9 @@ section.member-login-section form {
 .pocketmonTrade-info-footer {
   display: flex;
 }
-.pocketmonTradeReply {
+/* .pocketmonTradeReply {
   margin-left: auto;
-}
+} */
 .pocketmonTradeContent {
   min-height: 400px;
 }
@@ -288,7 +288,6 @@ section.member-login-section form {
   cursor: pointer;
 }
 #pocketmonTrade-like {
-  font-weight: bold;
 }
 #pocketmonTrade-like:hover {
   cursor: pointer;

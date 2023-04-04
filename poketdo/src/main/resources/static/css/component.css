@@ -3,15 +3,17 @@
   display: flex;
   flex-direction: column;
 }
-
-.title-body > *:last-child {
-  flex-grow: 1;
-  border: 1px solid gray;
-  border-radius: 0.3em;
-  background-color: #fffcfc;
-  margin-top: 0.8em;
+.home-board-list{
+	overflow: auto;
+	padding:1em;
+	flex-grow: 1;
+	border: 2px solid #f2f4fb;
+	border-radius: 0.3em;
+	background-color: #fffdfd;
+	margin-top: 0.8em;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	
 }
-
 /* [Component] flex-row-grow */
 .flex-row-grow {
   width: 100%;

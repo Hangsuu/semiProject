@@ -175,7 +175,7 @@ $(function(){
 		</div>
 	<!-- 경매 진행 관련 끝 -->
 		<!-- 본문 -->
-		<div class="row w-100 board-detail-content" style="min-height:400px; padding-left:1em; padding-right:1em">${auctionDto.auctionContent}</div>
+		<div class="row w-100 board-detail-content do-not-over" style="min-height:400px; padding-left:1em; padding-right:1em">${auctionDto.auctionContent}</div>
 		<div class="row">
 			<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">${auctionDto.memberNick}님의 게시글 더 보기</a>
 		</div>

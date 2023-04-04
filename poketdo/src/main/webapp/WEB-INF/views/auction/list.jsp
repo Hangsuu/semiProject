@@ -8,7 +8,7 @@
 </script>
 <script src="/static/js/timer.js"></script>
 <script src="/static/js/bookmark.js"></script>
-<div class="container-1200 mt-50">
+<div class="container-1100 mt-50">
 	<div class="row"><h1 style="font-size:2em">경매</h1></div>
 <!-- 검색 -->
 	<div class="row flex-box ms-10 me-20">

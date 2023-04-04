@@ -4,7 +4,9 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 
-<section class="container-1200 flex-box">
+
+
+<section class="container-1200 flex-box" style="padding-left:15px;" >
 
 	<aside></aside>
 	
@@ -12,9 +14,9 @@
 
 		<!-- 검색창  -->
 			<div class="row center mb-30" >
-			<h1 class="mb-20">포켓몬 도감</h1>
+			<h1 class="mb-30" style="font-size:30px">포켓몬 도감</h1>
 			
-				<c:if test="${sessionScope.memberLevel=='관리자' }">
+				<c:if test="${sessionScope.memberLevel=='관리자'}">
 					<div class="pocket-insert-btn">
 						<a href="insert" class="form-btn positive" >포켓몬스터 신규 등록</a>
 					</div>

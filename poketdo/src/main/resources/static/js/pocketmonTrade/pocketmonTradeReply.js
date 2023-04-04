@@ -93,6 +93,15 @@ $(function () {
             var span = $("<span>").text(" (작성자)").css("color", "#AD000E").css("vertical-align", "middle");
             $(html).find(".reply-writer").append(span);
           }
+          // 채택하기
+          if(hasChoice=="true" && response.replyDto[i].replyWriter != memberId){
+            $(html)
+              .find(".reply-time").after($("<div>").text("채택하기").addClass("pocketmonTrade-choice-btn ms-10").prepend($("<i>")
+              .addClass("fa-solid fa-check ps-10 recipient-btn me-5")
+              .css("color", "forestgreen")).click(function(){
+                console.log("fdkdjalfjdsklf");
+              }));
+          }
 
           //댓글 작성자의 경우 수정과 삭제 버튼 생성
           if (memberId == response.replyDto[i].replyWriter) {
@@ -514,4 +523,159 @@ $(function () {
       },
     });
   });
+
+  function makeChoice(){
+    var now = new Date();
+        var nowTime = now.getTime();
+        //베스트 댓글
+        if (response.replyDto.length > 3) {
+          $(".reply-best-target").addClass("mt-30");
+          $(".reply-best-target")
+            .text("베스트 댓글")
+            .css("padding-top", "1em")
+            .css("padding", "1em")
+            .append($("<div>").addClass("row").css("border-bottom", "1.5px solid #9DACE4").css("padding-bottom", "0.5em"));
+          for (var i = 0; i < response.replyLike.length; i++) {
+            var template = $("#reply-template").html();
+            var html = $.parseHTML(template);
+            var text = response.replyLike[i].replyContent;
+            $(html)
+              .find(".reply-writer")
+              .text(response.replyLike[i].memberNick)
+              .prepend($("<img>").addClass("board-seal").attr("src", response.replyLike[i].urlLink));
+            //작성자 딱지 넣기
+            if (boardWriter == response.replyDto[i].replyWriter) {
+              var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
+              $(html).find(".reply-writer").append(span);
+            }
+            $(html).find(".reply-content").html(text);
+            //시간 넣는 자리
+            var thisTime = response.replyDto[i].time;
+            var timeDif = nowTime - thisTime;
+            if (timeDif / 1000 / 60 / 60 / 24 >= 1) {
+              $(html)
+                .find(".reply-time")
+                .text("(" + response.replyDto[i].replyTime + ")");
+            } else if (timeDif / 1000 / 60 / 60 >= 1) {
+              $(html)
+                .find(".reply-time")
+                .text((Math.floor(timeDif / 1000 / 60 / 60) % 24) + "시간 전");
+            } else {
+              $(html)
+                .find(".reply-time")
+                .text((Math.floor(timeDif / 1000 / 60) % 60) + "분 전");
+            }
+            //대댓글 여부 판단
+            if (memberId != null && response.replyLike[i].replyGroup == 0) {
+              $(html).find(".remove-box").remove();
+              $(html).find(".remain-box").removeClass("float-right").css("width", "100%");
+            }
+            $(html).find(".reply-like-box").remove();
+            $(".reply-best-target").append(html);
+          }
+        } else {
+          $(".reply-best-target").hide();
+          $(".reply-target").addClass("mt-30");
+        }
+        //댓글 리스트
+        for (var i = 0; i < response.replyDto.length; i++) {
+          var template = $("#reply-template").html();
+          var html = $.parseHTML(template);
+          var text = response.replyDto[i].replyContent;
+          $(html)
+            .find(".reply-writer")
+            .text(response.replyDto[i].memberNick)
+            .prepend($("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink));
+          $(html).find(".reply-content").html(text);
+          //시간 넣는 자리
+          var thisTime = response.replyDto[i].time;
+          var timeDif = nowTime - thisTime;
+          if (timeDif / 1000 / 60 / 60 / 24 >= 1) {
+            $(html)
+              .find(".reply-time")
+              .text("(" + response.replyDto[i].replyTime + ")");
+          } else if (timeDif / 1000 / 60 / 60 >= 1) {
+            $(html)
+              .find(".reply-time")
+              .text((Math.floor(timeDif / 1000 / 60 / 60) % 24) + "시간 전");
+          } else {
+            $(html)
+              .find(".reply-time")
+              .text((Math.floor(timeDif / 1000 / 60) % 60) + "분 전");
+          }
+
+          //작성자인지 판단해서 (작성자) 딱지 넣기
+          if (boardWriter == response.replyDto[i].replyWriter) {
+            var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
+            $(html).find(".reply-writer").append(span);
+          }
+          // 채택하기
+          if(hasChoice=="true" && response.replyDto[i].replyWriter != memberId){
+            $(html)
+              .find(".reply-time").after($("<div>").text("채택하기").addClass("pocketmonTrade-choice-btn ms-10").prepend($("<i>")
+              .addClass("fa-solid fa-check ps-10 recipient-btn me-5")
+              .css("color", "forestgreen")).click(function(){
+                                
+                // newCompleteEle
+                const newCompleteEle = $($.parseHTML($("#complete-template").html()));
+                // seal
+                newCompleteEle.find(".reply-writer")
+                .text(response.replyDto[i].memberNick)
+                .prepend($("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink));
+                // writer
+                newCompleteEle.find(".complete-replyWriter")
+                // content
+                newCompleteEle.find(".complete-replyContent")
+                // message-btn
+                newCompleteEle.find(".complete-reply-message-btn")
+                // cancle-btn
+                newCompleteEle.find(".complete-cancle-btn")
+
+                // add
+                $(".complete-target").append();
+              }));
+          }
+
+          //댓글 작성자의 경우 수정과 삭제 버튼 생성
+          if (memberId == response.replyDto[i].replyWriter) {
+            var deletebtn = $("<i>")
+              .addClass("fa-solid fa-trash ms-10")
+              .attr("data-reply-no", response.replyDto[i].replyNo)
+              .attr("title", "삭제")
+              .click(deleteReply);
+            var editbtn = $("<i>")
+              .addClass("fa-solid fa-edit ms-10")
+              .attr("data-reply-no", response.replyDto[i].replyNo)
+              .attr("data-reply-content", response.replyDto[i].replyContent)
+              .attr("title", "수정")
+              .click(editReply);
+            $(html).find(".reply-option").append(editbtn).append(deletebtn);
+          }
+
+          //로그인 여부 판단 후 답글달기 버튼 및 대댓글 여부 판단
+          if (memberId != null && response.replyDto[i].replyGroup == 0) {
+            $(html).find(".remove-box").remove();
+            $(html).find(".remain-box").removeClass("float-right").css("width", "100%");
+            var childbtn = $("<i>")
+              .addClass("fa-solid fa-reply fa-flip-both ms-10 reply-child-btn")
+              .attr("data-reply-parent", response.replyDto[i].replyNo)
+              .attr("title", "답글달기")
+              .click(childReply);
+            $(html).find(".reply-option").append(childbtn);
+          }
+          //좋아요 버튼
+          if (response.likeCount[i] == 0) {
+            $(html).find(".reply-like").attr("data-reply-no", response.replyDto[i].replyNo).addClass("fa-regular").css("color", "#2d3436");
+            $(html).find(".reply-like-box").click(replyLike);
+          } else {
+            $(html).find(".reply-like").attr("data-reply-no", response.replyDto[i].replyNo).addClass("fa-solid").css("color", "#FF3040");
+            $(html).find(".reply-like-box").click(replyLike);
+          }
+          //좋아요 개수 카운트
+          if (response.replyDto[i].replyLike != 0) {
+            $(html).find(".reply-like-count").text(response.replyDto[i].replyLike);
+          }
+          $(".reply-target").append(html);
+        }
+  }
 });

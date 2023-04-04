@@ -4,14 +4,6 @@
   flex-direction: column;
 }
 
-.title-body > *:last-child {
-  flex-grow: 1;
-  border: 1px solid gray;
-  border-radius: 0.3em;
-  background-color: #fffcfc;
-  margin-top: 0.8em;
-}
-
 /* [Component] flex-row-grow */
 .flex-row-grow {
   width: 100%;

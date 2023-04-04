@@ -28,9 +28,9 @@ public class BoardWithImageDao {
 	public void insert(BoardWithImageDto boardWithImageDto) {
 	    // board 테이블에 데이터 추가를 위한 SQL
 	    String sql = "insert into board ("
-	        + "board_no, allboard_no, board_writer, board_title, board_content, board_time, board_head, board_read, board_like, board_dislike, board_reply"
+	        + "board_no, allboard_no, board_writer, board_title, board_content, board_time, board_head, board_read, board_like, board_reply"
 	        + ") values ("
-	        + "?, ?, ?, ?, ?, sysdate, ?, 0, 0, 0, 0)";
+	        + "?, ?, ?, ?, ?, sysdate, ?, 0, 0, 0)";
 	    Object[] param = {
 	        boardWithImageDto.getBoardNo(),
 	        boardWithImageDto.getAllboardNo(),
@@ -58,7 +58,6 @@ public class BoardWithImageDao {
 			boardWithImageDto.setBoardHead(rs.getString("board_head"));
 			boardWithImageDto.setBoardRead(rs.getInt("board_read"));
 			boardWithImageDto.setBoardLike(rs.getInt("board_like"));
-			boardWithImageDto.setBoardDislike(rs.getInt("board_dislike"));
 			boardWithImageDto.setBoardReply(rs.getInt("board_reply"));
 			return boardWithImageDto;
 		}

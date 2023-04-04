@@ -14,13 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.PocketmonDao;
 import com.kh.poketdo.dao.PocketmonJoinTypeDao;
-import com.kh.poketdo.dao.PocketmonNameImageDao;
 import com.kh.poketdo.dao.PocketmonTypeDao;
 import com.kh.poketdo.dao.PocketmonWithImageDao;
 import com.kh.poketdo.dto.PocketmonDto;
-import com.kh.poketdo.dto.PocketmonNameImageDto;
 import com.kh.poketdo.dto.PocketmonWithImageDto;
-import com.kh.poketdo.service.PocketmonService;
 
 @RestController
 @RequestMapping("/rest/pocketmon")
@@ -32,13 +29,7 @@ public class PocketmonRestController {
 	  private PocketmonJoinTypeDao pocketmonJoinTypeDao;
 	  
 	  @Autowired
-	  private PocketmonNameImageDao pocketmonNameImageDao;
-	  
-	  @Autowired
 	  private PocketmonWithImageDao pocketmonWithImageDao;
-	  
-	  @Autowired
-	  private PocketmonService pocketmonService;
 	  
 	  @Autowired
 	  private PocketmonTypeDao pocketmonTypeDao;
@@ -69,6 +60,7 @@ public class PocketmonRestController {
 	  public PocketmonWithImageDto selectOne(@PathVariable String pocketmonName) {
 		  return pocketmonWithImageDao.selectName(pocketmonName);
 	  };
+
 	  
 	  
 	  
@@ -80,7 +72,7 @@ public class PocketmonRestController {
 		return dto;
 	}
 	
-	
+
 
 	//포켓몬스터 번호 중복검사
 	@GetMapping("/pocketNo/{pocketNo}")

@@ -125,7 +125,7 @@ textarea.form-input {
   min-height: 10em;
 }
 
-/*
+/*link
     추가 스타일
     - 파일 선택창은 테두리를 나오게 하지 않겠다
 */
@@ -516,6 +516,7 @@ a.form-btn {
 a.link {
   color: #2d3436;
   text-decoration: none;
+
 }
 a.link:hover {
   color: #b2bec3;

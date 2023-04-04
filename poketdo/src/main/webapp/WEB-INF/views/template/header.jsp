@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@
+taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,14 +18,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/reply.css" />
     <!-- font-awesome CDN -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     <!-- 링크확인창 CDN -->
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
     <!-- jquery cdn -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/static/js/pocketdex.js"></script>
     <title>POCKETDO!</title>
   </head>
@@ -53,6 +47,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
 					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
 					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+					<a href="/point/list" class="link center"><span class="header-menu">P.충전💰</span></a>
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -62,6 +57,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
 					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
 					<a href="/admin/adminCheck" class="link center"><span class="header-menu">관리 페이지</span></a>
+					<a href="/point/list" class="link center"><span class="header-menu">P.충전💰</span></a>
 				</div>
 			</c:otherwise>
 		</c:choose>
@@ -133,5 +129,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
      </div>
     </header>
     </main>
-  
-<div style="border-top:2px solid #9DACE4"></div>
+
+    <div class="media-css" style="border-top: 2px solid #9dace4"></div>
+  </body>
+</html>

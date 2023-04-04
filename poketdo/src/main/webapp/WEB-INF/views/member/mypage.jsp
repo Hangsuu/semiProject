@@ -2,37 +2,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+   
+ 
+
+
     
     
-    <script type="text/javascript">           
+    
+      <script type="text/javascript">           
 		function MakeCard() {
 			document.location.href="http://localhost:8080/cardGenerator"; <!-- 다른페이지로 이동하는 함수 -->
 		}                                      
 	</script>
     
     
-    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
-  integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
-<script>
-  Kakao.init('c089c8172def97eb00c07217cae17495'); // 사용하려는 앱의 JavaScript 키 입력
-</script>
-    
-    
-    <script>
-  Kakao.Share.createCustomButton({
-    container: '#kakaotalk-sharing-btn',
-    templateId: 82775,
-    templateArgs: {
-      title: '국내 최대 포켓몬 커뮤니티 POCKETDO!',
-      description: '나만의 포켓몬 트레이너 카드를 만들어봐요!',
-    },
-  });
-</script>
-    
     
     
     <style>
     
+    	#myDiv {
+			width: 500px;
+	      height: 300px;
+	    
+	    }
+	    
     
     
  	h1 {
@@ -84,6 +79,36 @@
     
     </style>
     
+    
+    <script>
+	
+		function saveImage() {
+		  // 저장하려는 div의 id 가져오기
+		  const divId = "myDiv";
+		
+		  // 저장할 이미지 파일 이름
+		  const fileName = "TrainerCard.png";
+		
+		  // div 요소 가져오기
+		  const div = document.getElementById(divId);
+		  
+		  // div를 이미지로 변환하기
+		  html2canvas(div).then(function(canvas) {
+		    // 변환된 이미지 파일로 저장하기
+		    let link = document.createElement("a");
+		    document.body.appendChild(link);
+		    link.download = fileName;
+		    link.href = canvas.toDataURL();
+		    link.click();
+		    document.body.removeChild(link);
+		  });
+		}
+		
+	
+	</script>
+	
+    
+    
   <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
   
   <!-- article -->
@@ -91,17 +116,12 @@
      <div class= "container-500">
 	    <c:choose>
 	    <c:when test = "${profile != null}">
-	    	<img width="500" height="300" src="/attachment/download?attachmentNo=${profile.attachmentNo}"> 
-
-			<button type="button" class = "form-btn positive w-100 mt-30" onclick="MakeCard()">다시 만들기</button>
+	    	<div id="myDiv">
+	    		<img width="500" height="300" src="/attachment/download?attachmentNo=${profile.attachmentNo}"> 
+	    	</div>
+			<button type="button" class = "form-btn positive w-100 mt-30" onclick="saveImage()">카드 이미지 저장하기</button>
+			<button type="button" class = "form-btn neutral w-100 mt-10 mb-30" onclick="MakeCard()">트레이너 카드 만들기</button>
 			
-			<br>
-	    	<a id="kakaotalk-sharing-btn" href="javascript:;">
-			  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-			    alt="카카오톡 공유 보내기 버튼" />
-			</a>
-	    	<br>
-	    	트위터로 공유하기 : 
 	    	
 	    </c:when>
  		<c:otherwise>

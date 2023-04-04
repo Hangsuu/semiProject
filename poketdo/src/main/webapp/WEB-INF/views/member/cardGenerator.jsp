@@ -7,6 +7,45 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
 
+
+
+  
+<!-- 카카오톡 공유 -->
+   
+<!--    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
+
+<!-- <script type='text/javascript'> -->
+ 
+<!-- //     Kakao.init('52d9451f533482c35637e8f85921903f'); -->
+
+<!-- //     Kakao.Link.createDefaultButton({ -->
+<!-- //       container: '#kakao-link-btn', -->
+<!-- //       objectType: 'feed', -->
+<!-- //       content: { -->
+<!-- //         title: '국내 최대 포켓몬 커뮤니티 POCEKTDO!', -->
+<!-- //         description: '나만의 포켓몬 트레이너 카드를 만들어봐요!', -->
+<!-- //         imageUrl: 'https://ifh.cc/g/Xdk73X.png', -->
+<!-- //         link: { -->
+<!-- //           mobileWebUrl: 'localhost:8080', -->
+<!-- //           webUrl: 'localhost:8080' -->
+<!-- //         } -->
+<!-- //       }, -->
+<!-- //       buttons: [ -->
+<!-- //         { -->
+<!-- //           title: '트레이너 카드 만들기', -->
+<!-- //           link: { -->
+<!-- //             mobileWebUrl: 'localhost:8080/cardGenerator', -->
+<!-- //             webUrl: 'localhost:8080/cardGenerator' -->
+<!-- //           } -->
+<!-- //         } -->
+<!-- //       ] -->
+<!-- //     }); -->
+ 
+<!-- </script> -->
+
+
+<!-- 서버고르기 -->
+
 	
 
     
@@ -166,13 +205,17 @@
 		    	data:fd,
 		    	success:function(response){
 		    		console.log(response);
+		    		
 		    	},
 		    	error:function(){}
 		    });
+		 			 alert("마이페이지에서 확인 가능합니다");
+		    		window.location = "/member/mypage";
 		  });
 		
-		  alert("마이페이지에서 확인 가능합니다");
+		  
 		}
+	
 		
 	
 	</script>
@@ -190,10 +233,16 @@
 
 		  // "입력" 버튼 클릭 시 실행되는 함수
 		  $card111.on("click", function(){
-		    var pocketName = $("[name=pocketName1]").val(); // 입력창에서 포켓몬 이름 가져오기
+		    var pocketmonName = $("[name=pocketName1]").val().trim(); // 입력창에서 포켓몬 이름 가져오기
 		   
+		    if(pocketmonName == "") { // 입력값이 공백인 경우
+		        alert("포켓몬 이름을 입력해주세요.");
+		        return;
+		      }
+		        
+		    
 		    $.ajax({
-		    	  url: "/rest/pocketmon/" + pocketName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
+		    	  url: "/rest/pocketmon/" + pocketmonName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
 		    	  method: "get", // HTTP 요청 방식을 선택합니다.
 		    	  success: function(response) { // 요청이 성공했을 때 실행될 콜백 함수입니다.
 		    	    var attachmentNo = response.attachmentNo; // attachmentNo 값을 가져옵니다.
@@ -521,13 +570,23 @@
 		<div class="row center">
 			
 			<%-- 로그인 여부 확인 --%>
-			<c:if test="${not empty sessionScope.memberId}">
-  			<%-- 로그인 했을 경우 버튼 노출 --%>
-			<button class= "form-btn neutral w-100 mb-10" type="button" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
-			</c:if>
-			<button class= "form-btn positive w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
+			<c:choose>
+				<c:when test="${not empty sessionScope.memberId}">
+	  			<%-- 로그인 했을 경우 버튼 노출 --%>
+				<button class= "form-btn neutral w-100 mb-10" type="button" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
+				</c:when>
+				<c:otherwise>
+				<button class= "form-btn positive w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
+				</c:otherwise>
+			</c:choose>
 			
-	
+<!-- 			<a id="kakao-link-btn" href="javascript:;"> -->
+<!-- 				<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/> -->
+<!-- 			</a> -->
+			
+<!-- 	    	<br> -->
+<!-- 	    	트위터로 공유하기 :  -->
+			
 	    </div>	       
 <!-- 	</form> -->
    

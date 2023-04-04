@@ -53,6 +53,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
 					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
 					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
+					<a href="/point/list" class="link center"><span class="header-menu">P.충전💰</span></a>
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -62,6 +63,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
 					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
 					<a href="/admin/adminCheck" class="link center"><span class="header-menu">관리 페이지</span></a>
+					<a href="/point/list" class="link center"><span class="header-menu">P.충전💰</span></a>
 				</div>
 			</c:otherwise>
 		</c:choose>
@@ -79,8 +81,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
      <nav class="flex-box flex-auto-width">
        <%-- base.css --%>
        <div class="nav-bar flex-box align-center">
+        
          <div>
-           <a href="/"><span>커뮤니티</span></a>
+           <a href="/pocketdex/list" ><span>포켓몬도감</span></a>
+         </div>
+         
+          <div>
+           <a href="#" style="cursor:default;"><span>커뮤니티</span></a>
            <div>
 			<div>
 			  <a href="/board/list"><span>자유 게시판</span></a>
@@ -93,11 +100,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			</div>
 		</div>
          </div>
+         
          <div>
-           <a href="/pocketdex/list"><span>포켓몬도감</span></a>
-         </div>
-         <div>
-           <a href="/board/list"><span>연구실</span></a>
+           <a href="#" style="cursor:default;"><span>연구실</span></a>
            <div>
              <div>
                <a href="/simulator"><span>개체값 시뮬레이터</span></a>
@@ -111,7 +116,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
            </div>
          </div>
          <div>
-           <a href="#"><span>포켓몬게임</span></a>
+           <a href="#" style="cursor:default;"><span>포켓몬게임</span></a>
            <div>
              <div>
                <a href="/raid/list?page=1"><span>레이드 참가</span></a>

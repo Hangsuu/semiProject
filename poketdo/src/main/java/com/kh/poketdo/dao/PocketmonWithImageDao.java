@@ -121,4 +121,11 @@ public class PocketmonWithImageDao {
 		List<PocketmonWithImageDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty()? null: list.get(0);
 	}
+	
+	
+	
+
+	
+	
+	
 }

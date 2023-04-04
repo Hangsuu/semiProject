@@ -6,33 +6,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script src="/static/js/pocketmonTrade/pocketmonTradeList.js"></script>
 <style>
-  .typeTag {
-    text-decoration: none;
-  }
-  .ellipsis {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap
-  }
-  .h-100 {
-    height: 100%;
-  }
+  
+  
 </style>
 <script>
   // console.log(window.location);
   console.log(window.location.origin)
   $(function(){
-    $(".typeTag").click(function(e){
-      e.preventDefault();
-      const queryString = new URLSearchParams(location.search);
-      queryString.set("type", $(this).text());
-      console.log(queryString.toString());
-
-      const newUrl = window.location.origin + location.pathname + "?" + queryString.toString();
-      console.log(newUrl)
-      location.href=newUrl;
-    })
+    
   })
 </script>
 <!-- section -->
@@ -146,7 +127,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <span></span>
           <div class="flex-align-center">
             <a
-              class="pocketmonTrade-a-link h-100"
+              class="pocketmonTrade-a-link"
               href="/pocketmonTrade/${notice.getPocketmonTradeNo()}"
             >
               <c:if test="${notice.getPocketmonTradeHead()!=null}">
@@ -202,7 +183,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             <c:if test="${trade.getPocketmonTradeHead()!='공지'}">
               <c:choose>
                 <c:when test="${trade.getPocketmonTradeComplete()==0}">
-                  <span class="ing-tag">진행중</span>
+                  <span class="ing-tag" style="margin-top: 3px;">진행중</span>
                 </c:when>
                 <c:when test="${trade.getPocketmonTradeComplete()==1}">
                   <span class="complete-tag">완료</span>

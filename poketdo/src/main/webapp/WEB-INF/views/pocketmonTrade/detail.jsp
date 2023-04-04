@@ -5,25 +5,6 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- summernote css, jQuery CDN -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<style>
-  .pocketmonTrade-reply-re:hover {
-    cursor: pointer;
-  }
-  .pocketmonTrade-reply-form {
-    position: relative;
-  }
-  .reReply {
-    display: flex;
-    align-items: start;
-  }
-  .reReply > *:first-child {
-    margin-top: 5px;
-    margin-right: 10px;
-  }
-  .reReply > *:last-child {
-    flex-grow: 1;
-  }
-</style>
 <!-- 모먼트 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
@@ -31,6 +12,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   const memberLevel = "${sessionScope.memberLevel}";
   const allboardNo = "${pocketmonTradeMemberDto.getAllboardNo()}";
   const pocketmonTradeWriter = "${pocketmonTradeMemberDto.getPocketmonTradeWriter()}";
+  const hasChoice = "${pocketmonTradeMemberDto.getPocketmonTradeComplete()==0}"
   const likeTableDto = {
     memberId: memberId,
     allboardNo: allboardNo,
@@ -42,6 +24,16 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   const boardWriter = "${pocketmonTradeMemberDto.getPocketmonTradeWriter()}";
 </script>
 <script src="/static/js/pocketmonTrade/pocketmonTradeReply.js"></script>
+<style>
+  .pocketmonTrade-choice-btn {
+    /* border: 1px solid black; */
+    color: forestgreen;
+    font-weight: bold;
+  }
+  .pocketmonTrade-choice-btn:hover {
+    cursor: pointer;
+  }
+</style>
 
 <!-- 댓글 템플릿 -->
 <script type="text/template" id="reply-template">
@@ -75,14 +67,28 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   	<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
   </div>
 </script>
-
+<script type="text/template" id="complete-template">
+  <div style="color: #ff8080; font-weight: bold;">글쓴이 채택</div>
+    <div class="flex complete-replyWriter">
+    </div>
+    <div class="complete-replyContent">
+      포켓몬교환 내용
+    </div>
+    <div class="flex">
+      <div class="complete-reply-message-btn">
+        메세지 보내기
+      </div>
+      <div class="complete-cancle-btn">취소버튼</div>
+    </div>
+  </div>
+</script>
 <!-- section -->
 <section class="container-1200 mt-50 mb-30 ps-30 pe-30">
   <!-- article -->
   <article class="w-100">
     <div class="mb-10 flex">
       <div class="board-detail-origin">포켓몬교환 게시판</div>
-      <a class="ml-auto">목록</a>
+      <a class="board-detail-btn ml-auto" href="/pocketmonTrade">목록</a>
     </div>
     <div class="row board-detail-title">
       <c:if test="${pocketmonTradeMemberDto.getPocketmonTradeHead() != null}"> [${pocketmonTradeMemberDto.getPocketmonTradeHead()}] </c:if>
@@ -102,16 +108,15 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       </div>
       <div class="ml-auto">조회수 ${pocketmonTradeMemberDto.getPocketmonTradeRead()}</div>
     </div>
-    <%--
-    <div class="row pocketmonTrade-info-head">
-      <span class="pocketmonTradeRead">&nbsp;&nbsp;조회수 ${pocketmonTradeMemberDto.getPocketmonTradeRead()}</span>
-      <span class="pocketmonTradeReply">댓글 <span class="pocketmonTrade-replyCnt">${pocketmonTradeMemberDto.getPocketmonTradeReply()}</span></span>
-    </div>
-    --%>
     <div class="row" style="border-top: 3px solid #f2f4fb; border-bottom: 3px solid #f2f4fb">
       <div class="row pocketmonTradeContent">
         <div class="row">${pocketmonTradeMemberDto.getPocketmonTradeContent()}</div>
       </div>
+      <div test class="row complete-target" style="border-top: 2px solid #ff3333; box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); padding: 5px;
+      ;">
+        
+      </div>
+
       <div class="row">
         <div>
           <a class="link" href="/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"
@@ -144,8 +149,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       <c:if test="${sessionScope.memberId != null}">
         <a class="board-detail-btn" href="write">글쓰기</a>
       </c:if>
-      <a id="pocketmonTrade-list-btn" class="board-detail-btn" href="/pocketmonTrade">목록</a>
-      <!-- <div>top으로</div> -->
+      <a class="board-detail-btn ml-auto" href="/pocketmonTrade">목록</a>
     </div>
   </article>
   <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

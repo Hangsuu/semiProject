@@ -473,4 +473,44 @@ $(function () {
       console.log("통신 실패");
     },
   });
+
+  // 좋아요 누르면 rest/like/ 호출, 좋아요 여부 반환
+  $("#pocketmonTrade-like").click(function (e) {
+    if (memberId == "") {
+      e.preventDefault();
+      if (confirm("로그인을 한 회원만 사용할 수 있는 기능입니다. 로그인하시겠습니까?")) {
+        location.href = "/member/login";
+      }
+    }
+    let heartEle = $(this).children().first();
+    let likeCntEle = $(this).children().eq(1);
+    // 좋아요일 때 하트 채우기, 아닐 때 비우기
+    $.ajax({
+      url: "/rest/like/",
+      method: "post",
+      data: likeTableDto,
+      success: function (responseIsLike) {
+        if (responseIsLike) {
+          heartEle.addClass("fas");
+        } else {
+          heartEle.removeClass("fas");
+        }
+        // 좋아요 갯수 반영
+        $.ajax({
+          url: "/rest/like/count/",
+          method: "get",
+          data: { allboardNo: allboardNo },
+          success: function (responseLikeCnt) {
+            likeCntEle.text(responseLikeCnt);
+          },
+          error: function () {
+            console.log("like 갯수 통신에러!!!!");
+          },
+        });
+      },
+      error: function () {
+        console.log("하트 채우기 통신에러!!!!");
+      },
+    });
+  });
 });

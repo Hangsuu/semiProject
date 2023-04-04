@@ -267,9 +267,9 @@ section.member-login-section form {
 .pocketmonTrade-info-footer {
   display: flex;
 }
-.pocketmonTradeReply {
+/* .pocketmonTradeReply {
   margin-left: auto;
-}
+} */
 .pocketmonTradeContent {
   min-height: 400px;
 }

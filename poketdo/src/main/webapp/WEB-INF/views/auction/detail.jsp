@@ -117,8 +117,8 @@ $(function(){
 			<i class="fa-regular fa-bookmark" style="font-size:20px;color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
 		</div>
 	</div>
-	<div class="row flex-box">
-		<div class="row">
+	<div class="row flex-box board-nick-image">
+		<div class="row ">
 			<span class="auction-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
@@ -151,7 +151,7 @@ $(function(){
 				낙찰 가격 : <span class="final-price"></span>
 				</div>	
 				<!-- 작성자 최대 입찰자 컨트롤 기능 -->
-				<div class="row writer-control-box">
+				<div class="row writer-control-box board-nick-image">
 					낙찰자 : 
 					<div class="final-last-bid" style="display:inline-block"></div>
 				</div>		

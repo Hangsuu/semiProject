@@ -8,11 +8,15 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
   .pocketmonTrade-reply-re:hover {
     cursor: pointer;
+    
   }
   .pocketmonTrade-reply-form {
     position: relative;
-  }
+
+    }
+  
   .reReply {
+  
     display: flex;
     align-items: start;
   }
@@ -44,7 +48,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="/static/js/pocketmonTrade/pocketmonTradeReply.js"></script>
 
 <!-- 댓글 템플릿 -->
-<script type="text/template" id="reply-template">
+<script type="text/template" id="reply-template" >
   <div class="row reply-box flex-box">
   	<div class="remove-box" style="width:5%">
   		<div class="align-center center" style="padding-top:1em">
@@ -77,7 +81,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 </script>
 
 <!-- section -->
-<section class="container-1200 mt-50 mb-30 ps-30 pe-30">
+<section class="container-1100 mt-50 mb-30 ps-30 pe-30">
   <!-- article -->
   <article class="w-100">
     <div class="mb-10 flex">
@@ -88,13 +92,15 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       <c:if test="${pocketmonTradeMemberDto.getPocketmonTradeHead() != null}"> [${pocketmonTradeMemberDto.getPocketmonTradeHead()}] </c:if>
       ${pocketmonTradeMemberDto.getPocketmonTradeTitle()}
     </div>
-    <div class="row flex ">
-      <div class="row flex ">
-      <div class="row  flex board-nick-image">
+    
+    
+    <div class="row flex">
+      <div class="row flex">
+      <div class="row flex board-nick-image">
         <img class="board-seal" src="/attachment/download?attachmentNo=${pocketmonTradeMemberDto.getAttachmentNo()}" />
         <a class="link" href="/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"
-          >${pocketmonTradeMemberDto.getMemberNick()}</a
-        >
+          >${pocketmonTradeMemberDto.getMemberNick()}</a>
+        
         </div>
         <div class="board-detail-time"><fmt:formatDate value="${pocketmonTradeMemberDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m" /></div>
         <c:if test="${sessionScope.memberId == pocketmonTradeMemberDto.getPocketmonTradeWriter() || sessionScope.memberLevel == '관리자'}">

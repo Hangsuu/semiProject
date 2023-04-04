@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
 
     <!-- 본문 -->
     <div class="pocketmonTrade-list">
-      <div class="bold pocketmonTrade-row h-2p5em pocketmonTrade-head">
+      <div class="bold pocketmonTrade-row2 h-2p5em pocketmonTrade-head">
         <div class="flex-all-center">
       <c:if test="${sessionScope.memberLevel=='관리자'}">
         번호
@@ -77,7 +77,7 @@ pageEncoding="UTF-8"%>
 
       <!-- 게시물 -->
       <c:forEach var="list" items="${list}">
-        <div class="pocketmonTrade-row">
+        <div class="pocketmonTrade-row2">
           <div class="flex-all-center">
         <c:if test="${sessionScope.memberLevel=='관리자'}">
           ${list.getPointBoardNo()}

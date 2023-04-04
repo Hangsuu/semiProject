@@ -103,7 +103,7 @@ $(function(){
 			</c:forEach>
 		</div>
 		<!-- 본문 -->
-		<div class="row w-100 do-not-over" style="min-height:400px; padding-left:1em; padding-right:1em">${combinationDto.combinationContent}</div>
+		<div class="row w-100 do-not-over mt-20" style="min-height:400px; padding-left:1em; padding-right:1em">${combinationDto.combinationContent}</div>
 		<div class="row">
 			<a href="list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">${combinationDto.memberNick}님의 게시글 더 보기</a>
 		</div>

@@ -90,13 +90,12 @@
 						var setList = Array.from(tagList);
 						var setListString = setList.join(",");
 						$("[name=tagList]").val(setListString);
-		
 						list.length=0;
 						$(this).val("#");
 						var target = $(".tag-box")
 						var index = Math.floor(Math.random()*5);
 						var inputTag = $("<span>").addClass("hash-tag").css("background-color", tagColor[index]).css("border", tagBorderColor[index]).text(textVal);
-						var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-value", textVal).click(deleteTag)
+						var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-name", textVal).click(deleteTag)
 						inputTag.append(xmark);
 						target.append(inputTag);
 					}
@@ -124,7 +123,7 @@
 					var target = $(".tag-box")
 					var index = Math.floor(Math.random()*5);
 					var inputTag = $("<span>").addClass("hash-tag").css("background-color", tagColor[index]).css("border", tagBorderColor[index]).text(text);
-					var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-value", text).click(deleteTag)
+					var xmark = $("<i>").addClass("fa-solid fa-xmark ms-10").attr("data-tag-name", text).click(deleteTag)
 					inputTag.append(xmark);
 					target.append(inputTag);
 				}
@@ -132,7 +131,7 @@
 			preValue = text;
 		})
 		function deleteTag(){
-			tagList.delete($(this).data("tag-value"));
+			tagList.delete($(this).data("tag-name"));
 			//set을 전송 가능한 문자열 형태로 반환
 			var setList = Array.from(tagList);
 			var setListString = setList.join(",");

@@ -165,7 +165,7 @@ $(function(){
 						현재 입찰가 : <span class="min-bid-price"></span>
 					</div>
 					<div style="display:inline-block" class="bid-info ms-10">
-						(입찰자 : <img class="board-seal last-bid-seal"><span class="last-bid-nick"></span>)
+						<span style="vertical-align:middle">(입찰자 : </span><img class="board-seal last-bid-seal" style="vertical-align:middle"><span class="last-bid-nick" style="vertical-align:middle"></span>)
 					</div>
 				</div>
 				<div class="row">

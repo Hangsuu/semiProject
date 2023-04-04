@@ -54,9 +54,13 @@
 				<c:forEach var="raidDto" items="${list}">
 					<tr >
 						<td>${raidDto.raidNo}</td>
-						<td class="do-not-over left"><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
-							[${raidDto.raidMonster}] ${raidDto.raidTitle}
-						</a></td>
+						<td class="left">
+							<div class="do-not-line-over" style="width:350px">
+								<a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
+									<span>[${raidDto.raidMonster}] ${raidDto.raidTitle}</span>
+								</a>
+							</div>
+						</td>
 						<td><a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link" ><img style="vertical-align:middle;" class="board-seal" src="${raidDto.urlLink}" >${raidDto.memberNick}</a></td>
 						<td>${raidDto.time}</td>
 						<c:choose>

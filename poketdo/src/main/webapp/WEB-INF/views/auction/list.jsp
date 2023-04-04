@@ -66,7 +66,7 @@
 					</div>
 				</div>
 		<!-- 제목 -->
-				<div class="row" style="width:165px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" title="${auctionDto.auctionTitle}">
+				<div class="row do-not-line-over" style="width:165px;" title="${auctionDto.auctionTitle}">
 					<a href="detail?allboardNo=${auctionDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
 						${auctionDto.auctionTitle} 
 						<c:if test="${auctionDto.auctionReply!=0}">(${auctionDto.auctionReply})</c:if>

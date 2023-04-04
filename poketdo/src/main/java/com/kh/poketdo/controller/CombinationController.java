@@ -127,9 +127,22 @@ public class CombinationController {
 	}
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute PaginationVO vo, @ModelAttribute CombinationDto combinationDto,
-			RedirectAttributes attr) {
+			RedirectAttributes attr, HttpServletRequest request) {
 		combinationDao.edit(combinationDto);
-		attr.addAttribute("allboardNo", combinationDto.getAllboardNo());
+		int allboardNo = combinationDto.getAllboardNo();
+		//기존 태그 삭제
+		List<TagDto> list = tagDao.selectList(allboardNo);
+		for(int i=0; i<list.size(); i++) {
+			tagDao.deleteTag(allboardNo, list.get(i).getTagName());
+		}
+		//새 태그 생성
+		String values = request.getParameter("tagList");
+		if(values.length()>0) {
+			String[] valuesArr = values.split(",");
+		//입력받은 태그를 db에 입력
+			tagDao.insertTags(allboardNo, valuesArr);
+		}
+		attr.addAttribute("allboardNo", allboardNo);
 		attr.addAttribute("page",vo.getPage());
 		return "redirect:detail";
 	}

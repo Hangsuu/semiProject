@@ -163,7 +163,7 @@
 	</div>
 	<div class="row right">
 		<a href="list?page=1" class="form-btn negative w-20">취소</a>
-		<button class="form-btn positive submit-btn" type="button"><i class="fa-solid fa-pen-to-square me-10"></i>작성</button>
+		<button class="form-btn positive submit-btn w-20" type="button"><i class="fa-solid fa-pen-to-square me-10"></i>작성</button>
 	</div>
 </form>
 </div>

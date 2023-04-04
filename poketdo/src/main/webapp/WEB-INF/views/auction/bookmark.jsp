@@ -60,8 +60,8 @@ $(function(){
 							.addClass("do-not-over").text(response.list[i].auctionTitle);
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
-					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink);
-					var nick = response.list[i].memberNick;
+					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink).css("vertical-align", "middle");
+					var nick = $("<span>").text(response.list[i].memberNick).css("vertical-align", "middle");
 					nickLink.append(seal).append(nick);
 					$(html).find(".list-writer").append(nickLink);
 					
@@ -147,19 +147,21 @@ $(function(){
 </script>
 <script type="text/template" id="list-template">
 	<tr>
-		<td class="list-no"></td>
-		<td>
-			<a class="link list-title">
-			</a>
+		<td class="list-no" style="vertical-align:middle"></td>
+		<td style="vertical-align:middle">
+			<div class="do-not-line-over" style="width:350px">
+				<a class="link list-title">
+				</a>
+			</div>
 		</td>
-		<td class="list-writer"></td>
-		<td class="list-time">
+		<td class="list-writer" style="vertical-align:middle"></td>
+		<td class="list-time" style="vertical-align:middle">
 			<div class="rest-time" data-finish-time="${auctionDto.finishTime}" >
 			</div>
 		</td>
-		<td class="list-read"></td>
-		<td class="list-like"></td>
-		<td><i class="fa-solid fa-bookmark" style="color:gray" data-bookmark-type="auction"></i></td>
+		<td class="list-read" style="vertical-align:middle"></td>
+		<td class="list-like" style="vertical-align:middle"></td>
+		<td style="vertical-align:middle"><i class="fa-solid fa-bookmark" style="color:gray" data-bookmark-type="auction"></i></td>
 	</tr>
 </script>
 <div class="container-1000 mt-50" style="min-height:700px">

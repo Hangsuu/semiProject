@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
 
     <!-- 본문 -->
     <div class="pocketmonTrade-list">
-      <div class="bold pocketmonTrade-row h-2p5em pocketmonTrade-head">
+      <div class="bold pocketmonTrade-row2 h-2p5em pocketmonTrade-head">
         <div class="flex-all-center">
       <c:if test="${sessionScope.memberLevel=='관리자'}">
         번호
@@ -77,7 +77,7 @@ pageEncoding="UTF-8"%>
 
       <!-- 게시물 -->
       <c:forEach var="list" items="${list}">
-        <div class="pocketmonTrade-row">
+        <div class="pocketmonTrade-row2">
           <div class="flex-all-center">
         <c:if test="${sessionScope.memberLevel=='관리자'}">
           ${list.getPointBoardNo()}
@@ -114,7 +114,7 @@ pageEncoding="UTF-8"%>
           <c:choose>
 			<c:when test="${sessionScope.memberLevel=='관리자' || sessionScope.memberId == list.getPointBoardWriter() }">
           
-            	<img height="100%" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${list.getPointBoardWriter()}
+            	<img class="board-seal" src="/attachment/download?attachmentNo=${list.getAttachmentNo()}">${list.getMemberNick()}
  	        </c:when>
  	        <c:otherwise>
  	        	포인트 구매자

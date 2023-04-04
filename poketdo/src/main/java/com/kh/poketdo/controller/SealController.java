@@ -66,7 +66,7 @@ public class SealController {
 	//인장 정보 입력 완료 페이지
 	@GetMapping("/insertFinish")
 	public String sealDataInsertFinish() {
-		return "/WEB-INF/views/seal/insertFinish.jsp";
+		return "redirect:list";
 	}
 	
 	//인장 정보 목록
@@ -79,7 +79,6 @@ public class SealController {
 		int totalCount = sealWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);
 		vo.setSize(20);
-		vo.setBlockSize(15);
 		String memberId = (String) session.getAttribute("memberId");
 		List<SealWithImageDto> list = sealWithImageDao.selectList(vo);
 		model.addAttribute("list" , list);
@@ -110,7 +109,7 @@ public class SealController {
 			RedirectAttributes attr
 			) throws IllegalStateException, IOException {
 		sealService.sealEdit(sealDto, attach, sealNo, attr);
-		return "redirect:detail";
+		return "redirect:list";
 	}
 	
   //인장 정보 상세

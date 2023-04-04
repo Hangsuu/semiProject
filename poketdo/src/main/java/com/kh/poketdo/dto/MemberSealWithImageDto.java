@@ -18,5 +18,11 @@ public class MemberSealWithImageDto {
 				if(attachmentNo==null) return "https://via.placeholder.com/96x96";
 				else return "/attachment/download?attachmentNo="+ attachmentNo ;
 			}
-	
+	//인장 판매 가격 조정 메소드
+			public int getSellPrice() {
+				double doublePrice = (double) sealPrice; // int형 변수를 double형으로 형변환합니다.
+				double result = Math.ceil(doublePrice * 0.7 / 100) * 100;
+				int sellPrice = (int)result;
+				return sellPrice;
+			}
 }

@@ -101,7 +101,7 @@
     </div>
     <div class="row">
       <div>
-        <a class="link" href="/pocketmonTrade?column=pocketmon_trade_writer&keyword=${pocketmonTradeMemberDto.getPocketmonTradeWriter()}"><b>${pocketmonTradeMemberDto.getMemberNick()}</b>님의 게시글 더 보기</a>
+        <a class="link" href="/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"><b>${pocketmonTradeMemberDto.getMemberNick()}</b>님의 게시글 더 보기</a>
       </div>
     </div>
 

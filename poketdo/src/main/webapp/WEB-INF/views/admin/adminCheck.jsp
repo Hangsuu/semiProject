@@ -5,28 +5,51 @@
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
  
- <style>
- 	.member-login-section{
- 	display: flex;
- 	justify-content: center;
- 	align-items: center;
- 	height: 100%;
- 	margin: 0 auto;
- 	}
+	 <style>
+	 
+	.super-center{
+ 			display: flex;
+		  flex-direction: row;
+		  align-items: center;
+          }
+ 
+ 
+ 	h1 {
+ 		font-size: 30px}
+ 	
+ 	.form-input {
+		display: block;
+		
+		padding: 15px;
+		font-size: 20px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+				
+			}	
+			
+	.form-btn {
+		padding: 15px;
+		font-size: 20px;
+	}
+ 
  </style>
  
-	<!-- section -->
-<section class="member-login-section">
+ 
 
-  <article>
-    <form action="adminCheck" method="post">
-      <div class="login-form">
+
+  <article class="center">
+    <form class="flex-all-center" style="height:60vh;" action="adminCheck" method="post">
+      <div class="container-500 center">
         <div>
-            <div class="center"><h3>관리자 인증</h3></div>
+           <h1 class="pb-30">관리자 인증</h1>
+        
+        <div class= "row center">
+        <input class="form-input w-100" type="password" name="memberPw" placeholder="비밀번호" autocomplete="off" required>
         </div>
-        <div><input type="password" name="memberPw" placeholder="비밀번호" autocomplete="off" required></div>
-        <div><button type="submit">로그인</button></div>
-        <div>
+        <div class= "row center">
+        <button class="form-btn w-100 positive" type="submit">로그인</button>
+        </div>
+        
           <c:choose>
             <c:when test="${valid == 'no'}">
               이메일 또는 비밀번호가 잘못 입력되었습니다
@@ -39,6 +62,6 @@
        </div>
     </form>
   </article>
-  </section>
+
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

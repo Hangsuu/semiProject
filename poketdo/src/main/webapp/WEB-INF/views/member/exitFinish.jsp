@@ -5,12 +5,14 @@
     
 
   <!-- aside -->
-  <aside></aside>
+ 
+
+  <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
   
 	
   
   <!-- article -->
-  <article>
+  <article class="flex-all-center">
      <div class= "container-500 center">
 		<h1>다시 만나요~!</h1>
  	</div>	

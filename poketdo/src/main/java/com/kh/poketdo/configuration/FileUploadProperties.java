@@ -25,6 +25,7 @@ public class FileUploadProperties {
 	@PostConstruct
 	public void init() {
 		dir = new File(path);
+		dir.mkdirs();
 	}
 
 }

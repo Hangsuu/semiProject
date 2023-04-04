@@ -84,7 +84,7 @@
 	
 	
 		
-	
+	<!-- 바로 이미지 다운받기 -->
 	
 	<script>
 	
@@ -119,6 +119,7 @@
 		function saveImage2() {
 		  // 저장하려는 div의 id 가져오기
 		  const divId = "myDiv";
+		  
 		
 // 		  // 저장할 이미지 파일 이름
 // 		  const fileName = "TrainerCard.png";
@@ -129,13 +130,48 @@
 		  // div를 이미지로 변환하기
 		  html2canvas(div).then(function(canvas) {
 		    // 변환된 이미지 파일로 저장하기
-		    let link = document.createElement("a");
-		    document.body.appendChild(link);
-		    link.download = fileName;
-		    link.href = canvas.toDataURL();
-		    link.click();
-		    document.body.removeChild(link);
+		    var data = canvas.toDataURL();
+		    //console.log(data);
+		    
+		    //data에는 base64 형태로 이미지가 들어있다.
+		    //이 이미지에서 파일 내용만 꺼내서 비동기로 전송
+		    // base64 형식의 이미지 데이터
+			
+			// base64 디코딩하여 이진 데이터 추출
+			const imageData = atob(data.split(',')[1]);
+			
+			// ArrayBuffer 생성
+			const buffer = new ArrayBuffer(imageData.length);
+			
+			// ArrayBufferView 생성
+			const arrayView = new Uint8Array(buffer);
+			
+			// ArrayBufferView에 이진 데이터 쓰기
+			for (let i = 0; i < imageData.length; i++) {
+			  arrayView[i] = imageData.charCodeAt(i);
+			}
+			
+			// Blob 생성
+			const blob = new Blob([arrayView], { type: 'image/png' });
+			
+		    
+		    var fd = new FormData();
+		    fd.append("attach", blob);
+		    
+		    $.ajax({
+		    	url:"cardGenerator",
+		    	type:"post",
+		    	processData:false,
+		    	contentType:false,
+		    	data:fd,
+		    	success:function(response){
+		    		console.log(response);
+		    	},
+		    	error:function(){}
+		    });
 		  });
+		
+		  alert("마이페이지에서 확인 가능합니다");
 		}
 		
 	
@@ -168,6 +204,7 @@
 		    	  error: function(xhr, status, error) { // 요청이 실패했을 때 실행될 콜백 함수입니다.
 		                if(xhr.status == 500) {
 		                    alert("정확한 포켓몬 이름을 입력해주세요");
+		                    currentInputNo--;
 		                    return;
 		                }
 		    		  console.log("error: " + error); // 오류 메시지를 콘솔에 출력합니다.
@@ -190,7 +227,32 @@
 
 	<style>
 	
+		.super-center{
+ 			display: flex;
+		  flex-direction: row;
+		  align-items: center 
+          }
+          
+          
+ 	h1 {
+ 		font-size: 30px}
+ 	
+ 	.form-input {
+		display: block;
 		
+		padding: 15px;
+		font-size: 20px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+				
+			}	
+			
+	.form-btn {
+		padding: 15px;
+		font-size: 20px;
+	}
+          
+ 
 		#myDiv {
 			width: 500px;
 	      height: 300px;
@@ -361,12 +423,13 @@
   
   <!-- article -->
   <article>
-    <form method="get" enctype="multipart/form-data" autocomplete="off">
+<!--     <form class="super-center mt-50 mb-50" style="height:90vh;" method="get" enctype="multipart/form-data" autocomplete="off"> -->
         
+        <div class="super-center mt-50 mb-50">
       <div class= "container-500 center" >
       
     
-	        <h2 class="row center mt-10 mb-10">트레이너 카드 생성기</h2>
+	        <h1 class="row center mt-10 mb-20">트레이너 카드 생성기</h1>
 	        <div class="image-container row left" id="card-container">
 	             <div id="myDiv">
 		           <div class="code-overlay" id="overlay-number"></div>
@@ -453,27 +516,28 @@
          
         </div>
 	
+<!--     <form method="post" enctype="multipart/form-data">		 -->
 		
 		<div class="row center">
 			
 			<%-- 로그인 여부 확인 --%>
 			<c:if test="${not empty sessionScope.memberId}">
   			<%-- 로그인 했을 경우 버튼 노출 --%>
-			<button class= "form-btn neutral w-100 mb-20" type="file" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
+			<button class= "form-btn neutral w-100 mb-10" type="button" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
 			</c:if>
-			<button class= "form-btn neutral w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
+			<button class= "form-btn positive w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>
 			
 	
 	    </div>	       
-		
+<!-- 	</form> -->
+   
 	    
 	    </div>
 	    
 	   
+    </div>
     
     
-    </form>
-   
         
     
          <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">

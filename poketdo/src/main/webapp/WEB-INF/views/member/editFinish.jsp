@@ -10,7 +10,7 @@
 	
   
   <!-- article -->
-  <article>
+  <article class="flex-all-center">
      <div class= "container-500 center">
 		<h1>개인정보 변경 완료</h1>
  	</div>	

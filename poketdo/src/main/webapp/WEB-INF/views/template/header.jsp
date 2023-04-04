@@ -37,27 +37,27 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			<c:when test="${empty sessionScope.memberId}">
 			<!-- css:commons, base -->
 				<div class="row me-40">
-					<a href="/member/login" class="link right"><span class="header-menu">로그인</span></a>
-					<a href="/member/join" class="link right"><span class="header-menu">회원가입</span></a>
+					<a href="/member/login" class="link right"><span class="header-menu me-10">로그인</span></a>
+					<a href="/member/join" class="link right"><span class="header-menu ms-10">회원가입</span></a>
 				</div>
 			</c:when>
 			<c:when test="${sessionScope.memberId!=null && sessionScope.memberLevel!='관리자'}">
 				<div class="row me-40">
-					<a href="/member/logout" class="link center"><span class="header-menu">로그아웃</span></a>
-					<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
-					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
-					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
-					<a href="/point/list" class="link center"><span class="header-menu">P.충전💰</span></a>
+					<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
+					<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장뽑기</span></a>
+					<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
+					<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
+					<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="row me-40">
-					<a href="/member/logout" class="link center"><span class="header-menu">로그아웃</span></a>
-					<a href="/seal/list" class="link center"><span class="header-menu">인장뽑기</span></a>
-					<a href="/message/receive" class="link center"><span class="header-menu">쪽지</span></a>
-					<a href="/member/mypage" class="link center"><span class="header-menu">마이페이지</span></a>
-					<a href="/admin/adminCheck" class="link center"><span class="header-menu">관리 페이지</span></a>
-					<a href="/point/list" class="link center"><span class="header-menu">P.충전💰</span></a>
+					<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
+					<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장뽑기</span></a>
+					<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
+					<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
+					<a href="/admin/adminCheck" class="link right"><span class="header-menu ms-10 me-10">관리 페이지</span></a>
+					<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
 				</div>
 			</c:otherwise>
 		</c:choose>

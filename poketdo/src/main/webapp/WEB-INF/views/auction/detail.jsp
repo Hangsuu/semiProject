@@ -117,19 +117,19 @@ $(function(){
 			<i class="fa-regular fa-bookmark" style="font-size:20px;color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
 		</div>
 	</div>
-	<div class="row flex-box board-nick-image">
-		<div class="row ">
+	<div class="row flex-box">
+		<div class="row" style="vertical-align:center; display:inline-block">
 			<span class="auction-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
-					<img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}
+					<img class="board-seal" src="${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
 				</a>
 			</span>
-			<span class="board-detail-time">${auctionDto.boardTime}</span>
+			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn">수정</a>
-				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn">삭제</a>
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">
@@ -153,7 +153,7 @@ $(function(){
 				<!-- 작성자 최대 입찰자 컨트롤 기능 -->
 				<div class="row writer-control-box board-nick-image">
 					낙찰자 : 
-					<div class="final-last-bid" style="display:inline-block"></div>
+					<div class="final-last-bid" style="display:inline-block; vertical-align:middle"></div>
 				</div>		
 			</div>
 			<div class="row ing-auction">

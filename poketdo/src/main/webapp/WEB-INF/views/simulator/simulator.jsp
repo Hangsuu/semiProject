@@ -67,7 +67,7 @@
 	});
 </script>
 
-    <div class="container-1200 mt-50">
+    <div class="container-1100 mt-50">
     	<div class="row mb-30">
     		<input class="form-input search-input" placeholder="포켓몬 검색">
     		<button class="form-btn neutral search-btn">찾기</button>

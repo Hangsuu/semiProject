@@ -67,7 +67,6 @@
   margin: 0 auto;
 }
 
-
 .container-1140 {
   width: 1140px;
   margin: 0 auto;
@@ -91,20 +90,20 @@
     같은 형태로 쓰기 때문에 색상 등을 제외한 나머지 크기가 동일해야함
 */
 .form-input {
-  font-size:16px;
+  font-size: 16px;
   padding: 0.4em;
-/*   outline: none; 선택 시 강조 효과 제거 */
-  border: 2px solid #F2F4FB;
+  /*   outline: none; 선택 시 강조 효과 제거 */
+  border: 2px solid #f2f4fb;
   border-radius: 0.2em;
 }
 .form-input:focus {
   /*커서가 위치했을 때*/
-/*   border-color: black; */
-border: 2px solid #F2F4FB;
+  /*   border-color: black; */
+  border: 2px solid #f2f4fb;
 }
-.form-input.neutral{
-  background-color: #F2F4FB;
-  border-color: #F2F4FB;
+.form-input.neutral {
+  background-color: #f2f4fb;
+  border-color: #f2f4fb;
   color: #2d3436;
 }
 /*
@@ -145,7 +144,7 @@ input[type="file"].form-input {
   padding: 0.4em;
   border-width: 1px;
   border-style: solid;
-  border-radius:0.2em;
+  border-radius: 0.2em;
   cursor: pointer;
 }
 
@@ -164,8 +163,8 @@ a.form-btn {
 /* 버튼 스타일 */
 /*.form-btn과 .positive가 같이 있으면*/
 .form-btn.positive {
-  background-color: #9DACE4;
-  border-color: #9DACE4;
+  background-color: #9dace4;
+  border-color: #9dace4;
   color: white;
 }
 .form-btn.negative {
@@ -174,8 +173,8 @@ a.form-btn {
   color: white;
 }
 .form-btn.neutral {
-  background-color: #F2F4FB;
-  border-color: #F2F4FB;
+  background-color: #f2f4fb;
+  border-color: #f2f4fb;
   color: #2d3436;
 }
 
@@ -221,7 +220,7 @@ a.form-btn {
   width: 20%;
 }
 .w-16 {
-  width: 16.66667%
+  width: 16.66667%;
 }
 .w-10 {
   width: 10%;
@@ -431,10 +430,9 @@ a.form-btn {
 .table {
   width: 100%;
   border-spacing: 0;
-
 }
-.table-box{
-  border-radius:0.5em;
+.table-box {
+  border-radius: 0.5em;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 /* 
@@ -443,7 +441,7 @@ a.form-btn {
     .table td 
 */
 .table > thead > tr > th,
-.table > thead > tr > td{
+.table > thead > tr > td {
   padding: 0.8em;
 }
 .table > tbody > tr > th,
@@ -468,14 +466,14 @@ a.form-btn {
 .table.table-border > tbody > tr > td,
 .table.table-border > tfoot > tr > th,
 .table.table-border > tfoot > tr > td {
-  border: 1px solid #F2F4FB;
+  border: 1px solid #f2f4fb;
 }
 
 /*
     hover 서브 스타일
 */
 .table.table-hover > tbody > tr:hover {
-  background-color: #F2F4FB;
+  background-color: #f2f4fb;
 }
 
 /*
@@ -496,20 +494,20 @@ a.form-btn {
 */
 .table.table-slit {
   border-collapse: collapse;
-/*   border-top: 2px #C2CCEE solid;
+  /*   border-top: 2px #C2CCEE solid;
   border-bottom: 2px #C2CCEE solid; */
 }
 .table.table-slit > thead {
-  border-bottom: 2px #C2CCEE solid;
+  border-bottom: 2px #c2ccee solid;
 }
 .table.table-slit > tfoot {
-  border-top: 2px #C2CCEE solid;
+  border-top: 2px #c2ccee solid;
 }
 /* 
     마지막 줄은 제외하고 하려면 :not(선택자)를 붙인다
 */
 .table.table-slit > tbody > tr:not(:last-child) {
-  border-bottom: 2px #F2F4FB solid;
+  border-bottom: 2px #f2f4fb solid;
 }
 
 /*
@@ -554,7 +552,7 @@ a.link:hover {
 .pagination > a:hover:not(.disabled) {
   /* border: 1px solid #dfe6e9; */
   box-shadow: 0 0 0 1px #dfe6e9;
-  color: #9DACE4;
+  color: #9dace4;
   font-weight: bold;
 }
 .pagination > a.disabled {
@@ -743,76 +741,87 @@ input [name="memberPw"] {
 }
 
 .valid-message {
-    color: forestgreen;
-    font-style: bold;
-    font-size :13px;
-    display: none;
+  color: forestgreen;
+  font-style: bold;
+  font-size: 13px;
+  display: none;
 }
 .invalid-message,
 .invalid-message2,
 .invalid-message3 {
-    color: red;
-    font-style: bold;
-    font-size :13px;
-    display: none;
+  color: red;
+  font-style: bold;
+  font-size: 13px;
+  display: none;
 }
 /* 
     입력창이 성공상태(.valid)일 경우 
     뒤에 있는 성공메세지(.valid-message)를 표시 
 */
 .valid ~ .valid-message {
-    display: block;
+  display: block;
 }
 /* 
     입력창이 실패상태(.invalid)일 경우 
     뒤에 있는 실패메세지(.invalid-message)를 표시 
 */
 .invalid ~ .invalid-message {
-    display: block;
+  display: block;
 }
 .invalid2 ~ .invalid-message2 {
-    display: block;
+  display: block;
 }
 .invalid3 ~ .invalid-message3 {
-    display: block;
+  display: block;
 }
 
 main section article h1 {
   font-size: 2em;
 }
 /* 해시태그 css */
-.hash-tag{
-	background-color:white;
-	border:2px solid lightgray;
-	margin-left:10px;
-	border-radius:0.4em;
-	padding:0.3em;
-	text-decoration:none;
-	
+.hash-tag {
+  background-color: white;
+  border: 2px solid lightgray;
+  margin-left: 10px;
+  border-radius: 0.4em;
+  padding: 0.3em;
+  text-decoration: none;
 }
-.hash-tag :hover{
-	text-decoration:none;
+.hash-tag :hover {
+  text-decoration: none;
 }
-.hash-tag>.fa-xmark{
-	color:#eb4d4b;
+.hash-tag > .fa-xmark {
+  color: #eb4d4b;
 }
 /* 좋아요 css */
-.like-box{
-	min-width:50px;
-	border:1px solid #F2F2F2;
-	background-color:#F2F2F2;
-	border-radius:1em;
-	padding-left:0.5em;
-	padding-right:0.5em;
-	cursor:pointer
+.like-box {
+  min-width: 50px;
+  border: 1px solid #f2f2f2;
+  background-color: #f2f2f2;
+  border-radius: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  cursor: pointer;
 }
 /* 댓글 좋아요 css */
-.reply-like-box{
-	min-width:50px;
-	border:1px solid #F2F2F2;
-	background-color:#F2F2F2;
-	border-radius:1em;
-	padding-left:0.5em;
-	padding-right:0.5em;
-	cursor:pointer
+.reply-like-box {
+  min-width: 50px;
+  border: 1px solid #f2f2f2;
+  background-color: #f2f2f2;
+  border-radius: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  cursor: pointer;
+}
+.ing-tag {
+  border: 1px solid orange;
+  color: orange;
+  border-radius: 1em;
+  padding: 0 0.5em;
+}
+.complete-tag {
+  border: 1px solid forestgreen;
+  color: forestgreen;
+  border-radius: 1em;
+  padding: 0 0.5em;
 }

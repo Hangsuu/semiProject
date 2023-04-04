@@ -358,7 +358,7 @@ $(function(){
 		<td class="list-read"></td>
 	</tr>
 </script>
-<div class="container-1000 mt-50" style="min-height:1200px">
+<div class="container-1100 mt-50" style="min-height:1200px">
 	<div class="row"><h1 style="font-size:2em">공략 게시판</h1></div>
 <!-- 검색 -->
 	<div class="row">

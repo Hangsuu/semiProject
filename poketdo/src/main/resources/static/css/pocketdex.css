@@ -23,6 +23,7 @@
 	list-style: none;
 	padding: 0;
 	margin: 0;
+	align-items:center;
 }
 /* 포켓몬 박스 li */
 .pocket-li {

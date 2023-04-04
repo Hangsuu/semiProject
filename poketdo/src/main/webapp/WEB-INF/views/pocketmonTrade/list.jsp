@@ -37,7 +37,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 </script>
 <!-- section -->
 <section>
-  <article class="container-1200" style="min-height: 1000px">
+  <article class="container-1100" style="min-height: 1000px">
     <div class="mt-50 mb-10">
       <a class="pocketmonTrade-list-banner" href="/pocketmonTrade">포켓몬교환</a>
     </div>

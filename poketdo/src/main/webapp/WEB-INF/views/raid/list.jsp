@@ -2,7 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<div class="container-1200 mt-50">
+
+
+<style>
+
+
+	
+
+</style>
+
+
+<div class="container-1100 mt-50">
 	<div class="row"><h1 style="font-size:2em">레이드</h1></div>
 	<div class="row">
 		<form action="list" method="get" autocomplete="off">
@@ -23,7 +33,7 @@
 			<thead>
 				<tr>
 					<th><a class="link" href="list?page=1&${vo.parameter}">글번호<i class="fa-solid fa-sort ms-10"></i></a></th>
-					<th class="w-40">제목</th>
+					<th class="w-30">제목</th>
 					<th>닉네임</th>
 					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_start_time&order=asc&special=raid_start_time>sysdate and raid_count<4">시작시간<i class="fa-solid fa-sort ms-10"></i></a></th>
 					<th><a class="link" href="list?page=1&${vo.parameter}&item=raid_count&order=asc, allboard_no desc&special=raid_start_time>sysdate and raid_count<4">참가자<i class="fa-solid fa-sort ms-10"></i></a></th>
@@ -37,14 +47,14 @@
 					</c:choose>
 					
 					<th>좋아요</th>
-					<th>조회수</th>
+					<th>조회수</th> 
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="raidDto" items="${list}">
 					<tr>
 						<td>${raidDto.raidNo}</td>
-						<td class="do-not-over"><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
+						<td class="do-not-over left"><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
 						<td><a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link"><img class="board-seal" src="${raidDto.urlLink}">${raidDto.memberNick}</a></td>

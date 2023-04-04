@@ -88,8 +88,8 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       <c:if test="${pocketmonTradeMemberDto.getPocketmonTradeHead() != null}"> [${pocketmonTradeMemberDto.getPocketmonTradeHead()}] </c:if>
       ${pocketmonTradeMemberDto.getPocketmonTradeTitle()}
     </div>
-    <div class="row flex " style="align-items:center;">
-      <div class="row flex " style="align-items:center;">
+    <div class="row flex ">
+      <div class="row flex ">
       <div class="row  flex board-nick-image">
         <img class="board-seal" src="/attachment/download?attachmentNo=${pocketmonTradeMemberDto.getAttachmentNo()}" />
         <a class="link" href="/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"

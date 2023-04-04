@@ -37,7 +37,6 @@ public class RaidDao {
 					.raidCount(rs.getInt("raid_count"))
 					.raidReply(rs.getInt("raid_reply"))
 					.raidLike(rs.getInt("raid_like"))
-					.raidDislike(rs.getInt("raid_dislike"))
 					.raidRead(rs.getInt("raid_read"))
 					.raidType(rs.getInt("raid_type")).build();
 		}

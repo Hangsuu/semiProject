@@ -1,7 +1,6 @@
 package com.kh.poketdo.controller;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -16,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.RaidDao;
 import com.kh.poketdo.dao.RaidJoinDao;
+import com.kh.poketdo.dao.RaidWithNickDao;
 import com.kh.poketdo.dto.RaidDto;
-import com.kh.poketdo.dto.RaidJoinDto;
 import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
@@ -29,6 +29,10 @@ public class RaidController {
 	private RaidDao raidDao;
 	@Autowired
 	private RaidJoinDao raidJoinDao;
+	@Autowired
+	private AllboardDao allboardDao;
+	@Autowired
+	private RaidWithNickDao raidWithNickDao;
 	
 	@GetMapping("/write")
 	public String write() {
@@ -47,7 +51,7 @@ public class RaidController {
 	public String list(Model model,
 			@ModelAttribute("vo") PaginationVO vo) {
 		vo.setCount(raidDao.selectCount(vo));
-		model.addAttribute("list", raidDao.selectList(vo));
+		model.addAttribute("list", raidWithNickDao.selectList(vo));
 		return "/WEB-INF/views/raid/list.jsp";
 	}
 	@GetMapping("/detail")
@@ -66,7 +70,7 @@ public class RaidController {
 			}
 			session.setAttribute("memory", memory);
 		}
-		model.addAttribute("raidDto", raidDao.selectOne(allboardNo));
+		model.addAttribute("raidDto", raidWithNickDao.selectOne(allboardNo));
 		model.addAttribute("count", raidJoinDao.count(allboardNo));
 		return "/WEB-INF/views/raid/detail.jsp";
 	}
@@ -76,7 +80,7 @@ public class RaidController {
 			HttpSession session) {
 		String memberId = (String)session.getAttribute("memberId");
 		if(memberId.equals(raidDao.selectOne(allboardNo).getRaidWriter())) {
-			raidDao.delete(allboardNo);
+			allboardDao.delete(allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:list";
 		}

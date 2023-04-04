@@ -15,11 +15,11 @@ public class PocketmonTradePageVO {
     // 블럭마다 보여줄 숫자 개수
     private int blockSize = 10;
     // 구분
-    private String type;
+    private String type="";
     // 오름차순 내림차순
     private String order = "desc";
     // 진행여부
-    private String isDone = "";
+    private String isDone="";
   
     // 검색 여부 판단
     public boolean isSearch() {
@@ -50,8 +50,6 @@ public class PocketmonTradePageVO {
     // 파라미터 자동 생성
     public String getParameter() {
       StringBuffer buffer = new StringBuffer();
-      buffer.append("size=");
-      buffer.append(size);
       if (isSearch()) {
         buffer.append("&column=");
         buffer.append(column);
@@ -129,8 +127,25 @@ public class PocketmonTradePageVO {
       return getStartBlock() - 1;
     }
   
+
+
     // 쿼리스트링(column + keyword) 생성
     public String getQueryString() {
       return this.keyword.equals("") ? "" : "&column=" + this.column + "&keyword=" + this.keyword;
     }
+
+    // option 쿼리스트링(type + isDone) 생성
+    public String getOptionQueryString(){
+      String typeQueryString = this.type.equals("") ? "" : "pocketmon_trade_head = '".concat(this.type)+"' ";
+      String isDoneQueryString = this.isDone.equals("") ? "" : "pocketmon_trade_complete = ".concat(this.isDone) + " ";
+
+      return !("".equals(typeQueryString)) && !("".equals(isDoneQueryString)) ? typeQueryString + "and " + isDoneQueryString : typeQueryString.concat(isDoneQueryString);
+      // return (this.type.equals("")?"":" and pocketmon_trade_head = '".concat(this.type)+"'").concat(this.isDone.equals("")?"":" and pocketmon_trade_complete = '".concat(this.isDone) + "'");
+    }
+
+    // 페이지네이션 쿼리스트링(type + isDone) 생성
+    public String getOptionQuery() {
+      return "&type=" + this.type + "&isDone=" + this.isDone;
+    }
+
 }

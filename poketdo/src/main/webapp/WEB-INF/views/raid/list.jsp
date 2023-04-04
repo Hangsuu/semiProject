@@ -49,7 +49,7 @@
 						<td><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
-						<td>${raidDto.raidWriter}</td>
+						<td><img class="board-seal" src="${raidDto.urlLink}">${raidDto.memberNick}</td>
 						<td>${raidDto.time}</td>
 						<c:choose>
 							<c:when test="${raidDto.raidCount>=4}">

@@ -50,7 +50,8 @@ public class ReplyRestController {
 		  }
 		  else likeCount.add(0);
 	  }
-	  return ReplyVO.builder().replyDto(list).replyLike(likeList).likeCount(likeCount).build();
+	  int replyCount = replyWithNickDao.replyWithNickCount(allboardNo);
+	  return ReplyVO.builder().replyDto(list).replyLike(likeList).likeCount(likeCount).replyCount(replyCount).build();
   }
 
   @PostMapping("/")
@@ -61,7 +62,6 @@ public class ReplyRestController {
   @DeleteMapping("/{replyNo}")
   public void delete(@PathVariable int replyNo) {
     replyDao.delete(replyNo);
-    
   }
 
   @PutMapping("/")

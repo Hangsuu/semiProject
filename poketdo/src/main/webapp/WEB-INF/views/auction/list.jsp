@@ -17,13 +17,10 @@
 				<select name="column" class="form-input neutral">
 					<option value="auction_title">제목</option>
 					<option value="auction_content">내용</option>
-					<option value="auction_writer">글쓴이</option>
+					<option value="member_nick">글쓴이</option>
 				</select>
 				<input name="keyword" class="form-input" placeholder="검색">
 				<input name="page" type="hidden" value="${param.page}">
-				<input name="item" type="hidden" value="${param.item}">
-				<input name="order" type="hidden" value="${param.order}">
-				<input name="special" type="hidden" value="${param.special}">
 				<button class="form-btn neutral">검색</button>
 			</form>
 		</div>
@@ -72,7 +69,7 @@
 		<!-- 닉네임 및 즐겨찾기 -->
 				<div class="row flex-box"  style="align-items:center">
 					<div>
-						<img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}
+						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}</a>
 					</div>
 					<div class="align-right">
 						<!-- 즐겨찾기 -->
@@ -132,7 +129,7 @@
 <!-- 페이지네이션 끝 -->
 	<div class="row ms-10">
 		<c:if test="${sessionScope.memberId!=null}">
-			<a href="write" class="form-btn neutral">글쓰기</a>
+			<a href="write" class="form-btn positive"><i class="fa-solid fa-pen-to-square me-10" style="color:white"></i>글쓰기</a>
 		</c:if>
 	</div>
 </div>

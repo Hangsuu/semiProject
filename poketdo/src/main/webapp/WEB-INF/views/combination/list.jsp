@@ -38,6 +38,7 @@ $(function(){
 			
 			if(list!=null && list.length!=0){
 				var textVal = list[1];
+				textVal = textVal.trim();
 				if(!tagList.has(textVal)&&textVal){
 					tagList.add(textVal);
 	
@@ -58,7 +59,7 @@ $(function(){
 	$(".tag-search-input").change(function(){
 		var text = $(this).val();
 		text = text.replace("#", "").trim();
-		if(preValue!=text){
+		if(text.length>0 && preValue!=text){
 			if(!tagList.has(text)){
 				tagList.add(text);
 				//set을 전송 가능한 문자열 형태로 반환
@@ -157,7 +158,12 @@ $(function(){
 					$(html).find(".list-no").text(response.list[i].combinationNo);
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
 							.text(response.list[i].combinationTitle);
-					$(html).find(".list-writer").text(response.list[i].memberNick).prepend($("<img>").addClass("board-seal").attr("src", response.list[i].urlLink));
+					//작성자 검색 링크 생성
+					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
+					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink);
+					var nick = response.list[i].memberNick;
+					nickLink.append(seal).append(nick);
+					$(html).find(".list-writer").append(nickLink);
 					$(html).find(".list-time").text(response.list[i].combinationTime);
 					$(html).find(".list-like").text(response.list[i].combinationLike);
 					$(html).find(".list-read").text(response.list[i].combinationRead);
@@ -259,7 +265,12 @@ $(function(){
 					$(html).find(".list-no").text(response.list[i].combinationNo);
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
 							.text("["+response.list[i].combinationType+"] "+response.list[i].combinationTitle+reply);
-					$(html).find(".list-writer").text(response.list[i].memberNick).prepend($("<img>").addClass("board-seal").attr("src", response.list[i].urlLink));
+					//작성자 검색 링크 생성
+					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
+					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink);
+					var nick = response.list[i].memberNick;
+					nickLink.append(seal).append(nick);
+					$(html).find(".list-writer").append(nickLink);
 					$(html).find(".list-time").text(response.list[i].combinationTime);
 					$(html).find(".list-like").text(response.list[i].combinationLike);
 					$(html).find(".list-read").text(response.list[i].combinationRead);
@@ -361,6 +372,7 @@ $(function(){
 			<option value="combination_title">제목</option>
 			<option value="combination_type">타입</option>
 			<option value="combination_content">내용</option>
+			<option value="member_nick">글쓴이</option>
 		</select>
 		<input name="keyword" class="form-input search-list" placeholder="공략글 검색">
 		<button class="form-btn neutral select-list">검색</button>
@@ -393,7 +405,7 @@ $(function(){
 <!-- 페이지네이션 끝 -->
 	<div class="row">
 		<c:if test="${sessionScope.memberId!=null}">
-			<a href="write" class="form-btn neutral">글쓰기</a>
+			<a href="write" class="form-btn positive"><i class="fa-solid fa-pen-to-square me-10" style="color:white"></i>글쓰기</a>
 		</c:if>
 	</div>
 </div>

@@ -10,12 +10,10 @@
 				<option value="raid_title">제목</option>
 				<option value="raid_monster">몬스터</option>
 				<option value="raid_content">내용</option>
+				<option value="member_nick">글쓴이</option>
 			</select>
 			<input name="keyword" class="form-input" placeholder="검색어">
 			<input name="page" type="hidden" value="${param.page}">
-			<input name="item" type="hidden" value="${param.item}">
-			<input name="order" type="hidden" value="${param.order}">
-			<input name="special" type="hidden" value="${param.special}">
 			<button class="form-btn neutral">검색</button>
 		</form>
 	</div>
@@ -49,7 +47,7 @@
 						<td><a href="detail?allboardNo=${raidDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
 							[${raidDto.raidMonster}] ${raidDto.raidTitle}
 						</a></td>
-						<td><img class="board-seal" src="${raidDto.urlLink}">${raidDto.memberNick}</td>
+						<td><a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link"><img class="board-seal" src="${raidDto.urlLink}">${raidDto.memberNick}</a></td>
 						<td>${raidDto.time}</td>
 						<c:choose>
 							<c:when test="${raidDto.raidCount>=4}">
@@ -124,7 +122,7 @@
 <!-- 페이지네이션 끝 -->
 	<div class="row">
 		<c:if test="${sessionScope.memberId!=null}">
-			<a href="write" class="form-btn neutral">글쓰기</a>
+			<a href="write" class="form-btn positive"><i class="fa-solid fa-pen-to-square me-10" style="color:white"></i>글쓰기</a>
 		</c:if>
 	</div>
 </div>

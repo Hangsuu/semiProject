@@ -9,6 +9,15 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
   .typeTag {
     text-decoration: none;
   }
+  .ellipsis {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+  }
+  .h-100 {
+    height: 100%;
+  }
 </style>
 <script>
   // console.log(window.location);
@@ -137,7 +146,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <span></span>
           <div class="flex-align-center">
             <a
-              class="pocketmonTrade-a-link"
+              class="pocketmonTrade-a-link h-100"
               href="/pocketmonTrade/${notice.getPocketmonTradeNo()}"
             >
               <c:if test="${notice.getPocketmonTradeHead()!=null}">
@@ -187,7 +196,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <div class="flex-all-center bold"><a class="typeTag" href="#">${trade.getPocketmonTradeHead()}</a></div>
           <div class="flex-align-center">
             <a
-              class="pocketmonTrade-a-link"
+              class="pocketmonTrade-a-link ellipsis"
               href="/pocketmonTrade/${trade.getPocketmonTradeNo()}"
             >
             <c:if test="${trade.getPocketmonTradeHead()!='공지'}">

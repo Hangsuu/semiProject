@@ -36,7 +36,7 @@
           <a href="/board/hot">+더보기</a>
          
         </div>
-        <div>내용</div>
+        <div class="home-board-list">내용</div>
       </div>
       <%-- home.css / component.css --%>
       <div class="home-cool-board title-body w-50">
@@ -45,7 +45,7 @@
           <h2>🦄오늘의 포켓몬</h2>
           <a href="#">+더보기</a>
         </div>
-        <div>내용</div>
+        <div class="home-board-list">내용</div>
       </div>
     </div>
 <%-- 포켓몬 교환 --%>
@@ -56,7 +56,7 @@
         <h2>🤝교환해요</h2>
         <a href="/auction/list?page=1">+더보기</a>
       </div>
-      <div>
+      <div class="home-board-list">
         <div>
           <div>오늘 레이드 뛰실분</div>
           <div>
@@ -138,7 +138,7 @@
         	    <div class="row" style="font-size:17px">
 	            	<a href="/raid/detail?page=1&allboardNo=${raidDto.allboardNo}" class="link">
 	            		<span class="home-board-type">[${raidDto.raidMonster}]</span>
-	            		 ${raidDto.raidTitle} 
+	            		 ${raidDto.raidTitle} ${raidDto.raidCount}/4
 	            		<span class="home-board-reply">(${raidDto.raidReply})</span>
 	            	</a>
             	</div>

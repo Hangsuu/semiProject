@@ -56,7 +56,7 @@
         <h2>🤝교환해요</h2>
         <a href="/auction/list?page=1">+더보기</a>
       </div>
-      <div>
+      <div class="home-board-list">
         <div>
           <div>오늘 레이드 뛰실분</div>
           <div>

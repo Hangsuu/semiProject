@@ -91,15 +91,28 @@
 		function checkBidPrice(){
 			var min = $("[name=auctionMinPrice]").val();
 			var max = $("[name=auctionMaxPrice]").val();
-			if(min<0 || max<0){
+			var regex = /^[0-9]*$/;
+			if(!regex.test(min)){
+				alert("숫자를 입력하세요");
+				$("[name=auctionMinPrice]").val("")
+				valid.priceValid=false;
+				return;
+			}
+			if(!regex.test(max)){
+				alert("숫자를 입력하세요");
+				$("[name=auctionMaxPrice]").val("")
+				valid.priceValid=false;
+				return;
+			}
+			if(parseInt(min)<0 || parseInt(max)<0){
 				valid.priceValid=false;
 				alert("0보다 크거나 같은 값을 입력하세요")
 			}
-			if(max==0){
+			else if(parseInt(max)==0){
 				valid.priceValid=true;
 			}
 			else{
-				if(min>max){
+				if(parseInt(min)>parseInt(max)){
 					valid.priceValid=false;
 					alert("최대금액보다 작거나 같은 금액을 입력하세요");
 				}

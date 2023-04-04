@@ -34,7 +34,7 @@ public class CombinationRestController {
 	}
 	@PostMapping("/")
 	public CombinationVO serchList(@ModelAttribute PaginationVO vo){
-		vo.setCount(combinationDao.tagListCount(vo));
+		vo.setCount(combinationWithNickDao.tagListCount(vo));
 		List<CombinationWithNickDto> list = combinationWithNickDao.tagSearchList(vo);
 		return CombinationVO.builder().vo(vo).list(list).build();
 	}

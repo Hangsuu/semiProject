@@ -80,6 +80,30 @@ public class AuctionWithNickDao {
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 	}
+	public int selectCount(PaginationVO vo) {
+		if(vo.isSearch()) {
+			String sql = "select count(*) from auction_with_nick where instr(#1, ?)>0 #4";
+			sql = sql.replace("#1", vo.getColumn());
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "and "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
+			Object[] param = {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String sql = "select count(*) from auction_with_nick #4";
+			if(vo.getSpecial().length()>0) {
+				sql = sql.replace("#4", "where "+vo.getSpecial());
+			}
+			else {
+				sql = sql.replace("#4", vo.getSpecial());
+			}
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
 
 	public AuctionWithNickDto selectOne(int allboardNo) {
 		String sql = "select * from auction_with_nick where allboard_no=?";

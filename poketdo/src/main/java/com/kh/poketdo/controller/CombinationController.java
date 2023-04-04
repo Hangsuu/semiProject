@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.CombinationDao;
+import com.kh.poketdo.dao.CombinationWithNickDao;
 import com.kh.poketdo.dao.TagDao;
 import com.kh.poketdo.dto.CombinationDto;
 import com.kh.poketdo.vo.PaginationVO;
@@ -28,6 +30,10 @@ public class CombinationController {
 	private CombinationDao combinationDao;
 	@Autowired
 	private TagDao tagDao;
+	@Autowired
+	private AllboardDao allboardDao;
+	@Autowired
+	private CombinationWithNickDao combinationWithNickDao;
 	
 	@GetMapping("/write")
 	public String write() {
@@ -81,7 +87,7 @@ public class CombinationController {
 			}
 			session.setAttribute("memory", memory);
 		}
-		model.addAttribute("combinationDto", combinationDao.selectOne(allboardNo));
+		model.addAttribute("combinationDto", combinationWithNickDao.selectOne(allboardNo));
 		model.addAttribute("tagDto", tagDao.selectList(allboardNo));
 		return "/WEB-INF/views/combination/detail.jsp";
 	}
@@ -91,7 +97,7 @@ public class CombinationController {
 			HttpSession session) {
 		String memberId = (String)session.getAttribute("memberId");
 		if(memberId.equals(combinationDao.selectOne(allboardNo).getCombinationWriter())) {
-			combinationDao.delete(allboardNo);
+			allboardDao.delete(allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:list";
 		}

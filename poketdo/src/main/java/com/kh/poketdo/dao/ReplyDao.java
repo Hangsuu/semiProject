@@ -26,6 +26,8 @@ public class ReplyDao {
 	private CombinationDao combinationDao;
   @Autowired
   private PocketmonTradeDao pocketmonTradeDao;
+  @Autowired
+  private ReplyWithNickDao replyWithNickDao;
 
   RowMapper<ReplyDto> mapper = (rs, index) -> {
     return ReplyDto
@@ -105,7 +107,8 @@ public class ReplyDao {
   // 댓글 갯수 입력 메서드
   public void replyInsert(int allboardNo) {
     AllboardDto allboardDto = allboardDao.selectOne(allboardNo);
-    int replyCount = replyCount(allboardNo);
+    int replyCount = replyWithNickDao.replyWithNickCount(allboardNo);
+    System.out.println(replyCount);
     String allboardType = allboardDto.getAllboardBoardType();
     switch (allboardType) {
       case "auction":
@@ -129,5 +132,12 @@ public class ReplyDao {
 	  String sql = "update reply set reply_like=? where reply_no=?";
 	  Object[] param = {likeCount, replyNo};
 	  jdbcTemplate.update(sql, param);
+  }
+
+  // 댓글 계층(LEVEL) 구하기
+  public int getLevel(int replyNo) {
+    String sql = "SELECT LEVEL - 1 AS LEVEL_COUNT FROM reply WHERE reply_no = ? CONNECT BY reply_group = PRIOR reply_no START WITH reply_group = 0";
+    Object[] param = {replyNo};
+    return jdbcTemplate.queryForObject(sql, int.class, param);
   }
 }

@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.CombinationDao;
 import com.kh.poketdo.dao.CombinationVODao;
-import com.kh.poketdo.dto.CombinationDto;
+import com.kh.poketdo.dao.CombinationWithNickDao;
+import com.kh.poketdo.dto.CombinationWithNickDto;
 import com.kh.poketdo.vo.CombinationVO;
 import com.kh.poketdo.vo.PaginationVO;
 
@@ -23,6 +24,8 @@ public class CombinationRestController {
 	private CombinationVODao combinationVODao;
 	@Autowired
 	private CombinationDao combinationDao;
+	@Autowired
+	private CombinationWithNickDao combinationWithNickDao;
 	
 	@GetMapping("/{tagList}")
 	public List<CombinationVO> searchTag(@PathVariable String tagList){
@@ -32,7 +35,7 @@ public class CombinationRestController {
 	@PostMapping("/")
 	public CombinationVO serchList(@ModelAttribute PaginationVO vo){
 		vo.setCount(combinationDao.tagListCount(vo));
-		List<CombinationDto> list = combinationDao.tagSearchList(vo);
+		List<CombinationWithNickDto> list = combinationWithNickDao.tagSearchList(vo);
 		return CombinationVO.builder().vo(vo).list(list).build();
 	}
 }

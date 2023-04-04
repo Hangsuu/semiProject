@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.poketdo.dao.ReplyDao;
 import com.kh.poketdo.dao.ReplyLikeDao;
+import com.kh.poketdo.dao.ReplyWithNickDao;
 import com.kh.poketdo.dto.ReplyDto;
 import com.kh.poketdo.dto.ReplyLikeDto;
+import com.kh.poketdo.dto.ReplyWithNickDto;
 import com.kh.poketdo.vo.ReplyVO;
 
 @RestController
@@ -30,14 +32,16 @@ public class ReplyRestController {
   private ReplyDao replyDao;
   @Autowired
   private ReplyLikeDao replyLikeDao;
+  @Autowired
+  private ReplyWithNickDao replyWithNickDao;
   
   @GetMapping("/{allboardNo}")
   public ReplyVO selectList(@PathVariable int allboardNo, HttpSession session) {
 	  String memberId = (String)session.getAttribute("memberId");
-	  List<ReplyDto> list = replyDao.selectList(allboardNo);
-	  List<ReplyDto> likeList = replyDao.selectLikeList(allboardNo);
+	  List<ReplyWithNickDto> list = replyWithNickDao.selectList(allboardNo);
+	  List<ReplyWithNickDto> likeList = replyWithNickDao.selectLikeList(allboardNo);
 	  List<Integer> likeCount = new ArrayList<>();
-	  for(ReplyDto dto: list) {
+	  for(ReplyWithNickDto dto: list) {
 		  ReplyLikeDto replyLikeDto = new ReplyLikeDto();
 		  replyLikeDto.setMemberId(memberId);
 		  replyLikeDto.setReplyNo(dto.getReplyNo());
@@ -57,6 +61,7 @@ public class ReplyRestController {
   @DeleteMapping("/{replyNo}")
   public void delete(@PathVariable int replyNo) {
     replyDao.delete(replyNo);
+    
   }
 
   @PutMapping("/")
@@ -74,4 +79,11 @@ public class ReplyRestController {
   public int likeCnt(@RequestParam int replyNo) {
     return replyLikeDao.likeCount(replyNo);
   }
+  // 댓글의 계층 구하기 
+  @GetMapping("/level/{replyNo}")
+  public int getLevel(@PathVariable int replyNo){
+    return replyDao.getLevel(replyNo);
+  }
+
+
 }

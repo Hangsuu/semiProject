@@ -28,6 +28,7 @@ public class AuctionDto {
 	private int auctionReply;
 	private int auctionRead;
 	private Integer auctionMainImg;
+	private int auctionFinish;
 	
 	public String getTime() {
 		java.util.Date currentTime = new java.util.Date();

@@ -23,7 +23,6 @@ public class RaidDto {
 	private int raidCount;
 	private int raidReply;
 	private int raidLike;
-	private int raidDislike;
 	private int raidRead;
 	private int raidType;
 

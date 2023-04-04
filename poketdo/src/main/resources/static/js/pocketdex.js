@@ -1,10 +1,10 @@
 	$(function(){
-		$(".left").mouseenter(function() {
+		$(".pocket-left").mouseenter(function() {
 			$(this).find("i").addClass('fa-shake');
 		}).mouseleave(function(){
 			$(this).find("i").removeClass('fa-shake');
 		});
-		$(".right").mouseenter(function() {
+		$(".pocket-right").mouseenter(function() {
 			$(this).find("i").addClass('fa-shake');
 		}).mouseleave(function(){
 			$(this).find("i").removeClass('fa-shake');

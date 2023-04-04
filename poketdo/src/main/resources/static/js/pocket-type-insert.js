@@ -10,7 +10,7 @@ $(function(){
 		};
 		
 		
-		//포켓몬 번호 검사 (1보다 큰 숫자)
+		//포켓몬 타입 번호 검사 (1보다 큰 숫자)
 		$("[name=pocketTypeNo]").blur(function(){
 			var pocketTypeNo = $(this).val(); 
 			var isValid = pocketTypeNo >= 1;
@@ -46,11 +46,11 @@ $(function(){
 				.addClass("invalid");
 			};
 		});
-		//포켓몬 이름 중복 검사
+		//포켓몬 타입 이름 중복 검사
 		$("[name=pocketTypeName]").blur(function(){
 			var pocketTypeName = $(this).val(); 
 			
-			if(pocketTypeName != 0){
+			if(pocketTypeName != ""){
 				$.ajax({
 					url:"/rest/pocketmon/pocketTypeName/" + pocketTypeName,
 					method:"get",

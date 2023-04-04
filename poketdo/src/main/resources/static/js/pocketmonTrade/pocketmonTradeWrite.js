@@ -1,5 +1,5 @@
 $(function () {
-  var promiseEle = $("input[name=promise]");
+  const promiseEle = $("input[name=promise]");
   // summernote 세팅
   $("[name=pocketmonTradeContent]").summernote({
     placeholder: "내용을 작성하세요",
@@ -55,6 +55,7 @@ $(function () {
   $("#pocketmonTrade-insert-btn").click(function (e) {
     var titleEle = $("input[name=pocketmonTradeTitle]");
     var contentEle = $("input[name=pocketmonTradeContent]");
+    const headEle = $("[name=pocketmonTradeHead]").val();
 
     var isEmptyTitle = titleEle.val() == "";
     var isEmptyContent = contentEle.val() == "";
@@ -79,12 +80,12 @@ $(function () {
       return;
     }
     // 약속시간 입력 확인
-    if (isEmptyPromise) {
+    if (memberLevel!="관리자" && isEmptyPromise) {
       e.preventDefault();
       alert("거래일을 입력해주세요");
       return;
     }
-    if (new Date(promiseEle.val()) < new Date()) {
+    if (memberLevel!="관리자" && new Date(promiseEle.val()) < new Date()) {
       e.preventDefault();
       alert("현재 시간보다 이후 시간을 입력해주세요");
       return;
@@ -132,4 +133,13 @@ $(function () {
       window.history.back();
     }
   });
+
+  // 포켓몬교환 공지일 때는 시간 삭제
+  $("[name=pocketmonTradeHead]").change(function(){
+    if($(this).val()==="공지"){
+      promiseEle.val("").parent().parent().hide();;
+    } else {
+      promiseEle.parent().parent().show();
+    }
+  })
 });

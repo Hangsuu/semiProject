@@ -17,6 +17,15 @@ $(function(){
 		$(this).css("border", tagBorderColor[index]).css("background-color", tagColor[index]);
 	})
 	
+	$(".delete-btn").click(function(event){
+		if(!confirm("정말 삭제하시겠습니까?\n삭제 후에는 복구할 수 없습니다.")) {
+			event.preventDefault();
+			return;
+		}
+		else{
+			window.location.href=$(this).attr("href");
+		}
+	})	
 })
 </script>
 <!-- 댓글창 summernote 사용을 위한 import -->
@@ -32,7 +41,7 @@ $(function(){
 			</div>
 		</div>
 		<div class="align-right remain-box" style="width:95%">
-			<div class="row flex-box">
+			<div class="row flex-box" style="align-items:center">
 				<div class="reply-writer"></div>
 				<div class="reply-time ms-20" style="font-size:14px"></div>
 				<div class="align-right reply-option me-20"></div>
@@ -52,7 +61,6 @@ $(function(){
 </script>
 <script type="text/template" id="reply-child-template">
 	<div class="row reply-child">
-	<hr>
 		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
@@ -84,9 +92,6 @@ $(function(){
 <!-- 댓글 -->
 	<!-- 표시 -->
 	<div class="row reply-best-target">
-		<div class="row" style="border-bottom:1.5px solid #9DACE4; padding-bottom:0.5em">
-			Best 댓글
-		</div>
 	</div>
 	<div class="row reply-target">
 	</div>
@@ -98,7 +103,7 @@ $(function(){
 	<div class="row">
 		<a href="list?page=${param.page}&tagList=${param.tagList}&column=${param.column}&keyword=${param.keyword}" class="form-btn neutral">목록으로</a>
 		<c:if test="${sessionScope.memberId==combinationDto.combinationWriter}">
-			<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="form-btn neutral">삭제</a>
+			<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="form-btn neutral delete-btn">삭제</a>
 		</c:if>
 	</div>
 </div>

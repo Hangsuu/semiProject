@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.kh.poketdo.dto.PocketmonDto;
 import com.kh.poketdo.dto.SealDto;
 
 @Repository
@@ -62,7 +63,7 @@ public class SealDao {
 		  return jdbcTemplate.update(sql,param)>0;
 	  }
 	  
-	  //인장 정보 상세 검색
+	  //인장 정보 상세 검색(번호)
 	  public SealDto selectOne(int sealNo) {
 		  String sql ="select*from seal where seal_no=?";
 		  Object[] param = {sealNo};
@@ -70,4 +71,11 @@ public class SealDao {
 		  return list.isEmpty() ? null : list.get(0);
 	  }
 	  
+	  //인장 정보 상세 검색(이름)
+	public SealDto selectNameOne(String sealName) {
+		String sql = "select * from seal where seal_name=? ";
+		Object [] param = {sealName};
+		List<SealDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
 }

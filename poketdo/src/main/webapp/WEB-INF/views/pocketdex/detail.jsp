@@ -11,7 +11,7 @@
 	<article class="mt-50 pocketdex-article">
 		<div class="pocket-detail-container pdc-color pdc-color${list.get(0).getPocketTypeNoes().get(0)}">
 			<div class="detail-image-container">
-				<div class="left-text">
+				<div class="pocket-left-text">
 					
 					<c:choose>
 						<c:when test="${prev.isEmpty()}">
@@ -25,7 +25,7 @@
 					</c:choose>
 
 				</div>
-				<div class="right-text">
+				<div class="pocket-right-text">
 				
 					<c:choose>
 						<c:when test="${next.isEmpty()}">
@@ -41,14 +41,14 @@
 				
 				<c:choose>
 						<c:when test="${prev.isEmpty()}">
-							<div class="left icon-color">
+							<div class="pocket-left icon-color">
 								<a href="detail?pocketNo=${list3.get(list3.size()-1).pocketNo}">
 									<i class="fa-solid fa-circle-chevron-left"></i>
 								</a>
 							</div>
 						</c:when>
 						<c:otherwise>
-							<div class="left icon-color">
+							<div class="pocket-left icon-color">
 								<a href="detail?pocketNo=${prev.get(0).pocketNo}">
 									<i class="fa-solid fa-circle-chevron-left"></i>
 								</a>
@@ -58,14 +58,14 @@
 				
 				<c:choose>
 					<c:when test="${next.isEmpty()}">
-						<div class="right icon-color">
+						<div class="pocket-right icon-color">
 							<a href="detail?pocketNo=${list3.get(0).pocketNo}">
 								<i class="fa-solid fa-circle-chevron-right"></i>
 							</a>	
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div class="right icon-color">
+						<div class="pocket-right icon-color">
 							<a href="detail?pocketNo=${next.get(0).pocketNo}">
 								<i class="fa-solid fa-circle-chevron-right"></i>
 							</a>	

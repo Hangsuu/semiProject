@@ -213,4 +213,42 @@ public class BoardController {
 		return "/WEB-INF/views/board/detail.jsp";
 	}
 	
+	@GetMapping("/detail2")
+	public String detail2(@RequestParam int boardNo, 
+						Model model, HttpSession session) {
+		//사용자가 작성자인지 판정 후 JSP로 전달
+		BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(boardNo);
+		String memberId = (String) session.getAttribute("memberId");
+		
+		boolean owner = boardWithImageDto.getBoardWriter() != null 
+				&& boardWithImageDto.getBoardWriter().equals(memberId);
+		model.addAttribute("owner", owner);
+		
+		//사용자가 관리자인지 판정 후 JSP로 전달
+		String memberLevel = (String) session.getAttribute("memberLevel");
+		boolean admin = memberLevel != null && memberLevel.equals("관리자");
+		model.addAttribute("admin", admin);
+		
+		//조회수 증가
+		if(!owner) {//내가 작성한 글이 아니라면(시나리오 1번)
+					
+			//시나리오 2번 진행
+			Set<Integer> memory = (Set<Integer>) session.getAttribute("memory");
+			if(memory == null) {
+				memory = new HashSet<>();
+			}
+			
+			if(!memory.contains(boardNo)) {//읽은 적이 없는가(기억에 없는가)
+				boardWithImageDao.updateReadCount(boardNo);
+				boardWithImageDto.setBoardRead(boardWithImageDto.getBoardRead()+1);//DTO 조회수 1증가
+				memory.add(boardNo);//저장소에 추가(기억에 추가)
+			}
+			//System.out.println("memory = " + memory);
+			session.setAttribute("memory", memory);//저장소 갱신
+			
+		}
+		model.addAttribute("boardWithImageDto", boardWithImageDto);
+		return "/WEB-INF/views/board/detail2.jsp";
+	}
+	
 }

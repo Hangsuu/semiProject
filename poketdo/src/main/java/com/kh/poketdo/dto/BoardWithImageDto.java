@@ -19,7 +19,6 @@ public class BoardWithImageDto {
 	private String boardHead;
 	private int boardRead;
 	private int boardLike;
-	private int boardDislike;
 	private int boardReply;
 	private Integer attachmentNo;
 	

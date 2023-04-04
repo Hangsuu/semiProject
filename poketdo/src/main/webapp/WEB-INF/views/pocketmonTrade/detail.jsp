@@ -121,20 +121,20 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
     <div class="row flex">
       <div class="row flex">
-      <div class="row flex board-nick-image">
-        <img class="board-seal" src="/attachment/download?attachmentNo=${pocketmonTradeMemberDto.getAttachmentNo()}" />
-        <a class="link" href="/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"
+        <div class="row flex board-nick-image">
+          <img class="board-seal" src="/attachment/download?attachmentNo=${pocketmonTradeMemberDto.getAttachmentNo()}" />
+          <a class="link" href="/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"
           >${pocketmonTradeMemberDto.getMemberNick()}</a>
-        
         </div>
-        <div class="board-detail-time"><fmt:formatDate value="${pocketmonTradeMemberDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m" /></div>
+      <div class="board-detail-time flex-all-center"><fmt:formatDate value="${pocketmonTradeMemberDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m" /></div>
         <c:if test="${sessionScope.memberId == pocketmonTradeMemberDto.getPocketmonTradeWriter() || sessionScope.memberLevel == '관리자'}">
-          <a class="board-detail-btn" href="/pocketmonTrade/${pocketmonTradeMemberDto.getPocketmonTradeNo()}/edit">수정</a>
-          <a class="board-detail-btn" id="pocketmonTrade-delete-btn" href="/pocketmonTrade/delete/${pocketmonTradeMemberDto.getPocketmonTradeNo()}">삭제</a>
+          <a class="board-detail-btn flex-all-center" href="/pocketmonTrade/${pocketmonTradeMemberDto.getPocketmonTradeNo()}/edit">수정</a>
+          <a class="board-detail-btn flex-all-center" id="pocketmonTrade-delete-btn" href="/pocketmonTrade/delete/${pocketmonTradeMemberDto.getPocketmonTradeNo()}">삭제</a>
         </c:if>
       </div>
-      <div class="ml-auto">조회수 ${pocketmonTradeMemberDto.getPocketmonTradeRead()}</div>
+      <div class="flex-all-center ml-auto">조회수 ${pocketmonTradeMemberDto.getPocketmonTradeRead()}</div>
     </div>
+
     <div class="row" style="border-top: 3px solid #f2f4fb; border-bottom: 3px solid #f2f4fb">
       <div class="row pocketmonTradeContent">
         <div class="row">${pocketmonTradeMemberDto.getPocketmonTradeContent()}</div>

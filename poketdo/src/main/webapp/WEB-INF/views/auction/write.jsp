@@ -184,7 +184,7 @@
 		<textarea name="auctionContent" rows="10" class="form-input w-100 summernote"></textarea>
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
-	<button type="button" class="form-btn neutral submit-btn">작성</button>
+	<button type="button" class="form-btn neutral submit-btn"><i class="fa-solid fa-pen-to-square me-10"></i>작성</button>
 </form>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

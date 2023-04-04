@@ -57,7 +57,7 @@ $(function(){
 					var html = $.parseHTML(template);
 					$(html).find(".list-no").text(response.list[i].auctionNo);
 					$(html).find(".list-title").attr("href", "bookmarkDetail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.parameter)
-							.text(response.list[i].auctionTitle);
+							.addClass("do-not-over").text(response.list[i].auctionTitle);
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
 					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink);
@@ -77,6 +77,7 @@ $(function(){
 					$(".list-target").append(html);
 				};
 				var target = $(".pagination");
+				$(".pagination").empty();
 				if(response.vo.first){
 					var a = $("<a>").addClass("disabled");
 					var i = $("<i>").addClass("fa-solid fa-angles-left");

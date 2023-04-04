@@ -424,7 +424,7 @@ $(function(){
 			모집 종료
 		</div>
 		<!-- 본문 -->
-		<div class="row w-100" style="min-height:400px; padding-left:1em; padding-right:1em">${raidDto.raidContent}</div>
+		<div class="row w-100 do-not-over" style="min-height:400px; padding-left:1em; padding-right:1em">${raidDto.raidContent}</div>
 		<div class="row">
 			<a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link">${raidDto.memberNick}님의 게시글 더 보기</a>
 		</div>

@@ -157,7 +157,7 @@ $(function(){
 					var html = $.parseHTML(template);
 					$(html).find(".list-no").text(response.list[i].combinationNo);
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
-							.text(response.list[i].combinationTitle);
+							.addClass("do-not-over").text(response.list[i].combinationTitle);
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
 					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink);
@@ -358,7 +358,7 @@ $(function(){
 		<td class="list-read"></td>
 	</tr>
 </script>
-<div class="container-1200 mt-50" style="min-height:1200px">
+<div class="container-1000 mt-50" style="min-height:1200px">
 	<div class="row"><h1 style="font-size:2em">공략 게시판</h1></div>
 <!-- 검색 -->
 	<div class="row">

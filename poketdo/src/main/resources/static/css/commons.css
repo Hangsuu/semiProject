@@ -851,3 +851,8 @@ main section article h1 {
   padding-right: 0.5em;
   cursor: default;
 }
+.do-not-over{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

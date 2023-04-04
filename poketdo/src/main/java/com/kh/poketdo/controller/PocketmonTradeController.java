@@ -42,8 +42,7 @@ public class PocketmonTradeController {
   // 포켓몬 교환 리스트
   @GetMapping("")
   public String list(
-      @ModelAttribute("pageVo") PocketmonTradePageVO pageVo,
-      Model model, @RequestParam(required = false, defaultValue = "") String type, @RequestParam(required = false, defaultValue = "") String isDone) {
+      @ModelAttribute("pageVo") PocketmonTradePageVO pageVo, Model model) {
     List<PocketmonTradeMemberDto> pockmonTradeMemberlists = pocketmonTradeService.getPocketmonTradeList(
         pageVo);
     List<PocketmonTradeMemberDto> pocketmonTradeMemberNotices = pocketmonTradeMemberDao.selectNotice();
@@ -63,12 +62,11 @@ public class PocketmonTradeController {
   @PostMapping("/write")
   public String write(
       @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
-      @RequestParam String promise) throws ParseException {
+      @RequestParam(required = false, defaultValue = "") String promise) throws ParseException {
     // 통합 테이블과 포켓몬교환 테이블에 insert
     int newPocketmonTradeSeq = pocketmonTradeService.insert(
         pocketmonTradeDto,
         promise);
-    System.out.println(pocketmonTradeDto.getPocketmonTradeWriter());
     // insert 후 상세페이지로 redirect
     return "redirect:" + newPocketmonTradeSeq;
   }
@@ -77,24 +75,21 @@ public class PocketmonTradeController {
   @GetMapping("/{pocketmonTradeNo}")
   public String detail(@PathVariable int pocketmonTradeNo, Model model, HttpSession session) {
     // 포켓몬 교환 no로 selectOne해서 model로 jsp파일에 전달
-    PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
+    PocketmonTradeMemberDto pocketmonTradeMemberDto = pocketmonTradeMemberDao.selectOne(
         pocketmonTradeNo);
 
     Set<Integer> readList = (Set<Integer>) session.getAttribute("readList") == null ? new HashSet<>()
         : (Set<Integer>) session.getAttribute("readList");
-    boolean notWriter = !pocketmonTradeDto.getPocketmonTradeWriter().equals((String) session.getAttribute("memberId"));
+    boolean notWriter = !pocketmonTradeMemberDto.getPocketmonTradeWriter().equals((String) session.getAttribute("memberId"));
     boolean noRead = !readList.contains(pocketmonTradeNo);
-    System.out.println(notWriter);
-    System.out.println(noRead);
-    System.out.println(readList);
     if (notWriter && noRead) {
       readList.add(pocketmonTradeNo);
       session.setAttribute("readList", readList);
       pocketmonTradeDao.readSet(pocketmonTradeNo);
-      pocketmonTradeDto.setPocketmonTradeRead(pocketmonTradeDto.getPocketmonTradeRead() + 1);
+      pocketmonTradeMemberDto.setPocketmonTradeRead(pocketmonTradeMemberDto.getPocketmonTradeRead() + 1);
     }
 
-    model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
+    model.addAttribute("pocketmonTradeMemberDto", pocketmonTradeMemberDto);
     return "/WEB-INF/views/pocketmonTrade/detail.jsp";
   }
 
@@ -103,11 +98,13 @@ public class PocketmonTradeController {
   public String edit(@PathVariable int pocketmonTradeNo, Model model) {
     PocketmonTradeDto pocketmonTradeDto = pocketmonTradeDao.selectOne(
         pocketmonTradeNo);
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-    String formattedDate = formatter.format(
+    if(pocketmonTradeDto.getPocketmonTradeTradeTime() != null){
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+      String formattedDate = formatter.format(
         pocketmonTradeDto.getPocketmonTradeTradeTime());
+        model.addAttribute("formattedDate", formattedDate);
+    }
     model.addAttribute("pocketmonTradeDto", pocketmonTradeDto);
-    model.addAttribute("formattedDate", formattedDate);
     return "/WEB-INF/views/pocketmonTrade/edit.jsp";
   }
 
@@ -115,7 +112,7 @@ public class PocketmonTradeController {
   public String edit(
       @PathVariable int pocketmonTradeNo,
       @ModelAttribute PocketmonTradeDto pocketmonTradeDto,
-      @RequestParam String promise) throws ParseException {
+      @RequestParam(required = false, defaultValue = "") String promise) throws ParseException {
     pocketmonTradeService.update(pocketmonTradeDto, promise);
     return "redirect:/pocketmonTrade/" + pocketmonTradeNo;
   }

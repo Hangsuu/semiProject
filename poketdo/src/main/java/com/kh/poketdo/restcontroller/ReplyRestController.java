@@ -61,6 +61,7 @@ public class ReplyRestController {
   @DeleteMapping("/{replyNo}")
   public void delete(@PathVariable int replyNo) {
     replyDao.delete(replyNo);
+    
   }
 
   @PutMapping("/")
@@ -78,4 +79,11 @@ public class ReplyRestController {
   public int likeCnt(@RequestParam int replyNo) {
     return replyLikeDao.likeCount(replyNo);
   }
+  // 댓글의 계층 구하기 
+  @GetMapping("/level/{replyNo}")
+  public int getLevel(@PathVariable int replyNo){
+    return replyDao.getLevel(replyNo);
+  }
+
+
 }

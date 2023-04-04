@@ -42,10 +42,14 @@ public class PocketmonTradeService {
     pocketmonTradeDto.setPocketmonTradeNo(newPocketmonTradeSeq);
 
     // 포켓몬교환 dto에 datetime-local로 받은 String을 java.sql.Date로 바꿔 set
+    if("".equals(promise)){
+      pocketmonTradeDto.setPocketmonTradeTradeTime(null);
+    } else {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
     Date parsedDate = dateFormat.parse(promise);
     java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
     pocketmonTradeDto.setPocketmonTradeTradeTime(sqlDate);
+    }
 
     // 통합 테이블에 insert
     allboardDao.insert(
@@ -66,7 +70,7 @@ public class PocketmonTradeService {
 
   // 포켓몬교환 공지글, 게시물 리스트
   public List<PocketmonTradeMemberDto> getPocketmonTradeList(PocketmonTradePageVO pageVo) {
-    pageVo.setCount(pocketmonTradeDao.getCount(pageVo));
+    pageVo.setCount(pocketmonTradeMemberDao.getCount(pageVo));
     // List<PocketmonTradeDto> lists = pocketmonTradeDao.selectList(pageVo);
     List<PocketmonTradeMemberDto> lists = pocketmonTradeMemberDao.selectList(pageVo);
     return lists;
@@ -75,10 +79,14 @@ public class PocketmonTradeService {
   // 포켓몬 교환 게시물 업데이트
   public boolean update(PocketmonTradeDto pocketmonTradeDto, String promise)
     throws ParseException {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
-    Date parsedDate = dateFormat.parse(promise);
-    java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
-    pocketmonTradeDto.setPocketmonTradeTradeTime(sqlDate);
+    if("".equals(promise)){
+      pocketmonTradeDto.setPocketmonTradeTradeTime(null);
+    } else {
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
+      Date parsedDate = dateFormat.parse(promise);
+      java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+      pocketmonTradeDto.setPocketmonTradeTradeTime(sqlDate);
+    }
     return pocketmonTradeDao.update(pocketmonTradeDto);
   }
 

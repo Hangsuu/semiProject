@@ -41,7 +41,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           말머리
           <select class="form-input w-100" name="pocketmonTradeHead">
             <option value="">선택</option>
-            <c:if test="${sessionScope.memberLevel == '마스터'}">
+            <c:if test="${sessionScope.memberLevel == '관리자'}">
               <c:choose>
                 <c:when
                   test="${pocketmonTradeDto.getPocketmonTradeHead()=='공지'}"
@@ -110,17 +110,19 @@ ${pocketmonTradeDto.getPocketmonTradeContent()}</textarea
           >
         </label>
       </div>
-      <div class="row">
-        <label
-          >거래일
-          <input
-            type="datetime-local"
-            value="${formattedDate}"
-            class="form-input w-100"
-            name="promise"
-          />
-        </label>
-      </div>
+      <c:if test="${pocketmonTradeDto.getPocketmonTradeHead()!='공지'}">
+        <div class="row">
+          <label
+            >거래일
+            <input
+              type="datetime-local"
+              value="${formattedDate}"
+              class="form-input w-100"
+              name="promise"
+            />
+          </label>
+        </div>
+      </c:if>
       <button type="submit" class="form-btn w-100 positive">등록</button>
     </form>
   </article>

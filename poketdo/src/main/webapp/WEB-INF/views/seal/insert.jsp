@@ -23,7 +23,7 @@
 					<div class="pocket-input-box">		
 						<input name="sealNo" class="form-input" >
 						<span class="valid-message">사용 가능한 번호입니다!</span>
-						<span class="invalid-message">1 이상의 숫자를 입력하세요!</span>
+						<span class="invalid-message">0 이상의 숫자를 입력하세요!</span>
 						<span class="invalid-message2">이미 사용중인 번호입니다!</span>
 					</div>
 				</div>

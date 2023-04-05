@@ -83,6 +83,11 @@ public class HomeController {
 		// System.out.println("pocketmonTradeList", pocketmonTradeList);
 
 		//------------포켓몬교환 끝------------
+		//--------------인기글 시작----------
+		PaginationVO boardPagination = new PaginationVO();
+		boardPagination.setSize(10);
+		boardPagination.setCount(10);
+		//--------------인기글 끝-----------
 		return "/WEB-INF/views/home.jsp";
 	}
 	

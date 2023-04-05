@@ -38,7 +38,9 @@
           <a href="/board/hot">+더보기</a>
          
         </div>
-        <div class="home-board-list">내용</div>
+        <div class="home-board-list">
+        	
+		</div>
       </div>
       <%-- home.css / component.css --%>
       <div class="home-cool-board title-body w-50">
@@ -99,7 +101,7 @@
         </div>
         <div class="home-board-list">
         	<c:forEach var="raidDto" items="${raidList}">
-        	    <div class="row" style="font-size:17px">
+        	    <div class="row do-not-line-over" style="font-size:17px">
 	            	<a href="/raid/detail?page=1&allboardNo=${raidDto.allboardNo}" class="link">
 	            		<span class="home-board-type">[${raidDto.raidMonster}]</span>
 	            		 ${raidDto.raidTitle} ${raidDto.raidCount}/4
@@ -118,7 +120,7 @@
         </div>
         <div class="home-board-list">
             <c:forEach var="combinationDto" items="${combinationList}">
-            	<div class="row" style="font-size:17px">
+            	<div class="row do-not-line-over" style="font-size:17px">
 	            	<a href="/combination/detail?page=1&allboardNo=${combinationDto.allboardNo}" class="link">
 	            		<span class="home-board-type">[${combinationDto.combinationType}]</span>
 	            		 ${combinationDto.combinationTitle} 

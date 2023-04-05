@@ -2,10 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+   
+   
+   
+   
     <style>
     
     
-    
+ 	.super-center{
+ 			display: flex;
+  flex-direction: row;
+  align-items: center 
+          }
+ 
+ 
  	h1 {
  		font-size: 30px}
  	
@@ -23,70 +33,49 @@
 		padding: 15px;
 		font-size: 20px;
 	}
-   
-   
-    aside {
-    	float: left;
-    	width: 30%;
-    
-    	}
-    
-    article {
-    	float: right;
-    	width: 80%
-    	}
  
-   
-     
-     .ablock {
-    
-     text-decoration-line: none;
-     text-decoration: none;
-     display: block;
-     
-     
-     }
-     
-	    ablock:visited { text-decoration: none; }
-	    ablock:hover { text-decoration: none; }
-	    ablock:focus { text-decoration: none; }
-	    ablock:hover, ablock:active { text-decoration: none; }
-	    
-	    
-    
-    </style>
-
-  
-  
+ </style>
+ 
   
   
   <!-- article -->
   <article>
-     <div class= "container-500 center">
-    	<form action="findPw" method="post">
+    
+       <form class="super-center" style="height:60vh;" action="findPw" method="post" autocomplete="off">
+        <div class= "container-500 center mb-30">
         
-        	<div>
-        	아이디: <input type="text" name="memberId" required> 
+        	     <h1 class="mb-50">비밀번호 찾기</h1>
+        
+			
+        	
+    
+        	<div class="left">
+        	<label>아이디</label> 
+        	<input class="form-input w-100" type="text" name="memberId" required> 
         	</div>
    
-        	<div>
-        	이메일: <input type="text" name="memberEmail" required> 
+        	<div class="left mt-10">
+        	<label>이메일</label> 
+        	<input class="form-input w-100" type="text" name="memberEmail" required> 
         	</div>
         
         
+		<c:if test = "${param.mode == 'error'}">
+ 			<h5 class="row left" style="color:red;">정보가 일치하지 않습니다</h5>
+ 		</c:if>
         
-            <div class="form-btn w-100">
-            <button>찾기</button>
+        
+        
+            <div>
+            	<button class="form-btn positive w-100 mt-30" type="submit">찾기</button>
             </div>
             
-       </form>
+    
         		
  
-		<c:if test="${param.mode == 'error'}">
-              <span style="color:red; font-weight:bold;">정보가 일치하지 않습니다</span>
-            </c:if>
-
     </div>
+    
+       </form>
     
     
       <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">

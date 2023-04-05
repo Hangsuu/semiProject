@@ -43,7 +43,7 @@
 </c:if>
 
 
-<div class="container-800">
+<div class="container-1100 mt-30">
 	<div class="row center">
 		<h1>자유 게시판</h1>
 	</div>
@@ -201,7 +201,7 @@
 	</div>
 
 	<!-- 검색창 -->
-	<div class="row center">
+	<div class="row center mb-30">
 		<form action="list" method="get">
 
 			<c:choose>

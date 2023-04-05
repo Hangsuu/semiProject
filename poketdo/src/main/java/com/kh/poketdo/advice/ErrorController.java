@@ -18,6 +18,7 @@ public class ErrorController {
 	public String forbidden(Exception ex) {
 		return "/WEB-INF/views/error/403.jsp";
 	}
+
 	//401번은? 우리가 만든 RequiredLoginException으로 대체하여 처리
 	//-사용자가 봐야 하는 페이지는 로그인 페이지이다
 	@ExceptionHandler(RequireLoginException.class)

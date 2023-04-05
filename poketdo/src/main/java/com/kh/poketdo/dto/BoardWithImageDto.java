@@ -20,7 +20,6 @@ public class BoardWithImageDto {
 	private int boardRead;
 	private int boardLike;
 	private int boardReply;
-	private Integer attachmentNo;
 	
 	public String getBoardTimeAuto() {
 		//현재 시각을 java.sql.Date 형태로 구한다

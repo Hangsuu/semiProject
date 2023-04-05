@@ -29,6 +29,9 @@ public class ReplyDao {
   @Autowired
   private ReplyWithNickDao replyWithNickDao;
 
+  @Autowired
+  private BoardWithImageDao boardWithImageDao;
+  
   RowMapper<ReplyDto> mapper = (rs, index) -> {
     return ReplyDto
         .builder()
@@ -119,6 +122,8 @@ public class ReplyDao {
     	  combinationDao.replySet(allboardNo, replyCount);
       case "pocketmon_trade" :
         pocketmonTradeDao.replySet(allboardNo, replyCount);
+      case "board" :
+    	  boardWithImageDao.replySet(allboardNo, replyCount);
     }
   }
 

@@ -101,7 +101,7 @@ public class BoardWithImageDao {
 		
 		// 인기 게시판 구현
 		public List<BoardWithImageDto> hotSelectList() {
-			String sql = "select * from board where board_like >= 30";
+			String sql = "select * from board where board_like >= 1";
 			return jdbcTemplate.query(sql, mapper);
 		}
 		
@@ -110,6 +110,14 @@ public class BoardWithImageDao {
 			String sql = "select * from board where board_no = ?";
 			Object[] param = {boardNo};
 			List<BoardWithImageDto> list = jdbcTemplate.query(sql, mapper, param);
+			return list.isEmpty() ? null : list.get(0);
+		}
+		
+		//멤버아이디, 보드넘버로 allboardNo 검색
+		public BoardWithImageDto selectAllboardNo (int boardNo, String memberId) {
+			String sql ="select allboard_no from board where board_no=? and member_id=?";
+			Object[] param = {boardNo, memberId};
+			List<BoardWithImageDto> list = jdbcTemplate.query(sql, mapper,param);
 			return list.isEmpty() ? null : list.get(0);
 		}
 		

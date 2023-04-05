@@ -13,12 +13,14 @@
 <!-- 모먼트 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
 	var boardWriter = "${boardWithImageDto.boardWriter}";
 	var allboardNo = "${boardWithImageDto.allboardNo}";
 </script>
+
 <script>
 $(function(){
 	$(".delete-btn").click(function(event){
@@ -90,7 +92,7 @@ $(function(){
 		<div class="row flex-box">
 			<div>
 				<a class="link"
-					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}">
+					href="/board/list?column=member_nick&keyword=${boardWithNickDto.getMemberNick()}">
 					<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
 				<span>/</span>
 				<fmt:formatDate value="${boardWithImageDto.boardTime}"
@@ -98,10 +100,10 @@ $(function(){
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 				<c:if test="${sessionScope.memberId==boardWithImageDto.boardWriter}">
 					<a
-						href="edit?page=${param.page}&boardNo=${boardWithImageDto.boardNo}"
+						href="edit?page=${param.page}&allboardNo=${boardWithImageDto.allboardNo}"
 						class="board-detail-btn">수정</a>
 					<a
-						href="delete?page=${param.page}&boardNo=${boardWithImageDto.boardNo}"
+						href="delete?page=${param.page}&allboardNo=${boardWithImageDto.allboardNo}"
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>

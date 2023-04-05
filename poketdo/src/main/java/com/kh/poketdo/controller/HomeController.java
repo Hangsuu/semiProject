@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.kh.poketdo.dao.AuctionDao;
+import com.kh.poketdo.dao.BoardWithNickDao;
 import com.kh.poketdo.dao.CombinationWithNickDao;
 import com.kh.poketdo.dao.PocketmonTradeMemberDao;
 import com.kh.poketdo.dao.RaidWithNickDao;
@@ -28,6 +29,8 @@ public class HomeController {
 	private CombinationWithNickDao combinationWithNickDao;
 	@Autowired
 	private PocketmonTradeMemberDao pocketmonTradeMemberDao;
+	@Autowired
+	private BoardWithNickDao boardWithNickDao;
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -87,6 +90,9 @@ public class HomeController {
 		PaginationVO boardPagination = new PaginationVO();
 		boardPagination.setSize(10);
 		boardPagination.setCount(10);
+		boardPagination.setItem("board_time");
+		boardPagination.setOrder("desc");
+		model.addAttribute("boardList", boardWithNickDao.selectHotList(boardPagination));
 		//--------------인기글 끝-----------
 		return "/WEB-INF/views/home.jsp";
 	}

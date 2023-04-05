@@ -56,6 +56,6 @@ function refreshPage() {
 }
 
 
-setInterval(refreshPage, 50000); // 10초마다 갱신
+setInterval(refreshPage, 5000); // 10초마다 갱신
 	
 });

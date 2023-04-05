@@ -64,7 +64,7 @@
         	<div>
         		
         	</div>
-        	<div style="width:495px; " class="center">
+        	<div style="width:495px; height:495px; " class="center">
         	
         	</div>
         </div>

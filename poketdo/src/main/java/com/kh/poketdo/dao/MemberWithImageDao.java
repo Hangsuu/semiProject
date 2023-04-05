@@ -104,6 +104,11 @@ public class MemberWithImageDao {
         List<MemberWithImageDto> list = jdbcTemplate.query(sql, mapper, param);
         return list.isEmpty() ? null : list.get(0);
     }
+
+	// 멤버 + 이미지 페이지 븨오
+	// public 
+
+
     // U
     
     public boolean changeInformation(MemberWithImageDto memberDto) {

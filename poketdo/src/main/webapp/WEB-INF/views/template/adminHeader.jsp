@@ -137,7 +137,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <div style="border-top:2px solid #9DACE4"></div>
 
 <section>
-            <aside class="ps-20 pt-50" style="width:200px; border-right:2px solid #9dace4;">
+            <aside class="ps-20 pt-50" style="width:200px; border-right:2px solid #C2CCEE;">
                 <!-- 관리 메뉴는 수직으로 배치(List-Group 형태) -->
                 <div class="flex-box flex-vertical left">
                     <div class="mb-10">

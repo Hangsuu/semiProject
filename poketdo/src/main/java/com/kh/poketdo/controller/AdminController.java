@@ -68,11 +68,9 @@ public class AdminController {
 	
 	@GetMapping("/member/memberManage")
 	public String memberManage(@ModelAttribute("vo") PaginationVO vo, Model model) {
-	    int totalCount = memberWithImageDao.selectCount();
+	    int totalCount = memberWithImageDao.selectCount(vo);
 	    vo.setCount(totalCount);
-
-
-	    List<MemberWithImageDto> list = memberWithImageDao.selectAll();
+	    List<MemberWithImageDto> list = memberWithImageDao.selectList(vo);
 	    List<String> urlList = new ArrayList<>();
 		for(MemberWithImageDto dto : list){
 			urlList.add(memberSealAttachmentNoDao.getSealUrl(dto.getMemberId()));

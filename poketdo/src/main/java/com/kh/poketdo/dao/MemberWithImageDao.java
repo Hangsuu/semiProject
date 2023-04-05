@@ -106,7 +106,24 @@ public class MemberWithImageDao {
     }
 
 	// 멤버 + 이미지 페이지 븨오
-	// public 
+	public List<MemberWithImageDto> selectList(PaginationVO pageVo) {
+		String sql;
+		Object[] param;
+	
+		if (pageVo.getKeyword().equals("")) {
+		  sql = "select * from (select rownum rn, tmp.* from (select * from member order by member_id desc) tmp) where rn between ? and ?";
+		  param = new Object[] { pageVo.getBegin(), pageVo.getEnd() };
+		} else {
+		  sql = "select * from (select rownum rn, tmp.* from (select * from member where instr(#1, ?) > 0 order by member_id desc) tmp) where rn between ? and ?";
+		  sql = sql.replace("#1", pageVo.getColumn());
+		  param = new Object[] {
+			  pageVo.getKeyword(),
+			  pageVo.getBegin(),
+			  pageVo.getEnd(),
+		  };
+		}
+		return jdbcTemplate.query(sql, mapper, param);
+	}
 
 
     // U

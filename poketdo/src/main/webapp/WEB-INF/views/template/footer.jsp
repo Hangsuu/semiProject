@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%>
 
       </section>
      
-     <div class="w-100"  style="border-top:1px solid  #9dace4"></div>
+     <div class="w-100 mt-20"  style="border-top:2px solid  #9dace4"></div>
       <footer class="container-1200 center" >
      
      

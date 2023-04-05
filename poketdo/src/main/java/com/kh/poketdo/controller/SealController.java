@@ -120,13 +120,6 @@ public class SealController {
   return "/WEB-INF/views/seal/detail.jsp";
   }
 	
-	//인장 정보 삭제
-	@GetMapping("/delete")
-	public String delete(@RequestParam int sealNo) {
-		sealDao.delete(sealNo);
-		return "redirect:list";
-	}
-	
 	//인장 구매 처리
 	@PostMapping("/purchase")
 	public String purchase(

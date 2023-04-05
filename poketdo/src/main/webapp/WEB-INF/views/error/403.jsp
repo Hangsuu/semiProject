@@ -8,9 +8,9 @@
 	
 	<article class="mt-50 container-1200 center">
     
-    
-		<h1>권한이 없습니다.</h1>
-
+    <div>
+		<img src="/static/image/404.png">
+	</div>
 	</article>
 	</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

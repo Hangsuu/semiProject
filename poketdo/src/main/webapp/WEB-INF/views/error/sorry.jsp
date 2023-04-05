@@ -8,9 +8,7 @@
 	<aside></aside>
 	
 	<article class="mt-50 container-1200 center">
-    
-		<h1>잘못된 접근입니다.</h1>
-
+		<img src="/static/image/404.png" width=500>
 	</article>
 	</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

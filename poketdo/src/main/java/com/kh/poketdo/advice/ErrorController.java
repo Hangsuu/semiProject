@@ -1,7 +1,9 @@
 package com.kh.poketdo.advice;
 
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice//프로젝트 전체에 대한 catch블록
@@ -27,4 +29,12 @@ public class ErrorController {
 		return "redirect:/member/login?prevPage=" + requestUrl.toString();	//주소는 유지하고 화면만 변경
 	}
 	
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+	public String badParameter(Exception ex) {
+		return "/WEB-INF/views/error/404.jsp";
+	}
+	@ExceptionHandler(Exception.class)
+	public String notParameter(Exception ex) {
+		return "/WEB-INF/views/error/404.jsp";
+	}
 }

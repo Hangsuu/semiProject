@@ -307,7 +307,6 @@ $(function(){
 	}
 	function isFinished(){
 		var time = $(".raid-start-time").text();
-		console.log(time);
 		var participant = $(".participant-count").text();
 		return time.trim()=="종료" || parseInt(participant)>=4;
 	}
@@ -322,6 +321,24 @@ $(function(){
 			window.location.href=$(this).attr("href");
 		}
 	})	
+	//참가 신청자가 있으면 레이드 수정 불가
+	$(".edit-btn").click(function(event){
+		event.preventDefault();
+		var params = new URLSearchParams(location.search);
+		var allboardNo = params.get("allboardNo");
+		$.ajax({
+			url:"/rest/raid/check/"+allboardNo,
+			method:"get",
+			success:function(response){
+				if(response>0){
+					alert("신청자가 있는 모집글은 수정이 불가합니다.");
+				}
+				else{
+					window.location.href=$(".edit-btn").attr("href");
+				}
+			}
+		});
+	});
 });
 </script>
 <!-- 댓글창 템플릿 -->
@@ -376,7 +393,7 @@ $(function(){
 <script src="/static/js/like.js"></script>
 <div class="container-1000 mt-50">
 	<div class="row flex-box">
-		<span class="board-detail-origin">공략 게시판</span>
+		<span class="board-detail-origin">레이드 참가</span>
 		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
 	<div class="row board-detail-title">
@@ -400,8 +417,11 @@ $(function(){
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${raidDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
-			<c:if test="${sessionScope.memberId==raidDto.raidWriter||sessionScope.memberLevel=='관리자'}">
-				<a href="edit?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+			<c:if test="${sessionScope.memberId==raidDto.raidWriter}">
+				<a href="edit?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn edit-btn" style="vertical-align:middle">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
+			</c:if>
+			<c:if test="${sessionScope.memberLevel=='관리자'}">
 				<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>

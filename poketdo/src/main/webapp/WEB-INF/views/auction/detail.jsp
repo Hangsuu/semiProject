@@ -24,7 +24,24 @@ $(function(){
 		else{
 			window.location.href=$(this).attr("href");
 		}
-	})	
+	})
+	$(".edit-btn").click(function(event){
+					event.preventDefault();
+		var params = new URLSearchParams(location.search);
+		var allboardNo = params.get("allboardNo");
+		$.ajax({
+			url:"/rest/auction/check/"+allboardNo,
+			method:"get",
+			success:function(response){
+				if(response){
+					alert("경매가 시작된 게시물을 수정할 수 없습니다.");
+				}
+				else{
+					window.location.href=$(".edit-btn").attr("href");
+				}
+			}
+		});
+	});
 });
 </script>
 <!-- 댓글장 템플릿 -->
@@ -127,8 +144,11 @@ $(function(){
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
-			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter||sessionScope.memberLevel=='관리자'}">
-				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}&${vo.parameter}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}&${vo.parameter}" class="board-detail-btn edit-btn" style="vertical-align:middle">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
+			</c:if>
+			<c:if test="${sessionScope.memberLevel=='관리자'}">
 				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>

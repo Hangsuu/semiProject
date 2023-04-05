@@ -858,7 +858,7 @@ main section article h1 {
 .do-not-over{
   word-break:break-all;
 }
-.do-not-line-over{
+.do-not-line-over {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

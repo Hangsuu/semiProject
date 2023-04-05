@@ -7,19 +7,19 @@ var randomNum = Math.floor(Math.random() * 1008) + 1; // 1~1008 중 랜덤한 �
 		method:"get",
 		success:function(response){
 			
-	$('.random-box').children().eq(0).html('<span style="font-size: 18px; color: gray;">' + 'No.0'+response.pocketNo + '</span>');
-
-    // 2번째 자식 div에 span 태그와 response.pocketName 값 추가
-    $('.random-box').children().eq(1).html('<span style="font-size: 20px; color: #555555; font-weight:600;">' + response.pocketName + '</span>');
-    
-    // 3번째 자식 div에 img 태그와 response.getImageURL 값 추가
-    $('.random-box').children().eq(2).html(
-		
-		'<a href=/pocketdex/detail?pocketNo='+response.pocketNo+'>' 
-		+ '<img style="width:300px; height:300px; margin:0 auto;" src='+response.imageURL+'>'
-		+ '</a>'
-		
-		);
+		$('.random-box').children().eq(0).html('<span style="font-size: 18px; color: gray;">' + 'No.0'+response.pocketNo + '</span>');
+	
+	    // 2번째 자식 div에 span 태그와 response.pocketName 값 추가
+	    $('.random-box').children().eq(1).html('<span style="font-size: 20px; color: #555555; font-weight:600;">' + response.pocketName + '</span>');
+	    
+	    // 3번째 자식 div에 img 태그와 response.getImageURL 값 추가
+	    $('.random-box').children().eq(2).html(
+			
+			'<a href=/pocketdex/detail?pocketNo='+response.pocketNo+' style="width:300px;height:300px; display:block;">' 
+			+ '<img style="width:300px; height:300px; margin:0px;" src='+response.imageURL+'>'
+			+ '</a>'
+			
+			);
 		},
 		error:function(){//통신 오류
 			alert("오류가 발생했습니다\n잠시 후 시도하세요");
@@ -39,13 +39,20 @@ function refreshPage() {
 		url:"/rest/pocketmon/pocketmonWithdImage/" + randomNum,
 		method:"get",
 		success:function(response){
-			$('.random-box').children().eq(0).html('<span>' + response.pocketNo + '</span>');
-    
-    // 2번째 자식 div에 span 태그와 response.pocketName 값 추가
-    $('.random-box').children().eq(1).html('<span>' + response.pocketName + '</span>');
-    
-    // 3번째 자식 div에 img 태그와 response.getImageURL 값 추가
-    $('.random-box').children().eq(2).html('<img src=' + response.imageURL + '>');
+			
+		$('.random-box').children().eq(0).html('<span style="font-size: 18px; color: gray;">' + 'No.0'+response.pocketNo + '</span>');
+	
+	    // 2번째 자식 div에 span 태그와 response.pocketName 값 추가
+	    $('.random-box').children().eq(1).html('<span style="font-size: 20px; color: #555555; font-weight:600;">' + response.pocketName + '</span>');
+	    
+	    // 3번째 자식 div에 img 태그와 response.getImageURL 값 추가
+	    $('.random-box').children().eq(2).html(
+			
+			'<a href=/pocketdex/detail?pocketNo='+response.pocketNo+' style="width:300px;height:300px; display:block;">' 
+			+ '<img style="width:300px; height:300px; margin:0px;" src='+response.imageURL+'>'
+			+ '</a>'
+			
+			);
 		},
 		error:function(){//통신 오류
 			alert("오류가 발생했습니다\n잠시 후 시도하세요");
@@ -56,6 +63,6 @@ function refreshPage() {
 }
 
 
-setInterval(refreshPage, 50000); // 10초마다 갱신
+setInterval(refreshPage, 15000); // 10초마다 갱신
 	
 });

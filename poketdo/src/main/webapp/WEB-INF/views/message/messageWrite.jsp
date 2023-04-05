@@ -30,7 +30,7 @@
                     내게쓰기
                 </label>
                 <div class="flex flex-wrap">
-                    <input id="message-recipient-input" class="form-input" type="text" name="messageRecipient" placeholder="받는 사람을 입력해주세요" required>
+                    <input id="message-recipient-input" class="form-input" type="text" name="messageRecipient" placeholder="받는 사람의 아이디를 입력해주세요" required>
                 </div>
             </div>
             <hr class="hr-sc"/>

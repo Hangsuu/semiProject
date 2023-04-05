@@ -6,10 +6,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script src="/static/js/pocketmonTrade/pocketmonTradeList.js"></script>
 <style>
-  .tag-style {
-    display: inline-block;
-    height: 80%;
-  }
+
 </style>
 <script>
   // console.log(window.location);

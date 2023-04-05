@@ -84,8 +84,6 @@ public class HomeController {
 		}
 		model.addAttribute("pocketmonTradeList", pocketmonTradeList);
 		model.addAttribute("attachmentNoList", attachmentNoList);
-
-
 		//------------포켓몬교환 끝------------
 
 		//--------------인기글 시작----------

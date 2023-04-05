@@ -43,8 +43,8 @@
 </c:if>
 
 
-<div class="container-800">
-	<div class="row center">
+<div class="container-1100">
+	<div class="row center mt-30">
 		<h1>자유 게시판</h1>
 	</div>
 	<div class="row center">남을 비방하는 경우 예고 없이 삭제될 수 있습니다</div>
@@ -201,7 +201,7 @@
 	</div>
 
 	<!-- 검색창 -->
-	<div class="row center">
+	<div class="row center mb-30">
 		<form action="list" method="get">
 
 			<c:choose>

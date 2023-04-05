@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.kh.poketdo.dao.AuctionDao;
+import com.kh.poketdo.dao.BoardWithNickDao;
 import com.kh.poketdo.dao.CombinationWithNickDao;
 import com.kh.poketdo.dao.PocketmonTradeMemberDao;
 import com.kh.poketdo.dao.RaidWithNickDao;
@@ -28,6 +29,8 @@ public class HomeController {
 	private CombinationWithNickDao combinationWithNickDao;
 	@Autowired
 	private PocketmonTradeMemberDao pocketmonTradeMemberDao;
+	@Autowired
+	private BoardWithNickDao boardWithNickDao;
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -58,30 +61,29 @@ public class HomeController {
 		//------------공략 끝---------------
 		//------------포켓몬교환------------
 
-		// PaginationVO pocketmonTradePagination = new PaginationVO();
-		// pocketmonTradePagination.setSize(5);
-		// pocketmonTradePagination.setCount(5);
-		// List<PocketmonTradeMemberDto> pocketmonTradeList = pocketmonTradeMemberDao.selectHomeList(pocketmonTradePagination);
-		// List<Integer> attachmentNoList = new ArrayList<>();
-		// for(PocketmonTradeMemberDto dto : pocketmonTradeList){
-		// 	String pattern = "/rest/attachment/download/(.*)\"";
-		// 	Pattern p = Pattern.compile(pattern); // 패턴 객체 생성
-		// 	Matcher m = p.matcher(dto.getPocketmonTradeContent());
-		// 	if (m.find()) {
-		// 		String found = m.group(1); // 패턴에서 첫 번째 그룹(괄호로 묶인 부분) 추출
-		// 		int index = found.indexOf("\""); // "이" 문자열이 나오는 위치를 찾음
-		// 		if(index!=-1){
-		// 			String attachNoString = found.substring(0, index); 
-		// 			Integer attachmentNo = Integer.parseInt(attachNoString);
-		// 			attachmentNoList.add(attachmentNo);
-		// 		}
-		// 	  } else {
-		// 		attachmentNoList.add(null);
-		// 	}
-		// }
-		// model.addAttribute("pocketmonTradeList", pocketmonTradeList);
-		// model.addAttribute("attachmentNoList", attachmentNoList);
-		// System.out.println("pocketmonTradeList", pocketmonTradeList);
+		PaginationVO pocketmonTradePagination = new PaginationVO();
+		pocketmonTradePagination.setSize(6);
+		pocketmonTradePagination.setCount(6);
+		List<PocketmonTradeMemberDto> pocketmonTradeList = pocketmonTradeMemberDao.selectHomeList(pocketmonTradePagination);
+		List<Integer> attachmentNoList = new ArrayList<>();
+		for(PocketmonTradeMemberDto dto : pocketmonTradeList){
+			String pattern = "/rest/attachment/download/(.*)\"";
+			Pattern p = Pattern.compile(pattern); // 패턴 객체 생성
+			Matcher m = p.matcher(dto.getPocketmonTradeContent());
+			if (m.find()) {
+				String found = m.group(1); // 패턴에서 첫 번째 그룹(괄호로 묶인 부분) 추출
+				int index = found.indexOf("\""); // "이" 문자열이 나오는 위치를 찾음
+				if(index!=-1){
+					String attachNoString = found.substring(0, index); 
+					Integer attachmentNo = Integer.parseInt(attachNoString);
+					attachmentNoList.add(attachmentNo);
+				}
+			  } else {
+				attachmentNoList.add(null);
+			}
+		}
+		model.addAttribute("pocketmonTradeList", pocketmonTradeList);
+		model.addAttribute("attachmentNoList", attachmentNoList);
 
 
 		//------------포켓몬교환 끝------------
@@ -90,8 +92,10 @@ public class HomeController {
 		PaginationVO boardPagination = new PaginationVO();
 		boardPagination.setSize(10);
 		boardPagination.setCount(10);
+		boardPagination.setItem("board_time");
+		boardPagination.setOrder("desc");
+		model.addAttribute("boardList", boardWithNickDao.selectHotList(boardPagination));
 		//--------------인기글 끝-----------
-
 		return "/WEB-INF/views/home.jsp";
 	}
 	

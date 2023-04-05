@@ -6,6 +6,13 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<script>
+	/* 전역변수 설정 */
+	var memberId = "${sessionScope.memberId}";
+	var boardWriter = "${boardWithImageDto.boardWriter}";
+	var allboardNo = "${boardWithImageDto.allboardNo}";
+</script>
+
 <c:if test="${sessionScope.memberLevel == '관리자'}">
 	<script type="text/javascript"> 
 	function checkAll(){
@@ -38,9 +45,9 @@
 
 <div class="container-800">
 	<div class="row center">
-		<h1>인기 게시판</h1>
+		<h1>자유 게시판</h1>
 	</div>
-	<div class="row center">자신의 인싸력을 자랑하는 공간입니다.</div>
+	<div class="row center">남을 비방하는 경우 예고 없이 삭제될 수 있습니다</div>
 
 	<c:if test="${sessionScope.memberLevel == '관리자'}">
 		<form action="deleteAll" method="post" onsubmit="return formCheck();">
@@ -65,65 +72,66 @@
 			<tbody class="center">
 
 				<!-- 공지사항을 출력 -->
-                    <c:forEach var="boardWithNickDto" items="${noticeList}">
+                    <c:forEach var="boardWithImageDto" items="${noticeList}">
                     <tr style="background-color:#eee">
                         <c:if test="${sessionScope.memberLevel == '관리자'}">
                         <td></td>
                         </c:if>
-                        <td>${boardWithNickDto.boardNo}</td>
+                        <td>${boardWithImageDto.boardNo}</td>
                         <td class="left">
                             <!-- 제목을 누르면 상세로 이동 -->
-                            <a href="detail2?boardNo=${boardWithNickDto.boardNo}" class="link">
+                            <a href="detail2?allboardNo=${boardWithImageDto.allboardNo}" class="link">
                                 
-                                <c:if test="${boardWithNickDto.boardHead != null}">
+                                <c:if test="${boardWithImageDto.boardHead != null}">
                                     <!-- 말머리가 있으면 출력 -->
-                                    [${boardWithNickDto.boardHead}]
+                                    [${boardWithImageDto.boardHead}]
                                 </c:if>
                                 
-                                ${boardWithNickDto.boardTitle} 
-                                <span style="color:red;"><c:if test="${boardWithNickDto.boardReply != 0}">(${boardWithNickDto.boardReply})</c:if></span>
+                                ${boardWithImageDto.boardTitle} 
+                                <span style="color:red;"><c:if test="${boardWithImageDto.boardReply != 0}">(${boardWithImageDto.boardReply})</c:if></span>
                             </a>
                         </td>
-                        <td class="left"><img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick}</td>
+                        <td class="left">
+                        <img class="board-seal" src="${boardWithImageDto.urlLink}">${boardWithImageDto.memberNick}</td>
                         
                         <%-- DTO에 만든 가상의 Getter 메소드를 불러 처리 --%>
-                        <td>${boardWithNickDto.boardTime}</td>
+                        <td>${boardWithImageDto.boardTime}</td>
                         
-                        <td>${boardWithNickDto.boardRead}</td>
-                        <td>${boardWithNickDto.boardLike}</td>
+                        <td>${boardWithImageDto.boardRead}</td>
+                        <td>${boardWithImageDto.boardLike}</td>
                     </tr>
                     </c:forEach>
 
 				<!-- 검색 또는 목록 결과를 출력 -->
-				<c:forEach var="boardWithNickDto" items="${hot}">
+				<c:forEach var="boardWithImageDto" items="${hot}">
 					<tr>
 						<c:if test="${sessionScope.memberLevel == '관리자'}">
 							<!--  개별 선택 체크박스를 배치 -->
 							<td><input type="checkbox" name="boardNo"
-								value="${boardWithNickDto.boardNo}" onchange="checkUnit();">
+								value="${boardWithImageDto.boardNo}" onchange="checkUnit();">
 							</td>
 						</c:if>
-						<td>${boardWithNickDto.boardNo}</td>
+						<td>${boardWithImageDto.boardNo}</td>
 						<td class="left">
 							<!-- 제목을 누르면 상세로 이동 --> <a
-							href="detail?boardNo=${boardWithNickDto.boardNo}" class="link">
+							href="detail2?allboardNo=${boardWithImageDto.getAllboardNo()}" class="link">
 
-								<c:if test="${boardWithNickDto.boardHead != null}">
+								<c:if test="${boardWithImageDto.boardHead != null}">
 									<!-- 말머리가 있으면 출력 -->
-                                    [${boardWithNickDto.boardHead}]
-                                </c:if> ${boardWithNickDto.boardTitle} <span
+                                    [${boardWithImageDto.boardHead}]
+                                </c:if> ${boardWithImageDto.boardTitle} <span
 								style="color: red;"><c:if
-										test="${boardWithNickDto.boardReply != 0}">(${boardWithNickDto.boardReply})</c:if></span>
+										test="${boardWithImageDto.boardReply != 0}">(${boardWithImageDto.boardReply})</c:if></span>
 						</a>
 						</td>
 						<td class="left">
-						<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick}</td>
+						<img class="board-seal" src="${boardWithImageDto.urlLink}">${boardWithImageDto.memberNick}</td>
 
 						<%-- DTO에 만든 가상의 Getter 메소드를 불러 처리 --%>
-						<td>${boardWithNickDto.boardTime}</td>
+						<td>${boardWithImageDto.boardTime}</td>
 
-						<td>${boardWithNickDto.boardRead}</td>
-						<td>${boardWithNickDto.boardLike}</td>
+						<td>${boardWithImageDto.boardRead}</td>
+						<td>${boardWithImageDto.boardLike}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -145,14 +153,14 @@
 				<a class="disabled">&laquo;</a>
 			</c:when>
 			<c:otherwise>
-				<a href="hot?${vo.parameter}&page=1">&laquo;</a>
+				<a href="list?${vo.parameter}&page=1">&laquo;</a>
 			</c:otherwise>
 		</c:choose>
 
 		<!-- 이전 -->
 		<c:choose>
 			<c:when test="${vo.prev}">
-				<a href="hot?${vo.parameter}&page=${vo.prevPage}">&lt;</a>
+				<a href="list?${vo.parameter}&page=${vo.prevPage}">&lt;</a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled">&lt;</a>
@@ -166,7 +174,7 @@
 					<a class="on">${i}</a>
 				</c:when>
 				<c:otherwise>
-					<a href="hot?${vo.parameter}&page=${i}">${i}</a>
+					<a href="list?${vo.parameter}&page=${i}">${i}</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -174,7 +182,7 @@
 		<!-- 다음 -->
 		<c:choose>
 			<c:when test="${vo.next}">
-				<a href="hot?${vo.parameter}&page=${vo.nextPage}">&gt;</a>
+				<a href="list?${vo.parameter}&page=${vo.nextPage}">&gt;</a>
 			</c:when>
 			<c:otherwise>
 				<a class="disabled">&gt;</a>
@@ -187,14 +195,14 @@
 				<a class="disabled">&raquo;</a>
 			</c:when>
 			<c:otherwise>
-				<a href="hot?${vo.parameter}&page=${vo.totalPage}">&raquo;</a>
+				<a href="list?${vo.parameter}&page=${vo.totalPage}">&raquo;</a>
 			</c:otherwise>
 		</c:choose>
 	</div>
 
 	<!-- 검색창 -->
 	<div class="row center">
-		<form action="hot" method="get">
+		<form action="list" method="get">
 
 			<c:choose>
 				<c:when test="${vo.column == 'board_content'}">

@@ -67,18 +67,18 @@ public class BoardWithImageDao {
 		public boolean update(BoardWithImageDto boardWithImageDto) {
 			String sql = "update board "
 							+ "set board_head= ?, board_title= ?, board_content= ? "
-							+ "where board_no = ?";
+							+ "where allboard_no = ?";
 			Object[] param = {
 				boardWithImageDto.getBoardHead(), boardWithImageDto.getBoardTitle(),
-				boardWithImageDto.getBoardContent(), boardWithImageDto.getBoardNo()
+				boardWithImageDto.getBoardContent(), boardWithImageDto.getAllboardNo()
 			};
 			return jdbcTemplate.update(sql, param) > 0;
 		}
 		
 		//게시글 삭제
-		public boolean delete(int boardNo) {
-			String sql = "delete board where board_no = ?";
-			Object[] param = {boardNo};
+		public boolean delete(int allboardNo) {
+			String sql = "delete board where allboard_no = ?";
+			Object[] param = {allboardNo};
 			return jdbcTemplate.update(sql, param) > 0;
 		}
 		
@@ -106,9 +106,9 @@ public class BoardWithImageDao {
 		}
 		
 		// 게시글 중 하나를 골라 상세보기
-		public BoardWithImageDto selectOne(int boardNo) {
-			String sql = "select * from board where board_no = ?";
-			Object[] param = {boardNo};
+		public BoardWithImageDto selectOne(int allboardNo) {
+			String sql = "select * from board where allboard_no = ?";
+			Object[] param = {allboardNo};
 			List<BoardWithImageDto> list = jdbcTemplate.query(sql, mapper, param);
 			return list.isEmpty() ? null : list.get(0);
 		}
@@ -172,9 +172,9 @@ public class BoardWithImageDao {
 
 		
 		//첨부파일을 추가하였을 때의 번호가 첨부파일 테이블의 번호에 묶는 기능
-		public void connect(int boardNo, int attachmentNo) {
+		public void connect(int allboardNo, int attachmentNo) {
 			String sql = "insert into board_attachment values(?, ?)";
-			Object[] param = {boardNo, attachmentNo};
+			Object[] param = {allboardNo, attachmentNo};
 			jdbcTemplate.update(sql, param);
 		}
 		

@@ -6,6 +6,13 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<script>
+	/* 전역변수 설정 */
+	var memberId = "${sessionScope.memberId}";
+	var boardWriter = "${boardWithImageDto.boardWriter}";
+	var allboardNo = "${boardWithImageDto.allboardNo}";
+</script>
+
 <c:if test="${sessionScope.memberLevel == '관리자'}">
 	<script type="text/javascript"> 
 	function checkAll(){
@@ -73,7 +80,7 @@
                         <td>${boardWithImageDto.boardNo}</td>
                         <td class="left">
                             <!-- 제목을 누르면 상세로 이동 -->
-                            <a href="detail?boardNo=${boardWithImageDto.boardNo}" class="link">
+                            <a href="detail?allboardNo=${boardWithImageDto.allboardNo}" class="link">
                                 
                                 <c:if test="${boardWithImageDto.boardHead != null}">
                                     <!-- 말머리가 있으면 출력 -->
@@ -107,7 +114,7 @@
 						<td>${boardWithImageDto.boardNo}</td>
 						<td class="left">
 							<!-- 제목을 누르면 상세로 이동 --> <a
-							href="detail?boardNo=${boardWithImageDto.boardNo}" class="link">
+							href="detail?allboardNo=${boardWithImageDto.getAllboardNo()}" class="link">
 
 								<c:if test="${boardWithImageDto.boardHead != null}">
 									<!-- 말머리가 있으면 출력 -->

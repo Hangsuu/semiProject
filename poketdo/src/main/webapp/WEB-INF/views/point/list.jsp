@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
         </div>
         <div class="flex-all-center">구분</div>
         <div class="flex-all-center">제목</div>
-        <div class="flex-align-center">작성자</div>
+        <div class="flex-all-center">작성자</div>
         <div class="flex-all-center">작성일</div>
       </div>
 
@@ -86,9 +86,11 @@ pageEncoding="UTF-8"%>
           <div class="flex-all-center bold">
           <c:choose>
           	<c:when test="${list.getPointBoardHead()==0}">
-          		[처리중]
+          		<span style="color:#E54444">[처리중]</span>
           	</c:when>
-          	<c:otherwise>[처리완료]</c:otherwise>
+          	<c:otherwise>
+	          	<span>[처리완료]</span>
+          	</c:otherwise>
           </c:choose>
           
           </div>

@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script src="/static/js/seal-insert.js"></script>
 
 <script type="text/javascript">
 	$(function () {
@@ -19,7 +18,8 @@
 			    e.preventDefault();
 			  }
 			});
-	
+		
+	});
 </script>
 
 <section class="container-1200 flex-box flex-vertical">

@@ -7,11 +7,14 @@
 <script src="/static/js/swiper.js"></script>
 <!-- timer 의존성 주입 -->
 <script src="/static/js/timer.js"></script>
+<!-- 랜덤 숫자 생성 js 주입 -->
+<!-- <script src="/static/js/random.js"></script> -->
 <!-- section -->
 <%-- base.css --%>
 <section class="container-1200 flex-box align-center">
   <!-- aside -->
   <aside></aside>
+
   <!-- 본문(article) -->
   <article class="container-1140 mt-30">
 
@@ -49,12 +52,11 @@
     </div>
 <%-- 포켓몬 교환 --%>
     <%-- base.css / component.css --%>
-    <!-- <h1>${pocketmonTradeList}</h1> -->
-    <div class="home-sector title-body">
+    <div class="home-sector home-raid-board title-body">
       <%-- home.css --%>
       <div class="home-board-title">
         <h2>🤝교환해요</h2>
-        <a href="/pocketmonTrade">+더보기</a>
+        <a href="/auction/list?page=1">+더보기</a>
       </div>
       <%-- <div class="mt-20 flex">
         <c:if test="${pocketmonTradeList.size()!=0}">
@@ -97,10 +99,10 @@
         </div>
         <div class="home-board-list">
         	<c:forEach var="raidDto" items="${raidList}">
-        	    <div class="row do-not-line-over" style="font-size:17px">
+        	    <div class="row" style="font-size:17px">
 	            	<a href="/raid/detail?page=1&allboardNo=${raidDto.allboardNo}" class="link">
 	            		<span class="home-board-type">[${raidDto.raidMonster}]</span>
-	            		 <span title="${raidDto.raidTitle}"> ${raidDto.raidTitle} ${raidDto.raidCount}/4</span>
+	            		 ${raidDto.raidTitle} ${raidDto.raidCount}/4
 	            		<span class="home-board-reply">(${raidDto.raidReply})</span>
 	            	</a>
             	</div>
@@ -116,10 +118,10 @@
         </div>
         <div class="home-board-list">
             <c:forEach var="combinationDto" items="${combinationList}">
-            	<div class="row do-not-line-over" style="font-size:17px">
+            	<div class="row" style="font-size:17px">
 	            	<a href="/combination/detail?page=1&allboardNo=${combinationDto.allboardNo}" class="link">
 	            		<span class="home-board-type">[${combinationDto.combinationType}]</span>
-	            		 <span title="${combinationDto.combinationTitle}">${combinationDto.combinationTitle} </span>
+	            		 ${combinationDto.combinationTitle} 
 	            		<span class="home-board-reply">(${combinationDto.combinationReply})</span>
 	            	</a>
             	</div>
@@ -127,6 +129,7 @@
         </div>
       </div>
     </div>
+    
     
 <%-- 경매 --%>
     <%-- base.css / component.css --%>
@@ -137,7 +140,7 @@
         <a href="/auction/list?page=1">+더보기</a>
       </div>
 	<!-- 게시판 테이블(swiper) -->
-		<div class="swiper mt-20 center">
+		<div class="swiper mt-20">
 			<div class="swiper-wrapper">
 				<c:forEach var="auctionDto" items="${auctionList}">
 					<div class="swiper-slide" style="padding:1em; border:1px solid #F2F4FB; border-radious:2em; margin:10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05)">
@@ -169,7 +172,7 @@
 							</c:choose>
 						</div>
 				<!-- 제목 -->
-						<div class="row do-not-line-over" style="width:200px;" title="${auctionDto.auctionTitle}">
+						<div class="row" style="width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" title="${auctionDto.auctionTitle}">
 							<a href="/auction/detail?allboardNo=${auctionDto.allboardNo}&page=1" class="link">
 								${auctionDto.auctionTitle} 
 								<c:if test="${auctionDto.auctionReply!=0}">(${auctionDto.auctionReply})</c:if>

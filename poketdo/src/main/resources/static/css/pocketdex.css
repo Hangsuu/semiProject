@@ -762,7 +762,20 @@
 /* 포켓몬스터 정보 수정 css*/
 
 .pocket-input-container {
-	width:500px;
+	width:700px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	margin : 0 auto;
+	margin-bottom:50px;
+	background-color: #FAFAFF;
+	border-radius: 25px;
+	border : 2px solid #9DACE4;
+	padding:2em;
+	
+}
+.point-request-container {
+	width:600px;
 	display: flex;
 	flex-direction: column;
 	text-align: center;

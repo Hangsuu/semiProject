@@ -90,7 +90,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 			  <a href="/board/hot"><span>인기 게시판</span></a>
 			</div>
 			<div>
-			  <a href="/auction/list?page=1"><span>굿즈 경매 게시판</span></a>
+			  <a href="/auction/list?page=1"><span>굿즈 경매</span></a>
 			</div>
 		</div>
          </div>

@@ -18,7 +18,7 @@ import com.kh.poketdo.interceptor.MemberInterceptor;
 	-프로젝트의 구조를 변경하는 설정이라면 특정 클래스를 상속받아서 자격까지 획득
  */
 @Configuration
-public class InterceptorConfiguration implements WebMvcConfigurer{
+public class InterceptorConfiguration implements WebMvcConfigurer {
 	@Autowired
 	private MemberInterceptor memberInterceptor;
 	@Autowired
@@ -29,11 +29,22 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	private AdminNoticeInterceptor adminNoticeInterceptor;
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(memberInterceptor).addPathPatterns("/member/**", "/admin/**", "/board/**")
-//			.excludePathPatterns("/member/join", "/board/list", "/board/detail", 
-//					"/member/joinFinish", "/member/login", "/member/find", "/member/exitFinish");
-//		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**","/board/deleteAll");
-//		registry.addInterceptor(boardManageInterceptor).addPathPatterns("/board/delete", "/board/edit");
-//		registry.addInterceptor(adminNoticeInterceptor).addPathPatterns("/board/write", "/board/edit");
+
+		// 로그인 상태만 접속
+		registry.addInterceptor(memberInterceptor).addPathPatterns("/auction/write",
+				"/auction/bookmark","/auction/bookmarkDetail"
+				,"/combination/write","/raid/write","/rest/like","/rest/reply");
+
+		//관리자만 접속
+		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin");
+		//작성자나 관리자만 접속
+		registry.addInterceptor(boardManageInterceptor).addPathPatterns(
+				"/auction/edit","/auction/delete","/combination/edit",
+				"/combination/delete","/raid/edit","/raid/delete");
+
+
+		// notice
+		// registry.addInterceptor(adminNoticeInterceptor).addPathPatterns("/board/write",
+		// "/board/edit");
 	}
 }

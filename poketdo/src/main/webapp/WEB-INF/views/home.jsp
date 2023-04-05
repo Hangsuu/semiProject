@@ -7,6 +7,8 @@
 <script src="/static/js/swiper.js"></script>
 <!-- timer 의존성 주입 -->
 <script src="/static/js/timer.js"></script>
+<!-- 랜덤 숫자 생성 js 주입 -->
+<!-- <script src="/static/js/random.js"></script> -->
 <!-- section -->
 <%-- base.css --%>
 <section class="container-1200 flex-box align-center">

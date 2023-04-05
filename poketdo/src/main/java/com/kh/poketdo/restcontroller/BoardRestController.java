@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,14 +32,15 @@ public class BoardRestController {
 			@ModelAttribute LikeTableDto liketableDto) {
 		String memberId = (String)session.getAttribute("memberId");
 		liketableDto.setMemberId(memberId);
+		System.out.println(liketableDto.getAllboardNo());
 		
 		boolean current = liketableDao.check(liketableDto);
 		if(current) {
 			liketableDao.delete(liketableDto);
 		}
 		else {
-			int boardNo = liketableDto.getAllboardNo();
-			liketableDao.insert(LikeTableDto.builder().memberId(memberId).allboardNo(boardNo).build());
+			int allboardNo = liketableDto.getAllboardNo();
+			liketableDao.insert(LikeTableDto.builder().memberId(memberId).allboardNo(allboardNo).build());
 	    }
 		
 		//좋아요 개수

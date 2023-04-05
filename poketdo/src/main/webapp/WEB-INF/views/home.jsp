@@ -8,7 +8,7 @@
 <!-- timer 의존성 주입 -->
 <script src="/static/js/timer.js"></script>
 <!-- 랜덤 숫자 생성 js 주입 -->
-<!-- <script src="/static/js/random.js"></script> -->
+<script src="/static/js/random.js"></script>
 <!-- section -->
 <%-- base.css --%>
 <section class="container-1200 flex-box align-center">
@@ -47,9 +47,18 @@
         <%-- home.css --%>
         <div class="home-board-title">
           <h2>🦄오늘의 포켓몬</h2>
-          <a href="#">+더보기</a>
         </div>
-        <div class="home-board-list">내용</div>
+        <div class="home-board-list random-box">
+        	<div>
+        		
+        	</div>
+        	<div>
+        		
+        	</div>
+        	<div style="width:495px; " class="center">
+        	
+        	</div>
+        </div>
       </div>
     </div>
 <%-- 포켓몬 교환 --%>

@@ -124,8 +124,4 @@ public class PocketmonTradeController {
     return pocketmonTradeService.delete(pocketmonTradeNo, session);
   }
 
-  @GetMapping("/test")
-  public String test() {
-    return "/WEB-INF/views/pocketmonTrade/test.jsp";
-  }
 }

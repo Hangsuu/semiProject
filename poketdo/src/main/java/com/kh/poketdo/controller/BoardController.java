@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.BoardWithImageDao;
+import com.kh.poketdo.dao.BoardWithNickDao;
 import com.kh.poketdo.dto.AllboardDto;
 import com.kh.poketdo.dto.BoardWithImageDto;
 import com.kh.poketdo.vo.PaginationVO;
@@ -30,64 +31,37 @@ public class BoardController {
 	private BoardWithImageDao boardWithImageDao;
 	
 	@Autowired
+	private BoardWithNickDao boardWithNickDao;
+	
+	@Autowired
 	private AllboardDao allboardDao;
 	
-	// 게시판 사이트 구현
 	@GetMapping("/list")
-	public String list(@ModelAttribute("vo") PaginationVO vo,
-			Model model, @RequestParam(required = false, defaultValue = "boardTitle") String column, 
-			@RequestParam(required = true, defaultValue = "") String keyword) {
-		// 게시글 전체 개수
-		int totalCount = boardWithImageDao.selectCount(vo);
-		vo.setCount(totalCount);
+	public String list(Model model, 
+			@ModelAttribute("vo") PaginationVO vo) {
+		//목록의 숫자 계산 후 VO count에 입력
+		vo.setCount(boardWithNickDao.selectCount(vo));
 		
-		if(keyword.equals("")) {//키워드가 없다면 -> 목록
-
-		// 게시글
-		List<BoardWithImageDto> list = boardWithImageDao.selectList();
-		model.addAttribute("list", list);
-		}
-		else { //키워드가 있다면 -> 검색
-			model.addAttribute("column", column);
-			model.addAttribute("keyword", keyword);
-			model.addAttribute("list", boardWithImageDao.selectList(column, keyword));
-			
-			//검색 완료 후 검색어 창 비우기
-			model.addAttribute("keyword", keyword);
-		}
-		//검색 여부와 관계 없이 공지사항을 3개 조회해서 Model에 첨부
-		//공지사항
-		model.addAttribute("noticeList", boardWithImageDao.selectNoticeList(1, 3));
+		model.addAttribute("list", boardWithNickDao.selectList());
+		model.addAttribute("list", boardWithNickDao.selectList(vo));
+		model.addAttribute("noticeList", boardWithNickDao.selectNoticeList(1,3));
 		return "/WEB-INF/views/board/list.jsp";
 	}
 	
 	// 인기게시판 구현(추천 30이상)
 	@GetMapping("/hot")
 	public String hot(@ModelAttribute("vo") PaginationVO vo,
-			Model model, @RequestParam(required = false, defaultValue = "boardTitle") String column, 
-			@RequestParam(required = true, defaultValue = "") String keyword) {
-		// 게시글 전체 개수
-		int totalCount = boardWithImageDao.selectCount(vo);
-		vo.setCount(totalCount);
-		
-		if(keyword.equals("")) {//키워드가 없다면 -> 목록
-
-		// 게시글
-		List<BoardWithImageDto> list = boardWithImageDao.hotSelectList();
-		model.addAttribute("list", list);
-		}
-		else { //키워드가 있다면 -> 검색
-			model.addAttribute("column", column);
-			model.addAttribute("keyword", keyword);
-			model.addAttribute("list", boardWithImageDao.selectList(column, keyword));
-			
-			//검색 완료 후 검색어 창 비우기
-			model.addAttribute("keyword", keyword);
-		}
-		//검색 여부와 관계 없이 공지사항을 3개 조회해서 Model에 첨부
-		//공지사항
-		model.addAttribute("noticeList", boardWithImageDao.selectNoticeList(1, 3));
-		return "/WEB-INF/views/board/hot.jsp";
+	Model model) {
+	// 게시글 전체 개수
+	vo.setCount(boardWithNickDao.selectHotCount(vo));
+	// 게시글
+	model.addAttribute("hot", boardWithNickDao.selectHotList(vo));
+	// 현재 페이지 정보
+	model.addAttribute("pagination", vo);
+	// 검색 여부와 관계 없이 공지사항을 3개 조회해서 Model에 첨부
+	// 공지사항
+	model.addAttribute("noticeList", boardWithNickDao.selectNoticeList(1, 3));
+	return "/WEB-INF/views/board/hot.jsp";
 	}
 
 	
@@ -176,79 +150,74 @@ public class BoardController {
 //		(3) 읽은 적이 있으면 조회수 증가를 하지 않고 없으면 추가 후 조회수 증가
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam int boardNo, 
-						Model model, HttpSession session) {
-		//사용자가 작성자인지 판정 후 JSP로 전달
-		BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(boardNo);
-		String memberId = (String) session.getAttribute("memberId");
-		
-		boolean owner = boardWithImageDto.getBoardWriter() != null 
-				&& boardWithImageDto.getBoardWriter().equals(memberId);
-		model.addAttribute("owner", owner);
-		
-		//사용자가 관리자인지 판정 후 JSP로 전달
-		String memberLevel = (String) session.getAttribute("memberLevel");
-		boolean admin = memberLevel != null && memberLevel.equals("관리자");
-		model.addAttribute("admin", admin);
-		
-		//조회수 증가
-		if(!owner) {//내가 작성한 글이 아니라면(시나리오 1번)
-					
-			//시나리오 2번 진행
+	public String detail(@RequestParam int boardNo, Model model, HttpSession session) {
+	    // 사용자가 작성자인지 판정 후 JSP로 전달
+	    BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(boardNo);
+	    String memberId = (String) session.getAttribute("memberId");
+	    boolean owner = boardWithImageDto.getBoardWriter() != null
+	            && boardWithImageDto.getBoardWriter().equals(memberId);
+	    model.addAttribute("owner", owner);
+
+	    // 사용자가 관리자인지 판정 후 JSP로 전달
+	    String memberLevel = (String) session.getAttribute("memberLevel");
+	    boolean admin = memberLevel != null && memberLevel.equals("관리자");
+	    model.addAttribute("admin", admin);
+	    int allboardNo = boardWithImageDto.getAllboardNo();
+	    // 조회수 증가
+	    if (!owner) {// 내가 작성한 글이 아니라면(시나리오 1번)
+	        // 시나리오 2번 진행
+	    	
 			Set<Integer> memory = (Set<Integer>) session.getAttribute("memory");
-			if(memory == null) {
-				memory = new HashSet<>();
-			}
-			
-			if(!memory.contains(boardNo)) {//읽은 적이 없는가(기억에 없는가)
-				boardWithImageDao.updateReadCount(boardNo);
-				boardWithImageDto.setBoardRead(boardWithImageDto.getBoardRead()+1);//DTO 조회수 1증가
-				memory.add(boardNo);//저장소에 추가(기억에 추가)
-			}
-			//System.out.println("memory = " + memory);
-			session.setAttribute("memory", memory);//저장소 갱신
-			
-		}
-		model.addAttribute("boardWithImageDto", boardWithImageDto);
-		return "/WEB-INF/views/board/detail.jsp";
+	        if (memory == null) {
+	            memory = new HashSet<>();
+	        }
+	        if (!memory.contains(allboardNo)) {// 읽은 적이 없는가(기억에 없는가)
+	            boardWithImageDao.updateReadCount(allboardNo);
+	            boardWithImageDto.setBoardRead(boardWithImageDto.getBoardRead() + 1);// DTO 조회수 1증가
+	            memory.add(allboardNo);// 저장소에 추가(기억에 추가)
+	        }
+	        session.setAttribute("memory", memory);// 저장소 갱신
+
+	   }
+	    model.addAttribute("boardWithImageDto", boardWithImageDto);
+	    return "/WEB-INF/views/board/detail.jsp";
 	}
+
 	
 	@GetMapping("/detail2")
-	public String detail2(@RequestParam int boardNo, 
-						Model model, HttpSession session) {
-		//사용자가 작성자인지 판정 후 JSP로 전달
-		BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(boardNo);
-		String memberId = (String) session.getAttribute("memberId");
-		
-		boolean owner = boardWithImageDto.getBoardWriter() != null 
-				&& boardWithImageDto.getBoardWriter().equals(memberId);
-		model.addAttribute("owner", owner);
-		
-		//사용자가 관리자인지 판정 후 JSP로 전달
-		String memberLevel = (String) session.getAttribute("memberLevel");
-		boolean admin = memberLevel != null && memberLevel.equals("관리자");
-		model.addAttribute("admin", admin);
-		
-		//조회수 증가
-		if(!owner) {//내가 작성한 글이 아니라면(시나리오 1번)
-					
-			//시나리오 2번 진행
+	public String detail2(@RequestParam int boardNo, Model model, HttpSession session) {
+	    // 사용자가 작성자인지 판정 후 JSP로 전달
+	    BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(boardNo);
+	    String memberId = (String) session.getAttribute("memberId");
+	    boolean owner = boardWithImageDto.getBoardWriter() != null
+	            && boardWithImageDto.getBoardWriter().equals(memberId);
+	    model.addAttribute("owner", owner);
+
+	    // 사용자가 관리자인지 판정 후 JSP로 전달
+	    String memberLevel = (String) session.getAttribute("memberLevel");
+	    boolean admin = memberLevel != null && memberLevel.equals("관리자");
+	    model.addAttribute("admin", admin);
+	    int allboardNo = boardWithImageDto.getAllboardNo();
+	    // 조회수 증가
+	    if (!owner) {// 내가 작성한 글이 아니라면(시나리오 1번)
+	        // 시나리오 2번 진행
+	    	
 			Set<Integer> memory = (Set<Integer>) session.getAttribute("memory");
-			if(memory == null) {
-				memory = new HashSet<>();
-			}
-			
-			if(!memory.contains(boardNo)) {//읽은 적이 없는가(기억에 없는가)
-				boardWithImageDao.updateReadCount(boardNo);
-				boardWithImageDto.setBoardRead(boardWithImageDto.getBoardRead()+1);//DTO 조회수 1증가
-				memory.add(boardNo);//저장소에 추가(기억에 추가)
-			}
-			//System.out.println("memory = " + memory);
-			session.setAttribute("memory", memory);//저장소 갱신
-			
-		}
-		model.addAttribute("boardWithImageDto", boardWithImageDto);
-		return "/WEB-INF/views/board/detail2.jsp";
+	        if (memory == null) {
+	            memory = new HashSet<>();
+	        }
+	        if (!memory.contains(allboardNo)) {// 읽은 적이 없는가(기억에 없는가)
+	            boardWithImageDao.updateReadCount(allboardNo);
+	            boardWithImageDto.setBoardRead(boardWithImageDto.getBoardRead() + 1);// DTO 조회수 1증가
+	            memory.add(allboardNo);// 저장소에 추가(기억에 추가)
+	        }
+	        session.setAttribute("memory", memory);// 저장소 갱신
+
+	   }
+	    model.addAttribute("boardWithImageDto", boardWithImageDto);
+	    return "/WEB-INF/views/board/detail2.jsp";
 	}
+
+	
 	
 }

@@ -21,7 +21,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- section -->
 <section class="mt-50 mb-30">
   <!-- article -->
-  <article class="container-1200">
+  <article class="container-1100">
     <form
       action="/pocketmonTrade/write"
       method="post"

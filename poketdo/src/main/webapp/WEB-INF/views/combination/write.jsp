@@ -135,23 +135,25 @@
 		
 	});
 </script>
-<div class="container-1200 mt-50">
+<div class="container-1000 mt-50">
 <form action="write" method="post" autocomplete="off">
 	<input type="hidden" name="combinationWriter" value="${sessionScope.memberId}">
 	<input type="hidden" name="tagList">
 	<div class="row">
-		제목 : <input class="form-input" name="combinationTitle">
-		<div class="invalid-message">필수 입력 항목입니다</div>
-	</div>
-	<div class="row">
-		타입 : <select class="form-input neutral" name="combinationType">
+		<select class="form-input neutral w-10" name="combinationType">
 			<option>일반</option>
 			<option>몬스터</option>
 			<option>필드</option>
 			<option>체육관</option>
 			<option>기타</option>
 		</select>
-<!-- 태그박스 -->
+	<!-- 태그박스 -->
+		<input class="form-input w-20 tag-input" value="#" placeholder="#태그 입력">
+		<input class="form-input w-100 mt-10" name="combinationTitle" placeholder="제목을 입력하세요">
+		<div class="invalid-message">필수 입력 항목입니다</div>
+	</div>
+<!-- 태그입력 -->
+	<div class="row">
 		<div class="tag-box" style="display:inline-block">
 		</div>
 	</div>
@@ -159,10 +161,10 @@
 		<textarea name="combinationContent" rows="10" class="form-input w-100 summernote"></textarea>
 		<div class="invalid-message">필수 입력 항목입니다</div>
 	</div>
-	<div class="row">
-		<input class="form-input w-100 tag-input" value="#" placeholder="#태그 입력">
+	<div class="row right">
+		<a href="list?page=1" class="form-btn negative w-20">취소</a>
+		<button class="form-btn positive submit-btn w-20" type="button"><i class="fa-solid fa-pen-to-square me-10"></i>작성</button>
 	</div>
-	<button class="form-btn neutral submit-btn" type="button">작성</button>
 </form>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

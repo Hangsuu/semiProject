@@ -17,19 +17,17 @@
 <form action="edit" method="post" autocomplete="off" enctype="multipart/form-data">
 	<input type="hidden" name="allboardNo" value="${auctionDto.allboardNo}">
 	<div class="row">
-	제목 : <input class="form-input w-100" name="auctionTitle" value="${auctionDto.auctionTitle}">
+	<input class="form-input center neutral" readonly value="제목" style="width:100px"><input class="form-input" name="auctionTitle" value="${auctionDto.auctionTitle}" style="width:88%">
 	</div>
 	<div class="row">
-	최고 입찰 가격 : <input class="form-input min-bid-price" name="auctionMinPrice" value="${auctionDto.auctionMinPrice}">
+	<input class="form-input center neutral" readonly value="경매시작가" style="width:100px"><input class="form-input min-bid-price" name="auctionMinPrice" value="${auctionDto.auctionMinPrice}">	</div>
+	<div class="row">
+	<input class="form-input center neutral" readonly value="즉시낙찰가" style="width:100px"><input class="form-input max-bid-price" name="auctionMaxPrice" value="${auctionDto.auctionMaxPrice}">
 	</div>
 	<div class="row">
-	즉시 입찰 가격 : <input class="form-input max-bid-price" name="auctionMaxPrice" value="${auctionDto.auctionMaxPrice}">
-	</div>
-	<div class="row">
-	내용
 	<textarea class="row form-input w-100 summernote" style="min-height:200px" name="auctionContent">${auctionDto.auctionContent}</textarea>
 	</div>
-	<button class="form-btn neutral">수정</button>
+	<button class="form-btn neutral w-20"><i class="fa-solid fa-pen-to-square me-10"></i>수정</button>
 </form>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

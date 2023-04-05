@@ -22,7 +22,6 @@ public class MemberDto {
     private Date memberJoin;
     private Date memberLogin;
     private int memberLoginCnt;
-    private Date memberDeadline;
     private int memberSealNo;
     
     

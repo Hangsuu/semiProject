@@ -193,6 +193,31 @@ section.member-login-section form {
   height: 2.8em;
   padding: 4px;
 }
+.pocketmonTrade-row2 {
+   display:flex;
+  height: 2.8em;
+  justify-content: space-between;
+  padding: 4px;
+}
+.pocketmonTrade-row2 > * {
+  width: 25%;
+  /* text-align: center; */
+}
+.pocketmonTrade-row2 > *:nth-child(1) {
+  width: 10%;
+  /* text-align: start; */
+}
+.pocketmonTrade-row2 > *:nth-child(2) {
+  width: 25%;
+  /* text-align: start; */
+}
+.pocketmonTrade-row2 > *:nth-child(3) {
+  width: 65%;
+  /* text-align: start; */
+}
+.pocketmonTrade-row2 > *:nth-child(4) {
+  width: 35%;
+}
 .pocketmonTrade-row > * {
   width: 10%;
   /* text-align: center; */
@@ -222,7 +247,17 @@ section.member-login-section form {
   border: 1px solid red;
   border-radius: 0.3em;
 }
-
+.typeTag {
+  text-decoration: none;
+}
+.ellipsis {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
 .pocketmonTrade-pagination > * {
   width: 1.5em;
   height: 1.5em;
@@ -267,15 +302,16 @@ section.member-login-section form {
 .pocketmonTrade-info-footer {
   display: flex;
 }
-.pocketmonTradeReply {
+/* .pocketmonTradeReply {
   margin-left: auto;
-}
+} */
 .pocketmonTradeContent {
   min-height: 400px;
 }
 #pocketmonTrade-list-btn {
   margin-left: auto;
 }
+
 .pocketmonTrade-btn {
   font-weight: bold;
   padding: 0.25em 0.5em;
@@ -288,7 +324,6 @@ section.member-login-section form {
   cursor: pointer;
 }
 #pocketmonTrade-like {
-  font-weight: bold;
 }
 #pocketmonTrade-like:hover {
   cursor: pointer;
@@ -307,6 +342,23 @@ textarea[name="replyContent"] {
   border: 1px solid red;
   border-radius: 45%;
   padding: 2px;
+}
+.pocketmonTrade-reply-re:hover {
+  cursor: pointer;
+}
+.pocketmonTrade-reply-form {
+  position: relative;
+}
+.reReply {
+  display: flex;
+  align-items: start;
+}
+.reReply > *:first-child {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+.reReply > *:last-child {
+  flex-grow: 1;
 }
 
 /* # Message receive */

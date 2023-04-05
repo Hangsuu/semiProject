@@ -85,7 +85,7 @@
 	  width: 1000px;
 	  min-height: 400px;
 	  margin : auto;
-	  margin-bottom:50px;
+	  margin-bottom:100px;
 	  
 	}
 	
@@ -131,9 +131,8 @@
 	}
 	
 	.board-seal{
-	width:20px;
-	height:20px;
-	margin-right:5px;
+	width:40px;
+	height:40px;
 	}
 	
 	.seal-price{

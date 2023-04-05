@@ -14,13 +14,13 @@
 					index = response.pocketNo;
 					console.log(index);
 					searchList();
-					var imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+index+".png";
+					var imageUrl = "/attachment/download?attachmentNo="+index;
 					$(".target .monster-image").each(function(){
 						$(this).attr("src", imageUrl);
 					});
 				},
 				error:function(){
-					alert("잘못된 이름입니다.")
+					alert("정확한 포켓몬 이름을 입력하세요.")
 				}
 			});
 		});
@@ -28,7 +28,7 @@
 			searchList();
 			$(".target .monster-image").each(function(){
 				var number = Math.floor(Math.random()*1008+1);
-				var imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+number+".png";
+				var imageUrl = "/attachment/download?attachmentNo="+number;
 				$(this).attr("src", imageUrl);
 			});
 		})
@@ -67,7 +67,7 @@
 	});
 </script>
 
-    <div class="container-1200 mt-50">
+    <div class="container-1100 mt-50">
     	<div class="row mb-30">
     		<input class="form-input search-input" placeholder="포켓몬 검색">
     		<button class="form-btn neutral search-btn">찾기</button>

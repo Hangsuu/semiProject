@@ -19,6 +19,7 @@ import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.RaidDao;
 import com.kh.poketdo.dao.RaidJoinDao;
 import com.kh.poketdo.dao.RaidWithNickDao;
+import com.kh.poketdo.dto.AuctionDto;
 import com.kh.poketdo.dto.RaidDto;
 import com.kh.poketdo.vo.PaginationVO;
 
@@ -89,5 +90,20 @@ public class RaidController {
 			attr.addAttribute("seqNo", allboardNo);
 			return "redirect:detail";
 		}
+	}
+	
+	@GetMapping("/edit")
+	public String edit(@ModelAttribute PaginationVO vo, @RequestParam int allboardNo, Model model) {
+		model.addAttribute("vo", vo.getParameter());
+		model.addAttribute("raidDto", raidWithNickDao.selectOne(allboardNo));
+		return "/WEB-INF/views/raid/edit.jsp";
+	}
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute PaginationVO vo, @ModelAttribute RaidDto raidDto,
+			RedirectAttributes attr) {
+		raidDao.edit(raidDto);
+		attr.addAttribute("allboardNo", raidDto.getAllboardNo());
+		attr.addAttribute("page",vo.getPage());
+		return "redirect:detail";
 	}
 }

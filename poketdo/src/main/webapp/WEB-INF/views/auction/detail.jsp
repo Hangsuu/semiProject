@@ -104,7 +104,7 @@ $(function(){
 </script>
 <script src="/static/js/like.js"></script>
 <script src="/static/js/bookmark.js"></script>
-<div class="container-900 mt-50">
+<div class="container-1000 mt-50">
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">
 		<span class="board-detail-origin">굿즈 경매 게시판</span>
@@ -112,30 +112,70 @@ $(function(){
 	</div>
 	<div class="row board-detail-title">
 		${auctionDto.auctionTitle}
+	<!-- 즐겨찾기 -->
+		<div class="user-bookmark ms-20" style="display: inline-block" title="즐겨찾기 추가">
+			<i class="fa-regular fa-bookmark" style="font-size:20px;color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
+		</div>
 	</div>
 	<div class="row flex-box">
-		<div class="row">
+		<div class="row" style="vertical-align:center; display:inline-block">
 			<span class="auction-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
-					<img class="board-seal" src="${auctionDto.urlLink}">${auctionDto.memberNick}
+					<img class="board-seal" src="${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
 				</a>
 			</span>
-			<span class="board-detail-time">${auctionDto.boardTime}</span>
+			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn">수정</a>
-				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn">삭제</a>
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}&${vo.parameter}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">
 			조회수 : ${auctionDto.auctionRead}
 		</div>
 	</div>
-
+<!-- 본문 시작 -->
 	<div class="row" style="border-top:3px solid #f2f4fb; border-bottom: 3px solid #f2f4fb">
+<!-- 확정자 페이지 -->
+	<div class="row finish-target"></div>
+<!-- 확정자 페이지 끝 -->
+	<!-- 경매 진행 관련 -->
+		<div class="row" style="border:2px solid #f2f4fb; padding-left:1em; padding-right:1em">
+			<div class="row finished-auction">
+				<div class="row">
+					<span>종료된 경매</span>
+				</div>
+				<div class="row">
+				낙찰 가격 : <span class="final-price"></span>
+				</div>	
+				<!-- 작성자 최대 입찰자 컨트롤 기능 -->
+				<div class="row writer-control-box board-nick-image">
+					낙찰자 : 
+					<div class="final-last-bid" style="display:inline-block; vertical-align:middle"></div>
+				</div>		
+			</div>
+			<div class="row ing-auction">
+				<div class="row">
+					<span class="rest-time" data-finish-time="${auctionDto.finishTime}">${auctionDto.time}</span>
+				</div>
+				<div class="row">
+					<div style="display:inline-block">
+						현재 입찰가 : <span class="min-bid-price"></span>
+					</div>
+					<div style="display:inline-block" class="bid-info ms-10">
+						<span style="vertical-align:middle">(입찰자 : </span><img class="board-seal last-bid-seal" style="vertical-align:middle"><span class="last-bid-nick" style="vertical-align:middle"></span>)
+					</div>
+				</div>
+				<div class="row">
+					확정 입찰가 : <span class="max-bid-price"></span>
+				</div>
+			</div>
+		</div>
+	<!-- 경매 진행 관련 끝 -->
 		<!-- 본문 -->
-		<div class="row w-100" style="min-height:400px">${auctionDto.auctionContent}</div>
+		<div class="row w-100 board-detail-content do-not-over" style="min-height:400px; padding-left:1em; padding-right:1em">${auctionDto.auctionContent}</div>
 		<div class="row">
 			<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">${auctionDto.memberNick}님의 게시글 더 보기</a>
 		</div>
@@ -151,7 +191,21 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	
+<!-- 본문 끝 -->
+<!-- 입찰기능 -->
+	<c:if test="${sessionScope.memberId!=auctionDto.auctionWriter}">
+		<div class="my-point"></div>
+		<input type="hidden" class="my-point-input">
+		<div class="row bid-form">
+			<form class="form-bid">
+				<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
+				<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
+				<input class="form-input" name="auctionBidPrice">
+				<button type="button" class="form-btn neutral bid-btn">입찰</button>
+			</form>
+		</div>
+	</c:if>
+<!-- 입찰 기능 끝-->
 <!-- 댓글 -->
 	<!-- 표시 -->
 	<div class="row reply-best-target">
@@ -171,60 +225,6 @@ $(function(){
 		<div class="row align-right">
 			<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 		</div>
-	</div>
-<!-- 입찰기능 -->
-	<c:if test="${sessionScope.memberId!=auctionDto.auctionWriter}">
-		<div class="my-point"></div>
-		<input type="hidden" class="my-point-input">
-		<div class="row bid-form">
-			<form class="form-bid">
-				<input type="hidden" name="auctionBidOrigin" value="${auctionDto.allboardNo}">
-				<input type="hidden" name="auctionBidMember" value="${sessionScope.memberId}">
-				<input class="form-input" name="auctionBidPrice">
-				<button type="button" class="form-btn neutral bid-btn">입찰</button>
-			</form>
-		</div>
-	</c:if>
-<!-- 입찰 기능 끝-->
-<!-- 확정자 페이지 -->
-	<div class="row finish-target"></div>
-<!-- 경매 진행 관련 -->
-	<div class="row">
-		<div class="row finished-auction">
-			<div class="row">
-				<span>종료된 경매</span>
-			</div>
-			<div class="row">
-			낙찰 가격 : <span class="final-price"></span>
-			</div>	
-			<!-- 작성자 최대 입찰자 컨트롤 기능 -->
-			<div class="row writer-control-box">
-				낙찰자 : 
-				<div class="final-last-bid" style="display:inline-block"></div>
-			</div>		
-		</div>
-		<div class="row ing-auction">
-			<div class="row">
-				남은시간 : <span class="rest-time" data-finish-time="${auctionDto.finishTime}">${auctionDto.time}</span>
-			</div>
-			<div class="row">
-				<div style="display:inline-block">
-					최고 입찰 가격 : <span class="min-bid-price"></span>
-				</div>
-				<div style="display:inline-block" class="bid-info ms-10">
-					(입찰자 : <img class="board-seal last-bid-seal"><span class="last-bid-nick"></span>)
-				</div>
-			</div>
-			<div class="row">
-			즉시 입찰 가격 : <span class="max-bid-price"></span>
-			</div>
-		</div>
-	</div>
-<!-- 경매 진행 관련 끝 -->
-
-	<!-- 즐겨찾기 -->
-	<div class="right user-bookmark" style="display: inline-block">
-		<i class="fa-regular fa-bookmark" style="color:gray" data-allboard-no="${auctionDto.allboardNo}" data-bookmark-type="auction"></i>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -7,6 +7,8 @@
 <script src="/static/js/swiper.js"></script>
 <!-- timer 의존성 주입 -->
 <script src="/static/js/timer.js"></script>
+<!-- 랜덤 숫자 생성 js 주입 -->
+<!-- <script src="/static/js/random.js"></script> -->
 <!-- section -->
 <%-- base.css --%>
 <section class="container-1200 flex-box align-center">
@@ -36,7 +38,9 @@
           <a href="/board/hot">+더보기</a>
          
         </div>
-        <div>내용</div>
+        <div class="home-board-list">
+        	
+		</div>
       </div>
       <%-- home.css / component.css --%>
       <div class="home-cool-board title-body w-50">
@@ -45,83 +49,45 @@
           <h2>🦄오늘의 포켓몬</h2>
           <a href="#">+더보기</a>
         </div>
-        <div>내용</div>
+        <div class="home-board-list">내용</div>
       </div>
     </div>
 <%-- 포켓몬 교환 --%>
     <%-- base.css / component.css --%>
-    <div class="home-sector home-raid-board title-body">
+    <div class="home-sector title-body">
       <%-- home.css --%>
       <div class="home-board-title">
         <h2>🤝교환해요</h2>
-        <a href="/auction/list?page=1">+더보기</a>
+        <a href="/pocketmonTrade">+더보기</a>
       </div>
-      <div>
-        <div>
-          <div>오늘 레이드 뛰실분</div>
-          <div>
-            <ul>
-              <li>날짜: 2023/03/04</li>
-              <li>시간: 17:00</li>
-            </ul>
-          </div>
-          <div>
-            <%-- home.css --%>
-            <div class="party pool"></div>
-            <div class="party pool"></div>
-            <div class="party pool"></div>
-            <div class="pool"></div>
-          </div>
-        </div>
-        <div>
-          <div>오늘 레이드 뛰실분</div>
-          <div>
-            <ul>
-              <li>날짜: 2023/03/04</li>
-              <li>시간: 17:00</li>
-            </ul>
-          </div>
-          <div>
-            <%-- home.css --%>
-            <div class="party pool"></div>
-            <div class="party pool"></div>
-            <div class="party pool"></div>
-            <div class="pool"></div>
-          </div>
-        </div>
-        <div>
-          <div>오늘 레이드 뛰실분</div>
-          <div>
-            <ul>
-              <li>날짜: 2023/03/04</li>
-              <li>시간: 17:00</li>
-            </ul>
-          </div>
-          <div>
-            <%-- home.css --%>
-            <div class="party pool"></div>
-            <div class="party pool"></div>
-            <div class="party pool"></div>
-            <div class="pool"></div>
-          </div>
-        </div>
-        <div>
-          <div>오늘 레이드 뛰실분</div>
-          <div>
-            <ul>
-              <li>날짜: 2023/03/04</li>
-              <li>시간: 17:00</li>
-            </ul>
-          </div>
-          <div>
-            <%-- home.css --%>
-            <div class="party pool"></div>
-            <div class="party pool"></div>
-            <div class="party pool"></div>
-            <div class="pool"></div>
-          </div>
-        </div>
-      </div>
+      <%-- <div class="mt-20 flex">
+        <c:if test="${pocketmonTradeList.size()!=0}">
+          <c:forEach var="i" begin="0" end="${pocketmonTradeList.size()-2}">
+            <div style="padding:1em; border:1px solid #F2F4FB; border-radious:2em; margin:10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05); width: 20%;">
+              <div style="width:160px; height:180px" class="flex-box align-center">
+                <c:choose>
+                  <c:when test="${attachmentNoList.get(i)!=null}">
+                    <a href="/pocketmonTrade/${pocketmonTrade.getPocketmonTradeNo()}" class="link">
+                      <img style="width: 100%; height:150px;" src="/attachment/download?attachmentNo=${attachmentNoList.get(i)}">
+                    </a>
+                  </c:when>
+                  <c:otherwise>
+                    <a href="/pocketmonTrade/${pocketmonTrade.getPocketmonTradeNo()}" class="link">
+                      <img style="width: 100%; height:150px;" src="/static/image/noimage.png">
+                    </a>
+                  </c:otherwise>
+                </c:choose>
+              </div>
+              <div class="row" style="width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" title="${pocketmonTradeList.get(i).getPocketmonTradeTitle()}">
+                <a href="/pocketmonTrade/${pocketmonTrade.getPocketmonTradeNo()}" class="link bold">
+                  ${pocketmonTradeList.get(i).getPocketmonTradeTitle()}
+                  <c:if test="${pocketmonTradeList.get(i).getPocketmonTradeReply()!=0}">(${pocketmonTradeList.get(i).getPocketmonTradeReply()})</c:if>
+                </a>
+              </div>
+            </div>
+          </c:forEach>
+        </c:if>
+      </div> --%>
     </div>
 <%-- 레이드, 공략--%>
     <%-- base.css / component.css --%>
@@ -131,18 +97,38 @@
         <%-- home.css --%>
         <div class="home-board-title">
           <h2>👨‍👩‍👧‍👦레이드 모집중</h2>
-          <a href="#">+더보기</a>
+          <a href="/raid/list?page=1">+더보기</a>
         </div>
-        <div>내용</div>
+        <div class="home-board-list">
+        	<c:forEach var="raidDto" items="${raidList}">
+        	    <div class="row do-not-line-over" style="font-size:17px">
+	            	<a href="/raid/detail?page=1&allboardNo=${raidDto.allboardNo}" class="link">
+	            		<span class="home-board-type">[${raidDto.raidMonster}]</span>
+	            		 ${raidDto.raidTitle} ${raidDto.raidCount}/4
+	            		<span class="home-board-reply">(${raidDto.raidReply})</span>
+	            	</a>
+            	</div>
+        	</c:forEach>
+        </div>
       </div>
       <%-- home.css / component.css --%>
       <div class="home-cool-board title-body w-50">
         <%-- home.css --%>
         <div class="home-board-title">
           <h2>📝오늘의 핫 공략</h2>
-          <a href="#">+더보기</a>
+          <a href="/combination/list?page=1">+더보기</a>
         </div>
-        <div>내용</div>
+        <div class="home-board-list">
+            <c:forEach var="combinationDto" items="${combinationList}">
+            	<div class="row do-not-line-over" style="font-size:17px">
+	            	<a href="/combination/detail?page=1&allboardNo=${combinationDto.allboardNo}" class="link">
+	            		<span class="home-board-type">[${combinationDto.combinationType}]</span>
+	            		 ${combinationDto.combinationTitle} 
+	            		<span class="home-board-reply">(${combinationDto.combinationReply})</span>
+	            	</a>
+            	</div>
+        	</c:forEach>
+        </div>
       </div>
     </div>
     

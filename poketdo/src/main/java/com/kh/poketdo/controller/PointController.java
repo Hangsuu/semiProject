@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.PointDao;
+import com.kh.poketdo.dao.PointNameImageDao;
 import com.kh.poketdo.dto.PointDto;
+import com.kh.poketdo.dto.PointNameImageDto;
 import com.kh.poketdo.vo.PocketPaginationVO;
 
 @Controller
@@ -24,6 +26,9 @@ public class PointController {
 
 	@Autowired
 	private PointDao pointDao;
+	
+	@Autowired
+	private PointNameImageDao pointNameImageDao;
 	
 	
 	//포인트 요청 게시판
@@ -50,7 +55,6 @@ public class PointController {
 		String memberId = (String)session.getAttribute("memberId");
 		pointDto.setPointBoardWriter(memberId);
 		pointDto.setPointBoardNo(boardNo);
-		System.out.println(pointDto);
 		pointDao.requestPointWrite(pointDto);
 		return "redirect:list";
 	}
@@ -65,7 +69,7 @@ public class PointController {
 		vo.setCount(totalCount);
 		vo.setSize(15);
 		vo.setBlockSize(10);
-		List<PointDto> list = pointDao.selectList(vo);
+		List<PointNameImageDto> list = pointNameImageDao.selectList(vo);
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/point/list.jsp";
 	}

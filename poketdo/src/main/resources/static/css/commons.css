@@ -125,7 +125,7 @@ textarea.form-input {
   min-height: 10em;
 }
 
-/*
+/*link
     추가 스타일
     - 파일 선택창은 테두리를 나오게 하지 않겠다
 */
@@ -314,6 +314,9 @@ a.form-btn {
   margin-left: 50px;
 }
 
+.me-5 {
+  margin-right: 5px;
+}
 .me-10 {
   margin-right: 10px;
 }
@@ -516,6 +519,7 @@ a.form-btn {
 a.link {
   color: #2d3436;
   text-decoration: none;
+
 }
 a.link:hover {
   color: #b2bec3;
@@ -850,4 +854,36 @@ main section article h1 {
   padding-left: 0.5em;
   padding-right: 0.5em;
   cursor: default;
+}
+.do-not-over{
+  word-break:break-all;
+}
+.do-not-line-over {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/*---대문 페이지 css---*/
+.home-board-list{
+	overflow: auto;
+	padding:1em;
+	flex-grow: 1;
+	border: 2px solid #F3F5FB;
+	border-radius: 0.3em;
+	background-color: #fffdfd;
+	margin-top: 0.8em;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.06);
+}
+.home-board-type{
+	font-size : 17px;
+	display:inline-block;
+	width:70px;
+	text-align: center;
+	color:#1F3274;
+}
+.home-board-reply{
+	font-size : 16px;
+	display:inline-block;
+	text-align: center;
+	color:#AD000E;
 }

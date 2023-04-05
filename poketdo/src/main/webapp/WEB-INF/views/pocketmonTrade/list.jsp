@@ -6,29 +6,19 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script src="/static/js/pocketmonTrade/pocketmonTradeList.js"></script>
 <style>
-  .typeTag {
-    text-decoration: none;
-  }
+  
+  
 </style>
 <script>
   // console.log(window.location);
   console.log(window.location.origin)
   $(function(){
-    $(".typeTag").click(function(e){
-      e.preventDefault();
-      const queryString = new URLSearchParams(location.search);
-      queryString.set("type", $(this).text());
-      console.log(queryString.toString());
-
-      const newUrl = window.location.origin + location.pathname + "?" + queryString.toString();
-      console.log(newUrl)
-      location.href=newUrl;
-    })
+    
   })
 </script>
 <!-- section -->
 <section>
-  <article class="container-1200" style="min-height: 1000px">
+  <article class="container-1100" style="min-height: 1000px">
     <div class="mt-50 mb-10">
       <a class="pocketmonTrade-list-banner" href="/pocketmonTrade">포켓몬교환</a>
     </div>
@@ -187,13 +177,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <div class="flex-all-center bold"><a class="typeTag" href="#">${trade.getPocketmonTradeHead()}</a></div>
           <div class="flex-align-center">
             <a
-              class="pocketmonTrade-a-link"
+              class="pocketmonTrade-a-link ellipsis"
               href="/pocketmonTrade/${trade.getPocketmonTradeNo()}"
             >
             <c:if test="${trade.getPocketmonTradeHead()!='공지'}">
               <c:choose>
                 <c:when test="${trade.getPocketmonTradeComplete()==0}">
-                  <span class="ing-tag">진행중</span>
+                  <span class="ing-tag" style="margin-top: 3px;">진행중</span>
                 </c:when>
                 <c:when test="${trade.getPocketmonTradeComplete()==1}">
                   <span class="complete-tag">완료</span>
@@ -209,7 +199,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             >
           </div>
           <div class="flex-align-center">
-            <img height="100%" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${trade.getMemberNick()}
+            <img class="board-seal" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${trade.getMemberNick()}
           </div>
           <div class="flex-all-center">
             <c:choose>

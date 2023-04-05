@@ -22,7 +22,6 @@ import com.kh.poketdo.dao.MemberSealWithImageDao;
 import com.kh.poketdo.dao.PointDao;
 import com.kh.poketdo.dao.SealDao;
 import com.kh.poketdo.dao.SealWithImageDao;
-import com.kh.poketdo.dto.MemberSealWithImageDto;
 import com.kh.poketdo.dto.SealDto;
 import com.kh.poketdo.dto.SealWithImageDto;
 import com.kh.poketdo.service.SealService;

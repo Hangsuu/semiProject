@@ -1,6 +1,7 @@
 package com.kh.poketdo.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import com.kh.poketdo.dao.CombinationDao;
 import com.kh.poketdo.dao.CombinationWithNickDao;
 import com.kh.poketdo.dao.TagDao;
 import com.kh.poketdo.dto.CombinationDto;
+import com.kh.poketdo.dto.TagDto;
 import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
@@ -87,8 +89,18 @@ public class CombinationController {
 			}
 			session.setAttribute("memory", memory);
 		}
+		List<TagDto> list = tagDao.selectList(allboardNo);
+		String tagList = "";
+		for(int i=0; i<list.size(); i++) {
+			tagList += list.get(i).getTagName();
+			if(i!=list.size()-1) {
+				tagList +=",";
+			}
+			System.out.println(tagList);
+		}
 		model.addAttribute("combinationDto", combinationWithNickDao.selectOne(allboardNo));
 		model.addAttribute("tagDto", tagDao.selectList(allboardNo));
+		model.addAttribute("tagList", tagList);
 		return "/WEB-INF/views/combination/detail.jsp";
 	}
 	@GetMapping("/delete")
@@ -107,9 +119,31 @@ public class CombinationController {
 			return "redirect:detail";
 		}
 	}
-	
-//	@GetMapping("/simulator")
-//	public String simulator() {
-//		return "/WEB-INF/views/combination/simulator.jsp";
-//	}
+	@GetMapping("/edit")
+	public String edit(@ModelAttribute PaginationVO vo, @RequestParam int allboardNo, Model model) {
+		model.addAttribute("vo", vo.getParameter());
+		model.addAttribute("combinationDto", combinationWithNickDao.selectOne(allboardNo));
+		return "/WEB-INF/views/combination/edit.jsp";
+	}
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute PaginationVO vo, @ModelAttribute CombinationDto combinationDto,
+			RedirectAttributes attr, HttpServletRequest request) {
+		combinationDao.edit(combinationDto);
+		int allboardNo = combinationDto.getAllboardNo();
+		//기존 태그 삭제
+		List<TagDto> list = tagDao.selectList(allboardNo);
+		for(int i=0; i<list.size(); i++) {
+			tagDao.deleteTag(allboardNo, list.get(i).getTagName());
+		}
+		//새 태그 생성
+		String values = request.getParameter("tagList");
+		if(values.length()>0) {
+			String[] valuesArr = values.split(",");
+		//입력받은 태그를 db에 입력
+			tagDao.insertTags(allboardNo, valuesArr);
+		}
+		attr.addAttribute("allboardNo", allboardNo);
+		attr.addAttribute("page",vo.getPage());
+		return "redirect:detail";
+	}
 }

@@ -111,7 +111,6 @@ public class ReplyDao {
   public void replyInsert(int allboardNo) {
     AllboardDto allboardDto = allboardDao.selectOne(allboardNo);
     int replyCount = replyWithNickDao.replyWithNickCount(allboardNo);
-    System.out.println(replyCount);
     String allboardType = allboardDto.getAllboardBoardType();
     switch (allboardType) {
       case "auction":

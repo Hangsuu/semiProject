@@ -2,6 +2,8 @@ package com.kh.poketdo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.kh.poketdo.dao.AuctionDao;
+import com.kh.poketdo.dao.CombinationWithNickDao;
+import com.kh.poketdo.dao.PocketmonTradeMemberDao;
+import com.kh.poketdo.dao.RaidWithNickDao;
+import com.kh.poketdo.dto.PocketmonTradeMemberDto;
 import com.kh.poketdo.vo.PaginationVO;
 import com.kh.poketdo.vo.SimulatorVO;
 
@@ -16,7 +22,13 @@ import com.kh.poketdo.vo.SimulatorVO;
 public class HomeController {
 	@Autowired
 	private AuctionDao auctionDao;
-	
+	@Autowired
+	private RaidWithNickDao raidWithNickDao;
+	@Autowired
+	private CombinationWithNickDao combinationWithNickDao;
+	@Autowired
+	private PocketmonTradeMemberDao pocketmonTradeMemberDao;
+
 	@GetMapping("/")
 	public String home(Model model) {
 		
@@ -29,11 +41,54 @@ public class HomeController {
 		auctionPagination.setSpecial("auction_finish_time>sysdate and (auction_max_price=0 or auction_min_price<auction_max_price)");
 		model.addAttribute("auctionList", auctionDao.selectList(auctionPagination));
 		//------------경매 끝--------------
+		//------------레이드---------------
+		PaginationVO raidPagination = new PaginationVO();
+		raidPagination.setSize(10);
+		raidPagination.setCount(10);
+		raidPagination.setItem("raid_start_time");
+		raidPagination.setOrder("asc");
+		raidPagination.setSpecial("raid_start_time>sysdate and raid_count<4");
+		model.addAttribute("raidList", raidWithNickDao.selectList(raidPagination));
+		//------------레이드 끝---------------
+		//------------공략---------------
+		PaginationVO combinationPagination = new PaginationVO();
+		combinationPagination.setSize(10);
+		combinationPagination.setCount(10);
+		model.addAttribute("combinationList", combinationWithNickDao.tagSearchList(combinationPagination));
+		//------------공략 끝---------------
+		//------------포켓몬교환------------
+		// PaginationVO pocketmonTradePagination = new PaginationVO();
+		// pocketmonTradePagination.setSize(5);
+		// pocketmonTradePagination.setCount(5);
+		// List<PocketmonTradeMemberDto> pocketmonTradeList = pocketmonTradeMemberDao.selectHomeList(pocketmonTradePagination);
+		// List<Integer> attachmentNoList = new ArrayList<>();
+		// for(PocketmonTradeMemberDto dto : pocketmonTradeList){
+		// 	String pattern = "/rest/attachment/download/(.*)\"";
+		// 	Pattern p = Pattern.compile(pattern); // 패턴 객체 생성
+		// 	Matcher m = p.matcher(dto.getPocketmonTradeContent());
+		// 	if (m.find()) {
+		// 		String found = m.group(1); // 패턴에서 첫 번째 그룹(괄호로 묶인 부분) 추출
+		// 		int index = found.indexOf("\""); // "이" 문자열이 나오는 위치를 찾음
+		// 		if(index!=-1){
+		// 			String attachNoString = found.substring(0, index); 
+		// 			Integer attachmentNo = Integer.parseInt(attachNoString);
+		// 			attachmentNoList.add(attachmentNo);
+		// 		}
+		// 	  } else {
+		// 		attachmentNoList.add(null);
+		// 	}
+		// }
+		// model.addAttribute("pocketmonTradeList", pocketmonTradeList);
+		// model.addAttribute("attachmentNoList", attachmentNoList);
+		// System.out.println("pocketmonTradeList", pocketmonTradeList);
+
+		//------------포켓몬교환 끝------------
+		//--------------인기글 시작----------
+		PaginationVO boardPagination = new PaginationVO();
+		boardPagination.setSize(10);
+		boardPagination.setCount(10);
+		//--------------인기글 끝-----------
 		return "/WEB-INF/views/home.jsp";
-	}
-	@GetMapping("/sample")
-	public String sample() {
-	    return "/WEB-INF/views/sample.jsp";
 	}
 	
 	@GetMapping("/simulator")

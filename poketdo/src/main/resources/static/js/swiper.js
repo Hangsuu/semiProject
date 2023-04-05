@@ -24,7 +24,11 @@ $(function(){
 		  nextEl: ".swiper-button-next",
 		  prevEl: ".swiper-button-prev",
 		},
-		
+	//자동넘기기
+		autoplay:{
+			delay:2000,
+			disableOnInteraction: false,
+		},
 		// And if we need scrollbar
 		// scrollbar: {
 		//   el: ".swiper-scrollbar",

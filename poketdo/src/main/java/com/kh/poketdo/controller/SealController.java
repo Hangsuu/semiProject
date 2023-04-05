@@ -78,6 +78,7 @@ public class SealController {
 		int totalCount = sealWithImageDao.selectCount(vo);
 		vo.setCount(totalCount);
 		vo.setSize(20);
+		vo.setBlockSize(10);
 		String memberId = (String) session.getAttribute("memberId");
 		List<SealWithImageDto> list = sealWithImageDao.selectList(vo);
 		model.addAttribute("list" , list);
@@ -118,13 +119,6 @@ public class SealController {
 		  sealWithImageDao.selectOne(sealNo));
   return "/WEB-INF/views/seal/detail.jsp";
   }
-	
-	//인장 정보 삭제
-	@GetMapping("/delete")
-	public String delete(@RequestParam int sealNo) {
-		sealDao.delete(sealNo);
-		return "redirect:list";
-	}
 	
 	//인장 구매 처리
 	@PostMapping("/purchase")

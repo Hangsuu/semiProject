@@ -107,7 +107,7 @@ $(function(){
 <div class="container-1000 mt-50">
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">
-		<span class="board-detail-origin">굿즈 경매 게시판</span>
+		<span class="board-detail-origin">굿즈 경매</span>
 		<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
 	<div class="row board-detail-title">

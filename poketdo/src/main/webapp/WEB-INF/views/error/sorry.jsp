@@ -2,5 +2,15 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
-<h1>미안</h1>
+    
+   <section class="container-1200 flex-box">
+
+	<aside></aside>
+	
+	<article class="mt-50 container-1200 center">
+    
+		<h1>잘못된 접근입니다.</h1>
+
+	</article>
+	</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

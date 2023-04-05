@@ -8,7 +8,7 @@
 <!-- timer 의존성 주입 -->
 <script src="/static/js/timer.js"></script>
 <!-- 랜덤 숫자 생성 js 주입 -->
-<!-- <script src="/static/js/random.js"></script> -->
+<script src="/static/js/random.js"></script>
 <!-- section -->
 <%-- base.css --%>
 <section class="container-1200 flex-box align-center">
@@ -54,9 +54,18 @@
         <%-- home.css --%>
         <div class="home-board-title">
           <h2>🦄오늘의 포켓몬</h2>
-          <a href="#">+더보기</a>
         </div>
-        <div class="home-board-list">내용</div>
+        <div class="home-board-list random-box">
+        	<div>
+        		
+        	</div>
+        	<div>
+        		
+        	</div>
+        	<div style="width:495px; " class="center">
+        	
+        	</div>
+        </div>
       </div>
     </div>
 <%-- 포켓몬 교환 --%>
@@ -108,10 +117,10 @@
         </div>
         <div class="home-board-list">
         	<c:forEach var="raidDto" items="${raidList}">
-        	    <div class="row do-not-line-over" style="font-size:17px">
+        	    <div class="row do-not-line-over" style="font-size:17px; max-width:494px">
 	            	<a href="/raid/detail?page=1&allboardNo=${raidDto.allboardNo}" class="link">
 	            		<span class="home-board-type">[${raidDto.raidMonster}]</span>
-	            		 ${raidDto.raidTitle} ${raidDto.raidCount}/4
+	            		<span title="${raidDto.raidTitle}">${raidDto.raidTitle} ${raidDto.raidCount}/4</span>
 	            		<span class="home-board-reply">(${raidDto.raidReply})</span>
 	            	</a>
             	</div>
@@ -127,10 +136,10 @@
         </div>
         <div class="home-board-list">
             <c:forEach var="combinationDto" items="${combinationList}">
-            	<div class="row do-not-line-over" style="font-size:17px">
+            	<div class="row do-not-line-over" style="font-size:17px; max-width:494px">
 	            	<a href="/combination/detail?page=1&allboardNo=${combinationDto.allboardNo}" class="link">
 	            		<span class="home-board-type">[${combinationDto.combinationType}]</span>
-	            		 ${combinationDto.combinationTitle} 
+	            		<span title="${combinationDto.combinationTitle}">${combinationDto.combinationTitle}</span> 
 	            		<span class="home-board-reply">(${combinationDto.combinationReply})</span>
 	            	</a>
             	</div>

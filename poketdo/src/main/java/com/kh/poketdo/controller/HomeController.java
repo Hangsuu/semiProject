@@ -60,6 +60,7 @@ public class HomeController {
 		model.addAttribute("combinationList", combinationWithNickDao.tagSearchList(combinationPagination));
 		//------------공략 끝---------------
 		//------------포켓몬교환------------
+
 		// PaginationVO pocketmonTradePagination = new PaginationVO();
 		// pocketmonTradePagination.setSize(5);
 		// pocketmonTradePagination.setCount(5);
@@ -85,7 +86,9 @@ public class HomeController {
 		// model.addAttribute("attachmentNoList", attachmentNoList);
 		// System.out.println("pocketmonTradeList", pocketmonTradeList);
 
+
 		//------------포켓몬교환 끝------------
+
 		//--------------인기글 시작----------
 		PaginationVO boardPagination = new PaginationVO();
 		boardPagination.setSize(10);
@@ -94,6 +97,7 @@ public class HomeController {
 		boardPagination.setOrder("desc");
 		model.addAttribute("boardList", boardWithNickDao.selectHotList(boardPagination));
 		//--------------인기글 끝-----------
+
 		return "/WEB-INF/views/home.jsp";
 	}
 	

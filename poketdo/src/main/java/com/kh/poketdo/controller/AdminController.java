@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.kh.poketdo.dao.MemberSealAttachmentNoDao;
 import com.kh.poketdo.dao.MemberStatDao;
 import com.kh.poketdo.dao.MemberWithImageDao;
 import com.kh.poketdo.dto.MemberWithImageDto;
@@ -31,7 +33,8 @@ public class AdminController {
 	@Autowired
 	private MemberStatDao memberStatDao;
 	
-	
+	@Autowired
+	private MemberSealAttachmentNoDao memberSealAttachmentNoDao;
 	
 	
 	@GetMapping("/adminCheck")
@@ -65,11 +68,15 @@ public class AdminController {
 	
 	@GetMapping("/member/memberManage")
 	public String memberManage(@ModelAttribute("vo") PaginationVO vo, Model model) {
-	    int totalCount = memberWithImageDao.selectCount();
+	    int totalCount = memberWithImageDao.selectCount(vo);
 	    vo.setCount(totalCount);
-
-	    List<MemberWithImageDto> list = memberWithImageDao.selectAll();
+	    List<MemberWithImageDto> list = memberWithImageDao.selectList(vo);
+	    List<String> urlList = new ArrayList<>();
+		for(MemberWithImageDto dto : list){
+			urlList.add(memberSealAttachmentNoDao.getSealUrl(dto.getMemberId()));
+		}
 	    model.addAttribute("list", list);
+	    model.addAttribute("urlList", urlList);
 
 	    return "/WEB-INF/views/admin/member/memberManage.jsp";
 	}

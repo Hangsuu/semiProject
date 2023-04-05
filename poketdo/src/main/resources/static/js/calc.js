@@ -1,4 +1,12 @@
 $(function () {
+  var shakeLeft = {
+    // 이미지를 왼쪽으로 10픽셀 이동합니다.
+    left: '-=20',
+    // 애니메이션 속도를 0.5초로 설정합니다.
+    duration: 20,
+    // 애니메이션을 2번 반복합니다.
+    // (한 번 왼쪽으로 흔들리고, 다시 오른쪽으로 흔들립니다.)
+  };
 
 $(".monster-search").click(function(){
 	var name =$("[name=pocketmonNumber]").val().trim(); 
@@ -6,6 +14,7 @@ $(".monster-search").click(function(){
 		alert("이름을 입력하세요")
 		return;
 	}
+	$(".pocketmon-img").animate(shakeLeft);
 	$.ajax({
 		url:"/rest/pocketmon/stats/"+name,
 		method:"get",
@@ -23,10 +32,10 @@ $(".monster-search").click(function(){
 			$("[name=effortSpDef]").val(response.pocketEffortSdef);
 			$("[name=effortSpd]").val(response.pocketEffortSpd);
 			var index = response.pocketNo;
-		    $(".pocketmon-img").attr("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+index+".png").show();
+		    $(".pocketmon-img").attr("src", "/attachment/download?attachmentNo="+index).show();
 		},
 		error:function(){
-			alert("잘못된 이름입니다.")
+			alert("정확한 포켓몬 이름을 입력하세요.")
 		}
 	});
 	

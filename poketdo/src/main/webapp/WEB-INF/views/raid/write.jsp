@@ -60,11 +60,32 @@
 		});
 		//몬스터 이름이 입력되었을 때
 		$("[name=raidMonster]").blur(function(){
-			$(this).removeClass("invalid valid");
-			var text =$(this).val().trim();
-			if(text){
-				$(this).addClass("valid");
-				valid.monsterValid=true;
+			var raidMonster = $(this);
+			raidMonster.removeClass("invalid valid");
+			var text =raidMonster.val().trim();
+			if(text.length>0){
+				$.ajax({
+					url:"/rest/pocketmon/stats/"+text,
+					method:"get",
+					success:function(response){
+						if(response.pocketName==text){
+							raidMonster.addClass("valid");
+							valid.monsterValid=true;
+						}
+						else{
+							alert("정확한 포켓몬 이름을 입력하세요.");
+							raidMonster.addClass("invalid");
+							valid.monsterValid=false;
+							raidMonster.val("");
+						}
+					},
+					error:function(){
+						alert("정확한 포켓몬 이름을 입력하세요.");
+						raidMonster.addClass("invalid");
+						valid.monsterValid=false;
+						raidMonster.val("");
+					}
+				});
 			}
 			else{
 				$(this).addClass("invalid");

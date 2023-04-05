@@ -2,6 +2,8 @@ package com.kh.poketdo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.kh.poketdo.dao.AuctionDao;
 import com.kh.poketdo.dao.CombinationWithNickDao;
+import com.kh.poketdo.dao.PocketmonTradeMemberDao;
 import com.kh.poketdo.dao.RaidWithNickDao;
+import com.kh.poketdo.dto.PocketmonTradeMemberDto;
 import com.kh.poketdo.vo.PaginationVO;
 import com.kh.poketdo.vo.SimulatorVO;
 
@@ -22,7 +26,9 @@ public class HomeController {
 	private RaidWithNickDao raidWithNickDao;
 	@Autowired
 	private CombinationWithNickDao combinationWithNickDao;
-	
+	@Autowired
+	private PocketmonTradeMemberDao pocketmonTradeMemberDao;
+
 	@GetMapping("/")
 	public String home(Model model) {
 		
@@ -50,11 +56,30 @@ public class HomeController {
 		combinationPagination.setCount(10);
 		model.addAttribute("combinationList", combinationWithNickDao.tagSearchList(combinationPagination));
 		//------------공략 끝---------------
-		return "/WEB-INF/views/home.jsp";
-	}
-	@GetMapping("/sample")
-	public String sample() {
-	    return "/WEB-INF/views/sample.jsp";
+		//------------포켓몬교환------------
+		PaginationVO pocketmonTradePagination = new PaginationVO();
+		pocketmonTradePagination.setSize(5);
+		pocketmonTradePagination.setCount(5);
+		List<PocketmonTradeMemberDto> pocketmonTradeList = pocketmonTradeMemberDao.selectHomeList(pocketmonTradePagination);
+		List<Integer> attachmentNoList = new ArrayList<>();
+		for(PocketmonTradeMemberDto dto : pocketmonTradeList){
+			String pattern = "/rest/attachment/download/(.*)\"";
+			Pattern p = Pattern.compile(pattern); // 패턴 객체 생성
+			Matcher m = p.matcher(dto.getPocketmonTradeContent());
+			if (m.find()) {
+				String found = m.group(1); // 패턴에서 첫 번째 그룹(괄호로 묶인 부분) 추출
+				int index = found.indexOf("\""); // "이" 문자열이 나오는 위치를 찾음
+				String attachNoString = found.substring(0, index); 
+				Integer attachmentNo = Integer.parseInt(attachNoString);
+				attachmentNoList.add(attachmentNo);
+			  } else {
+				attachmentNoList.add(null);
+			  }
+		}
+		model.addAttribute("pocketmonTradeList", pocketmonTradeList);
+		model.addAttribute("attachmentNoList", attachmentNoList);
+		//------------포켓몬교환 끝------------
+		return "/WEB-INF/views/homeTest.jsp";
 	}
 	
 	@GetMapping("/simulator")

@@ -103,7 +103,7 @@ public class RaidController {
 			RedirectAttributes attr) {
 		raidDao.edit(raidDto);
 		attr.addAttribute("allboardNo", raidDto.getAllboardNo());
-		attr.addAttribute("vo",vo.getParameter());
+		attr.addAttribute("page",vo.getPage());
 		return "redirect:detail";
 	}
 }

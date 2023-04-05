@@ -86,7 +86,7 @@ $(function(){
 			<span class="board-detail-time" style="vertical-align:middle">${combinationDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==combinationDto.combinationWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="edit?page=${param.page}&allboardNo=${combinationDto.allboardNo}&tagList=${tagList}" class="board-detail-btn" style="vertical-align:middle">수정</a>
 				<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
@@ -103,7 +103,7 @@ $(function(){
 			</c:forEach>
 		</div>
 		<!-- 본문 -->
-		<div class="row w-100 do-not-over" style="min-height:400px; padding-left:1em; padding-right:1em">${combinationDto.combinationContent}</div>
+		<div class="row w-100 do-not-over mt-20" style="min-height:400px; padding-left:1em; padding-right:1em">${combinationDto.combinationContent}</div>
 		<div class="row">
 			<a href="list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">${combinationDto.memberNick}님의 게시글 더 보기</a>
 		</div>

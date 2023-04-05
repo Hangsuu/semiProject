@@ -158,6 +158,12 @@ public class PocketmonTradeDao {
     Object[] param = { pocketmonTradeNo };
     return jdbcTemplate.update(sql, param) > 0;
   }
+  // U 포켓몬교환 게시물 완료
+  public boolean updateComplete(int allboardNo) {
+    String sql = "update pocketmon_trade set pocketmon_trade_complete = 1 where allboard_no = ?";
+    Object[] param = { allboardNo };
+    return jdbcTemplate.update(sql, param) > 0;
+  }
 
   // D 포켓몬교환 게시물 삭제
   public boolean delete(int pocketmonTradeNo) {

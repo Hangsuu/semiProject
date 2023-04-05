@@ -94,12 +94,22 @@ $(function () {
             $(html).find(".reply-writer").append(span);
           }
           // 채택하기
-          if(hasChoice=="true" && response.replyDto[i].replyWriter != memberId){
+          if(hasChoice=="true" && response.replyDto[i].replyWriter != memberId && memberId == pocketmonTradeWriter){
             $(html)
               .find(".reply-time").after($("<div>").text("채택하기").addClass("pocketmonTrade-choice-btn ms-10").prepend($("<i>")
               .addClass("fa-solid fa-check ps-10 recipient-btn me-5")
               .css("color", "forestgreen")).click(function(){
-                console.log("fdkdjalfjdsklf");
+                $.ajax({
+                  url: "/rest/pocketmonTrade/complete",
+                  method: "put",
+                  data: {allboardNo: allboardNo},
+                  success: function(){
+                    alert("채택했습니다.")
+                  },
+                  error: function(){
+                    console.log("채택 통신 오류!!!!");
+                  }
+                })
               }));
           }
 
@@ -610,7 +620,7 @@ $(function () {
             $(html).find(".reply-writer").append(span);
           }
           // 채택하기
-          if(hasChoice=="true" && response.replyDto[i].replyWriter != memberId){
+          if(hasChoice=="true" && response.replyDto[i].replyWriter != memberId && memberId != ""){
             $(html)
               .find(".reply-time").after($("<div>").text("채택하기").addClass("pocketmonTrade-choice-btn ms-10").prepend($("<i>")
               .addClass("fa-solid fa-check ps-10 recipient-btn me-5")

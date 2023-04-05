@@ -24,7 +24,10 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/static/js/pocketdex.js"></script>
-    
+    <script>
+      
+    </script>
+
     <title>POCKETDO!</title>
   </head>
   <body>
@@ -46,7 +49,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 				<div class="row me-40">
 					<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
 					<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
-					<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
+					<a href="/message/receive" class="link right"><span class="header-message header-menu ms-10 me-10">쪽지</span></a>
 					<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
 					<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
 				</div>

@@ -12,6 +12,7 @@ import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.AuctionDao;
 import com.kh.poketdo.dao.CombinationDao;
 import com.kh.poketdo.dao.PocketmonTradeDao;
+import com.kh.poketdo.dao.PointDao;
 import com.kh.poketdo.dao.RaidDao;
 
 @Service
@@ -23,6 +24,8 @@ public class BoardManageInterceptor implements HandlerInterceptor {
 	@Autowired
 	private RaidDao raidDao;
 	@Autowired
+	private PointDao pointDao;
+	@Autowired
 	private CombinationDao combinationDao;
 	@Autowired
 	private PocketmonTradeDao pocketmonTradeDao;
@@ -33,7 +36,6 @@ public class BoardManageInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String memberId = (String) session.getAttribute("memberId");
 		String memberLevel = (String) session.getAttribute("memberLevel");
-		
 		//게시글 작성자 확인 코드
 		String temp = (String) request.getParameter("allboardNo");
 		int allboardNo = Integer.parseInt(temp);
@@ -57,7 +59,7 @@ public class BoardManageInterceptor implements HandlerInterceptor {
 		    allboardWriter = pocketmonTradeDao.selectOne(allboardNo).getPocketmonTradeWriter();
 	        break;
 	    }
-		
+//		boolean pointOwner = memberId.equals(pointBoardWriter);
 		boolean isOwner = memberId.equals(allboardWriter);
 		boolean isAdmin = memberLevel.equals("관리자");
 		//작성자 본인이라는 것은 게시글의 작성자와 현재 세션의 회원아이디가 같음
@@ -68,7 +70,6 @@ public class BoardManageInterceptor implements HandlerInterceptor {
 //			response.sendError(403);
 //			return false;
 //		}
-		
 		if(isAdmin) {
 			if(request.getRequestURI().equals("/board/delete")) return true;
 		}

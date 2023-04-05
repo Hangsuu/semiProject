@@ -22,7 +22,7 @@ public class AdminInterceptor implements HandlerInterceptor{
 //			response.sendError(403);
 			//403 : HttpStatus.FORBIDDEN.value()  상수 제공
 //			return false;
-			throw new RequirePermissionException("관리자만 이용 가능합니다");
+			throw new RequirePermissionException("권한이 없습니다");
 		}
 		else {
 			return true;

@@ -34,7 +34,7 @@
 	</div>
 	<!-- 레이드코드 -->
 	<div class="row">
-		<input class="form-input center neutral" readonly value="레이드코드" style="width:100px"><input class="form-input w-40" name="raidMonster" value="${raidDto.raidCode}">
+		<input class="form-input center neutral" readonly value="레이드코드" style="width:100px"><input class="form-input w-40" name="raidCode" value="${raidDto.raidCode}">
 	</div>
 	<!-- 내용 -->
 	<div class="row">

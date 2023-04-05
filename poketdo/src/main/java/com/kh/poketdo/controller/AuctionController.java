@@ -163,6 +163,7 @@ public class AuctionController {
 	@GetMapping("/edit")
 	public String edit(@ModelAttribute PaginationVO vo, @RequestParam int allboardNo, Model model) {
 		model.addAttribute("auctionDto", auctionWithNickDao.selectOne(allboardNo));
+		model.addAttribute("vo", vo);
 		return "/WEB-INF/views/auction/edit.jsp";
 	}
 	@PostMapping("/edit")
@@ -170,7 +171,7 @@ public class AuctionController {
 			RedirectAttributes attr) {
 		auctionDao.edit(auctionDto);
 		attr.addAttribute("allboardNo", auctionDto.getAllboardNo());
-		attr.addAttribute("vo",vo.getParameter());
+		attr.addAttribute("page",vo.getPage());
 		return "redirect:detail";
 	}
 }

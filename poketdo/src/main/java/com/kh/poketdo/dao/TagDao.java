@@ -38,4 +38,9 @@ public class TagDao {
 			insert(dto);
 		}
 	}
+	public void deleteTag(int allboardNo, String value) {
+		String sql = "delete tag where tag_Name=? and tag_origin=?";
+		Object[] param = {value, allboardNo};
+		jdbcTemplate.update(sql, param);
+	}
 }

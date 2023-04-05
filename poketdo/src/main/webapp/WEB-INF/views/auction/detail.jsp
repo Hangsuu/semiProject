@@ -128,7 +128,7 @@ $(function(){
 			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}&${vo.parameter}" class="board-detail-btn" style="vertical-align:middle">수정</a>
 				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
@@ -165,7 +165,7 @@ $(function(){
 						현재 입찰가 : <span class="min-bid-price"></span>
 					</div>
 					<div style="display:inline-block" class="bid-info ms-10">
-						(입찰자 : <img class="board-seal last-bid-seal"><span class="last-bid-nick"></span>)
+						<span style="vertical-align:middle">(입찰자 : </span><img class="board-seal last-bid-seal" style="vertical-align:middle"><span class="last-bid-nick" style="vertical-align:middle"></span>)
 					</div>
 				</div>
 				<div class="row">

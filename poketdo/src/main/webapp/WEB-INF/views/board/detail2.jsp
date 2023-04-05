@@ -98,10 +98,10 @@ $(function(){
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 				<c:if test="${sessionScope.memberId==boardWithImageDto.boardWriter}">
 					<a
-						href="edit?page=${param.page}&boardNo=${boardWithImageDto.boardNo}"
+						href="edit?page=${param.page}&allboardNo=${boardWithImageDto.allboardNo}"
 						class="board-detail-btn">수정</a>
 					<a
-						href="delete?page=${param.page}&boardNo=${boardWithImageDto.boardNo}"
+						href="delete?page=${param.page}&allboardNo=${boardWithImageDto.allboardNo}"
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>

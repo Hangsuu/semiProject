@@ -23,29 +23,26 @@ public class PointInterceptor implements HandlerInterceptor{
 		HttpSession session = request.getSession();
 		
 		String memberLevel = (String)session.getAttribute("memberLevel");
-		
-				
 			
 			//(주의) 없는 경우(null)를 반드시 먼저 검사해야 한다
 		
-		
-			if(memberLevel==null || !(memberLevel.equals("관리자"))) {
-				throw new RequirePermissionException("관리자만 이용 가능합니다");
-			}
-
-			
+			String memberId = (String) session.getAttribute("memberId");
+			String pointTemp = (String) request.getParameter("pointBoardNo");
+			int pointboardNo = Integer.parseInt(pointTemp);
+			String pointBoardWriter = pointDao.selectOne(pointboardNo).getPointBoardWriter();
+			boolean pointOwner = memberId.equals(pointBoardWriter);
+			if(!pointOwner) {
 				
-				String memberId = (String) session.getAttribute("memberId");
-				String pointTemp = (String) request.getParameter("pointBoardNo");
-				int pointboardNo = Integer.parseInt(pointTemp);
-				String pointBoardWriter = pointDao.selectOne(pointboardNo).getPointBoardWriter();
-				boolean pointOwner = memberId.equals(pointBoardWriter);
-				if(pointOwner) {
-					throw new RequirePermissionException("관리자만 이용 가능합니다");
-					
+				if(memberLevel==null || !(memberLevel.equals("관리자"))) {
+					throw new RequirePermissionException("권한이 없습니다");
 				}else {
 					return true;
 				}
+			}else {
+				return true;
+			}
+
+				
 		}
 		
 		

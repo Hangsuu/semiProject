@@ -21,6 +21,7 @@ import com.kh.poketdo.dao.BoardWithImageDao;
 import com.kh.poketdo.dao.BoardWithNickDao;
 import com.kh.poketdo.dto.AllboardDto;
 import com.kh.poketdo.dto.BoardWithImageDto;
+import com.kh.poketdo.dto.BoardWithNickDto;
 import com.kh.poketdo.vo.PaginationVO;
 
 @Controller
@@ -89,7 +90,8 @@ public class BoardController {
 	    boardWithImageDto.setBoardNo(boardNo);
 
 	    // 게시글 생성
-	    allboardDao.insert(AllboardDto.builder().allboardNo(allboardNo).allboardBoardType("board").allboardBoardNo(boardNo).build());
+	    allboardDao.insert(AllboardDto.builder().allboardNo(allboardNo).allboardBoardType("board").allboardNo(boardNo).build());
+	    boardWithImageDto.setBoardNo(boardNo);
 	    boardWithImageDao.insert(boardWithImageDto);
 
 	    //상세 페이지로 redirect
@@ -104,8 +106,8 @@ public class BoardController {
 	
 	// 게시글 수정 페이지 구현[GET]
 	@GetMapping("/edit")
-	public String edit(@RequestParam int boardNo, Model model) {
-		model.addAttribute("boardDto", boardWithImageDao.selectOne(boardNo));
+	public String edit(@RequestParam int allboardNo, Model model) {
+		model.addAttribute("boardDto", boardWithImageDao.selectOne(allboardNo));
 		
 		return "/WEB-INF/views/board/edit.jsp";
 	}
@@ -116,15 +118,15 @@ public class BoardController {
 	public String edit(@ModelAttribute BoardWithImageDto boardWithImageDto,
 			RedirectAttributes attr) {
 		boardWithImageDao.update(boardWithImageDto);
-		attr.addAttribute("boardNo", boardWithImageDto.getBoardNo());
+		attr.addAttribute("allboardNo", boardWithImageDto.getAllboardNo());
 		
 		return "redirect:detail";
 	}
 	
 	// 게시글 삭제 페이지 구현[GET]
 	@GetMapping("/delete")
-	public String delete(@RequestParam int boardNo) {
-		boardWithImageDao.delete(boardNo);
+	public String delete(@RequestParam int allboardNo) {
+		boardWithImageDao.delete(allboardNo);
 		return "redirect:list";//상대경로
 		//return "redirect:/board/list";//절대경로
 	}
@@ -132,9 +134,9 @@ public class BoardController {
 	
 	// 관리자를 위한 전체 삭제 기능
 	@PostMapping("/deleteAll")
-	public String deleteAll(@RequestParam(value="boardNo") List<Integer> list) {
-		for(int boardNo : list) {
-			boardWithImageDao.delete(boardNo);
+	public String deleteAll(@RequestParam(value="allboardNo") List<Integer> list) {
+		for(int allboardNo : list) {
+			boardWithImageDao.delete(allboardNo);
 		}
 	    // 예시: Board.deleteAllPosts();
 
@@ -150,9 +152,9 @@ public class BoardController {
 //		(3) 읽은 적이 있으면 조회수 증가를 하지 않고 없으면 추가 후 조회수 증가
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam int boardNo, Model model, HttpSession session) {
+	public String detail(@RequestParam int allboardNo, Model model, HttpSession session) {
 	    // 사용자가 작성자인지 판정 후 JSP로 전달
-	    BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(boardNo);
+	    BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(allboardNo);
 	    String memberId = (String) session.getAttribute("memberId");
 	    boolean owner = boardWithImageDto.getBoardWriter() != null
 	            && boardWithImageDto.getBoardWriter().equals(memberId);
@@ -162,7 +164,6 @@ public class BoardController {
 	    String memberLevel = (String) session.getAttribute("memberLevel");
 	    boolean admin = memberLevel != null && memberLevel.equals("관리자");
 	    model.addAttribute("admin", admin);
-	    int allboardNo = boardWithImageDto.getAllboardNo();
 	    // 조회수 증가
 	    if (!owner) {// 내가 작성한 글이 아니라면(시나리오 1번)
 	        // 시나리오 2번 진행
@@ -185,9 +186,9 @@ public class BoardController {
 
 	
 	@GetMapping("/detail2")
-	public String detail2(@RequestParam int boardNo, Model model, HttpSession session) {
+	public String detail2(@RequestParam int allboardNo, Model model, HttpSession session) {
 	    // 사용자가 작성자인지 판정 후 JSP로 전달
-	    BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(boardNo);
+	    BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(allboardNo);
 	    String memberId = (String) session.getAttribute("memberId");
 	    boolean owner = boardWithImageDto.getBoardWriter() != null
 	            && boardWithImageDto.getBoardWriter().equals(memberId);
@@ -197,7 +198,6 @@ public class BoardController {
 	    String memberLevel = (String) session.getAttribute("memberLevel");
 	    boolean admin = memberLevel != null && memberLevel.equals("관리자");
 	    model.addAttribute("admin", admin);
-	    int allboardNo = boardWithImageDto.getAllboardNo();
 	    // 조회수 증가
 	    if (!owner) {// 내가 작성한 글이 아니라면(시나리오 1번)
 	        // 시나리오 2번 진행

@@ -14,28 +14,28 @@ import com.kh.poketdo.vo.PaginationVO;
 
 @Repository
 public class BoardWithNickDao {
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
-	private RowMapper<BoardWithNickDto> mapper = new RowMapper<BoardWithNickDto>() {
-		@Override
-		public BoardWithNickDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return BoardWithNickDto.builder()
-					.allboardNo(rs.getInt("allboard_no"))
-					.boardNo(rs.getInt("board_no"))
-					.boardWriter(rs.getString("board_writer"))
-					.boardTitle(rs.getString("board_title"))
-					.boardContent(rs.getString("board_content"))
-					.boardTime(rs.getDate("board_time"))
-					.boardHead(rs.getString("board_Head"))
-					.boardLike(rs.getInt("board_like"))
-					.boardReply(rs.getInt("board_reply"))
-					.boardRead(rs.getInt("board_read"))
-					.memberNick(rs.getString("member_nick"))
-					.attachmentNo(rs.getInt("attachment_no"))
-					.build();
-		}
-	};
+	 @Autowired
+	    private JdbcTemplate jdbcTemplate;
+
+	    private RowMapper<BoardWithNickDto> mapper = new RowMapper<BoardWithNickDto>() {
+	        @Override
+	        public BoardWithNickDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+	            return BoardWithNickDto.builder()
+	                    .allboardNo(rs.getInt("allboard_no"))
+	                    .boardNo(rs.getInt("board_no"))
+	                    .boardWriter(rs.getString("board_writer"))
+	                    .boardTitle(rs.getString("board_title"))
+	                    .boardContent(rs.getString("board_content"))
+	                    .boardTime(rs.getDate("board_time"))
+	                    .boardHead(rs.getString("board_Head"))
+	                    .boardLike(rs.getInt("board_like"))
+	                    .boardReply(rs.getInt("board_reply"))
+	                    .boardRead(rs.getInt("board_read"))
+	                    .memberNick(rs.getString("member_nick"))
+	                    .attachmentNo(rs.getInt("attachment_no"))
+	                    .build();
+	        }
+	    };
 	
 	//읽기(R) 통합
 	public List<BoardWithNickDto> selectList(PaginationVO vo){
@@ -121,7 +121,7 @@ public class BoardWithNickDao {
 			
 			// 인기 게시판 구현
 			public List<BoardWithNickDto> selectHotList() {
-				String sql = "select * from board_name_image where board_like >= 30";
+				String sql = "select * from board_name_image where board_like >= 1";
 				return jdbcTemplate.query(sql, mapper);
 			}
 			
@@ -151,9 +151,9 @@ public class BoardWithNickDao {
 			    return jdbcTemplate.query(sql, mapper, param);
 			}
 
-			public void updateBoardLike(int boardNo) {
+			public void updateBoardLike(int allboardNo) {
 			    String sql = "UPDATE board_name_image SET board_like = board_like + 1 WHERE allboard_no = ?";
-			    Object[] param = {boardNo};
+			    Object[] param = {allboardNo};
 			    jdbcTemplate.update(sql, param);
 			}
 			

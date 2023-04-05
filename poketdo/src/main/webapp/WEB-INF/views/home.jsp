@@ -36,10 +36,17 @@
         <div class="home-board-title">
           <h2>🔥인기글</h2>
           <a href="/board/hot">+더보기</a>
-         
         </div>
         <div class="home-board-list">
-        	
+        	<c:forEach var="boardWithNickDto" items="${boardList}">
+        	    <div class="row do-not-line-over" style="font-size:17px">
+	            	<a href="/board/detail2?allboardNo=${boardWithNickDto.allboardNo}" class="link">
+	            		<span class="home-board-type">[${boardWithNickDto.boardHead}]</span>
+	            		 ${boardWithNickDto.boardTitle}
+	            		<span class="home-board-reply">(${boardWithNickDto.boardReply})</span>
+	            	</a>
+            	</div>
+        	</c:forEach>
 		</div>
       </div>
       <%-- home.css / component.css --%>

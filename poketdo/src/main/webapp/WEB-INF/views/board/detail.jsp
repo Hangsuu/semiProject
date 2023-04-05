@@ -1,131 +1,158 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <!-- summernote css, jQuery CDN -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <!-- 모먼트 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
-    const memberId = "${sessionScope.memberId}";
-    const allboardNo = parseInt("${boardWithImageDto.getAllboardNo()}");
-    const boardWriter = "${boardWithImageDto.getBoardWriter()}";
-    const likeTableDto = {
-      memberId: memberId, 
-      allboardNo: allboardNo
-    };
-    const replyDto = {
-      replyOrigin: allboardNo,
-      replyWriter: memberId,
-    }
-    $.parseHTML()
+	/* 전역변수 설정 */
+	var memberId = "${sessionScope.memberId}";
+	var boardWriter = "${boardWithImageDto.boardWriter}";
+	var allboardNo = "${boardWithImageDto.allboardNo}";
 </script>
-<script src="/static/js/board/board.js"></script>
-<script type="text/template" id="board-reply-template">
-  <div class="row">
-    <div>
-      <div class="bold flex">
-        <div class="board-reply-writer">댓글작성자</div>
-        <div class="writerTag">작성자</div>
-        <button class="board-reply-edit-btn ml-auto" type="button">수정</button>
-        <button class="board-reply-delete-btn" type="button">삭제</button>
-      </div>
-      <div class="board-reply-content"></div>
-      <div style="color:#979797;" class="flex">
-        <div class="board-reply-time">댓글시간</div>
-        <div class="ms-10 board-reply-re">답글쓰기</div>
-      </div>
-    </div>
-    <hr/>
-  </div>
+<script>
+$(function(){
+	$(".delete-btn").click(function(event){
+		if(!confirm("정말 삭제하시겠습니까?\n삭제 후에는 복구할 수 없습니다.")) {
+			event.preventDefault();
+			return;
+		}
+		else{
+			window.location.href=$(this).attr("href");
+		}
+	})	
+});
 </script>
-<script type="text/template" id="board-reply-write">
-  <div class="row board-reply-reply">
-    <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
-    <textarea class="summernote" name="replyContent"></textarea>
-    <div class="right">
-      <button class="board-reply-cancle-btn" type="button">취소</button>
-      <button class="board-reply-update-btn" type="button">수정</button>
-    </div>
-  </div>
+ <script src="/static/js/timer.js"></script> 
+ <script src="/static/js/board/board-like.js"></script> 
+ <script src="/static/js/board/board-reply.js"></script> 
+ <!-- 댓글장 템플릿 -->
+<script type="text/template" id="reply-template">
+	<div class="row reply-box flex-box">
+		<div class="remove-box" style="width:5%">
+			<div class="align-center center" style="padding-top:1em">
+				<i class="fa-solid fa-reply fa-flip-both" style="font-size:16px"></i>
+			</div>
+		</div>
+		<div class="align-right remain-box" style="width:95%">
+			<div class="row flex-box" style="align-items:center">
+				<div class="reply-writer"></div>
+				<div class="reply-time ms-20" style="font-size:14px"></div>
+				<div class="align-right reply-option me-20"></div>
+				<div class="left reply-like-box">
+					<i class="fa-heart reply-like"></i>
+					<span class="reply-like-count"></span>
+				</div>
+			</div>
+			<div class="row reply-content" style="padding-left:1em"></div>
+		</div>
+	</div>
+</script>
+<script type="text/template" id="reply-edit-template">
+	<div class="row reply-edit">
+		<textarea class="row reply-edit-content form-input w-100 summernote-reply-edit"></textarea>
+	</div>
+</script>
+<script type="text/template" id="reply-child-template">
+	<div class="row reply-child">
+		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
+	</div>
 </script>
 
 <!-- section -->
-<section >
+<section>
 
-  <!-- aside -->
-  <aside></aside>
-  <!-- article -->
-  <article class="container-800">
-    <div class="row center">
-        <h1>자유 게시판</h1>
-    </div>
-    <div class="row">
-      <h1>
-        <c:if test="${boardWithImageDto.getBoardHead() != null}">
-          [${boardWithImageDto.getBoardHead()}] 
+	<!-- aside -->
+	<aside></aside>
+	<!-- article -->
+	<article class="container-900">
+		<div class="row flex-box">
+			<h1>자유 게시판</h1>
+			<a href="/board/list" class="board-detail-btn align-right">목록</a>
+		</div>
+		<div class="row flex-box">
+			<h1>
+				<c:if test="${boardWithImageDto.boardHead != null}">
+          [${boardWithImageDto.boardHead}] 
         </c:if>
-        ${boardWithImageDto.getBoardTitle()}</h1>
-    </div>
-    <div class="row">
-      <h2>${boardWithImageDto.getBoardWriter()}</h2>
-    </div>
-    <div class="row board-info-head">
-      <span>작성시간 <fmt:formatDate value="${boardWithImageDto.getBoardTime()}" pattern="yyyy.MM.dd. H:m"/></span> 
-      <span class="boardRead">&nbsp;&nbsp;조회수 ${boardWithImageDto.getBoardRead()}</span>
-      <span class="boardReply">댓글 <span class="board-replyCnt">${boardWithImageDto.getBoardReply()}</span></span>
-    </div>
-    <hr/>
-    <div class="row boardContent">
-      <div>
-        ${boardWithImageDto.getBoardContent()}
-      </div>
-    </div>
-    <div class="row">
-      <div>
-        <a class="link" href="/board/list?column=board_writer&keyword=${boardWithImageDto.getBoardWriter()}"><b>${boardWithImageDto.getBoardWriter()}</b>님의 게시글 더 보기</a>
-      </div>
-    </div>
+				${boardWithImageDto.boardTitle}
+			</h1>
+		</div>
+		<div class="row flex-box">
+			<div>
+				<a class="link"
+					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}">
+					<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
+				<span>/</span>
+				<fmt:formatDate value="${boardWithImageDto.boardTime}"
+					pattern="yyyy.MM.dd.H:m" />
+				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
+				<c:if test="${sessionScope.memberId==boardWithImageDto.boardWriter}">
+					<a
+						href="edit?page=${param.page}&boardNo=${boardWithImageDto.boardNo}"
+						class="board-detail-btn">수정</a>
+					<a
+						href="delete?page=${param.page}&boardNo=${boardWithImageDto.boardNo}"
+						class="board-detail-btn">삭제</a>
+				</c:if>
+			</div>
+			<div class="board-detail-count align-right">
+				조회수 : <span class="board-detail-read-count">${boardWithImageDto.boardRead}</span>
+			</div>
+		</div>
+		<hr />
+		<div class="row boardContent w-100" style="min-height: 400px">
+			<div>${boardWithImageDto.boardContent}</div>
+		</div>
+		<div class="row">
+			<div>
+				<a class="link"
+					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의
+					게시글 더 보기</a>
+			</div>
+		</div>
 
-    <!-- 좋아요 댓글 신고 -->
-    <div class="row">
-      <span id="board-like">
-        <i class="fa-heart fa-regular fa-red" style="color:red"></i> 좋아요 <span id="board-like-Cnt">${boardWithImageDto.getBoardLike()}</span>
-      </span>
-      <span class="boardReply">댓글 <span class="board-replyCnt">${boardWithImageDto.getBoardReply()}</span></span>
-    </div>
-    <hr>
-    <c:if test="${sessionScope.memberId != null}">
-        <a class="board-btn" href="write">글쓰기</a>
-      </c:if>
-      <c:if test="${sessionScope.memberId == boardWithImageDto.getBoardWriter()}">
-      <a class="board-btn" href="/board/edit?boardNo=${boardWithImageDto.getBoardNo()}">수정</a>
-      </c:if>
-      <c:if test="${sessionScope.memberId == boardWithImageDto.getBoardWriter() || sessionScope.memberLevel == '관리자'}">
-        <a class="board-btn" id="board-delete-btn" href="/board/delete/${boardWithImageDto.getBoardNo()}">삭제</a>
-      </c:if>
-      <a id="board-list-btn" class="board-btn" href="/board/list">목록</a>
-      <hr>
-      <div id="board-reply">
-        <div class="row" id="board-replys">
-        </div>
-        <c:if test="${sessionScope.memberId != null}">
-          <div class="row">
-            <b>${sessionScope.memberId}</b>
-          </div>
-          <div class="row">
-            <form action="#" method="post" enctype="multipart/form-data">
-              <input type="hidden" name="replyParent" value="0">
-              <input type="hidden" name="replyOrigin" value="${boardWithImageDto.getAllboardNo()}">
-              <input type="hidden" name="replyWriter" value="${sessionScope.memberId}">
-              <textarea class="summernote" name="replyContent"></textarea>
-              <button id="board-reply-btn" type="submit">등록</button>
-            </form>
-          </div>
-        </c:if>
-      </div>
-  </article>
-  </section>
+		<!-- 좋아요 댓글 신고 -->
+		<div class="row">
+			<!-- 좋아요 -->
+			<div class="left like-box" style="display: inline-block">
+				<i class="fa-heart detail-like"></i> 좋아요 :<span class="like-count"
+					style="margin-left: 0.5em">${boardWithImageDto.boardLike}</span>
+			</div>
+			<!-- 댓글 개수 댓글 span(class=reply-count)에 카운트 처리되도록 함-->
+			<div class="reply-number-box" style="display: inline-block">
+				댓글 :<span class="reply-count" style="margin-left: 0.5em">${boardWithImageDto.boardReply}</span>
+			</div>
+		</div>
+		<hr>
+		<!-- 댓글 -->
+		<!-- 표시 -->
+		<div class="row reply-best-target"></div>
+		<div class="row reply-target"></div>
+		<!-- 쓰기 -->
+		<div class="row mt-30">
+			<textarea class="form-input w-100 summernote-reply reply-textarea"></textarea>
+		</div>
+		<!-- 댓글 끝 -->
+		<!-- 마지막 줄 -->
+		<div class="row flex-box">
+			<div class="row">
+				<a href="write" class="board-detail-btn">글쓰기</a>
+			</div>
+			<div class="row align-right">
+				<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}"
+					class="board-detail-btn align-right">목록</a>
+			</div>
+		</div>
+	</article>
+</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -4,8 +4,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
    
    
-  
-    <style>
+      <style>
     
     
     
@@ -58,12 +57,10 @@
 	    
     
     </style>
-    
 
-
+  <!-- aside -->
+  
   <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
-  
-  
   
   <!-- article -->
   <article>
@@ -81,6 +78,11 @@
         	<input type="password" name="memberPw" placeholder="확인을 위한 비밀번호 입력" 
         	class="form-input w-100" autocomplete="off" required>
         </div>
+        
+         <c:if test = "${param.mode == 'error'}">
+ 		<h5 class="row left" style="color:red;">비밀번호가 일치하지 않습니다</h5>
+ 		</c:if>
+        
         <div class="row">
         	<input type="text" name="memberNick" value="${memberDto.memberNick}"
         	class="form-input w-100" autocomplete="off" required>
@@ -99,22 +101,22 @@
         	회원 등급 : ${memberDto.memberLevel}
         </div>
         
+       
+        
         
         <div>
         <button type="submit" class="form-btn w-100 positive">수정</button>
         </div>
 
 
-
+	
+ 		
 
     </div>
     
     </form>
  		
  		
- 		<c:if test = "${param.mode == 'error'}">
- 		<h1>비밀번호가 일치하지 않습니다</h1>
- 		</c:if>
  		
   </article>
   

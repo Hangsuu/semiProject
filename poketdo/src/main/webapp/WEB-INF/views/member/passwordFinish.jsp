@@ -3,9 +3,7 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
-
-
-    <style>
+<style>
     
     
     
@@ -40,6 +38,7 @@
     	}
  
    
+     
      .ablock {
     
      text-decoration-line: none;
@@ -57,55 +56,27 @@
 	    
     
     </style>
-    
 
-
-  <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
   
+    <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
   
   <!-- article -->
   <article class="flex-all-center">
-     <div class= "container-500">
-    	<form action="exit" method="post">
-        
-            <div class="row center mb-50">
-            <h1>회원 탈퇴</h1>
-            </div>
-            
-        <div class="center">
-        	<input class="form-input w-100" type="password" name="memberPw" placeholder="비밀번호를 입력하세요" required><a></a>
-        </div>
-        
-        
-  
-  	<c:if test = "${param.mode == 'error'}">
- 		<h5 class="row left" style="color:red;">비밀번호가 일치하지 않습니다</h5>
- 		</c:if>
-  
-  
-  <div class="center">
-        <button class="form-btn w-100 positive mt-30">탈퇴</button>
-        </div>
-        
-        
-       
-        
-    </form>
-        	
-        	
-          </div> 		
- 	
+     <div class= "container-500 center">
 
- 
+    	
+    <h1>비밀번호 변경 완료</h1>
+			
+			
+	
+    </div>
     
     
-     
+      <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
  		
 
  		
   </article>
-  
-   <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

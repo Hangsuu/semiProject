@@ -72,8 +72,13 @@ public class PocketmonRestController {
 		return dto;
 	}
 	
-
-
+	//포켓몬스터 정보,이미지 검사
+	
+	@GetMapping("/pocketmonWithdImage/{pocketNo}")
+	  public PocketmonWithImageDto dataSelectOne(@PathVariable int pocketNo) {
+		  return pocketmonWithImageDao.selectOne(pocketNo);
+	  };
+	  
 	//포켓몬스터 번호 중복검사
 	@GetMapping("/pocketNo/{pocketNo}")
 	public String findPocketNo (@PathVariable int pocketNo) {

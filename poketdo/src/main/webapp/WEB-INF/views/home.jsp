@@ -52,11 +52,11 @@
     </div>
 <%-- 포켓몬 교환 --%>
     <%-- base.css / component.css --%>
-    <div class="home-sector home-raid-board title-body">
+    <div class="home-sector title-body">
       <%-- home.css --%>
       <div class="home-board-title">
         <h2>🤝교환해요</h2>
-        <a href="/auction/list?page=1">+더보기</a>
+        <a href="/pocketmonTrade">+더보기</a>
       </div>
       <%-- <div class="mt-20 flex">
         <c:if test="${pocketmonTradeList.size()!=0}">

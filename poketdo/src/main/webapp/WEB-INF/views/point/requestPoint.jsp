@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script src="/static/js/seal-insert.js"></script>
+
 
 <script type="text/javascript">
 	$(function () {
@@ -12,6 +12,33 @@
 			$(".selectTarget").text(selectValue+"원");
 		});
 
+	var valid = {
+			writerNameValid:false,
+			isAllValid:function(){
+				return	 this.writerNameValid;
+			}
+	};
+	$("[name=writerName]").blur(function(){
+		var writerName = $(this).val();
+		if(writerName==""){
+			valid.writerNameValid = false;
+			$("[name=writerName]")
+			.removeClass("valid invalid invalid2")
+			.addClass("invalid");
+		}
+		else{
+			valid.writerNameValid = true;
+			$("[name=writerName]")
+			.removeClass("valid invalid invalid2")
+		};
+	console.log(valid.isAllValid());
+	});
+		
+	//폼 검사
+	$(".point-form").submit(function(e){
+		return valid.isAllValid();
+	});
+		
 	});
 </script>
 
@@ -48,6 +75,7 @@
 					</div>		
 					<div class="pocket-input-box">
 						<input name="writerName" class="form-input" >
+						<span class="invalid-message">입금자 명을 입력하세요!</span>
 						<input type="hidden" name="point_board_head" class="form-input" value="0">		
 					</div>
 				</div>
@@ -65,11 +93,11 @@
 						</select>
 					</div>
 				</div>
-				<div>				
-					<div class="pocket-input-box">
+				<div class="mb-50">				
+					<div class="pocket-input-box ">
 						<span>입금 하실 금액</span>
 					</div>
-					<div class="pocket-input-box">
+					<div class="pocket-input-box ">
 						<span class="selectTarget">10000원</span>
 					</div>
 				</div>

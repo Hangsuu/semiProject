@@ -11,6 +11,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import com.kh.poketdo.dto.PocketmonTradeMemberDto;
+import com.kh.poketdo.vo.PaginationVO;
 import com.kh.poketdo.vo.PocketmonTradePageVO;
 
 @Repository
@@ -65,6 +66,13 @@ public class PocketmonTradeMemberDao {
         return jdbcTemplate.query(sql, mapper, param);
     }
 
+    // R 포켓몬교환 + 멤버 홈 리스트
+    public List<PocketmonTradeMemberDto> selectHomeList(PaginationVO pageVo) {
+        String sql = "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade_member where pocketmon_trade_head != '공지' and pocketmon_trade_complete = 0 order by pocketmon_trade_no desc) tmp) where rn between ? and ?";
+        Object[] param = { pageVo.getBegin(), pageVo.getEnd() };
+        return jdbcTemplate.query(sql, mapper, param);
+    }
+
     // R 포켓몬교환 + 멤버 공지 리스트
     public List<PocketmonTradeMemberDto> selectNotice() {
         String sql = "select * from (select rownum rn, tmp.* from (select * from pocketmon_trade_member where pocketmon_trade_head = '공지' order by pocketmon_trade_no desc) tmp) where rn between 1 and 3";
@@ -77,6 +85,8 @@ public class PocketmonTradeMemberDao {
         List<PocketmonTradeMemberDto> list = jdbcTemplate.query(sql, mapper, param);
         return list.isEmpty() ? null : list.get(0); 
     }
+
+    
 
     // R 포켓몬교환 + 멤버 카운트
     // R 포켓몬교환 게시물 Cnt

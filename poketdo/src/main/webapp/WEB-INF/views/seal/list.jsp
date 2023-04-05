@@ -74,8 +74,7 @@ $(function () {
 			
 		</div>
 
-		<div class="seal-container">
-			<c:if test="${sessionScope.memberLevel=='관리자' }">
+		<div class="seal-container mb-10">
 					<div>
 						<div>
 							<div>
@@ -94,15 +93,6 @@ $(function () {
 							</div>
 						</div>
 						<div class="seal-admin">
-							<div>
-								<form action="purchase" method="post" class="buy-form">
-								<c:if test="${sessionScope.memberLevel != null}">
-									<input type="hidden" name="sealNo" value="${list.get(0).sealNo}"> 
-									<input type="hidden" name="point" value="${list.get(0).sealPrice}"> 
-									<button type="submit" class="form-btn positive">구매</button>
-								</c:if>
-								</form>
-							</div>
 							<c:if test="${sessionScope.memberLevel=='관리자' }">
 							
 								<div>
@@ -114,7 +104,6 @@ $(function () {
 							</c:if>
 						</div>
 					</div>
-			</c:if>
 			
 		
 			<c:forEach begin="1" var="sealWithImageDto" items="${list}" >

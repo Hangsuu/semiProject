@@ -10,13 +10,14 @@ $(function(){
 								&& this.sealPriceValid;
 				}
 		};
-		console.log(valid);
 		
 		//인장 번호 검사 (1보다 큰 숫자)
 		$("[name=sealNo]").blur(function(){
 			var sealNo = $(this).val(); 
-			var isValid = sealNo >= 1;
+			var isValid = sealNo >= 0 && sealNo!="";
+			
 			if(isValid){
+					console.log(isValid);
 				$.ajax({
 					url:"/rest/seal/sealNo/" + sealNo,
 					method:"get",

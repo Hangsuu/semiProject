@@ -23,7 +23,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="bottom-icons pdc-color${pocketmonTypeWithImageDto.pocketTypeNo}">
+				<div class="bottom-icons type-back-color${pocketmonTypeWithImageDto.pocketTypeNo} pdc-color">
 					<div class="bottom-list-icon icon-color">
 						<a href="list">
 							<span>목록</span>

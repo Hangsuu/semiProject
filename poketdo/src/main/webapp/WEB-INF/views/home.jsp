@@ -47,6 +47,8 @@
         <%-- home.css --%>
         <div class="home-board-title">
           <h2>🦄오늘의 포켓몬</h2>
+          <div class="random-a-target">
+          </div>
         </div>
         <div class="home-board-list random-box">
         	<div>

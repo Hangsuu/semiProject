@@ -21,8 +21,9 @@ public class ErrorController {
 	//401번은? 우리가 만든 RequiredLoginException으로 대체하여 처리
 	//-사용자가 봐야 하는 페이지는 로그인 페이지이다
 	@ExceptionHandler(RequireLoginException.class)
-	public String unAuthorized(Exception ex) {
-		return "redirect:/member/login";	//주소는 유지하고 화면만 변경
+	public String unAuthorized(RequireLoginException ex) {
+		StringBuffer requestUrl = ex.getReferer();
+		return "redirect:/member/login?prevPage=" + requestUrl.toString();	//주소는 유지하고 화면만 변경
 	}
 	
 }

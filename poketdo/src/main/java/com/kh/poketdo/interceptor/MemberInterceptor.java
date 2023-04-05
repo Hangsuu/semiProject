@@ -24,7 +24,7 @@ public class MemberInterceptor implements HandlerInterceptor{
 //			response.sendRedirect("/member/login");//return "redirect:/member/login"; 역할을 하는 코드
 //			response.sendError(401);
 //			return false;
-			throw new RequireLoginException("로그인 후 이용 가능합니다");
+			throw new RequireLoginException("로그인 후 이용 가능합니다", request.getRequestURL());
 		}
 	}
 

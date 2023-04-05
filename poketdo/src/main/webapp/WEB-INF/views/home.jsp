@@ -56,9 +56,9 @@
         <h2>🤝교환해요</h2>
         <a href="/pocketmonTrade">+더보기</a>
       </div>
-      <div class="mt-20 flex">
-        <!-- <div class="swiper-wrapper"> -->
-          <c:forEach var="i" begin="0" end="${pocketmonTradeList.size()-1}">
+      <%-- <div class="mt-20 flex">
+        <c:if test="${pocketmonTradeList.size()!=0}">
+          <c:forEach var="i" begin="0" end="${pocketmonTradeList.size()-2}">
             <div style="padding:1em; border:1px solid #F2F4FB; border-radious:2em; margin:10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05); width: 20%;">
               <div style="width:160px; height:180px" class="flex-box align-center">
                 <c:choose>
@@ -74,7 +74,6 @@
                   </c:otherwise>
                 </c:choose>
               </div>
-          <!-- 제목 -->
               <div class="row" style="width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" title="${pocketmonTradeList.get(i).getPocketmonTradeTitle()}">
                 <a href="/pocketmonTrade/${pocketmonTrade.getPocketmonTradeNo()}" class="link bold">
                   ${pocketmonTradeList.get(i).getPocketmonTradeTitle()}
@@ -83,7 +82,8 @@
               </div>
             </div>
           </c:forEach>
-      </div>
+        </c:if>
+      </div> --%>
     </div>
 <%-- 레이드, 공략--%>
     <%-- base.css / component.css --%>

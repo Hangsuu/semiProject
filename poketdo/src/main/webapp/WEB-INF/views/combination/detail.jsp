@@ -76,18 +76,18 @@ $(function(){
 		[${combinationDto.combinationType}] ${combinationDto.combinationTitle}
 	</div>
 	<div class="row flex-box">
-		<div class="row">
+		<div class="row" style="vertical-align:center; display:inline-block">
 			<span class="combination-writer">
 			<!-- 작성자 검색 링크 -->
-				<a href="list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link" style="vertical-align:middle">
+				<a href="list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">
 					<img class="board-seal" src="${combinationDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${combinationDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${combinationDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
-			<c:if test="${sessionScope.memberId==combinationDto.combinationWriter}">
+			<c:if test="${sessionScope.memberId==combinationDto.combinationWriter||sessionScope.memberLevel=='관리자'}">
 				<a href="edit?page=${param.page}&allboardNo=${combinationDto.allboardNo}&tagList=${tagList}" class="board-detail-btn" style="vertical-align:middle">수정</a>
-				<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
+				<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">

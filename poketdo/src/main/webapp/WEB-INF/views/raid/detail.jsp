@@ -391,18 +391,18 @@ $(function(){
 			</c:choose>
 	</div>
 	<div class="row flex-box">
-		<div class="row">
+		<div class="row"style="vertical-align:center; display:inline-block">
 			<span class="raid-writer">
 			<!-- 작성자 검색 링크 -->
-				<a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link" style="vertical-align:middle">
+				<a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link">
 					<img class="board-seal" src="${raidDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${raidDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${raidDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
-			<c:if test="${sessionScope.memberId==raidDto.raidWriter}">
+			<c:if test="${sessionScope.memberId==raidDto.raidWriter||sessionScope.memberLevel=='관리자'}">
 				<a href="edit?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
-				<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
+				<a href="delete?page=${param.page}&allboardNo=${raidDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">

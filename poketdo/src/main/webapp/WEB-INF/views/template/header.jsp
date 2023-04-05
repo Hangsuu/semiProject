@@ -24,7 +24,27 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/static/js/pocketdex.js"></script>
-    
+<script>
+</script>
+<script>
+$(function(){
+	$.ajax({
+		url:"/rest/member/getNick",
+		method:"get",
+		success:function(response){
+			if(response.length>0){
+				$(".nickname-box").text(response+"님 환영합니다!")
+			}
+			else{
+				$(".nickname-box").text("")
+			}
+		},
+		error:function(){
+			
+		}
+	});
+})
+</script>
     <title>POCKETDO!</title>
   </head>
   <body>
@@ -32,36 +52,39 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <header class="container-1200" style="min-height:70px;">
     <!-- header -->
-<div class="right mb-20" style="background-color:#9DACE4">
-   	<div style="display:inline-block;">
-		<c:choose>
-			<c:when test="${empty sessionScope.memberId}">
-			<!-- css:commons, base -->
-				<div class="row me-40">
-					<a href="/member/login" class="link right"><span class="header-menu me-10">로그인</span></a>
-					<a href="/member/join" class="link right"><span class="header-menu ms-10">회원가입</span></a>
-				</div>
-			</c:when>
-			<c:when test="${sessionScope.memberId!=null && sessionScope.memberLevel!='관리자'}">
-				<div class="row me-40">
-					<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
-					<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
-					<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
-					<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
-					<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div class="row me-40">
-					<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
-					<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
-					<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
-					<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
-					<a href="/admin/adminCheck" class="link right"><span class="header-menu ms-10 me-10">관리 페이지</span></a>
-					<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
-				</div>
-			</c:otherwise>
-		</c:choose>
+<div class="mb-20" style="background-color:#9DACE4">
+   	<div class="flex-box w-100">
+   		<div class="flex-box align-center ms-40 nickname-box" style="color:white"></div>
+   		<div class="align-right" style="display:inline-block">
+			<c:choose>
+				<c:when test="${empty sessionScope.memberId}">
+				<!-- css:commons, base -->
+					<div class="row me-40">
+						<a href="/member/login" class="link right"><span class="header-menu me-10">로그인</span></a>
+						<a href="/member/join" class="link right"><span class="header-menu ms-10">회원가입</span></a>
+					</div>
+				</c:when>
+				<c:when test="${sessionScope.memberId!=null && sessionScope.memberLevel!='관리자'}">
+					<div class="row me-40">
+						<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
+						<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
+						<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
+						<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
+						<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="row me-40">
+						<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
+						<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
+						<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
+						<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
+						<a href="/admin/adminCheck" class="link right"><span class="header-menu ms-10 me-10">관리 페이지</span></a>
+						<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
      </div>
 </div>
       <%-- base.css --%>

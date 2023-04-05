@@ -7,18 +7,11 @@
 <script type="text/javascript">
 	$(function () {
 		
-		$(".confirm-delete").click(function(e){
-		    if(!confirm("정말 삭제하시겠습니까?")){
-			    e.preventDefault();
-		    }
-		});
-
 		$(".buy-point-form").submit(function(e) {
 			  if (!confirm("정말 처리 완료 하시겠습니까?")) {
 			    e.preventDefault();
 			  }
 			});
-		
 	});
 </script>
 
@@ -28,7 +21,7 @@
 	
 	<article class="mt-50 container-1200 ">
 
-	<form action="pointProcess" method="post" enctype="multipart/form-data" class="form buy-point-form">
+<!-- 	<form action="pointProcess" method="post" enctype="multipart/form-data" class="form buy-point-form"> -->
 		<div class="pocket-input-container" >
 			<div>
 				<c:if test="${pointDto.getPointBoardHead()!=0}">
@@ -104,7 +97,7 @@
 				</div>	
 			</div>	
 			</div>
-	</form>
+<!-- 	</form> -->
 	</article>
 	
 </section>

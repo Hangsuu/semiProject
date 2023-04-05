@@ -3,7 +3,7 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
-    <style>
+<style>
     
     
     
@@ -57,20 +57,45 @@
     
     </style>
 
-  <!-- aside -->
+    <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
   
-  <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
-	
   
   <!-- article -->
   <article class="flex-all-center">
      <div class= "container-500 center">
-		<h1>개인정보 변경 완료</h1>
- 	</div>	
-  </article>
-  
-  
+    	<form action="password" method="post">
+        
+      <h1 class="mb-50">비밀번호 변경</h1>
+		
+
+			<div class="left" style="height: 100px">
+			<label>현재 비밀번호</label>
+			<input class="form-input w-100"  type="password" name="currentPw" required> <br><br>
+			</div>
+			
+			<div class="left">
+			<label>변경 비밀번호</label>
+			<input class="form-input w-100" type="password" name="changePw" required> <br><br>
+			</div>
+			
+			
+			
+			<button class="form-btn positive w-100">변경</button>
+		</form>
+		
+		<!-- 오류가 발생한 경우 보여줄 메세지 -->
+		<c:if test="${param.mode == 'error'}">
+			<h2>비밀번호가 일치하지 않습니다</h2>
+		</c:if>
+
+    </div>
+    
+    
       <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
+ 		
+
+ 		
+  </article>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

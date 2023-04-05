@@ -3,17 +3,10 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
-
-
-	 <style>
- 
- 	.super-center{
- 			display: flex;
-  flex-direction: row;
-  align-items: center 
-          }
- 
- 
+<style>
+    
+    
+    
  	h1 {
  		font-size: 30px}
  	
@@ -31,17 +24,51 @@
 		padding: 15px;
 		font-size: 20px;
 	}
+   
+   
+    aside {
+    	float: left;
+    	width: 30%;
+    
+    	}
+    
+    article {
+    	float: right;
+    	width: 80%
+    	}
  
- </style>
+   
+     
+     .ablock {
+    
+     text-decoration-line: none;
+     text-decoration: none;
+     display: block;
+     
+     
+     }
+     
+	    ablock:visited { text-decoration: none; }
+	    ablock:hover { text-decoration: none; }
+	    ablock:focus { text-decoration: none; }
+	    ablock:hover, ablock:active { text-decoration: none; }
+	    
+	    
+    
+    </style>
+
   
+    <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
   
   <!-- article -->
   <article class="flex-all-center">
-     <div class= "container-500 center" style="height:60vh;">
-    	<h1 class="mb-50">아이디 찾기 결과</h1>
+     <div class= "container-500 center">
 
-		<h2 class="mb-50">아이디는 ${requestScope.findId} 입니다</h2>
-		<a href="/member/login"><button class="form-btn neutral w-100 mt-10" type="button">로그인하기</button></a>
+    	
+    <h1>비밀번호 변경 완료</h1>
+			
+			
+	
     </div>
     
     

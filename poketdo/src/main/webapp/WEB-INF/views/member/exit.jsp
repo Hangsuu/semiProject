@@ -68,28 +68,35 @@
      <div class= "container-500">
     	<form action="exit" method="post">
         
-            <div class="row center mb-30">
+            <div class="row center mb-50">
             <h1>회원 탈퇴</h1>
             </div>
             
-        <div class="center mb-50">
-        	비밀번호 확인: <input class="input-form" type="password" name="memberPw" required><a></a>
-        </div>
-        
         <div class="center">
-  
-        <button class="form-btn w-70 positive">탈퇴</button>
+        	<input class="form-input w-100" type="password" name="memberPw" placeholder="비밀번호를 입력하세요" required><a></a>
         </div>
         
         
-    </form>
-        		
- 		<c:if test = "${param.mode == 'error'}">
+  
+  	<c:if test = "${param.mode == 'error'}">
  		<h2>비밀번호가 일치하지 않습니다</h2>
  		</c:if>
+  
+  
+  <div class="center">
+        <button class="form-btn w-100 positive mt-30">탈퇴</button>
+        </div>
+        
+        
+       
+        
+    </form>
+        	
+        	
+          </div> 		
+ 	
 
-
-    </div>
+ 
     
     
      

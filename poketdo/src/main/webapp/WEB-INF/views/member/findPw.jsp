@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-    
     <style>
     
     
@@ -57,20 +56,44 @@
     
     </style>
 
-  <!-- aside -->
   
-  <jsp:include page="/WEB-INF/views/member/memberAside.jsp"></jsp:include>
-	
+  
+  
   
   <!-- article -->
-  <article class="flex-all-center">
+  <article>
      <div class= "container-500 center">
-		<h1>개인정보 변경 완료</h1>
- 	</div>	
-  </article>
-  
-  
+    	<form action="findPw" method="post">
+        
+        	<div>
+        	아이디: <input type="text" name="memberId" required> 
+        	</div>
+   
+        	<div>
+        	이메일: <input type="text" name="memberEmail" required> 
+        	</div>
+        
+        
+        
+            <div class="form-btn w-100">
+            <button>찾기</button>
+            </div>
+            
+       </form>
+        		
+ 
+		<c:if test="${param.mode == 'error'}">
+              <span style="color:red; font-weight:bold;">정보가 일치하지 않습니다</span>
+            </c:if>
+
+    </div>
+    
+    
       <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
+ 		
+
+ 		
+  </article>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

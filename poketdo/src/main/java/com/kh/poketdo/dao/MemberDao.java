@@ -1,5 +1,6 @@
 package com.kh.poketdo.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import com.kh.poketdo.component.RandomComponent;
 import com.kh.poketdo.dto.MemberDto;
 
 @Repository
@@ -23,9 +25,9 @@ public class MemberDao {
 		String sql="insert into member("
 					+ "member_id, member_pw, member_nick, member_birth, "
 					+ "member_email, member_level, "
-					+ "member_point, member_join, member_deadline, member_seal_no"
+					+ "member_point, member_join, member_seal_no"
 					+ ") values ("
-					+ "?,?,?,?,?,'일반회원', 0, sysdate, sysdate, 0"
+					+ "?,?,?,?,?,'일반회원', 0, sysdate, 0"
 					+ ")";
 		Object[] param = {
 				memberDto.getMemberId(), memberDto.getMemberPw(),
@@ -53,7 +55,6 @@ public class MemberDao {
                     .memberJoin(rs.getDate("member_join"))
                     .memberLogin(rs.getDate("member_login"))
                     .memberLoginCnt(rs.getInt("member_login_cnt"))
-                    .memberDeadline(rs.getDate("member_deadline"))
                     .memberSealNo(rs.getInt("member_seal_no"))
                     .build();
         }
@@ -150,6 +151,36 @@ public class MemberDao {
     	return jdbcTemplate.queryForObject(sql, String.class, param);
     }
 
+    
+    @Autowired
+    private RandomComponent rc;
+    //아이디,이메일로 비밀번호 받기
+    public String updatePassword(MemberDto memberDto) {
+        // 새로운 패스워드 생성
+        String newPassword = rc.generateString(10);
+        
+        // 데이터베이스 업데이트
+        String sql = "UPDATE member SET member_pw = ? WHERE member_id = ? AND member_email = ?";
+        Object[] params = {newPassword, memberDto.getMemberId(), memberDto.getMemberEmail()};
+        int rowsAffected = jdbcTemplate.update(sql, params);
+        if (rowsAffected > 0) {
+            return newPassword;
+        } else {
+            return null;
+        }
+    }
+    
+    
+  //비밀번호 변경 기능
+  		public boolean changePassword(String memberId, String memberPw) {
+  			String sql = "update member set member_pw = ? where member_id = ?";
+  			Object[] param = {memberPw, memberId};
+  			return jdbcTemplate.update(sql, param) > 0;
+  		}
+    
+    
+    
+    
     public MemberDto selectByNickname(String memberNick) {
     	String sql = "select * from member where member_nick = ?";
     	Object[] param = {memberNick};
@@ -162,5 +193,8 @@ public class MemberDao {
     	Object [] param = {memberId};
     	return jdbcTemplate.queryForObject(sql, int.class,param);
     }
+
+
+	
     
 }

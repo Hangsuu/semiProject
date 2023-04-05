@@ -69,7 +69,6 @@
 	        <div class="row left">
     	    	<input type="password" id="passwordRe" name="memberPwRe" placeholder="비밀번호 확인" class="form-input w-100" required>
     	    	<div class="valid-message">비밀번호가 일치합니다</div>
-			
 				<div class="invalid-message">비밀번호가 일치하지 않습니다</div>
 				<div class="invalid-message2">비밀번호를 먼저 작성하세요</div>
     	    </div>

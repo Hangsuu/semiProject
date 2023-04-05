@@ -246,6 +246,73 @@ public class MemberController {
     	}
     }
     
+    
+    
+    
+    @GetMapping("/findPw")
+    public String findPw() {
+    	
+    	return "/WEB-INF/views/member/findPw.jsp";
+    }
+    
+    @PostMapping("/findPw")
+    public String updatePassword(@ModelAttribute MemberDto memberDto,
+    		Model model) {
+       
+    	String memberId = memberDao.findId(memberDto);
+        String newPassword =   memberDao.updatePassword(memberDto);
+        
+        
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("newPassword", newPassword);
+        return "/WEB-INF/views/member/findPwResult.jsp";
+    
+       
+        
+
+    }
+    
+    
+    
+    
+
+
+  //비밀번호 검사 및 변경 처리
+  	 @GetMapping("/password")
+  	 public String password() {
+  		 return "/WEB-INF/views/member/password.jsp";
+  	 }
+  	
+  	 @PostMapping("/password")
+  	 public String password(
+  			 HttpSession session,//아이디가 저장되어 있는 세션 객체
+  			 @RequestParam String currentPw, //현재 비밀번호
+  			 @RequestParam String changePw,//변경할 비밀번호
+  			 RedirectAttributes attr) {//리다이렉트에 정보를 추가하기 위한 객체
+  		 String memberId = (String)session.getAttribute("memberId");
+  		 MemberDto memberDto = memberDao.selectOne(memberId);
+
+  		 //비밀번호가 일치하지 않는다면
+  		 if(!memberDto.getMemberPw().equals(currentPw)) {
+  			 attr.addAttribute("mode", "error");
+  			 return "redirect:password";
+  		 }
+
+  		 //비밀번호가 일치한다면 → 비밀번호 변경 처리
+  		 memberDao.changePassword(memberId, changePw);
+  		 return "redirect:passwordFinish";		 
+  	 }
+  	
+  	@GetMapping("/passwordFinish")
+  	public String passwordFinish() {
+  		return "/WEB-INF/views/member/passwordFinish.jsp";
+  	}
+  	
+    
+    
+    
+    
+    
 	//인장 판매 처리
 	@PostMapping("/mysealSell")
 	public String mysealSell(

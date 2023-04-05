@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@ page import="com.kh.poketdo.component.RandomComponent" %>
+
+
+
+
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
-
-
-	 <style>
- 
+  
+    <style>
+    
+    
  	.super-center{
  			display: flex;
   flex-direction: row;
@@ -33,21 +38,22 @@
 	}
  
  </style>
+ 
   
   
   <!-- article -->
-  <article class="flex-all-center">
-     <div class= "container-500 center" style="height:60vh;">
-    	<h1 class="mb-50">아이디 찾기 결과</h1>
-
-		<h2 class="mb-50">아이디는 ${requestScope.findId} 입니다</h2>
-		<a href="/member/login"><button class="form-btn neutral w-100 mt-10" type="button">로그인하기</button></a>
+  <article>
+  	  <form class="super-center" style="height:60vh;" action="findPw" method="post" autocomplete="off">
+        <div class= "container-500 center mb-30">
+    	
+		<h3>${memberDto.memberId}님의 새로운 비밀번호는 ${newPassword}입니다.</h3>
+		<a href="/member/join"><button class="form-btn neutral w-100 mt-10 mt-50" type="button">로그인하기</button></a>
     </div>
     
     
       <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
  		
-
+	</form>
  		
   </article>
 

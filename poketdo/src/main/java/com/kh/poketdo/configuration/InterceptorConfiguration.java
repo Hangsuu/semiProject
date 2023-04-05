@@ -39,7 +39,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 				"/auction/write",
 				"/auction/bookmark","/auction/bookmarkDetail",
 				"/combination/write","/raid/write","/rest/like","/rest/reply",
-				"/member/myseal", "/point/requestPoint", "/point/detail"
+				"/member/myseal", "/point/requestPoint", "/point/detail", "/message/**"
 				);
 
 		//관리자만 접속

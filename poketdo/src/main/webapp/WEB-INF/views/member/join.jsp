@@ -54,7 +54,7 @@
             <h1>회원가입</h1>
             </div>
             
-	        <div class="row left mt-30">
+	        <div class="row left mt-50">
 	        	<input class="form-input w-100" type="text" name="memberId" placeholder="아이디" required>
 	        	<div class="valid-message">사용 가능한 아이디입니다</div>
 				<div class="invalid-message">아이디는 영문소문자로 시작하며 숫자를 포함한 8~20자로 작성하세요</div>
@@ -99,6 +99,10 @@
    
         
   </article>
+  
+  
+  
+  
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

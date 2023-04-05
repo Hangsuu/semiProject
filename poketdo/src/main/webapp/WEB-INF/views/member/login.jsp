@@ -42,7 +42,7 @@
 
     <form class="super-center" style="margin-top:100px; height:60vh;" action="login" method="post" autocomplete="off">
 	<div class="container-500 center" >
-      <div class="row center mb-30">
+      <div class="row center mb-50">
          <h1>로그인</h1>
          </div>
      

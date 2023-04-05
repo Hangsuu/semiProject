@@ -46,14 +46,24 @@
   
   <!-- article -->
   <article>
-     <div class= "container-500 flex-all-center" style="height:60vh">
-		<div>
-			<h1>회원가입을 환영합니다!</h1>
- 		</div>
+        
+  
+     <div class="super-center"  style="height:60vh">
+		<div class= "container-500 center mb-30">
+			<h1 class="mb-50">회원가입을 환영합니다!</h1>
+ 		
  	
+ 	
+ 	   <div>
+        	<a href="/member/login"><button class="form-btn neutral w-100 mb-10" type="button">로그인하기</button></a>
+        	<a href="/"><button class="form-btn positive w-100" type="button">홈으로</button></a>
+        
+        </div>
 			 	
  	
  	</div>	
+ 	
+ 	</div>
  	
  	  </article>
 

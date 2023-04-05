@@ -10,8 +10,8 @@
  
  	.super-center{
  			display: flex;
-  flex-direction: row;
-  align-items: center 
+		  flex-direction: row;
+		  align-items: center;
           }
  
  
@@ -41,6 +41,7 @@
   
   <!-- article -->
   <article>
+  
    <form class="super-center" style="height:60vh;" action="find" method="post" autocomplete="off">
      <div class= "container-500 center mb-30">
    		     <h1 class="mb-50">아이디 찾기</h1>
@@ -53,7 +54,7 @@
         
         
         	<c:if test = "${param.mode == 'error'}">
- 			<h2>정보가 일치하지 않습니다</h2>
+ 				<h5 class="row left" style="color:red;">정보가 일치하지 않습니다</h5>
  			</c:if>
         
         

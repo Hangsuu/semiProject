@@ -31,7 +31,7 @@ $(function(){
 <!-- 댓글창 summernote 사용을 위한 import -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/reply.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/reply.js"></script>
 <!-- 댓글창 템플릿 -->
 <script type="text/template" id="reply-template">
 	<div class="row reply-box flex-box">
@@ -64,7 +64,7 @@ $(function(){
 		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
-<script src="/static/js/like.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/like.js"></script>
 
 <!-- 내용 시작 -->
 <div class="container-1000 mt-50">

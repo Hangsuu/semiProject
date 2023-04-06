@@ -45,6 +45,14 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     replyWriter: memberId,
   };
   const boardWriter = "${pocketmonTradeMemberDto.getPocketmonTradeWriter()}";
+  $(function(){
+    $("#pocketmonTrade-delete-btn").click(function(e){
+      if(!confirm("정말 삭제하시겠습니까?")){
+        e.preventDefault();
+        return;
+      }
+    })
+  })
 </script>
 <script src="/static/js/pocketmonTrade/pocketmonTradeReply.js"></script>
 <style>

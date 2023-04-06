@@ -84,8 +84,6 @@ public class HomeController {
 		}
 		model.addAttribute("pocketmonTradeList", pocketmonTradeList);
 		model.addAttribute("attachmentNoList", attachmentNoList);
-
-
 		//------------포켓몬교환 끝------------
 
 		//--------------인기글 시작----------
@@ -96,6 +94,7 @@ public class HomeController {
 		boardPagination.setOrder("desc");
 		model.addAttribute("boardList", boardWithNickDao.selectHotList(boardPagination));
 		//--------------인기글 끝-----------
+		System.out.println("test attack");
 		return "/WEB-INF/views/home.jsp";
 	}
 	

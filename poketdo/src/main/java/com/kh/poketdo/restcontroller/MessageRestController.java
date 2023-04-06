@@ -39,9 +39,6 @@ public class MessageRestController {
 
   @Autowired
   private MessageWithNickDao messageWithNickDao;
-  // [테스트]
-  @Autowired
-  private ReplyDao replyDao;
 
   // 비동기 메세지 보내기(받는사람, 보내는사람, 제목, 내용을 입력받아 새로운 Message 생성)
   @PostMapping("/write")
@@ -166,9 +163,7 @@ public class MessageRestController {
     return messageDao.deleteSendCancle(messageNo, memberId);
   }
 
-  // [테스트]
-  @GetMapping("/test")
-  public String test(PaginationVO vo) {
-    return "안녕하새우";
-  }
 }
+
+
+

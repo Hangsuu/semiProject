@@ -82,23 +82,44 @@
         <c:if test="${pocketmonTradeList.size()!=0}">
           <c:forEach var="i" begin="0" end="${pocketmonTradeList.size()-2}">
             <div style="padding:1em; border:1px solid #F2F4FB; border-radious:2em; margin:10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05); width: 20%;">
-              <div style="width:160px; height:180px" class="flex-box align-center">
+              <div style="width:160px; height:180px" class="flex-row">
+                <div>
+                  <!-- <span class="ing-tag" style="display: inline-flex; margin-bottom: 5px;">${pocketmonTradeList.get(i).getPocketmonTradeHead()}</span> -->
+                  <c:choose>
+                    <c:when test="${pocketmonTradeList.get(i).getPocketmonTradeHead()=='요청'}">
+                      <span class="ing-tag" style="display: inline-flex; margin-bottom: 5px; align-items: center; color: navy; border-color: navy;"><i class="fa-solid fa-magnifying-glass me-5" style="color: navy;"></i>요청</span>
+                    </c:when>
+                    <c:when test="${pocketmonTradeList.get(i).getPocketmonTradeHead()=='교환'}">
+                      <span class="ing-tag" style="display: inline-flex; margin-bottom: 5px; align-items: center;"><i class="fa-solid fa-right-left" style="color:orange"></i>교환</span>
+                    </c:when>
+                    <c:when test="${pocketmonTradeList.get(i).getPocketmonTradeHead()=='나눔'}">
+                      <span class="ing-tag" style="display: inline-flex; margin-bottom: 5px; align-items: center; color:forestgreen; border-color: forestgreen;"><i class="fa-solid fa-handshake me-5" style="color: forestgreen"></i>나눔</span>
+                    </c:when>
+                  </c:choose>
+                </div>
                 <c:choose>
                   <c:when test="${attachmentNoList.get(i)!=null}">
-                    <a href="/pocketmonTrade/${pocketmonTrade.getPocketmonTradeNo()}" class="link">
+                    <a href="/pocketmonTrade/${pocketmonTradeList.get(i).getPocketmonTradeNo()}" class="link">
                       <img style="width: 100%; height:150px;" src="/attachment/download?attachmentNo=${attachmentNoList.get(i)}">
                     </a>
                   </c:when>
                   <c:otherwise>
-                    <a href="/pocketmonTrade/${pocketmonTrade.getPocketmonTradeNo()}" class="link">
+                    <a href="/pocketmonTrade/${pocketmonTradeList.get(i).getPocketmonTradeNo()}" class="link">
                       <img style="width: 100%; height:150px;" src="/static/image/noimage.png">
                     </a>
                   </c:otherwise>
                 </c:choose>
               </div>
               <div class="row" style="width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis" title="${pocketmonTradeList.get(i).getPocketmonTradeTitle()}">
-                <a href="/pocketmonTrade/${pocketmonTrade.getPocketmonTradeNo()}" class="link bold">
-                  ${pocketmonTradeList.get(i).getPocketmonTradeTitle()}
+                <a href="/pocketmonTrade/${pocketmonTradeList.get(i).getPocketmonTradeNo()}" class="link bold">
+                  <c:choose>
+                <c:when test="${pocketmonTradeList.get(i).getPocketmonTradeComplete()==0}">
+                  
+                </c:when>
+                <c:when test="${pocketmonTradeList.get(i).getPocketmonTradeComplete()==1}">
+                  <span class="complete-tag tag-style">완료</span>
+                </c:when>
+              </c:choose>${pocketmonTradeList.get(i).getPocketmonTradeTitle()}
                   <c:if test="${pocketmonTradeList.get(i).getPocketmonTradeReply()!=0}">(${pocketmonTradeList.get(i).getPocketmonTradeReply()})</c:if>
                 </a>
               </div>

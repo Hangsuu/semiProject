@@ -31,20 +31,17 @@ public class MessageController {
   public String receiveList() {
     return "/WEB-INF/views/message/messageReceive.jsp";
   }
-
   // 보낸메세지 리스트
   @GetMapping("/send")
   public String sendList() {
     return "/WEB-INF/views/message/messageSend.jsp";
   }
-
   // 메세지 쓰기
   @GetMapping("/write")
   public String messageWrite(
       @RequestParam(required = false, defaultValue = "") String recipient) {
     return "/WEB-INF/views/message/messageWrite.jsp";
   }
-
   // 받은메세지 상세
   @GetMapping("/receive/detail")
   public String receiveDetail(
@@ -52,7 +49,6 @@ public class MessageController {
       HttpSession session,
       Model model) {
     String memberId = session.getAttribute("memberId") == null ? null : (String) session.getAttribute("memberId");
-
     // 처음 읽었을 때 시간 기록
     messageDao.updateReceiveTime(messageNo, memberId);
 
@@ -62,7 +58,6 @@ public class MessageController {
 
     return "/WEB-INF/views/message/messageReceiveDetail.jsp";
   }
-
   // 보낸메세지 상세
   @GetMapping("/send/detail")
   public String sendDetail(

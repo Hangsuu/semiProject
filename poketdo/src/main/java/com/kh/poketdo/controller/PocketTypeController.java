@@ -41,16 +41,12 @@ public class PocketTypeController {
 	@PostMapping("/insertProcess")
 	public String insertProcess(
 			@ModelAttribute PocketmonTypeDto pocketmonTypeDto,
-			@RequestParam MultipartFile attach
+			@RequestParam MultipartFile attach,
+			@RequestParam int pocketTypeNo
 			) throws IllegalStateException, IOException {
 		pocketmonTypeService.pocketmonTypeInsert(pocketmonTypeDto, attach);
 		
-		return "redirect:insertFinish";
-	}
-	//포켓몬스터 속성 정보 입력 완료 페이지
-	@GetMapping("/insertFinish")
-	public String pocketmonTypeDataInsertFinish() {
-		return "/WEB-INF/views/pocketType/insertFinish.jsp";
+		return "redirect:detail?pocketTypeNo="+pocketTypeNo;
 	}
 	
 	//포켓몬스터 속성 정보 목록
@@ -86,7 +82,7 @@ public class PocketTypeController {
 			RedirectAttributes attr
 			) throws IllegalStateException, IOException {
 		pocketmonTypeService.pocketmonEdit(pocketmonTypeDto, attach, pocketTypeNo, attr );
-		return "redirect:detail?pocketTypeNo="+pocketTypeNo;
+		return "redirect:detail";
 	}
 	
 	  //포켓몬스터 속성 정보 상세

@@ -59,14 +59,9 @@ public class SealController {
 			@RequestParam MultipartFile attach
 			) throws IllegalStateException, IOException {
 		sealService.sealInsert(sealDto, attach);
-		return "redirect:insertFinish";
-	}
-	
-	//인장 정보 입력 완료 페이지
-	@GetMapping("/insertFinish")
-	public String sealDataInsertFinish() {
 		return "redirect:list";
 	}
+	
 	
 	//인장 정보 목록
 	@GetMapping("/list")
@@ -112,13 +107,14 @@ public class SealController {
 		return "redirect:list";
 	}
 	
-  //인장 정보 상세
-  @GetMapping("/detail")
-  public String detail(Model model, @RequestParam int sealNo) {
-	  model.addAttribute("sealWithImageDto", 
-		  sealWithImageDao.selectOne(sealNo));
-  return "/WEB-INF/views/seal/detail.jsp";
+  @GetMapping("/delete")
+  public String delete(
+		  @RequestParam int sealNo
+		  ) {
+	  sealDao.delete(sealNo);
+	  return "redirect:list";
   }
+  
 	
 	//인장 구매 처리
 	@PostMapping("/purchase")

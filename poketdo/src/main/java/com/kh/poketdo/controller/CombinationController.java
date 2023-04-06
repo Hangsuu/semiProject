@@ -96,7 +96,6 @@ public class CombinationController {
 			if(i!=list.size()-1) {
 				tagList +=",";
 			}
-			System.out.println(tagList);
 		}
 		model.addAttribute("combinationDto", combinationWithNickDao.selectOne(allboardNo));
 		model.addAttribute("tagDto", tagDao.selectList(allboardNo));

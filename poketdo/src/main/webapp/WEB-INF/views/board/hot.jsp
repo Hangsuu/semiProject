@@ -43,7 +43,7 @@
 </c:if>
 
 
-<div class="container-800">
+<div class="container-1100">
 	<div class="row center">
 		<h1>인기 게시판</h1>
 	</div>
@@ -141,7 +141,6 @@
 		<c:if test="${sessionScope.memberLevel == '관리자'}">
 			<button type="submit" class="form-btn negative">삭제</button>
 		</c:if>
-		<a href="write" class="form-btn positive">글쓰기</a>
 	</div>
 	</form>
 

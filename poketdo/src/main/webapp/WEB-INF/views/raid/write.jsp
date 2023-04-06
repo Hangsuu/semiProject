@@ -66,7 +66,7 @@
 			var text =raidMonster.val().trim();
 			if(text.length>0){
 				$.ajax({
-					url:"/rest/pocketmon/stats/"+text,
+					url:contextPath+"/rest/pocketmon/stats/"+text,
 					method:"get",
 					success:function(response){
 						if(response.pocketName==text){

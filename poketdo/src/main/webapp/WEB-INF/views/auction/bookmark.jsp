@@ -22,7 +22,7 @@ $(function(){
 				var allboardNo = $(this).data("allboard-no");
 				var bookmarkType = $(this).data("bookmark-type");
 				$.ajax({
-					url:"/rest/bookmark/",
+					url:contextPath+"/rest/bookmark/",
 					method:"post",
 					data:{
 						allboardNo:allboardNo,
@@ -44,7 +44,7 @@ $(function(){
 		$(".list-target").empty();
 		$(".pagination").empty();
 		$.ajax({
-			url:"/rest/auction/list",
+			url:contextPath+"/rest/auction/list",
 			method:"post",
 			data:{
 				column:column,

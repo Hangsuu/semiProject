@@ -30,7 +30,7 @@ $(function(){
 		var params = new URLSearchParams(location.search);
 		var allboardNo = params.get("allboardNo");
 		$.ajax({
-			url:"/rest/auction/check/"+allboardNo,
+			url:contextPath+"/rest/auction/check/"+allboardNo,
 			method:"get",
 			success:function(response){
 				if(response){
@@ -139,7 +139,7 @@ $(function(){
 			<span class="auction-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
-					<img class="board-seal" src="${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
+					<img class="board-seal" src="${pageContext.request.contextPath}+${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>

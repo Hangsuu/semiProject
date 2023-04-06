@@ -80,7 +80,7 @@
                         <td>${boardWithNickDto.boardNo}</td>
                         <td class="left">
                             <!-- 제목을 누르면 상세로 이동 -->
-                            <a href="detail?allboardNo=${boardWithNickDto.allboardNo}" class="link">
+                            <a href="detail?boardNo=${boardWithNickDto.getBoardNo()}" class="link">
                                 
                                 <c:if test="${boardWithNickDto.boardHead != null}">
                                     <!-- 말머리가 있으면 출력 -->
@@ -114,7 +114,7 @@
 						<td>${boardWithNickDto.boardNo}</td>
 						<td class="left">
 							<!-- 제목을 누르면 상세로 이동 --> <a
-							href="detail?allboardNo=${boardWithNickDto.getAllboardNo()}" class="link">
+							href="detail?boardNo=${boardWithNickDto.getBoardNo()}" class="link">
 
 								<c:if test="${boardWithNickDto.boardHead != null}">
 									<!-- 말머리가 있으면 출력 -->

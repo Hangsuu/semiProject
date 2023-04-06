@@ -233,7 +233,7 @@
 
 		  // "입력" 버튼 클릭 시 실행되는 함수
 		  $card111.on("click", function(){
-		    var pocketmonName = $("[name=pocketName1]").val().trim(); // 입력창에서 포켓몬 이름 가져오기
+		    var pocketmonName = $("[name=pocketName]").val().trim(); // 입력창에서 포켓몬 이름 가져오기
 		   
 		    if(pocketmonName == "") { // 입력값이 공백인 경우
 		        alert("포켓몬 이름을 입력해주세요.");
@@ -245,10 +245,18 @@
 		    	  url: "/rest/pocketmon/" + pocketmonName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
 		    	  method: "get", // HTTP 요청 방식을 선택합니다.
 		    	  success: function(response) { // 요청이 성공했을 때 실행될 콜백 함수입니다.
-		    	    var attachmentNo = response.attachmentNo; // attachmentNo 값을 가져옵니다.
-		    	    console.log("attachmentNo: " + attachmentNo); // attachmentNo 값을 콘솔에 출력합니다.
-		    	 	
-	       	$("[name=cardSlot" + currentInputNo + "]").attr("src", "/attachment/download?attachmentNo=" + attachmentNo);
+		    		  if(response.attachmentNo>0){
+			    	    var attachmentNo = response.attachmentNo; // attachmentNo 값을 가져옵니다.
+			    	    console.log("attachmentNo: " + attachmentNo); // attachmentNo 값을 콘솔에 출력합니다.
+			    	 	
+				       	$("[name=cardSlot" + currentInputNo + "]").attr("src", "/attachment/download?attachmentNo=" + attachmentNo);
+		    		  }
+		    		  else{
+		    			  alert("정확한 포켓몬 이름을 입력하세요");
+		    			  currentInputNo--;
+		    			  return;
+		    		  }
+		    			  
 		    	  },
 		    	  error: function(xhr, status, error) { // 요청이 실패했을 때 실행될 콜백 함수입니다.
 		                if(xhr.status == 500) {
@@ -266,7 +274,7 @@
 		      }
 		    currentInputNo++; // 다음 슬롯으로 이동
 
-		    $("[name=pocketName1]").val("");
+		    $("[name=pocketName]").val("");
     		});
 		});
 	</script>
@@ -288,17 +296,17 @@
  	
  	.form-input {
 		display: block;
-		
-		padding: 15px;
-		font-size: 20px;
+		padding: 10px;
+		font-size: 15px;
 		border-radius: 5px;
 		border: 1px solid #ccc;
 				
 			}	
 			
 	.form-btn {
-		padding: 15px;
-		font-size: 20px;
+		
+		font-size: 15px;
+		padding: 10px;
 	}
           
  
@@ -547,9 +555,9 @@
           
                 <label>포켓몬을 선택해주세요(최대6마리)</label>
                 <br>
-                <input type="text" name="pocketName1" placeholder="포켓몬 이름을 입력하세요">
+                <input class="form-input w-80" type="text"  style="display:inline-block;" name="pocketName" placeholder="포켓몬 이름을 입력하세요">
   
-                <button class="card111" type="submit">검색</button>
+                <button class="card111 form-btn neutral" type="submit" style="width:95px;">검색</button>
                 
 			</div>
 

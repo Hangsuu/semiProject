@@ -155,9 +155,14 @@ $(function(){
 				for(var i=0; i<response.list.length; i++){
 					var template = $("#list-template").html();
 					var html = $.parseHTML(template);
+					var reply = ""
+						if(response.list[i].combinationReply>0){
+							reply = " ("+response.list[i].combinationReply+")";
+						}
 					$(html).find(".list-no").text(response.list[i].combinationNo);
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
-							.addClass("do-not-over").text(response.list[i].combinationTitle);
+						.text("["+response.list[i].combinationType+"] "+response.list[i].combinationTitle+reply)
+						.attr("title", response.list[i].combinationTitle);
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
 					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink).css("vertical-align", "middle");
@@ -351,7 +356,7 @@ $(function(){
 	<tr style="vertical-align:middle">
 		<td class="list-no" style="vertical-align:middle"></td>
 		<td style="vertical-align:middle" class="w-50">
-			<div class="do-not-line-over" style="width:550px">
+			<div class="do-not-line-over left" style="width:550px">
 				<a class="link list-title" style="display:inline-block">
 				</a>
 			</div>

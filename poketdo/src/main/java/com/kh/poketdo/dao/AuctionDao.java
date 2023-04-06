@@ -40,6 +40,7 @@ public class AuctionDao {
 					.auctionRead(rs.getInt("auction_read"))
 					.auctionMainImg(rs.getInt("auction_main_img"))
 					.auctionFinish(rs.getInt("auction_finish"))
+					.auctionBidCount(rs.getInt("auction_bid_count"))
 					.build();
 		}
 	};
@@ -249,5 +250,11 @@ public class AuctionDao {
 		String sql = "update auction set auction_finish=1 where allboard_no=?";
 		Object[] param = {allboardNo};
 		return jdbcTemplate.update(sql, param)==1;
+	}
+	//입찰 들어오면 카운트 +1
+	public void changeCount(int allboardNo) {
+		String sql = "update auction set auction_bid_count=auction_bid_count+1 where allboard_no=?";
+		Object[] param = {allboardNo};
+		jdbcTemplate.update(sql, param);
 	}
 }

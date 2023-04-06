@@ -351,7 +351,7 @@ $(function(){
 	<tr style="vertical-align:middle">
 		<td class="list-no" style="vertical-align:middle"></td>
 		<td style="vertical-align:middle" class="w-50">
-			<div class="do-not-line-over" style="width:550px">
+			<div class="do-not-line-over left" style="width:550px">
 				<a class="link list-title" style="display:inline-block">
 				</a>
 			</div>

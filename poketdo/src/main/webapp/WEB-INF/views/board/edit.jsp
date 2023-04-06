@@ -41,19 +41,19 @@
 			<div class="row">
 		<label class="form-label w-100">말머리</label>
 			<c:choose>
-				<c:when test="${boardWithImageDto.boardHead == '없음'}">
+				<c:when test="${boardDto.boardHead == '없음'}">
 					<select name="boardHead" class="form-input">
 						<option selected value="">없음</option>
-						<c:if test="${memberLevel == '마스터'}">
+						<c:if test="${memberLevel == '관리자'}">
 						<option>공지</option>
 						</c:if>
 						<option>자유</option>
 					</select>
 				</c:when>
-				<c:when test="${boardWithImageDto.boardHead == '자유'}">
+				<c:when test="${boardDto.boardHead == '자유'}">
 					<select name="boardHead" class="form-input">
 						<option value="">없음</option>
-						<c:if test="${memberLevel == '마스터'}">
+						<c:if test="${memberLevel == '관리자'}">
 						<option>공지</option>
 						</c:if>
 						<option selected>자유</option>
@@ -62,7 +62,7 @@
 				<c:otherwise>
 					<select name="boardHead" class="form-input">
 						<option value="">없음</option>
-						<c:if test="${memberLevel == '마스터'}">
+						<c:if test="${memberLevel == '관리자'}">
 						<option selected>공지</option>
 						</c:if>
 						<option>자유</option>
@@ -73,12 +73,12 @@
 			
 			<div class="row">
 		<label>제목<i class="fa-solid fa-asterisk"></i></label>
-		<input type="text" name="boardTitle" required class="form-input w-100" value="${boardWithImageDto.boardTitle}">
+		<input type="text" name="boardTitle" required class="form-input w-100" value="${boardDto.boardTitle}">
 	</div>
 	
 	<div class="row">
 		<label>내용<i class="fa-solid fa-asterisk"></i></label>
-		<textarea name="boardContent" required class="form-input w-100" style="min-height: 300px;">${boardWithImageDto.boardContent}</textarea>
+		<textarea name="boardContent" required class="form-input w-100" style="min-height: 300px;">${boardDto.boardContent}</textarea>
 	</div>
 	
 	<div class="row">

@@ -1,6 +1,6 @@
 $(function(){
 	var params = new URLSearchParams(location.search);
-	var boardNo = params.get("boardNo");
+	var allboardNo = params.get("allboardNo");
 	$.ajax({
 		url:"/rest/like/check",
 		method:"post",

@@ -5,7 +5,7 @@ $(function () {
       return;
     }
     $.ajax({
-      url: "/rest/message/send",
+      url:contextPath+ "/rest/message/send",
       method: "put",
       data: { messageNo: messageNo },
       success: function () {

@@ -51,6 +51,7 @@ public class BoardDao {
 	               + "VALUES (?, ?, ?, ?, ?, SYSDATE, ?, 0, 0, 0)";
 	    Object[] param = {
 	    	boardDto.getBoardNo(),
+	    	boardDto.getAllboardNo(),
 	        boardDto.getBoardWriter(),
 	        boardDto.getBoardTitle(),
 	        boardDto.getBoardContent(),

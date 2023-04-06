@@ -109,28 +109,24 @@ public class BoardController {
 
 	    return "redirect:detail";
 	}
-
-
 	
 	
 	// 게시글 수정 페이지 구현[GET]
-	@GetMapping("/edit")
-	public String edit(@RequestParam int allboardNo, Model model) {
-		model.addAttribute("boardDto", boardWithImageDao.selectOne(allboardNo));
-		
-		return "/WEB-INF/views/board/edit.jsp";
-	}
-	
-	
-	// 게시글 수정 페이지 구현[POST]
-	@PostMapping("/edit")
-	public String edit(@ModelAttribute BoardWithImageDto boardWithImageDto,
-			RedirectAttributes attr) {
-		boardWithImageDao.update(boardWithImageDto);
-		attr.addAttribute("allboardNo", boardWithImageDto.getBoardNo());
-		
-		return "redirect:detail";
-	}
+		@GetMapping("/edit")
+		public String edit(@RequestParam int allboardNo, Model model) {
+			model.addAttribute("boardWithImageDto", boardWithImageDao.selectOne(allboardNo));
+			
+			return "/WEB-INF/views/board/edit.jsp";
+		}
+		// 게시글 수정 페이지 구현[POST]
+		@PostMapping("/edit")
+		public String edit(@ModelAttribute BoardWithImageDto boardWithImageDto,
+				RedirectAttributes attr) {
+			boardWithImageDao.update(boardWithImageDto);
+			attr.addAttribute("allboardNo", boardWithImageDto.getBoardNo());
+			
+			return "redirect:detail";
+		}
 	
 	// 게시글 삭제 페이지 구현[GET]
 	@GetMapping("/delete")
@@ -262,5 +258,7 @@ public class BoardController {
 	    model.addAttribute("boardWithNickDto", boardWithNickDto);
 	    return "/WEB-INF/views/board/detail2.jsp";
 	}
+
+	
 	
 }

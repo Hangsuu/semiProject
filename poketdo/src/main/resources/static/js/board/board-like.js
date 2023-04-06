@@ -1,6 +1,6 @@
 $(function(){
 	$.ajax({
-		url:"/rest/like/check",
+		url:contextPath+contextPath+"/rest/like/check",
 		method:"post",
 		data:{
 			allboardNo:allboardNo,
@@ -14,7 +14,7 @@ $(function(){
 				$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
 			}
 			$.ajax({
-				url:"/rest/like/count?allboardNo="+allboardNo,
+				url:contextPath+"/rest/like/count?allboardNo="+allboardNo,
 				method:"get",
 				success:function(response){
 					$(".like-count").text(response);
@@ -28,7 +28,7 @@ $(function(){
 	
 	$(".like-box").click(function(){ 
 		$.ajax({
-			url:"/rest/like/",
+			url:contextPath+contextPath+"/rest/like/",
 			method:"post",
 			data:{
 				allboardNo:allboardNo,
@@ -46,7 +46,7 @@ $(function(){
 					$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
 				}
 				$.ajax({
-					url:"/rest/like/count?allboardNo="+allboardNo,
+					url:contextPath+"/rest/like/count?allboardNo="+allboardNo,
 					method:"get",
 					success:function(response){
 						$(".like-count").text(response);

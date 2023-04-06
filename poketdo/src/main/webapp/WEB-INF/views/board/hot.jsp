@@ -9,8 +9,8 @@
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
-	var boardWriter = "${boardWithNickDto.boardWriter}";
-	var allboardNo = "${boardWithNickDto.allboardNo}";
+	var boardWriter = "${boardWithImageDto.boardWriter}";
+	var allboardNo = "${boardWithImageDto.allboardNo}";
 </script>
 
 <c:if test="${sessionScope.memberLevel == '관리자'}">
@@ -46,8 +46,6 @@
 <div class="container-1100">
 	<div class="row center">
 		<h1>인기 게시판</h1>
-	<div class="row center mt-30">
-		<h1>자유 게시판</h1>
 	</div>
 	<div class="row center">자신의 인싸력을 자랑하는 공간입니다</div>
 
@@ -90,11 +88,11 @@
                                 </c:if>
                                 
                                 ${boardWithNickDto.boardTitle} 
-                                <span style="color:red;"><c:if test="${boardWithNickDto.boardReply != 0}">(${boardWithNickDto.boardReply})</c:if></span>
+                                <span style="color:red;">(${boardWithImageDto.boardReply})</span>
                             </a>
                         </td>
                         <td class="left">
-                        <img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick}</td>
+                        <img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.boardWriter}</td>
                         
                         <%-- DTO에 만든 가상의 Getter 메소드를 불러 처리 --%>
                         <td>${boardWithNickDto.boardTime}</td>
@@ -122,8 +120,7 @@
 									<!-- 말머리가 있으면 출력 -->
                                     [${boardWithNickDto.boardHead}]
                                 </c:if> ${boardWithNickDto.boardTitle} <span
-								style="color: red;"><c:if
-										test="${boardWithNickDto.boardReply != 0}">(${boardWithNickDto.boardReply})</c:if></span>
+								style="color: red;">(${boardWithNickDto.boardReply})</span>
 						</a>
 						</td>
 						<td class="left">
@@ -213,7 +210,7 @@
 						<option value="board_head">말머리</option>
 					</select>
 				</c:when>
-				<c:when test="${vo.column == 'board_writer'}">
+				<c:when test="${vo.column == 'member_nick'}">
 					<select name="column" class="form-input">
 						<option value="board_title">제목</option>
 						<option value="board_content">내용</option>

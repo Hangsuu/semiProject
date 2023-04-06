@@ -22,7 +22,7 @@ $(function () {
         fd.append("attach", files[0]);
 
         $.ajax({
-          url: "/rest/attachment/upload",
+          url:contextPath+ "/rest/attachment/upload",
           method: "post",
           data: fd,
           processData: false,

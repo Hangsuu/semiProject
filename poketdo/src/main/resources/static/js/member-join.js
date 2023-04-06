@@ -30,7 +30,7 @@ $(function(){
 		
 		if(isValid) {
 			$.ajax({
-				url:"/rest/member/memberId/" + memberId,
+				url:contextPath+"/rest/member/memberId/" + memberId,
 				method:"get",
 				success:function(response) {//성공시 Y/N
 					if(response == "Y") {//사용 가능한 아이디 -> valid
@@ -105,7 +105,7 @@ $(function(){
 		}
 		
 		$.ajax({
-			url:"/rest/member/memberNick/"+memberNick,
+			url:contextPath+"/rest/member/memberNick/"+memberNick,
 			method:"get",
 			success:function(response){//Y 또는 N
 				if(response == "Y") {//사용가능 -> valid

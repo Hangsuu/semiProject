@@ -87,8 +87,16 @@ $(function () {
 							</div>
 						</div>
 						<div class="seal-admin">
-							<c:if test="${sessionScope.memberLevel=='관리자' }">
 							
+								<c:if test="${list.get(0).sealNo!=0}">
+									<form action="purchase" method="post" class="buy-form">
+										<input type="hidden" name="sealNo" value="${sealWithImageDto.sealNo}"> 
+										<input type="hidden" name="point" value="${sealWithImageDto.sealPrice}"> 
+										<button type="submit" class="form-btn positive">구매</button>
+									</form>
+								</c:if>
+								
+							<c:if test="${sessionScope.memberLevel=='관리자' }">
 								<div>
 									<a href="edit?sealNo=${list.get(0).sealNo}" class="form-btn neutral" >수정</a>
 								</div>

@@ -68,12 +68,10 @@
               <td class="flex-all-center"><div>${list.get(i).memberLevel}</div></td>
               <td class="right flex-all-center"><div>${list.get(i).memberPoint}</div></td>
               <td class="flex-all-center">
-                <div flex>
-                <a href="memberDetail?memberId=${list.get(i).memberId}" class="link">상세</a>
-                <a href="memberEdit?memberId=${list.get(i).memberId}" class="link">수정</a>
-                <form action="memberDelete" method="post">
-                <a href="memberDelete?memberId=${list.get(i).memberId}" class="link">삭제</a>
-                </form>
+                <div class="flex" style="margin : 0 auto;">
+	                <a href="memberDetail?memberId=${list.get(i).memberId}" class="form-btn neutral">상세</a>
+	                <a href="memberEdit?memberId=${list.get(i).memberId}" class="form-btn neutral">수정</a>
+	                <a href="memberDelete?memberId=${list.get(i).memberId}" class="form-btn negative">삭제</a>
                 </div>
               </td>
             </tr>

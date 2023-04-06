@@ -6,8 +6,9 @@
 	
 	<article class="mt-50 container-1200 center">
     
-		<h1>찾으시는 페이지가 없습니다.</h1>
-
+    <div>
+		<img src="/static/image/404.png">
+	</div>
 	</article>
 	</section>
 

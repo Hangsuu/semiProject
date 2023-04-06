@@ -48,6 +48,7 @@
 		//내용이 입력되었을 때
 		$('[name=raidContent]').on('summernote.change', function(we, contents, $editable) {
 			$(this).removeClass("invalid valid");
+			console.log(contents)
 			if(contents=="<p><br></p>" || contents=="<br>"){
 				$(this).addClass("invalid");
 				valid.contentValid=false;

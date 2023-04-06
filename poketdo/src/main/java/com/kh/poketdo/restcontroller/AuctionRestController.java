@@ -87,4 +87,9 @@ public class AuctionRestController {
 	public void delivery(@PathVariable int allboardNo) {
 		auctionDao.changeDelivery(allboardNo);
 	}
+	@GetMapping("/check/{allboardNo}")
+	public boolean check(@PathVariable int allboardNo) {
+		AuctionBidWithNickDto lastDto = auctionBidWithNickDao.lastBid(allboardNo);
+		return lastDto!=null? true: false;
+	}
 }

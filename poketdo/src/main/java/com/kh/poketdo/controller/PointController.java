@@ -65,7 +65,7 @@ public class PointController {
 			Model model,
 			@ModelAttribute("vo") PocketPaginationVO vo
 			) {
-		int totalCount = pointDao.selectCount(vo);
+		int totalCount = pointNameImageDao.selectCount(vo);
 		vo.setCount(totalCount);
 		vo.setSize(15);
 		vo.setBlockSize(10);

@@ -11,13 +11,17 @@
 				url:"/rest/pocketmon/"+name,
 				method:"get",
 				success:function(response){
-					index = response.pocketNo;
-					console.log(index);
-					searchList();
-					var imageUrl = "/attachment/download?attachmentNo="+index;
-					$(".target .monster-image").each(function(){
-						$(this).attr("src", imageUrl);
-					});
+					if(parseInt(response.pocketNo)>0){
+						index = response.pocketNo;
+						searchList();
+						var imageUrl = "/attachment/download?attachmentNo="+index;
+						$(".target .monster-image").each(function(){
+							$(this).attr("src", imageUrl);
+						});
+					}
+					else{
+						alert("정확한 포켓몬 이름을 입력하세요.")
+					}
 				},
 				error:function(){
 					alert("정확한 포켓몬 이름을 입력하세요.")

@@ -46,6 +46,8 @@
 <div class="container-1100">
 	<div class="row center">
 		<h1>인기 게시판</h1>
+	<div class="row center mt-30">
+		<h1>자유 게시판</h1>
 	</div>
 	<div class="row center">자신의 인싸력을 자랑하는 공간입니다</div>
 
@@ -202,7 +204,6 @@
 	<!-- 검색창 -->
 	<div class="row center">
 		<form action="hot" method="get">
-
 			<c:choose>
 				<c:when test="${vo.column == 'board_content'}">
 					<select name="column" class="form-input">

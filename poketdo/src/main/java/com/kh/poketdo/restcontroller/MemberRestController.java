@@ -1,5 +1,7 @@
 package com.kh.poketdo.restcontroller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,5 +56,11 @@ public class MemberRestController {
 	@GetMapping("/point/{memberId}")
 	public int getPoint(@PathVariable String memberId) {
 		return memberDao.selectMemberPoint(memberId);
+	}
+	@GetMapping("/getNick")
+	public String getNick(HttpSession session) {
+		if(session.getAttribute("memberId")==null) return null;
+		String memberId = (String)session.getAttribute("memberId");
+		return memberDao.selectOne(memberId).getMemberNick().isEmpty()? null:memberDao.selectOne(memberId).getMemberNick() ;
 	}
 }

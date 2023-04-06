@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%>
 <!-- section -->
 <section>
   <!-- article -->
-  <article class="container-1200" style="min-height: 1000px">
+  <article class="container-1100" style="min-height: 1000px">
     <div class="mt-50 mb-10">
       <h1>포인트 요청</h1>
     </div>

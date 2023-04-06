@@ -296,6 +296,10 @@ section.member-login-section form {
   color: #ff4e59;
   font-weight: bold;
 }
+.tag-style {
+  display: inline-block;
+  height: 80%;
+}
 
 /* # 포켓몬교환 디테일 */
 .pocketmonTrade-info-head,
@@ -441,3 +445,10 @@ a.link:hover {
 .pocketmonTrade-isDone {
   font-size: 1em;
 }
+
+.plus-1h-btn:hover,
+  .plus-6h-btn:hover,
+  .plus-1d-btn:hover,
+  [type="datetime-local"]:hover {
+    cursor: pointer;
+  }

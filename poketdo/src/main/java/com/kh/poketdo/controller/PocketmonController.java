@@ -137,7 +137,7 @@ public class PocketmonController {
   			pocketmonJoinTypeDao.edit(typeJoinNo, firstTypeNo);
   			pocketmonJoinTypeDao.edit(typeJoinNo2, secondTypeNo);
   			
-  			return "redirect:detail?pocketNo="+pocketNo;
+  			return "redirect:detail";
   	}
 
   //포켓몬스터 정보 상세

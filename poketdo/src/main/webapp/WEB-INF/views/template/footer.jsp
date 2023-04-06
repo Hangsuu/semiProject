@@ -2,13 +2,9 @@
 pageEncoding="UTF-8"%>
 
       </section>
-      <hr>
      
-      <footer class="container-1200" >
-      
-        <h1>session 정보</h1>
-        <h2>memberId: ${sessionScope.memberId}</h2>
-        <h2>memberLevel: ${sessionScope.memberLevel}</h2>
+     <div class="w-100 mt-20"  style="border-top:2px solid  #9dace4"></div>
+      <footer class="container-1200 center" >
      
      
      

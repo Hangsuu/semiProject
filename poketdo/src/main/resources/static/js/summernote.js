@@ -1,6 +1,6 @@
   $(function () {
     $(".summernote").summernote({
-      placeholder: "내용 작성",
+      placeholder: "내용 작성(필수)",
       //탭키를 누르면 띄어쓰기 몇 번 할지(통상적으로 4 씀)
       tabsize: 4,
       //최초 표시될 높이(px)

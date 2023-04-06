@@ -39,7 +39,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 				"/auction/write",
 				"/auction/bookmark","/auction/bookmarkDetail",
 				"/combination/write","/raid/write","/rest/like","/rest/reply",
-				"/member/myseal", "/point/requestPoint", "/point/detail"
+				"/member/myseal", "/point/requestPoint", "/point/detail", "/message/**", "/pocketmonTrade/write"
 				);
 
 		//관리자만 접속
@@ -52,7 +52,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 		//작성자나 관리자만 접속
 		registry.addInterceptor(boardManageInterceptor).addPathPatterns(
 				"/auction/edit","/auction/delete","/combination/edit",
-				"/combination/delete","/raid/edit","/raid/delete");
+				"/combination/delete","/raid/edit","/raid/delete", "/pocketmonTrade/edit", "/pocketmonTrade/delete");
 		//포인트 요청 상세 작성자나 관리자만 접속
 		registry.addInterceptor(pointInterceptor).addPathPatterns(
 				"/point/detail");

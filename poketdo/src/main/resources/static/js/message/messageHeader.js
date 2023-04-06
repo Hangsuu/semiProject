@@ -1,6 +1,6 @@
 $(function(){
     $.ajax({
-      url: "/rest/message/receive/notReadCount",
+      url: contextPath+"/rest/message/receive/notReadCount",
       method: "get",
       success: function(response){
         // console.log(response);

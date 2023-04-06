@@ -29,13 +29,13 @@ import com.kh.poketdo.vo.PaginationVO;
 public class BoardController {
 	
 	@Autowired
+	private BoardWithImageDao boardWithImageDao;
+	
+	@Autowired
 	private BoardWithNickDao boardWithNickDao;
 	
 	@Autowired
 	private AllboardDao allboardDao;
-	
-	@Autowired
-	private BoardWithImageDao boardWithImageDao;
 	
 	@GetMapping("/list")
 	public String list(Model model, 
@@ -90,38 +90,36 @@ public class BoardController {
 	    boardWithImageDto.setBoardNo(boardNo);
 
 	    // 게시글 생성
-	    allboardDao.insert(AllboardDto.builder().allboardNo(allboardNo).allboardBoardType("board").allboardNo(boardNo).build());
+	    allboardDao.insert(AllboardDto.builder().allboardNo(allboardNo).allboardBoardType("board").allboardBoardNo(boardNo).build());
 	    boardWithImageDto.setBoardNo(boardNo);
 	    boardWithImageDao.insert(boardWithImageDto);
 
 	    //상세 페이지로 redirect
-	    attr.addAttribute("boardNo", boardNo);
+	    //attr.addAttribute("boardNo", boardNo);
 	    attr.addAttribute("allboardNo", allboardNo);
 
 	    return "redirect:detail";
 	}
-
-
 	
 	
 	// 게시글 수정 페이지 구현[GET]
-	@GetMapping("/edit")
-	public String edit(@RequestParam int allboardNo, Model model) {
-		model.addAttribute("boardDto", boardWithImageDao.selectOne(allboardNo));
+		@GetMapping("/edit")
+		public String edit(@RequestParam int allboardNo, Model model) {
+			model.addAttribute("boardWithImageDto", boardWithImageDao.selectOne(allboardNo));
+			
+			return "/WEB-INF/views/board/edit.jsp";
+		}
 		
-		return "/WEB-INF/views/board/edit.jsp";
-	}
-	
-	
-	// 게시글 수정 페이지 구현[POST]
-	@PostMapping("/edit")
-	public String edit(@ModelAttribute BoardWithImageDto boardWithImageDto,
-			RedirectAttributes attr) {
-		boardWithImageDao.update(boardWithImageDto);
-		attr.addAttribute("allboardNo", boardWithImageDto.getAllboardNo());
 		
-		return "redirect:detail";
-	}
+		// 게시글 수정 페이지 구현[POST]
+		@PostMapping("/edit")
+		public String edit(@ModelAttribute BoardWithImageDto boardWithImageDto,
+				RedirectAttributes attr) {
+			boardWithImageDao.update(boardWithImageDto);
+			attr.addAttribute("allboardNo", boardWithImageDto.getBoardNo());
+			
+			return "redirect:detail";
+		}
 	
 	// 게시글 삭제 페이지 구현[GET]
 	@GetMapping("/delete")
@@ -217,5 +215,7 @@ public class BoardController {
 	    model.addAttribute("boardWithNickDto", boardWithNickDto);
 	    return "/WEB-INF/views/board/detail2.jsp";
 	}
+
+	
 	
 }

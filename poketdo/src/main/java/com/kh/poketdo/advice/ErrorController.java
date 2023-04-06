@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-@ControllerAdvice//프로젝트 전체에 대한 catch블록
+//@ControllerAdvice//프로젝트 전체에 대한 catch블록
 public class ErrorController {
 	
 	//404 에러 익셉션

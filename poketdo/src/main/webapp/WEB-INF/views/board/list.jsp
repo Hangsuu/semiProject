@@ -9,8 +9,8 @@
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
-	var boardWriter = "${boardWithNickDto.boardWriter}";
-	var allboardNo = "${boardWithNickDto.allboardNo}";
+	var boardWriter = "${boardWithImageDto.boardWriter}";
+	var allboardNo = "${boardWithImageDto.allboardNo}";
 </script>
 
 <c:if test="${sessionScope.memberLevel == '관리자'}">
@@ -89,7 +89,7 @@
                                 </c:if>
                                 
                                 ${boardWithNickDto.boardTitle} 
-                                <span style="color:red;"><c:if test="${boardWithNickDto.boardReply != 0}">(${boardWithNickDto.boardReply})</c:if></span>
+                                <span style="color:red;">(${boardWithNickDto.boardReply})</span>
                             </a>
                         </td>
                         <td class="left">
@@ -121,8 +121,7 @@
 									<!-- 말머리가 있으면 출력 -->
                                     [${boardWithNickDto.boardHead}]
                                 </c:if> ${boardWithNickDto.boardTitle} <span
-								style="color: red;"><c:if
-										test="${boardWithNickDto.boardReply != 0}">(${boardWithNickDto.boardReply})</c:if></span>
+								style="color: red;">(${boardWithNickDto.boardReply})</span>
 						</a>
 						</td>
 						<td class="left">
@@ -214,7 +213,7 @@
 						<option value="board_head">말머리</option>
 					</select>
 				</c:when>
-				<c:when test="${vo.column == 'board_writer'}">
+				<c:when test="${vo.column == 'member_nick'}">
 					<select name="column" class="form-input">
 						<option value="board_title">제목</option>
 						<option value="board_content">내용</option>

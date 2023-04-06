@@ -9,7 +9,7 @@ $(function(){
 
 	function isFinish(){
 		$.ajax({
-			url:"/rest/auction/complete/"+allboardNo,
+			url:contextPath+"/rest/auction/complete/"+allboardNo,
 			method:"get",
 			success:function(response){
 				if(response){
@@ -56,7 +56,7 @@ $(function(){
 	}
 	function getMinPrice(){
 		$.ajax({
-			url:"/rest/auction/min/"+allboardNo,
+			url:contextPath+"/rest/auction/min/"+allboardNo,
 			method:"get",
 			success:function(response){
 				if(response.memberNick!=null){
@@ -80,7 +80,7 @@ $(function(){
 	};
 	function getMaxPrice() {
 		$.ajax({
-			url:"/rest/auction/max/"+allboardNo,
+			url:contextPath+"/rest/auction/max/"+allboardNo,
 			method:"get",
 			success:function(response){
 				if(response==0){
@@ -136,7 +136,7 @@ $(function(){
 			}
 			else{
 				$.ajax({
-					url:"/rest/auction/",
+					url:contextPath+"/rest/auction/",
 					method:"post",
 					data:data,
 					success:function(response){
@@ -151,7 +151,7 @@ $(function(){
 	
 	function getMyPoint(){
 		$.ajax({
-			url:"/rest/member/point/"+memberId,
+			url:contextPath+"/rest/member/point/"+memberId,
 			method:"get",
 			success:function(response){
 				$(".my-point").text("보유 : "+response+" 포인트");
@@ -171,7 +171,7 @@ $(function(){
 			return;
 		}
 		$.ajax({
-			url:"/rest/auction/finish/"+allboardNo,
+			url:contextPath+"/rest/auction/finish/"+allboardNo,
 			method:"get",
 			success:function(){
 				$(".finish-btn").removeClass("negative").addClass("neutral");
@@ -189,7 +189,7 @@ $(function(){
 			return;
 		}
 		$.ajax({
-			url:"/rest/auction/delivery/"+allboardNo,
+			url:contextPath+"/rest/auction/delivery/"+allboardNo,
 			method:"get",
 			success:function(){
 				$(".delivery-btn").removeClass("negative").addClass("neutral").text("배송 시작");

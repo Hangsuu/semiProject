@@ -8,7 +8,7 @@ $(function(){
 		$(".reply-target").empty();
 		$(".reply-best-target").empty();
 		$.ajax({
-			url:"/rest/reply/"+allboardNo,
+			url:contextPath+"/rest/reply/"+allboardNo,
 			method:"get",
 			success:function(response){
 				$(".reply-count").text(response.replyCount);
@@ -148,7 +148,7 @@ $(function(){
 		if(isDelete){
 			var replyNo = $(this).data("reply-no");
 			$.ajax({
-				url:"/rest/reply/"+replyNo,
+				url:contextPath+"/rest/reply/"+replyNo,
 				method:"delete",
 				success:function(response){
 					loadList();
@@ -184,7 +184,7 @@ $(function(){
 		var thisLike = $(this).children(".reply-like");
 		var replyNo = $(this).children(".reply-like").data("reply-no");
 		$.ajax({
-			url:"/rest/reply/like/",
+			url:contextPath+"/rest/reply/like/",
 			method:"post",
 			data:{
 				replyNo:replyNo,
@@ -202,7 +202,7 @@ $(function(){
 					thisLike.removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
 				}
 				$.ajax({
-					url:"/rest/reply/like/count?replyNo="+replyNo,
+					url:contextPath+"/rest/reply/like/count?replyNo="+replyNo,
 					method:"get",
 					success:function(response){
 						if(response==0){
@@ -239,7 +239,7 @@ var submitButton = function (context) {
 			replyGroup=$(this).parent().parent().parent().parent().children(".data-target").data("reply-parent");
 		}
 		$.ajax({
-			url:"/rest/reply/",
+			url:contextPath+"/rest/reply/",
 			method:"post",
 			data:{
 				replyWriter:memberId,
@@ -269,7 +269,7 @@ var editButton = function (context) {
 		var replyNo=$(this).parent().parent().parent().parent().children(".data-target").data("reply-no");
 		if(confirm("수정하시겠습니까?")){
 			$.ajax({
-				url:"/rest/reply/",
+				url:contextPath+"/rest/reply/",
 				method:"put",
 				data:{
 					replyNo:replyNo,
@@ -331,7 +331,7 @@ function summernote(){
 	      var fd = new FormData();
 	      fd.append("attach", files[0]);//파일이 한개밖에 없어서 [0]
 	      $.ajax({
-	    	 url:"/rest/attachment/upload",
+	    	 url:contextPath+"/rest/attachment/upload",
 	    	 method:"post",
 	    	 data:fd,
 	    	 processData:false,
@@ -379,7 +379,7 @@ function editSummernote(){
   	      var fd = new FormData();
   	      fd.append("attach", files[0]);//파일이 한개밖에 없어서 [0]
   	      $.ajax({
-  	    	 url:"/rest/attachment/upload",
+  	    	 url:contextPath+"/rest/attachment/upload",
   	    	 method:"post",
   	    	 data:fd,
   	    	 processData:false,
@@ -428,7 +428,7 @@ function childSummernote(){
 	      var fd = new FormData();
 	      fd.append("attach", files[0]);//파일이 한개밖에 없어서 [0]
 	      $.ajax({
-	    	 url:"/rest/attachment/upload",
+	    	 url:contextPath+"/rest/attachment/upload",
 	    	 method:"post",
 	    	 data:fd,
 	    	 processData:false,

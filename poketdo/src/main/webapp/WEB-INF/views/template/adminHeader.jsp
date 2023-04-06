@@ -8,18 +8,31 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    
+    <!-- 
+    Javascript에서 절대경로를 사용하기 위한 꼼수
+    - JS는 절대경로란 개념이 없으므로 JSP의 EL의 도움을 받아야한다.
+    - <script>는 분할해서 작성해도 결국 이어지는 특징을 활용
+    - 모든 <script>의 가장 위에 다음과 같이 변수를 하나 선언
+    - const로 변수를 선언하면 자바의 final과 같이 불변 처리가 됨
+     -->
+     
+     <script>
+     	const contextPath = "${pageContext.request.contextPath}";
+     </script>
+    
     <%-- css import --%>
-    <link rel="stylesheet" type="text/css" href="/static/css/load.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/commons.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/test.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/pocketdex.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/seal.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/reply.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/load.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/commons.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/test.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/pocketdex.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/seal.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/page.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/reply.css" />
     <!-- font-awesome CDN -->
     <link
       rel="stylesheet"
@@ -29,7 +42,30 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
-    <script src="/static/js/pocketdex.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/pocketdex.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/message/messageHeader.js"></script>
+
+<script>
+</script>
+<script>
+$(function(){
+	$.ajax({
+		url:contextPath+"/rest/member/getNick",
+		method:"get",
+		success:function(response){
+			if(response.length>0){
+				$(".nickname-box").text(response+"님 환영합니다!")
+			}
+			else{
+				$(".nickname-box").text("")
+			}
+		},
+		error:function(){
+			
+		}
+	});
+})
+</script>
     <title>POCKETDO!</title>
   </head>
   <body>
@@ -38,7 +74,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="container-1200" style="min-height:70px;">
     <!-- header -->
 <div class="right mb-20" style="background-color:#9DACE4">
-   	<div style="display:inline-block;">
+<div class="flex-box w-100">
+<div class="flex-box align-center ms-40 nickname-box" style="color:white"></div>
+   	<div class="align-right" style="display:inline-block;">
 		<c:choose>
 			<c:when test="${empty sessionScope.memberId}">
 			<!-- css:commons, base -->
@@ -67,6 +105,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				</div>
 			</c:otherwise>
 		</c:choose>
+     </div>
      </div>
 </div>
       <%-- base.css --%>

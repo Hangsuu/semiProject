@@ -16,7 +16,7 @@ $(".monster-search").click(function(){
 	}
 	$(".pocketmon-img").animate(shakeLeft);
 	$.ajax({
-		url:"/rest/pocketmon/stats/"+name,
+		url:contextPath+"/rest/pocketmon/stats/"+name,
 		method:"get",
 		success:function(response){
 			if(response.pocketBaseHp>0){

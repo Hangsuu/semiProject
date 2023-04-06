@@ -32,16 +32,16 @@
     </script>
 
     <form action="edit" method="post">
-        <div class="container-800">
+        <div class="container-1100">
             <!-- 제목 -->
 			<div class="row center">
-				<h2>${boardDto.boardNo}번 게시글 수정</h2>
+				<h2>${boardWithImageDto.allboardNo}번 게시글 수정</h2>
 			</div>
 	
 			<div class="row">
 		<label class="form-label w-100">말머리</label>
 			<c:choose>
-				<c:when test="${boardDto.boardHead == '없음'}">
+				<c:when test="${boardWithImageDto.boardHead == '없음'}">
 					<select name="boardHead" class="form-input">
 						<option selected value="">없음</option>
 						<c:if test="${memberLevel == '관리자'}">
@@ -50,7 +50,7 @@
 						<option>자유</option>
 					</select>
 				</c:when>
-				<c:when test="${boardDto.boardHead == '자유'}">
+				<c:when test="${boardWithImageDto.boardHead == '자유'}">
 					<select name="boardHead" class="form-input">
 						<option value="">없음</option>
 						<c:if test="${memberLevel == '관리자'}">
@@ -73,18 +73,20 @@
 			
 			<div class="row">
 		<label>제목<i class="fa-solid fa-asterisk"></i></label>
-		<input type="text" name="boardTitle" required class="form-input w-100" value="${boardDto.boardTitle}">
+		<input type="text" name="boardTitle" required class="form-input w-100" value="${boardWithImageDto.boardTitle}">
 	</div>
 	
 	<div class="row">
 		<label>내용<i class="fa-solid fa-asterisk"></i></label>
-		<textarea name="boardContent" required class="form-input w-100" style="min-height: 300px;">${boardDto.boardContent}</textarea>
+		<textarea name="boardContent" required class="form-input w-100" style="min-height: 300px;">${boardWithImageDto.boardContent}</textarea>
 	</div>
 	
 	<div class="row">
 		<button type="submit" class="form-btn positive w-100">변경</button>
 	</div>
-	
+	<div class="row">
+		<a href="/board/detail?allboardNo=${boardWithImageDto.allboardNo}" type="submit" class="form-btn neutral w-100">목록</a>
+	</div>
 		</div>
 	</form>
 

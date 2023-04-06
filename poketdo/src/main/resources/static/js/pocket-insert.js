@@ -42,7 +42,7 @@ $(function(){
 			var isValid = pocketNo >= 1;
 			if(isValid){
 				$.ajax({
-					url:"/rest/pocketmon/pocketNo/" + pocketNo,
+					url:contextPath+"/rest/pocketmon/pocketNo/" + pocketNo,
 					method:"get",
 					success:function(response){//성공시 Y 실패시 N
 						if(response =="Y"){ //사용 가능할 경우
@@ -77,7 +77,7 @@ $(function(){
 			var pocketName = $(this).val(); 
 			if(pocketName!=""){
 				$.ajax({
-					url:"/rest/pocketmon/pocketName/" + pocketName,
+					url:contextPath+"/rest/pocketmon/pocketName/" + pocketName,
 					method:"get",
 					success:function(response){//성공시 Y 실패시 N
 						if(response =="Y"){ //사용 가능할 경우

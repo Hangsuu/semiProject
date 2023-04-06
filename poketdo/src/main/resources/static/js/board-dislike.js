@@ -8,7 +8,7 @@ $(function(){
 
 	//[1]
 	$.ajax({
-  		url:"/rest/board/check2",
+  		url:contextPath+"/rest/board/check2",
   		method:"post",
   		data:{
     		boardNo : boardNo
@@ -29,7 +29,7 @@ $(function(){
 	//[2]
 	$(".fa-thumbs-down").click(function(){
   		$.ajax({
-    		url:"/rest/board/dislike",
+    		url:contextPath+"/rest/board/dislike",
     		method:"post",
     		data:{
       			boardNo:boardNo

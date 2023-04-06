@@ -45,6 +45,14 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     replyWriter: memberId,
   };
   const boardWriter = "${pocketmonTradeMemberDto.getPocketmonTradeWriter()}";
+  $(function(){
+    $("#pocketmonTrade-delete-btn").click(function(e){
+      if(!confirm("정말 삭제하시겠습니까?")){
+        e.preventDefault();
+        return;
+      }
+    })
+  })
 </script>
 <script src="/static/js/pocketmonTrade/pocketmonTradeReply.js"></script>
 <style>
@@ -139,10 +147,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       <div class="row pocketmonTradeContent">
         <div class="row">${pocketmonTradeMemberDto.getPocketmonTradeContent()}</div>
       </div>
-      <div test class="row complete-target" style="border-top: 2px solid #ff3333; box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); padding: 5px;
-      ;">
-        
-      </div>
+    </div>
 
       <div class="row">
         <div>

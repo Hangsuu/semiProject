@@ -6,8 +6,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <script src="/static/js/pocketmonTrade/pocketmonTradeList.js"></script>
 <style>
-  
-  
+
 </style>
 <script>
   // console.log(window.location);
@@ -183,10 +182,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             <c:if test="${trade.getPocketmonTradeHead()!='공지'}">
               <c:choose>
                 <c:when test="${trade.getPocketmonTradeComplete()==0}">
-                  <span class="ing-tag" style="margin-top: 3px;">진행중</span>
+                  <span class="ing-tag tag-style" style="margin-top: 1px;">진행중</span>
                 </c:when>
                 <c:when test="${trade.getPocketmonTradeComplete()==1}">
-                  <span class="complete-tag">완료</span>
+                  <span class="complete-tag tag-style">완료</span>
                 </c:when>
               </c:choose>
             </c:if>

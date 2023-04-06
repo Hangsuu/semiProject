@@ -30,33 +30,47 @@ public class PointNameImageDao {
 					.memberNick(rs.getString("member_nick"))
 					.pointBoardNo(rs.getInt("point_board_no"))
 					.pointBoardHead(rs.getInt("point_board_head"))
+					.requestPoint(rs.getInt("request_point"))
 					.attachmentNo(rs.getInt("attachment_no"))
 					.pointBoardTime(rs.getDate("point_board_time"))
 					.build();
 		}
 	};
 
+	//페이징 적용된 조회 및 카운트
+	public int selectCount(PocketPaginationVO vo) {
+		
+		if(vo.isSearch()) {
+			String sql = "select count(*) from point_name_image where "+vo.getColumn()+"=? ";
+			Object[]param =  {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String sql = "select count(*) from point_name_image";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
+	
 //	목록
 	public List<PointNameImageDto> selectList(PocketPaginationVO vo){
 		if(vo.isSearch()) {
 			String sql="select*from( "
-					+ "select rownum rn, TMP.*from ("
+					+ " select rownum rn, TMP.*from ( "
 					+ " select * from point_name_image "
-					+ " where instr(#1,?)>0"
-					+ " order by point_board_no desc"
+					+ " where "+vo.getColumn()+"=? "
+					+ " order by point_board_no desc "
 					+ " )TMP"
-					+ ")where rn between ? and ?";
-			sql=sql.replace("#1", vo.getColumn());
-			Object[]param = {vo.getKeyword(), vo.getBegin(), vo.getEnd()};
+					+ " )where rn between ? and ?";
+			Object[]param = { vo.getKeyword(), vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 		else {
 			String sql="select * from( "
-					+ "select TMP.*, rownum RN from ( "
-					+ "select * from point_name_image "
+					+ " select TMP.*, rownum RN from ( "
+					+ " select * from point_name_image "
 					+ " order by point_board_no desc "
-					+ ") TMP ) "
-					+ "where RN between ? and ? ";
+					+ " ) TMP ) "
+					+ " where RN between ? and ? ";
 			Object[]param = {vo.getBegin(), vo.getEnd()};
 			return jdbcTemplate.query(sql, mapper, param);
 		}

@@ -17,6 +17,7 @@ $(function () {
     }
   }
 
+  // 메세지 내게 쓰기
   function toMeFn() {
     // 내게쓰기btn check
     messageToMeBtn.prop("checked", true);
@@ -62,6 +63,7 @@ $(function () {
     countRecipient();
   }
 
+  // 메세지 수신자 템플릿 생성
   function makeNewRecipientEle(recipientVal) {
     // 메세지 수신자 템플릿 생성
     const newMessageRecipientEle = $.parseHTML(
@@ -182,11 +184,12 @@ $(function () {
     countRecipient();
   }
 
+  // 메세지 수신자 제거, 수신자 숫자반영
   function removeRecipientEle() {
     $(".message-recipient-ele").remove();
     countRecipient();
   }
-  // 내게 쓰기 이벤트 처리
+  // 내게 쓰기 (체인지 이벤트)
   messageToMeBtn.change(function () {
     if ($(this).prop("checked")) {
       toMeFn();
@@ -195,14 +198,25 @@ $(function () {
       $("[name=messageRecipient]").val("").removeAttr("disabled");
     }
   });
+  // 받는 사람 숫자 class적용
+  function countRecipient() {
+    const recipientEleCnt = $(".message-recipient-ele").length;
+    $(".recipient-cnt").text(recipientEleCnt);
+    if (recipientEleCnt === 10) {
+      $(".recipient-cnt").addClass("red");
+    } else {
+      $(".recipient-cnt").removeClass("red");
+    }
+  }
 
-  // 받는사람 블러 시 받는사람 추가
+  // 받는사람 추가 (블러 이벤트)
   recipientInput.blur(function () {
     if ($(".message-recipient-ele").length < 10 && $(this).val() !== "") {
       makeNewRecipientEle($(this).val());
     }
   });
-  // 받는사람 입력 시 확인
+
+  // 받는사람 추가 (키다운 이벤트)
   recipientInput.keydown(function (e) {
     let code = e.keyCode;
     const messageRecipientVal = recipientInput.val();
@@ -219,17 +233,8 @@ $(function () {
       makeNewRecipientEle(messageRecipientVal);
     }
   });
-  // 받는 사람 숫자 class적용
-  function countRecipient() {
-    const recipientEleCnt = $(".message-recipient-ele").length;
-    $(".recipient-cnt").text(recipientEleCnt);
-    if (recipientEleCnt === 10) {
-      $(".recipient-cnt").addClass("red");
-    } else {
-      $(".recipient-cnt").removeClass("red");
-    }
-  }
-
+  
+  // 메세지 전송 (클릭 이벤트)
   var messageSendForm = $("#message-send-form");
   $("#message-send-btn").click(function (e) {
     e.preventDefault();
@@ -239,15 +244,21 @@ $(function () {
       alert("로그인해야 메세지를 보낼 수 있습니다.");
       return;
     }
-    const isMessageRecipientNull = $("[name=messageRecipient]").val() == "";
-    if (isMessageRecipientNull) {
+    const messageRecipient = $("[name=messageRecipient]").val();
+    if (messageRecipient == "") {
       alert("쪽지를 받는 사람을 입력해주세요");
       return;
     }
-    const isMessageTitleNull = $("[name=messageTitle]").val() == "";
-    if (isMessageTitleNull) {
+    const messageTitle = $("[name=messageTitle]").val();
+    if (messageTitle=="") {
       alert("쪽지 제목을 입력해주세요");
       return;
+    } else {
+      const titleRegex = /^[-!@#$%^&*()_a-zA-Z0-9가-힣]{1,100}$/;
+      if(!titleRegex.test(messageTitle)){
+        alert("쪽지는 일부의 특수문자, 숫자, 영어 대소문자, 한글로 이루어진 1~100자 이어야 합니다");
+        return;
+      }
     }
     const isMessageContentNull = $("[name=messageContent]").val() == "";
     if (isMessageContentNull) {

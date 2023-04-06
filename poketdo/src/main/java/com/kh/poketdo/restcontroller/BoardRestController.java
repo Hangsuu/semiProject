@@ -32,7 +32,6 @@ public class BoardRestController {
 			@ModelAttribute LikeTableDto liketableDto) {
 		String memberId = (String)session.getAttribute("memberId");
 		liketableDto.setMemberId(memberId);
-		System.out.println(liketableDto.getAllboardNo());
 		
 		boolean current = liketableDao.check(liketableDto);
 		if(current) {

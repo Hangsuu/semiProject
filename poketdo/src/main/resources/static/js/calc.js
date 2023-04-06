@@ -19,20 +19,25 @@ $(".monster-search").click(function(){
 		url:"/rest/pocketmon/stats/"+name,
 		method:"get",
 		success:function(response){
-			$("[name=baseHp]").val(response.pocketBaseHp);
-			$("[name=baseAtk]").val(response.pocketBaseAtk);
-			$("[name=baseDef]").val(response.pocketBaseDef);
-			$("[name=baseSpAtk]").val(response.pocketBaseSatk);
-			$("[name=baseSpDef]").val(response.pocketBaseSdef);
-			$("[name=baseSpd]").val(response.pocketBaseSpd);
-			$("[name=effortHp]").val(response.pocketEffortHp);
-			$("[name=effortAtk]").val(response.pocketEffortAtk);
-			$("[name=effortDef]").val(response.pocketEffortDef);
-			$("[name=effortSpAtk]").val(response.pocketEffortSatk);
-			$("[name=effortSpDef]").val(response.pocketEffortSdef);
-			$("[name=effortSpd]").val(response.pocketEffortSpd);
-			var index = response.pocketNo;
-		    $(".pocketmon-img").attr("src", "/attachment/download?attachmentNo="+index).show();
+			if(response.pocketBaseHp>0){
+				$("[name=baseHp]").val(response.pocketBaseHp);
+				$("[name=baseAtk]").val(response.pocketBaseAtk);
+				$("[name=baseDef]").val(response.pocketBaseDef);
+				$("[name=baseSpAtk]").val(response.pocketBaseSatk);
+				$("[name=baseSpDef]").val(response.pocketBaseSdef);
+				$("[name=baseSpd]").val(response.pocketBaseSpd);
+				$("[name=effortHp]").val(response.pocketEffortHp);
+				$("[name=effortAtk]").val(response.pocketEffortAtk);
+				$("[name=effortDef]").val(response.pocketEffortDef);
+				$("[name=effortSpAtk]").val(response.pocketEffortSatk);
+				$("[name=effortSpDef]").val(response.pocketEffortSdef);
+				$("[name=effortSpd]").val(response.pocketEffortSpd);
+				var index = response.pocketNo;
+			    $(".pocketmon-img").attr("src", "/attachment/download?attachmentNo="+index).show();
+			}
+			else{
+				alert("정확한 포켓몬 이름을 입력하세요.")
+			}
 		},
 		error:function(){
 			alert("정확한 포켓몬 이름을 입력하세요.")

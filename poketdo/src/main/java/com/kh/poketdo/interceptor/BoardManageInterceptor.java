@@ -10,6 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.kh.poketdo.dao.AllboardDao;
 import com.kh.poketdo.dao.AuctionDao;
+import com.kh.poketdo.dao.BoardDao;
 import com.kh.poketdo.dao.CombinationDao;
 import com.kh.poketdo.dao.PocketmonTradeDao;
 import com.kh.poketdo.dao.PointDao;
@@ -29,6 +30,8 @@ public class BoardManageInterceptor implements HandlerInterceptor {
 	private CombinationDao combinationDao;
 	@Autowired
 	private PocketmonTradeDao pocketmonTradeDao;
+	@Autowired
+	private BoardDao boardDao;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -58,6 +61,9 @@ public class BoardManageInterceptor implements HandlerInterceptor {
 	      case "pocketmon_trade":
 		    allboardWriter = pocketmonTradeDao.selectOne(allboardNo).getPocketmonTradeWriter();
 	        break;
+	      case "board":
+		    allboardWriter = boardDao.selectOne(allboardNo).getBoardWriter();
+	        break;
 	    }
 //		boolean pointOwner = memberId.equals(pointBoardWriter);
 		boolean isOwner = memberId.equals(allboardWriter);
@@ -71,7 +77,11 @@ public class BoardManageInterceptor implements HandlerInterceptor {
 //			return false;
 //		}
 		if(isAdmin) {
-			if(request.getRequestURI().equals("/board/delete")) return true;
+			if(request.getRequestURI().equals("/auction/delete")) return true;
+			else if(request.getRequestURI().equals("/raid/delete")) return true;
+			else if(request.getRequestURI().equals("/combination/delete")) return true;
+			else if(request.getRequestURI().equals("/pocketmon_trade/delete")) return true;
+			else if(request.getRequestURI().equals("/board/delete")) return true;
 		}
 		if(isOwner) {
 			return true;

@@ -75,7 +75,7 @@ public class CombinationController {
 	}
 	@GetMapping("/detail")
 	public String detail(@RequestParam int allboardNo, Model model,
-			HttpSession session) {
+			HttpSession session, @ModelAttribute PaginationVO vo) {
 		CombinationDto combinationDto = combinationDao.selectOne(allboardNo);
 		String memberId = (String)session.getAttribute("memberId");
 		String combinationWriter = combinationDto.getCombinationWriter();
@@ -99,7 +99,8 @@ public class CombinationController {
 		}
 		model.addAttribute("combinationDto", combinationWithNickDao.selectOne(allboardNo));
 		model.addAttribute("tagDto", tagDao.selectList(allboardNo));
-		model.addAttribute("tagList", tagList);
+		//model.addAttribute("tagList", tagList);
+		model.addAttribute("vo", vo);
 		return "/WEB-INF/views/combination/detail.jsp";
 	}
 	@GetMapping("/delete")

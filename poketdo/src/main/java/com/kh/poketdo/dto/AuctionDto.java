@@ -29,6 +29,7 @@ public class AuctionDto {
 	private int auctionRead;
 	private Integer auctionMainImg;
 	private int auctionFinish;
+	private int auctionBidCount;
 	
 	public String getTime() {
 		java.util.Date currentTime = new java.util.Date();
@@ -75,7 +76,7 @@ public class AuctionDto {
 		
 		int minPrice = this.auctionMinPrice;
 		int maxPrice = this.auctionMaxPrice;
-		boolean bidComplete = maxPrice!=0 && minPrice==maxPrice;
+		boolean bidComplete = maxPrice!=0 && minPrice==maxPrice && this.auctionBidCount>0;
 		return timeOver||bidComplete;
 	}
 	

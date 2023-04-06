@@ -99,4 +99,8 @@ public class RaidRestController {
 		raidJoinDao.ban(raidJoinDto.getRaidJoinOrigin(), raidJoinDto.getRaidJoinMember());
 		return raidJoinDao.joinerCount(raidJoinDto.getRaidJoinOrigin());
 	}
+	@GetMapping("/check/{allboardNo}")
+	public int check(@PathVariable int allboardNo){
+		return raidJoinWithNickDao.selectList(allboardNo).size();
+	}
 }

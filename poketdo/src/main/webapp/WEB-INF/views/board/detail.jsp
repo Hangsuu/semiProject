@@ -17,8 +17,8 @@
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
-	var boardWriter = "${boardWithNickDto.boardWriter}";
-	var allboardNo = "${boardWIthNickDto.allboardNo}";
+	var boardWriter = "${boardWithImageDto.boardWriter}";
+	var allboardNo = "${boardWIthImageDto.allboardNo}";
 </script>
 
 <script>

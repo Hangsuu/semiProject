@@ -47,7 +47,7 @@ $(function () {
       // for문으로 delete 실행
       for (var i = 0; i < list.length; i++) {
         $.ajax({
-          url: "/rest/message/receive",
+          url:contextPath+ "/rest/message/receive",
           method: "put",
           data: { messageNo: list[i] },
           success: function () {
@@ -87,7 +87,7 @@ $(function () {
   // 받은 메세지 레스트 api 콜
   function loadList() {
     $.ajax({
-      url: "/rest/message/receive/",
+      url:contextPath+ "/rest/message/receive/",
       method: "get",
       data: data,
       success: function (response) {
@@ -173,7 +173,7 @@ $(function () {
         $(".message-receive-cnt").text(pageVo.count);
         // 받은 메세지 중 안 읽은 숫자
         $.ajax({
-          url: "/rest/message/receive/notReadCount",
+          url:contextPath+"/rest/message/receive/notReadCount",
           method: "get",
           data: data,
           success: function (response) {

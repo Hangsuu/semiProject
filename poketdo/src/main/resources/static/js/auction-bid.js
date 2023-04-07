@@ -13,7 +13,6 @@ $(function(){
 			method:"get",
 			success:function(response){
 				if(response){
-					console.log("들어옴")
 					$(".bid-form").hide();
 					$(".ing-auction").hide();
 					$(".finished-auction").show();
@@ -59,16 +58,22 @@ $(function(){
 			url:contextPath+"/rest/auction/min/"+allboardNo,
 			method:"get",
 			success:function(response){
-				if(response.memberNick!=null){
+				if(response.auctionWithNickDto.memberNick!=null){
 					$(".bid-info").show();
-					$(".min-bid-price").text(response.auctionBidPrice);
-					$(".final-price").text(response.auctionBidPrice);
-					$(".last-bid-nick").text(response.memberNick);
-					$(".last-bid-seal").attr("src", response.urlLink);
-					$(".final-last-bid").text(response.memberNick)
-						.prepend($("<img>").addClass("board-seal").attr("src", response.urlLink).css("vertical-align","middle"));
-					$(".send-message").attr("href", "/message/write?recipient="+response.auctionBidMember)
-					$(".finish-bid-id").val(response.auctionBidMember)
+					$(".min-bid-price").text(response.auctionWithNickDto.auctionMinPrice);
+					if(response.auctionBidWithNickDto!=null){
+						$(".bid-info").show();
+						$(".final-price").text(response.auctionBidWithNickDto.auctionBidPrice);
+						$(".last-bid-nick").text(response.auctionBidWithNickDto.memberNick);
+						$(".last-bid-seal").attr("src", contextPath+response.auctionBidWithNickDto.urlLink);
+						$(".final-last-bid").text(response.auctionBidWithNickDto.memberNick)
+							.prepend($("<img>").addClass("board-seal").attr("src", contextPath+response.auctionBidWithNickDto.urlLink).css("vertical-align","middle"));
+						$(".send-message").attr("href", "/message/write?recipient="+response.auctionBidWithNickDto.auctionBidMember)
+						$(".finish-bid-id").val(response.auctionBidWithNickDto.auctionBidMember)
+					}
+					else{
+						$(".bid-info").hide();
+					}
 				}
 				else{
 					$(".bid-info").hide();
@@ -122,9 +127,11 @@ $(function(){
 			var maxPrice = $(".max-bid-price").text();
 			var myPoint = $(".my-point-input").val();
 			$(".form-bid").get(0).reset();
-			if(parseInt(enterPrice)<=parseInt(minPrice)){
-				alert("최소 금액 이상 입찰하세요");
-				return;
+			if($(".last-bid-nick").text().length>0){
+				if(parseInt(enterPrice)<=parseInt(minPrice)){
+					alert("최소 금액 이상 입찰하세요");
+					return;
+				}
 			}
 			else if(parseInt(enterPrice)>parseInt(maxPrice)){
 				alert("최대 입찰금액 이상입니다");

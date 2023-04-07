@@ -5,21 +5,35 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    
+    
+    <!-- 
+    Javascript에서 절대경로를 사용하기 위한 꼼수
+    - JS는 절대경로란 개념이 없으므로 JSP의 EL의 도움을 받아야한다.
+    - <script>는 분할해서 작성해도 결국 이어지는 특징을 활용
+    - 모든 <script>의 가장 위에 다음과 같이 변수를 하나 선언
+    - const로 변수를 선언하면 자바의 final과 같이 불변 처리가 됨
+     -->
+     
+     <script>
+     	const contextPath = "${pageContext.request.contextPath}";
+     </script>
+    
     <%-- css import --%>
-    <link rel="stylesheet" type="text/css" href="/static/css/load.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/commons.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/test.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/pocketdex.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/seal.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/reply.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/load.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/commons.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/test.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/pocketdex.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/seal.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/page.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/reply.css" />
     
     <!--  favicon 설정 -->
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
     
     <!-- font-awesome CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
@@ -36,8 +50,8 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="/static/js/pocketdex.js"></script>
-    <script src="/static/js/message/messageHeader.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/pocketdex.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/message/messageHeader.js"></script>
 
 <script>
 </script>

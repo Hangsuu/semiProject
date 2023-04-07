@@ -6,7 +6,7 @@
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
 </script>
-<script src="/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
 <script type="text/javascript">
 $(function(){
 	//초기 상태 구현
@@ -110,7 +110,7 @@ $(function(){
 		var setList = Array.from(tagList);
 		var setListString = setList.join(",");
 		$.ajax({
-			url:"/rest/combination/"+setListString,
+			url:contextPath+"/rest/combination/"+setListString,
 			method:"get",
 			success:function(response){
 				if(response.length==0){
@@ -143,7 +143,7 @@ $(function(){
 		$(".list-target").empty();
 		$(".pagination").empty();
 		$.ajax({
-			url:"/rest/combination/",
+			url:contextPath+"/rest/combination/",
 			method:"post",
 			data:{
 				keyword:keyword,
@@ -155,12 +155,17 @@ $(function(){
 				for(var i=0; i<response.list.length; i++){
 					var template = $("#list-template").html();
 					var html = $.parseHTML(template);
+					var reply = ""
+						if(response.list[i].combinationReply>0){
+							reply = " ("+response.list[i].combinationReply+")";
+						}
 					$(html).find(".list-no").text(response.list[i].combinationNo);
 					$(html).find(".list-title").attr("href", "detail?allboardNo="+response.list[i].allboardNo+"&page="+page+"&"+response.vo.tagParameter)
-							.addClass("do-not-over").text(response.list[i].combinationTitle);
+						.text("["+response.list[i].combinationType+"] "+response.list[i].combinationTitle+reply)
+						.attr("title", response.list[i].combinationTitle);
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
-					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink).css("vertical-align", "middle");
+					var seal = $("<img>").addClass("board-seal").attr("src", contextPath+response.list[i].urlLink).css("vertical-align", "middle");
 					var nick = response.list[i].memberNick;
 					nickLink.append(seal).append(nick);
 					$(html).find(".list-writer").append(nickLink);
@@ -246,7 +251,7 @@ $(function(){
 		$(".list-target").empty();
 		$(".pagination").empty();
 		$.ajax({
-			url:"/rest/combination/",
+			url:contextPath+"/rest/combination/",
 			method:"post",
 			data:{
 				keyword:keyword,
@@ -269,7 +274,7 @@ $(function(){
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
 						.css("vertical-align","middle")
-					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink).css("vertical-align","middle");
+					var seal = $("<img>").addClass("board-seal").attr("src", contextPath+response.list[i].urlLink).css("vertical-align","middle");
 					var nick = $("<span>").text(response.list[i].memberNick).css("vertical-align","middle");
 					nickLink.append(seal).append(nick);
 					$(html).find(".list-writer").append(nickLink);

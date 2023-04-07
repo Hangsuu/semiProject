@@ -9,7 +9,7 @@
 	var memberId = "${sessionScope.memberId}";
 	var boardWriter = "${combinationDto.combinationWriter}";
 </script>
-<script src="/static/js/summernote.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/summernote.js"></script>
 <script>
 //-------------------전송할 수 있는 상태인지 판단-------------------------
 	$(function(){

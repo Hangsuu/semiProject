@@ -31,7 +31,7 @@ $(function(){
 <!-- 댓글창 summernote 사용을 위한 import -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/reply.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/reply.js"></script>
 <!-- 댓글창 템플릿 -->
 <script type="text/template" id="reply-template">
 	<div class="row reply-box flex-box">
@@ -64,13 +64,13 @@ $(function(){
 		<textarea class="form-input w-100 summernote-reply-child reply-textarea"></textarea>
 	</div>
 </script>
-<script src="/static/js/like.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/like.js"></script>
 
 <!-- 내용 시작 -->
 <div class="container-1000 mt-50">
 	<div class="row flex-box">
 		<span class="board-detail-origin">공략 게시판</span>
-		<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+		<a href="${pageContext.request.contextPath}list?page=${param.page}&${vo.tagParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
 	<div class="row board-detail-title">
 		[${combinationDto.combinationType}] ${combinationDto.combinationTitle}
@@ -79,18 +79,18 @@ $(function(){
 		<div class="row" style="vertical-align:center; display:inline-block">
 			<span class="combination-writer">
 			<!-- 작성자 검색 링크 -->
-				<a href="list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">
-					<img class="board-seal" src="${combinationDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${combinationDto.memberNick}</span>
+				<a href="${pageContext.request.contextPath}list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">
+					<img class="board-seal" src="${pageContext.request.contextPath}+${combinationDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${combinationDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${combinationDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==combinationDto.combinationWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${combinationDto.allboardNo}&tagList=${tagList}" class="board-detail-btn" style="vertical-align:middle">수정</a>
-				<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
+				<a href="${pageContext.request.contextPath}edit?page=${param.page}&allboardNo=${combinationDto.allboardNo}&tagList=${tagList}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="${pageContext.request.contextPath}delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 			<c:if test="${sessionScope.memberLevel=='관리자'}">
-				<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
+				<a href="${pageContext.request.contextPath}delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">
@@ -102,13 +102,13 @@ $(function(){
 	<!-- 태그칸 -->
 		<div class="tag-place mt-10" style="display:inline-block">
 			<c:forEach var="tags" items="${tagDto}">
-				<a href="list?page=1&column=tag&keyword=${tags.tagName}" class="hash-tag">#${tags.tagName}</a>
+				<a href="${pageContext.request.contextPath}list?page=1&column=tag&keyword=${tags.tagName}" class="hash-tag">#${tags.tagName}</a>
 			</c:forEach>
 		</div>
 		<!-- 본문 -->
 		<div class="row w-100 do-not-over mt-20" style="min-height:400px; padding-left:1em; padding-right:1em">${combinationDto.combinationContent}</div>
 		<div class="row">
-			<a href="list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">${combinationDto.memberNick}님의 게시글 더 보기</a>
+			<a href="${pageContext.request.contextPath}list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">${combinationDto.memberNick}님의 게시글 더 보기</a>
 		</div>
 		<div class="row">
 		<!-- 좋아요 -->
@@ -137,10 +137,10 @@ $(function(){
 <!-- 마지막 줄 -->
 	<div class="row flex-box">
 		<div class="row">
-			<a href="write" class="board-detail-btn">글쓰기</a>
+			<a href="${pageContext.request.contextPath}write" class="board-detail-btn">글쓰기</a>
 		</div>
 		<div class="row align-right">
-			<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+			<a href="${pageContext.request.contextPath}list?page=${param.page}&${vo.tagParameter}" class="board-detail-btn align-right">목록</a>
 		</div>
 	</div>
 </div>

@@ -25,7 +25,7 @@ $(function(){
 						var text = response.replyLike[i].replyContent;
 						//인장 처리
 						var memberNick = $("<span>").text(response.replyLike[i].memberNick).css("vertical-align", "middle");
-						var seal = $("<img>").addClass("board-seal").attr("src", response.replyLike[i].urlLink).css("vertical-align", "middle");
+						var seal = $("<img>").addClass("board-seal").attr("src", contextPath+response.replyLike[i].urlLink).css("vertical-align", "middle");
 						$(html).find(".reply-writer").css("vertical-align", "middle").append(seal).append(memberNick);
 						//작성자 딱지 넣기
 						if(boardWriter==response.replyDto[i].replyWriter){
@@ -65,7 +65,7 @@ $(function(){
 					var text = response.replyDto[i].replyContent;
 					//인장 처리
 					var memberNick = $("<span>").text(response.replyDto[i].memberNick).css("vertical-align", "middle");
-					var seal = $("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink).css("vertical-align", "middle");
+					var seal = $("<img>").addClass("board-seal").attr("src", contextPath+response.replyDto[i].urlLink).css("vertical-align", "middle");
 					$(html).find(".reply-writer").css("vertical-align", "middle").append(seal).append(memberNick);
 					$(html).find(".reply-content").html(text);
 					//시간 넣는 자리

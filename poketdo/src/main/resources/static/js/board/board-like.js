@@ -1,8 +1,10 @@
 $(function(){
-	var params = new URLSearchParams(location.search);
-	var boardNo = params.get("boardNo");
 	$.ajax({
+<<<<<<< HEAD
 		url:contextPath+contextPath+contextPath+contextPath+contextPath+"/rest/like/check",
+=======
+		url:contextPath+contextPath+"/rest/like/check",
+>>>>>>> refs/remotes/origin/main
 		method:"post",
 		data:{
 			allboardNo:allboardNo,
@@ -16,7 +18,11 @@ $(function(){
 				$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
 			}
 			$.ajax({
+<<<<<<< HEAD
 				url:contextPath+contextPath+contextPath+contextPath+contextPath+"/rest/like/count?allboardNo="+allboardNo,
+=======
+				url:contextPath+"/rest/like/count?allboardNo="+allboardNo,
+>>>>>>> refs/remotes/origin/main
 				method:"get",
 				success:function(response){
 					$(".like-count").text(response);
@@ -30,7 +36,11 @@ $(function(){
 	
 	$(".like-box").click(function(){ 
 		$.ajax({
+<<<<<<< HEAD
 			url:contextPath+contextPath+contextPath+contextPath+contextPath+"/rest/like/",
+=======
+			url:contextPath+contextPath+"/rest/like/",
+>>>>>>> refs/remotes/origin/main
 			method:"post",
 			data:{
 				allboardNo:allboardNo,
@@ -48,7 +58,11 @@ $(function(){
 					$(".detail-like").removeClass("fa-solid fa-regular").addClass("fa-regular").css("color","#2d3436");
 				}
 				$.ajax({
+<<<<<<< HEAD
 					url:contextPath+contextPath+contextPath+contextPath+contextPath+"/rest/like/count?allboardNo="+allboardNo,
+=======
+					url:contextPath+"/rest/like/count?allboardNo="+allboardNo,
+>>>>>>> refs/remotes/origin/main
 					method:"get",
 					success:function(response){
 						$(".like-count").text(response);

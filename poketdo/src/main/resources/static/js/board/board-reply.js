@@ -1,15 +1,16 @@
 /*전역변수(memberId, boardWriter) 설정 필요*/
 $(function(){
-	var params = new URLSearchParams(location.search);
-	var boardNo = params.get("boardNo");
-	
 	loadList();
 	
 	function loadList(){
 		$(".reply-target").empty();
 		$(".reply-best-target").empty();
 		$.ajax({
+<<<<<<< HEAD
 			url:contextPath+"/rest/reply/"+allboardNo,
+=======
+			url:contextPath+contextPath+"/rest/reply/"+allboardNo,
+>>>>>>> refs/remotes/origin/main
 			method:"get",
 			success:function(response){
 				$(".reply-count").text(response.replyCount);

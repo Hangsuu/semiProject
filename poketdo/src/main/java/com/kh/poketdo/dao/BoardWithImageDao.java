@@ -9,8 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.kh.poketdo.dto.AllboardDto;
-import com.kh.poketdo.dto.BoardDto;
 import com.kh.poketdo.dto.BoardWithImageDto;
 import com.kh.poketdo.vo.PaginationVO;
 

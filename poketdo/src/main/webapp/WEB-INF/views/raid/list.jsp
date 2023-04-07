@@ -61,7 +61,7 @@
 								</a>
 							</div>
 						</td>
-						<td><a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link" ><img style="vertical-align:middle;" class="board-seal" src="${raidDto.urlLink}" >${raidDto.memberNick}</a></td>
+						<td><a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link" ><img style="vertical-align:middle;" class="board-seal" src="${pageContext.request.contextPath}+${raidDto.urlLink}" >${raidDto.memberNick}</a></td>
 						<td>${raidDto.time}</td>
 						<c:choose>
 							<c:when test="${raidDto.raidCount>=4}">

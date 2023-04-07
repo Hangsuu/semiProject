@@ -9,7 +9,7 @@
 	var boardWriter = "${combinationDto.combinationWriter}";
 </script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/summernote.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/summernote.js"></script>
 <script>
 	$(function(){
 		var valid={
@@ -66,7 +66,7 @@
 			var text =raidMonster.val().trim();
 			if(text.length>0){
 				$.ajax({
-					url:"/rest/pocketmon/stats/"+text,
+					url:contextPath+"/rest/pocketmon/stats/"+text,
 					method:"get",
 					success:function(response){
 						if(response.pocketName==text){

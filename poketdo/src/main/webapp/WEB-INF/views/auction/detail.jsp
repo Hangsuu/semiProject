@@ -8,12 +8,12 @@
 	var boardWriter = "${auctionDto.auctionWriter}";
 	var auctionFinish="${auctionDto.auctionFinish}";
 </script>
-<script src="/static/js/timer.js"></script>
-<script src="/static/js/auction-bid.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/auction-bid.js"></script>
 <!-- 댓글창 summernote 사용을 위한 import -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/reply.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/reply.js"></script>
 <script>
 $(function(){
 	$(".delete-btn").click(function(event){
@@ -30,7 +30,7 @@ $(function(){
 		var params = new URLSearchParams(location.search);
 		var allboardNo = params.get("allboardNo");
 		$.ajax({
-			url:"/rest/auction/check/"+allboardNo,
+			url:contextPath+"/rest/auction/check/"+allboardNo,
 			method:"get",
 			success:function(response){
 				if(response){
@@ -119,8 +119,8 @@ $(function(){
 	</div>
 </div>
 </script>
-<script src="/static/js/like.js"></script>
-<script src="/static/js/bookmark.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/like.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/bookmark.js"></script>
 <div class="container-1000 mt-50">
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">
@@ -139,7 +139,7 @@ $(function(){
 			<span class="auction-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
-					<img class="board-seal" src="${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
+					<img class="board-seal" src="${pageContext.request.contextPath}+${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>

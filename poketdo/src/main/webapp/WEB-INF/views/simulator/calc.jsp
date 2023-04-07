@@ -9,7 +9,7 @@
 			margin-top: 70px;
 		}
    </style>
-<script src="/static/js/calc.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/calc.js"></script>
  </head>
  <body>
    <div class="container-900 mt-50 mb-50">
@@ -19,7 +19,7 @@
                <input name="pocketmonNumber" class="form-input mt-70" placeholder="포켓몬 검색">
                <button type="button" class="form-btn neutral monster-search">검색</button>
            </div>
-           <img class="pocketmon-img float-right me-50" src="/static/image/leaf.png" width=180 height=180>
+           <img class="pocketmon-img float-right me-50" src="${pageContext.request.contextPath}/static/image/leaf.png" width=180 height=180>
        </div>
            <div class="row">
 

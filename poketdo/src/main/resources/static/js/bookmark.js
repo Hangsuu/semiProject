@@ -5,7 +5,7 @@ $(function(){
 			var allboardNo = $(this).data("allboard-no");
 			var starBox = $(this);
 			$.ajax({
-				url:contextPath+contextPath+"/rest/bookmark/check",
+				url:contextPath+"/rest/bookmark/check",
 				method:"post",
 				data:{
 					allboardNo:allboardNo,
@@ -31,7 +31,7 @@ $(function(){
 		var starBox = $(this);
 		var bookmarkType = $(this).data("bookmark-type");
 		$.ajax({
-			url:contextPath+contextPath+"/rest/bookmark/",
+			url:contextPath+"/rest/bookmark/",
 			method:"post",
 			data:{
 				allboardNo:allboardNo,

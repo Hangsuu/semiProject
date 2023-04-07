@@ -17,8 +17,21 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/page.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/reply.css" />
+    
+    <!--  favicon 설정 -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    
     <!-- font-awesome CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    
+    <!-- 자바스크립트에 절대경로를 쓰기위한 꼼수
+    		j
+     -->
+    
+    <script>
+    	const contextPath = " ${pageContext.request.contextPath}";
+    </script>
+    
     <!-- 링크확인창 CDN -->
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
     <!-- jquery cdn -->
@@ -31,7 +44,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
 $(function(){
 	$.ajax({
-		url:"/rest/member/getNick",
+		url:contextPath+"/rest/member/getNick",
 		method:"get",
 		success:function(response){
 			if(response.length>0){

@@ -19,7 +19,7 @@ $(function(){
 			if(isValid){
 					console.log(isValid);
 				$.ajax({
-					url:"/rest/seal/sealNo/" + sealNo,
+					url:contextPath+"/rest/seal/sealNo/" + sealNo,
 					method:"get",
 					success:function(response){//성공시 Y 실패시 N
 						if(response =="Y"){ //사용 가능할 경우
@@ -55,7 +55,7 @@ $(function(){
 			
 			if(sealName != ""){
 					$.ajax({
-						url:"/rest/seal/sealName/"+sealName,
+						url:contextPath+"/rest/seal/sealName/"+sealName,
 						method:"get",
 						success:function(response){//성공시 Y 실패시 N
 							if(response =="Y"){ //사용 가능할 경우

@@ -8,7 +8,7 @@ $(function () {
 	
 
 	var memberPoint = ${point};
-	
+	console.log(memberPoint);
 	$(".buy-form button[type='submit']").on("click", function(e) {
 		  var sealPrice = $(this).siblings("input[name='point']").val();
 		  var PointCheck = memberPoint > sealPrice;

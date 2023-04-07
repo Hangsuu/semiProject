@@ -81,7 +81,7 @@
         	<c:forEach var="statList" items="${list}">
         	<table class="table table-border" style="font-size:13px; width:20%">
                 <tr><td colspan="4" style="height:180px">
-                	<img class="monster-image" width="180px" height="180px" src="/static/image/leaf.png">
+                	<img class="monster-image" width="180px" height="180px" src="${pageContext.request.contextPath}/static/image/leaf.png">
 				</td></tr>
                 <tr>
                     <td class="w-25">체력</td>

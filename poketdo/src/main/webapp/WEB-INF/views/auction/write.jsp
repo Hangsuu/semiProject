@@ -9,7 +9,7 @@
 	var boardWriter = "${combinationDto.combinationWriter}";
 </script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/summernote.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/summernote.js"></script>
 <script>
 	$(function(){
 		$(".submit-btn").click(function(e){
@@ -172,7 +172,7 @@
 		</div>
 		<div class="w-40" style="padding-left:10px">
 			<div class="row center">
-				<img src="/static/image/noimage.png" style="width:150px; height:150px;max-width:150px; height:auto; max-height:150px" class="preview">
+				<img src="${pageContext.request.contextPath}/static/image/noimage.png" style="width:150px; height:150px;max-width:150px; height:auto; max-height:150px" class="preview">
 			</div>
 			<div class="row">
 				대표이미지 등록<input class="form-btn neutral" name="attach" type="file">

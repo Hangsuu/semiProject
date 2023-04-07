@@ -6,7 +6,7 @@
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
 </script>
-<script src="/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
 <script type="text/javascript">
 $(function(){
 	var params = new URLSearchParams(location.search);
@@ -22,7 +22,7 @@ $(function(){
 				var allboardNo = $(this).data("allboard-no");
 				var bookmarkType = $(this).data("bookmark-type");
 				$.ajax({
-					url:"/rest/bookmark/",
+					url:contextPath+"/rest/bookmark/",
 					method:"post",
 					data:{
 						allboardNo:allboardNo,
@@ -44,7 +44,7 @@ $(function(){
 		$(".list-target").empty();
 		$(".pagination").empty();
 		$.ajax({
-			url:"/rest/auction/list",
+			url:contextPath+"/rest/auction/list",
 			method:"post",
 			data:{
 				column:column,
@@ -169,7 +169,7 @@ $(function(){
 	<div class="row flex-box">
 		<div class="row"><h1 style="font-size:2em">즐겨찾기 목록</h1></div>
 		<div class="row align-right" style="display:inline-block; align-items:flex-end">
-			<a href="list?page=1" class="form-btn neutral">전체 보기</a> 
+			<a href="${pageContext.request.contextPath}list?page=1" class="form-btn neutral">전체 보기</a> 
 		</div>
 	</div>
 <!-- 게시판 테이블 -->

@@ -3,7 +3,7 @@ $(function(){
 var randomNum = Math.floor(Math.random() * 1008) + 1; // 1~1008 중 랜덤한 숫자 선택
 
 	$.ajax({
-		url:"/rest/pocketmon/pocketmonWithdImage/" + randomNum,
+		url:contextPath+"/rest/pocketmon/pocketmonWithdImage/" + randomNum,
 		method:"get",
 		success:function(response){
 			
@@ -36,7 +36,7 @@ function refreshPage() {
   randomNum = newNum; // 새로운 숫자 저장
   
 	$.ajax({
-		url:"/rest/pocketmon/pocketmonWithdImage/" + randomNum,
+		url:contextPath+"/rest/pocketmon/pocketmonWithdImage/" + randomNum,
 		method:"get",
 		success:function(response){
 			

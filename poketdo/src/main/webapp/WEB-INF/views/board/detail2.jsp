@@ -16,8 +16,8 @@
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
-	var boardWriter = "${boardWithNickDto.boardWriter}";
-	var allboardNo = "${boardWithNickDto.allboardNo}";
+	var boardWriter = "${boardWithImageDto.boardWriter}";
+	var allboardNo = "${boardWithImageDto.allboardNo}";
 </script>
 <script>
 $(function(){
@@ -98,10 +98,10 @@ $(function(){
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 				<c:if test="${sessionScope.memberId==boardWithNickDto.boardWriter}">
 					<a
-						href="edit?page=${param.page}&allboardNo=${boardWithNickDto.allboardNo}"
+						href="edit?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">수정</a>
 					<a
-						href="delete?page=${param.page}&allboardNo=${boardWithNickDto.allboardNo}"
+						href="delete?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>
@@ -149,7 +149,7 @@ $(function(){
 				<a href="write" class="board-detail-btn">글쓰기</a>
 			</div>
 			<div class="row align-right">
-				<a href="hot?page=${param.page}&${vo.parameter}&${vo.addParameter}"
+				<a href="hot"
 					class="board-detail-btn align-right">목록</a>
 			</div>
 		</div>

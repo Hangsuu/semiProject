@@ -100,10 +100,18 @@ $(function(){
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 				<c:if test="${sessionScope.memberId==boardDto.boardWriter}">
 					<a
+<<<<<<< HEAD
+						href="edit?allboardNo=${boardWithNickDto.allboardNo}"
+=======
 						href="edit?page=${param.page}&allboardNo=${boardDto.allboardNo}"
+>>>>>>> refs/remotes/origin/main
 						class="board-detail-btn">수정</a>
 					<a
+<<<<<<< HEAD
+						href="delete?allboardNo=${boardWithNickDto.allboardNo}"
+=======
 						href="delete?page=${param.page}&allboardNo=${boardDto.allboardNo}"
+>>>>>>> refs/remotes/origin/main
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>
@@ -151,7 +159,7 @@ $(function(){
 				<a href="write" class="board-detail-btn">글쓰기</a>
 			</div>
 			<div class="row align-right">
-				<a href="list?page=${param.page}&${vo.parameter}&${vo.addParameter}"
+				<a href="list"
 					class="board-detail-btn align-right">목록</a>
 			</div>
 		</div>

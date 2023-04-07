@@ -21,7 +21,7 @@
   	      var fd = new FormData();
   	      fd.append("attach", files[0]);//파일이 한개밖에 없어서 [0]
   	      $.ajax({
-  	    	 url:"/rest/attachment/upload",
+  	    	 url:contextPath+"/rest/attachment/upload",
   	    	 method:"post",
   	    	 data:fd,
   	    	 processData:false,

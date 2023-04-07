@@ -1,6 +1,6 @@
 $(function(){
 	$.ajax({
-		url:contextPath+contextPath+"/rest/like/check",
+		url:contextPath+"/rest/like/check",
 		method:"post",
 		data:{
 			allboardNo:allboardNo,
@@ -28,7 +28,7 @@ $(function(){
 	
 	$(".like-box").click(function(){ 
 		$.ajax({
-			url:contextPath+contextPath+"/rest/like/",
+			url:contextPath+"/rest/like/",
 			method:"post",
 			data:{
 				allboardNo:allboardNo,

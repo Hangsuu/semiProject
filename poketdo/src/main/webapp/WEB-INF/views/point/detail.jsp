@@ -90,7 +90,7 @@
 						</div>
 						<c:if test="${sessionScope.memberLevel=='관리자' || memberId == pointDto.getPointBoardWriter() || sessionScope.memberId != null}">
 							<div>	
-								<a href="/point/delete?pointBoardNo=${pointDto.getPointBoardNo()}" class="form-btn negative confirm-delete" >삭제</a>
+								<a href="${pageContext.request.contextPath}/point/delete?pointBoardNo=${pointDto.getPointBoardNo()}" class="form-btn negative confirm-delete" >삭제</a>
 							</div>
 						</c:if>
 					</div>

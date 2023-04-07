@@ -10,10 +10,10 @@
   <aside class="flex-all-center">
   
 	<div class= "flex-column ml-auto" style="width: 300px; ">
-        <a class="ablock w-100 mb-10" href="/member/myseal"><button class="form-btn neutral  w-100">나의 인장</button></a>
-        <a class="ablock w-100 mb-10" href="/member/password"><button class="form-btn neutral w-100">비밀번호변경</button></a>
-        <a class="ablock w-100 mb-10" href="/member/edit"><button class="form-btn neutral w-100">개인정보수정</button></a>
-        <a class="ablock w-100 mb-10" href="/member/exit"><button class="form-btn neutral  w-100">회원 탈퇴</button></a>
+        <a class="ablock w-100 mb-10" href="${pageContext.request.contextPath}/member/myseal"><button class="form-btn neutral  w-100">나의 인장</button></a>
+        <a class="ablock w-100 mb-10" href="${pageContext.request.contextPath}/member/password"><button class="form-btn neutral w-100">비밀번호변경</button></a>
+        <a class="ablock w-100 mb-10" href="${pageContext.request.contextPath}/member/edit"><button class="form-btn neutral w-100">개인정보수정</button></a>
+        <a class="ablock w-100 mb-10" href="${pageContext.request.contextPath}/member/exit"><button class="form-btn neutral  w-100">회원 탈퇴</button></a>
   	</div>
   
   

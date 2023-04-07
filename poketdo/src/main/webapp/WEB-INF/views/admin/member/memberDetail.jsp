@@ -14,7 +14,7 @@
 			<div class="row">
 				<c:choose>
 					<c:when test="${memberWithImageDto.attachmentNo == null}">
-    					<img width="200" height="200" src="/static/image/user.jpg">
+    					<img width="200" height="200" src="${pageContext.request.contextPath}/static/image/user.jpg">
   					</c:when>
   					<c:otherwise>
     					<img width="200" height="200" src="/attachment/${memberWithImageDto.imageURL}">

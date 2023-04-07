@@ -45,7 +45,7 @@ transform: scale(1.01);
 <!-- 댓글창 summernote 사용을 위한 import -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/reply.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/reply.js"></script>
 <script>
 $(function(){
 	var params = new URLSearchParams(location.search);
@@ -390,7 +390,7 @@ $(function(){
 		<i class="fa-solid fa-xmark ms-10 fa-xmark-ban ms-10" style="color:red"></i>
 	</div>
 </script>
-<script src="/static/js/like.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/like.js"></script>
 <div class="container-1000 mt-50">
 	<div class="row flex-box">
 		<span class="board-detail-origin">레이드 참가</span>

@@ -3,11 +3,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<c:if test="회원이라면">
 <script type="text/javascript">
 $(function () {
 	
 
-	var memberPoint = ${point};
+	var memberPoint = parseInt("${point}") || 0;
 	
 	$(".buy-form button[type='submit']").on("click", function(e) {
 		  var sealPrice = $(this).siblings("input[name='point']").val();
@@ -26,6 +27,7 @@ $(function () {
 		});
 });
 </script>
+</c:if>
 
 <section class="container-1200 flex-box">
 

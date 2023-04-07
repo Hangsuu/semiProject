@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script src="/static/js/seal-insert.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/seal-insert.js"></script>
 
 <section class="container-1200 flex-box flex-vertical">
 

@@ -74,7 +74,7 @@ public class SealController {
 		vo.setCount(totalCount);
 		vo.setSize(20);
 		vo.setBlockSize(10);
-		String memberId = (String) session.getAttribute("memberId");
+		String memberId = session.getAttribute("memberId") == null ? null : (String)session.getAttribute("memberId");
 		List<SealWithImageDto> list = sealWithImageDao.selectList(vo);
 		model.addAttribute("list" , list);
 		if(memberId!=null) {

@@ -8,7 +8,7 @@
   var messageNo = parseInt("${messageWithNickDto.getMessageNo()}");
   var messageSender = "${messageWithNickDto.getMessageSender()}";
 </script>
-<script src="/static/js/message/messageSendDetail.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/message/messageSendDetail.js"></script>
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
   
     <div class="row">
@@ -19,7 +19,7 @@
       <div class="pocketmonTrade-btn message-delete-btn">
         <i class="fa-solid fa-xmark" style="color:red;"></i> 삭제
       </div>
-      <a href="/message/send" class="pocketmonTrade-btn message-list-btn ml-auto">
+      <a href="${pageContext.request.contextPath}/message/send" class="pocketmonTrade-btn message-list-btn ml-auto">
         <i class="fa-solid fa-list" style="color: #9DACE4;"></i> 목록
       </a>
     </div>

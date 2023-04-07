@@ -54,7 +54,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     })
   })
 </script>
-<script src="/static/js/pocketmonTrade/pocketmonTradeReply.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/pocketmonTrade/pocketmonTradeReply.js"></script>
 <style>
   .pocketmonTrade-choice-btn {
     /* border: 1px solid black; */
@@ -119,7 +119,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   <article class="w-100">
     <div class="mb-10 flex">
       <div class="board-detail-origin">포켓몬교환 게시판</div>
-      <a class="board-detail-btn ml-auto" href="/pocketmonTrade">목록</a>
+      <a class="board-detail-btn ml-auto" href="${pageContext.request.contextPath}/pocketmonTrade">목록</a>
     </div>
     <div class="row board-detail-title">
       <c:if test="${pocketmonTradeMemberDto.getPocketmonTradeHead() != null}"> [${pocketmonTradeMemberDto.getPocketmonTradeHead()}] </c:if>
@@ -131,13 +131,13 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       <div class="row flex">
         <div class="row flex board-nick-image">
           <img class="board-seal" src="/attachment/download?attachmentNo=${pocketmonTradeMemberDto.getAttachmentNo()}" />
-          <a class="link" href="/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"
+          <a class="link" href="${pageContext.request.contextPath}/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"
           >${pocketmonTradeMemberDto.getMemberNick()}</a>
         </div>
       <div class="board-detail-time flex-all-center"><fmt:formatDate value="${pocketmonTradeMemberDto.getPocketmonTradeWrittenTime()}" pattern="yyyy.MM.dd. H:m" /></div>
         <c:if test="${sessionScope.memberId == pocketmonTradeMemberDto.getPocketmonTradeWriter() || sessionScope.memberLevel == '관리자'}">
-          <a class="board-detail-btn flex-all-center" href="/pocketmonTrade/${pocketmonTradeMemberDto.getPocketmonTradeNo()}/edit">수정</a>
-          <a class="board-detail-btn flex-all-center" id="pocketmonTrade-delete-btn" href="/pocketmonTrade/delete/${pocketmonTradeMemberDto.getPocketmonTradeNo()}">삭제</a>
+          <a class="board-detail-btn flex-all-center" href="${pageContext.request.contextPath}/pocketmonTrade/${pocketmonTradeMemberDto.getPocketmonTradeNo()}/edit">수정</a>
+          <a class="board-detail-btn flex-all-center" id="pocketmonTrade-delete-btn" href="${pageContext.request.contextPath}/pocketmonTrade/delete/${pocketmonTradeMemberDto.getPocketmonTradeNo()}">삭제</a>
         </c:if>
       </div>
       <div class="flex-all-center ml-auto">조회수 ${pocketmonTradeMemberDto.getPocketmonTradeRead()}</div>
@@ -151,7 +151,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
       <div class="row">
         <div>
-          <a class="link" href="/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"
+          <a class="link" href="${pageContext.request.contextPath}/pocketmonTrade?column=member_nick&keyword=${pocketmonTradeMemberDto.getMemberNick()}"
             ><b>${pocketmonTradeMemberDto.getMemberNick()}</b>님의 게시글 더 보기</a
           >
         </div>
@@ -181,7 +181,7 @@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       <c:if test="${sessionScope.memberId != null}">
         <a class="board-detail-btn" href="write">글쓰기</a>
       </c:if>
-      <a class="board-detail-btn ml-auto" href="/pocketmonTrade">목록</a>
+      <a class="board-detail-btn ml-auto" href="${pageContext.request.contextPath}/pocketmonTrade">목록</a>
     </div>
   </article>
   <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -7,11 +7,11 @@
 	var memberId = "${sessionScope.memberId}";
 	var boardWriter = "${raidDto.raidWriter}";
 </script>
-<script src="/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
 <!-- 댓글창 summernote 사용을 위한 import -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/summernote.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/summernote.js"></script>
 <div class="container-900 mt-50">
 <form action="edit" method="post" autocomplete="off">
 	<input type="hidden" name="allboardNo" value="${raidDto.allboardNo}">

@@ -6,7 +6,7 @@
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
 </script>
-<script src="/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
 <script type="text/javascript">
 $(function(){
 	var params = new URLSearchParams(location.search);

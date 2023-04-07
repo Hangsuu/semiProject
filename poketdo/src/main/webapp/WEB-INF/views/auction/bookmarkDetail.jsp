@@ -8,12 +8,12 @@
 	var boardWriter = "${auctionDto.auctionWriter}";
 	var auctionFinish="${auctionDto.auctionFinish}";
 </script>
-<script src="/static/js/timer.js"></script>
-<script src="/static/js/auction-bid.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/auction-bid.js"></script>
 <!-- 댓글창 summernote 사용을 위한 import -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/reply.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/reply.js"></script>
 <script>
 $(function(){
 	$(".delete-btn").click(function(event){
@@ -102,8 +102,8 @@ $(function(){
 	</div>
 </div>
 </script>
-<script src="/static/js/like.js"></script>
-<script src="/static/js/bookmark.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/like.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/bookmark.js"></script>
 <div class="container-1000 mt-50">
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">

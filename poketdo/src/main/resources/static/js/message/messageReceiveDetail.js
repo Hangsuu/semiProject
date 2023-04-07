@@ -9,7 +9,7 @@ $(function(){
         method: "put",
         data: { messageNo: messageNo },
         success: function(){
-          window.location.href="/message/receive";
+          window.location.href=contextPath+"/message/receive";
         },
         error: function(){
           console.log("받은 메세지 삭제 통신 에러!!!!");
@@ -17,6 +17,6 @@ $(function(){
       })
     })
     $(".message-reply-btn").click(function(){
-      window.location.href="/message/write?recipient="+messageSender;
+      window.location.href=contextPath+"/message/write?recipient="+messageSender;
     })
   })

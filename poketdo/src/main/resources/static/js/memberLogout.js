@@ -2,8 +2,8 @@ $(function(){
     $(".logout-btn").click(function(e){
         if(window.location.href.endsWith("pocketmonTrade/write")){
             e.preventDefault();
-            window.location.href="/pocketmonTrade";
-            window.location.href="/member/logout";
+            window.location.href="${pageContext.request.contextPath}/pocketmonTrade";
+            window.location.href="${pageContext.request.contextPath}/member/logout";
         }
     })
 })

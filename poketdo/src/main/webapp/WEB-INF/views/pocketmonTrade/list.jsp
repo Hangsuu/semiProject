@@ -4,7 +4,7 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
 uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<script src="/static/js/pocketmonTrade/pocketmonTradeList.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/pocketmonTrade/pocketmonTradeList.js"></script>
 <style>
 
 </style>
@@ -19,7 +19,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
 <section>
   <article class="container-1100" style="min-height: 1000px">
     <div class="mt-50 mb-10">
-      <a class="pocketmonTrade-list-banner" href="/pocketmonTrade">포켓몬교환</a>
+      <a class="pocketmonTrade-list-banner" href="${pageContext.request.contextPath}/pocketmonTrade">포켓몬교환</a>
     </div>
     <!-- 검색창 -->
     <div class="row flex">
@@ -127,7 +127,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <div class="flex-align-center">
             <a
               class="pocketmonTrade-a-link"
-              href="/pocketmonTrade/${notice.getPocketmonTradeNo()}"
+              href="${pageContext.request.contextPath}/pocketmonTrade/${notice.getPocketmonTradeNo()}"
             >
               <c:if test="${notice.getPocketmonTradeHead()!=null}">
                 [${notice.getPocketmonTradeHead()}]
@@ -177,7 +177,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <div class="flex-align-center">
             <a
               class="pocketmonTrade-a-link ellipsis"
-              href="/pocketmonTrade/${trade.getPocketmonTradeNo()}"
+              href="${pageContext.request.contextPath}/pocketmonTrade/${trade.getPocketmonTradeNo()}"
             >
             <c:if test="${trade.getPocketmonTradeHead()!='공지'}">
               <c:choose>
@@ -224,7 +224,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     </div>
     <div class="row right mt-20">
       <c:if test="${sessionScope.memberId != null}"
-        ><a class="pocketmonTrade-a-btn" href="/pocketmonTrade/write"
+        ><a class="pocketmonTrade-a-btn" href="${pageContext.request.contextPath}/pocketmonTrade/write"
           ><i class="fa-solid fa-pencil"></i> 글쓰기</a
         ></c:if
       >
@@ -240,7 +240,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           </c:when>
           <c:otherwise>
             <a
-              href="/pocketmonTrade/?page=1&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
+              href="${pageContext.request.contextPath}/pocketmonTrade/?page=1&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
               ><i class="fa-solid fa-angles-left"></i
             ></a>
           </c:otherwise>
@@ -249,7 +249,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:choose>
           <c:when test="${pageVo.prev}">
             <a
-              href="/pocketmonTrade/?page=${pageVo.prevPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
+              href="${pageContext.request.contextPath}/pocketmonTrade/?page=${pageVo.prevPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
               ><i class="fa-solid fa-angle-left"></i
             ></a>
           </c:when>
@@ -272,7 +272,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             >
             <c:otherwise
               ><a
-                href="/pocketmonTrade/?page=${i}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
+                href="${pageContext.request.contextPath}/pocketmonTrade/?page=${i}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
                 class=""
                 >${i}</a
               ></c:otherwise
@@ -283,7 +283,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:choose>
           <c:when test="${pageVo.next}">
             <a
-              href="/pocketmonTrade/?page=${pageVo.nextPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
+              href="${pageContext.request.contextPath}/pocketmonTrade/?page=${pageVo.nextPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
               class=""
               ><i class="fa-solid fa-angle-right"></i
             ></a>
@@ -296,7 +296,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:choose>
           <c:when test="${!pageVo.last}">
             <a
-              href="/pocketmonTrade/?page=${pageVo.totalPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
+              href="${pageContext.request.contextPath}/pocketmonTrade/?page=${pageVo.totalPage}&${pageVo.parameter}&${pageVo.addParameter}${pageVo.getOptionQuery()}"
               class=""
               ><i class="fa-solid fa-angles-right"></i
             ></a>

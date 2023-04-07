@@ -32,9 +32,9 @@ $(function(){
 	})	
 });
 </script>
- <script src="/static/js/timer.js"></script> 
- <script src="/static/js/board/board-like.js"></script> 
- <script src="/static/js/board/board-reply.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/timer.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/board/board-like.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/board/board-reply.js"></script> 
  <!-- 댓글장 템플릿 -->
 <script type="text/template" id="reply-template">
 	<div class="row reply-box flex-box">
@@ -77,7 +77,7 @@ $(function(){
 	<article class="container-900">
 		<div class="row flex-box">
 			<h1>인기 게시판</h1>
-			<a href="/board/hot" class="board-detail-btn align-right">목록</a>
+			<a href="${pageContext.request.contextPath}/board/hot" class="board-detail-btn align-right">목록</a>
 		</div>
 		<div class="row flex-box">
 			<h1>
@@ -90,7 +90,7 @@ $(function(){
 		<div class="row flex-box">
 			<div>
 				<a class="link"
-					href="/board/hot?column=member_nick&keyword=${boardWithNickDto.memberNick}">
+					href="${pageContext.request.contextPath}/board/hot?column=member_nick&keyword=${boardWithNickDto.memberNick}">
 					<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
 				<span>/</span>
 				<fmt:formatDate value="${boardWithImageDto.boardTime}"
@@ -116,7 +116,7 @@ $(function(){
 		<div class="row">
 			<div>
 				<a class="link"
-					href="/board/hot?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의
+					href="${pageContext.request.contextPath}/board/hot?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의
 					게시글 더 보기</a>
 			</div>
 		</div>

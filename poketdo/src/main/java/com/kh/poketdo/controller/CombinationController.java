@@ -108,7 +108,8 @@ public class CombinationController {
 			@RequestParam int allboardNo, @RequestParam(defaultValue="1") int page,
 			HttpSession session) {
 		String memberId = (String)session.getAttribute("memberId");
-		if(memberId.equals(combinationDao.selectOne(allboardNo).getCombinationWriter())) {
+		String sessionLevel = (String)session.getAttribute("memberLevel");
+		if(memberId.equals(combinationDao.selectOne(allboardNo).getCombinationWriter()) || sessionLevel.equals("관리자")) {
 			allboardDao.delete(allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:list";

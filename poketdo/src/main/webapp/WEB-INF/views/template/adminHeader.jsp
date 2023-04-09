@@ -33,6 +33,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/page.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/reply.css" />
+    
+    <!--  favicon 설정 -->
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
+    
     <!-- font-awesome CDN -->
     <link
       rel="stylesheet"

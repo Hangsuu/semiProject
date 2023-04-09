@@ -80,7 +80,7 @@ $(function(){
 			<span class="combination-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="${pageContext.request.contextPath}list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">
-					<img class="board-seal" src="${pageContext.request.contextPath}+${combinationDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${combinationDto.memberNick}</span>
+					<img class="board-seal" src="${pageContext.request.contextPath}${combinationDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${combinationDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${combinationDto.boardTime}</span>

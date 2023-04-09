@@ -60,7 +60,7 @@ $(function(){
 							.addClass("do-not-over").text(response.list[i].auctionTitle);
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
-					var seal = $("<img>").addClass("board-seal").attr("src", response.list[i].urlLink).css("vertical-align", "middle");
+					var seal = $("<img>").addClass("board-seal").attr("src", contextPath+response.list[i].urlLink).css("vertical-align", "middle");
 					var nick = $("<span>").text(response.list[i].memberNick).css("vertical-align", "middle");
 					nickLink.append(seal).append(nick);
 					$(html).find(".list-writer").append(nickLink);
@@ -169,7 +169,7 @@ $(function(){
 	<div class="row flex-box">
 		<div class="row"><h1 style="font-size:2em">즐겨찾기 목록</h1></div>
 		<div class="row align-right" style="display:inline-block; align-items:flex-end">
-			<a href="${pageContext.request.contextPath}list?page=1" class="form-btn neutral">전체 보기</a> 
+			<a href="list?page=1" class="form-btn neutral">전체 보기</a> 
 		</div>
 	</div>
 <!-- 게시판 테이블 -->

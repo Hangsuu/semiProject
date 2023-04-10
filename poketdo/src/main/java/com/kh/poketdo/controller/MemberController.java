@@ -132,6 +132,7 @@ public class MemberController {
     	vo.setCount(totalCount);
     	vo.setSize(20);
     	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
+    	
     	model.addAttribute("list",list);
     	model.addAttribute("point" , memberDao.selectMemberPoint(memberId));
     	model.addAttribute("selectAttachNo" , sealService.mySeal(session));
@@ -141,7 +142,14 @@ public class MemberController {
     @PostMapping("/mysealSelect")
     public String mysealSelect (HttpSession session, @RequestParam int mySealNo) {
     	String memberId = (String) session.getAttribute("memberId");
-    	memberDao.insertMemberSealNo(mySealNo, memberId);
+    	System.out.println(memberJoinSealDao.mySealNoSelect(memberId));
+    	String BasicSealNo = memberJoinSealDao.mySealNoSelect(memberId);
+//    	String mySealNoValid =  memberDao.selectMemberSealNo(memberId);
+    	
+    	
+//    	if(mySealNoValid==BasicSealNo) {
+//    	memberDao.insertMemberBasicSeal(BasicSealNo, memberId);	
+//    	}
     	return "redirect:myseal";
     }
     
@@ -318,6 +326,7 @@ public class MemberController {
 	public String mysealSell(
 			@RequestParam int sealPrice,
 			@RequestParam int mySealNo,
+			@ModelAttribute MemberSealWithImageDto memberSealWithImageDto,
 			HttpSession session
 			) {
 		String memberId = (String) session.getAttribute("memberId");

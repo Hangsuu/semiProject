@@ -38,13 +38,6 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- font-awesome CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     
-    <!-- 자바스크립트에 절대경로를 쓰기위한 꼼수
-    		j
-     -->
-    
-    <script>
-    	const contextPath = " ${pageContext.request.contextPath}";
-    </script>
     
     <!-- 링크확인창 CDN -->
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>

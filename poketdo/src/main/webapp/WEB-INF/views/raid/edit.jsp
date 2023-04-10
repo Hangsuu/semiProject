@@ -7,6 +7,19 @@
 	var memberId = "${sessionScope.memberId}";
 	var boardWriter = "${raidDto.raidWriter}";
 </script>
+<script>
+	$(function(){
+		var startTime = $("[name=raidStartTime]").val();
+		startTime = startTime.replace(" ", "T")
+		startTime = startTime.replace(":00.0","")
+		$(".set-date").val(startTime);
+		
+		$(".set-date").blur(function(){
+			var correctTime = $(".set-date").val();
+			$("[name=raidStartTime]").val(correctTime.replace("T", " ")+":00.000");
+		});
+	})
+</script>
 <script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
 <!-- 댓글창 summernote 사용을 위한 import -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
@@ -27,6 +40,7 @@
 		</select>
 	<!-- 시간 -->
 		<input class="form-input set-date" type="datetime-local">
+		<input type="hidden" name="raidStartTime" value="${raidDto.raidStartTime}">
 	</div>
 	<!-- 몬스터 -->
 	<div class="row">

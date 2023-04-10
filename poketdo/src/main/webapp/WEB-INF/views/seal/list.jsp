@@ -3,17 +3,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<c:if test="회원이라면">
 <script type="text/javascript">
 $(function () {
 	
 
-	var memberPoint = parseInt("${point}") || 0;
-	
+	var memberPoint = ${point};
 	$(".buy-form button[type='submit']").on("click", function(e) {
 		  var sealPrice = $(this).siblings("input[name='point']").val();
 		  var PointCheck = memberPoint > sealPrice;
-		  console.log(PointCheck);
 		  if (!PointCheck) {
 		    alert("포인트가 부족합니다!");
 		    e.preventDefault();
@@ -27,7 +24,6 @@ $(function () {
 		});
 });
 </script>
-</c:if>
 
 <section class="container-1200 flex-box">
 
@@ -89,8 +85,16 @@ $(function () {
 							</div>
 						</div>
 						<div class="seal-admin">
-							<c:if test="${sessionScope.memberLevel=='관리자' }">
 							
+								<c:if test="${list.get(0).sealNo!=0}">
+									<form action="purchase" method="post" class="buy-form">
+										<input type="hidden" name="sealNo" value="${sealWithImageDto.sealNo}"> 
+										<input type="hidden" name="point" value="${sealWithImageDto.sealPrice}"> 
+										<button type="submit" class="form-btn positive">구매</button>
+									</form>
+								</c:if>
+								
+							<c:if test="${sessionScope.memberLevel=='관리자' }">
 								<div>
 									<a href="edit?sealNo=${list.get(0).sealNo}" class="form-btn neutral" >수정</a>
 								</div>

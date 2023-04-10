@@ -94,7 +94,6 @@ public class HomeController {
 		boardPagination.setOrder("desc");
 		model.addAttribute("boardList", boardWithNickDao.selectHotList(boardPagination));
 		//--------------인기글 끝-----------
-		System.out.println("test attack");
 		return "/WEB-INF/views/home.jsp";
 	}
 	

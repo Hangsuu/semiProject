@@ -81,7 +81,7 @@ $(function(){
 		}
 		var data = $(".raid-join-form").serialize();
 		$.ajax({
-			url:"/rest/raid/join",
+			url:contextPath+"/rest/raid/join",
 			method:"post",
 			data:data,
 			success:function(response){
@@ -98,7 +98,7 @@ $(function(){
 	$(".raid-join-cancle-btn").click(function(){
 		if(confirm("신청 취소하시겠습니까?")){
 			$.ajax({
-				url:"/rest/raid/"+allboardNo,
+				url:contextPath+"/rest/raid/"+allboardNo,
 				method:"delete",
 				success:function(response){
 					isJoiner();
@@ -121,7 +121,7 @@ $(function(){
 		}
 		if(confirm("수정하시겠습니까?")){
 			$.ajax({
-				url:"/rest/raid/",
+				url:contextPath+"/rest/raid/",
 				method:"put",
 				data:{
 					raidJoinOrigin:allboardNo,
@@ -144,7 +144,7 @@ $(function(){
 	function isJoiner(){
 		if(memberId){
 			$.ajax({
-				url:"/rest/raid/isjoiner/"+allboardNo,
+				url:contextPath+"/rest/raid/isjoiner/"+allboardNo,
 				method:"get",
 				success:function(response){
 					if(response.joiner){
@@ -191,17 +191,17 @@ $(function(){
 		$(".raid-join-control-confirmed").empty();
 		//참가신청 신청자 창
 		$.ajax({
-			url:"/rest/raid/"+allboardNo,
+			url:contextPath+"/rest/raid/"+allboardNo,
 			method:"get",
 			success:function(response){
 				for(var i=0; i<response.length; i++){					
 					var template = $("#raid-control-template").html();
 					var html = $.parseHTML(template);
-					$(html).find(".raid-control-member").text(response[i].memberNick)
-						.prepend($("<img>").addClass("board-seal").attr("src", response[i].urlLink));
-					$(html).find(".raid-control-content").text(response[i].raidJoinContent).attr("title", response[i].raidJoinContent);
-					$(html).find(".fa-check-control").attr("data-join-member", response[i].raidJoinMember).click(controlConfirm);
-					$(html).find(".fa-xmark-control").attr("data-join-member", response[i].raidJoinMember).click(controlRefuse);
+					$(html).find(".board-seal").attr("src", contextPath+response[i].urlLink);
+					$(html).find(".raid-control-member").text(response[i].memberNick).css("vertical-align","middle")
+					$(html).find(".raid-control-content").css("vertical-align","middle").text(response[i].raidJoinContent).attr("title", response[i].raidJoinContent);
+					$(html).find(".fa-check-control").css("vertical-align","middle").attr("data-join-member", response[i].raidJoinMember).click(controlConfirm);
+					$(html).find(".fa-xmark-control").css("vertical-align","middle").attr("data-join-member", response[i].raidJoinMember).click(controlRefuse);
 					$(".raid-join-control").append(html);
 				}
 			},
@@ -211,16 +211,16 @@ $(function(){
 		});
 		//신청 확정된 유저 창
 		$.ajax({
-			url:"/rest/raid/confirmed/"+allboardNo,
+			url:contextPath+"/rest/raid/confirmed/"+allboardNo,
 			method:"get",
 			success:function(response){
 				for(var i=0; i<response.length; i++){					
 					var template = $("#raid-control-confirmed-template").html();
 					var html = $.parseHTML(template);
-					$(html).find(".raid-control-confirmed-member").text(response[i].memberNick)
-						.prepend($("<img>").addClass("board-seal").attr("src", response[i].urlLink));
-					$(html).find(".raid-control-confirmed-content").text(response[i].raidJoinContent).attr("title", response[i].raidJoinContent);
-					$(html).find(".fa-xmark-ban").attr("data-join-member", response[i].raidJoinMember).click(controlBan);
+					$(html).find(".board-seal").attr("src", contextPath+response[i].urlLink);
+					$(html).find(".raid-control-confirmed-member").text(response[i].memberNick).css("vertical-align","middle");
+					$(html).find(".raid-control-confirmed-content").text(response[i].raidJoinContent).attr("title", response[i].raidJoinContent).css("vertical-align","middle");
+					$(html).find(".fa-xmark-ban").css("vertical-align","middle").attr("data-join-member", response[i].raidJoinMember).click(controlBan);
 					$(".raid-join-control-confirmed").append(html);
 				}
 			},
@@ -238,7 +238,7 @@ $(function(){
 		}
 		var raidJoinMember = $(this).data("join-member");
 		$.ajax({
-			url:"/rest/raid/confirm",
+			url:contextPath+"/rest/raid/confirm",
 			method:"post",
 			data:{
 				raidJoinMember:raidJoinMember,
@@ -258,7 +258,7 @@ $(function(){
 	function controlRefuse(){
 		var raidJoinMember = $(this).data("join-member");
 		$.ajax({
-			url:"/rest/raid/refuse",
+			url:contextPath+"/rest/raid/refuse",
 			method:"post",
 			data:{
 				raidJoinMember:raidJoinMember,
@@ -278,7 +278,7 @@ $(function(){
 	function controlBan(){
 		var raidJoinMember = $(this).data("join-member");
 		$.ajax({
-			url:"/rest/raid/ban",
+			url:contextPath+"/rest/raid/ban",
 			method:"post",
 			data:{
 				raidJoinMember:raidJoinMember,
@@ -327,7 +327,7 @@ $(function(){
 		var params = new URLSearchParams(location.search);
 		var allboardNo = params.get("allboardNo");
 		$.ajax({
-			url:"/rest/raid/check/"+allboardNo,
+			url:contextPath+"/rest/raid/check/"+allboardNo,
 			method:"get",
 			success:function(response){
 				if(response>0){
@@ -375,18 +375,20 @@ $(function(){
 </script>
 <!-- 레이드 신청 컨트롤 템플릿 -->
 <script type="text/template" id="raid-control-template">
-	<div class="row id-box">
+	<div class="row id-box" style="vertical-align:middle">
+		<img style="vertical-align:middle" class="board-seal">
 		<span class="raid-control-member w-30" style="display:inline-block"></span>
-		<span class="raid-control-content" style="display:inline-block; height:24px; width:57%"></span>
+		<span class="raid-control-content" style="display:inline-block; height:24px; width:47%"></span>
 		<i class="fa-solid fa-check fa-check-control" style="color:green"></i>
 		<i class="fa-solid fa-xmark fa-xmark-control ms-10" style="color:red"></i>
 	</div>
 </script>
 <!-- 레이드 확정창 템플릿 -->
 <script type="text/template" id="raid-control-confirmed-template">
-	<div class="row id-box">
+	<div class="row id-box" style="vertical-align:middle">
+		<img style="vertical-align:middle" class="board-seal">
 		<span class="raid-control-confirmed-member w-30" style="display:inline-block"></span>
-		<span class="raid-control-confirmed-content" style="display:inline-block; height:24px; width:60%"></span>
+		<span class="raid-control-confirmed-content" style="display:inline-block; height:24px; width:50%"></span>
 		<i class="fa-solid fa-xmark ms-10 fa-xmark-ban ms-10" style="color:red"></i>
 	</div>
 </script>
@@ -412,7 +414,7 @@ $(function(){
 			<span class="raid-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="list?page=1&column=member_nick&keyword=${raidDto.memberNick}" class="link">
-					<img class="board-seal" src="${raidDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${raidDto.memberNick}</span>
+					<img class="board-seal" src="${pageContext.request.contextPath}${raidDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${raidDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${raidDto.boardTime}</span>

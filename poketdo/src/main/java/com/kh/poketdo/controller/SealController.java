@@ -74,13 +74,15 @@ public class SealController {
 		vo.setCount(totalCount);
 		vo.setSize(20);
 		vo.setBlockSize(10);
-		String memberId = session.getAttribute("memberId") == null ? null : (String)session.getAttribute("memberId");
+		String memberId = (String) session.getAttribute("memberId");
 		List<SealWithImageDto> list = sealWithImageDao.selectList(vo);
 		model.addAttribute("list" , list);
 		if(memberId!=null) {
 			model.addAttribute("point" , memberDao.selectMemberPoint(memberId));
 			List<String> list2 = memberSealWithImageDao.selectSealNo(memberId);
 			model.addAttribute("list2" , list2);
+		}else {
+			model.addAttribute("point", 0);
 		}
 		return "/WEB-INF/views/seal/list.jsp";
 	}

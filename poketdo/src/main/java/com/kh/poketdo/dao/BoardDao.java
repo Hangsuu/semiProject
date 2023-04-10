@@ -31,7 +31,6 @@ public class BoardDao {
 			boardDto.setBoardHead(rs.getString("board_head"));
 			boardDto.setBoardRead(rs.getInt("board_read"));
 			boardDto.setBoardLike(rs.getInt("board_like"));
-			boardDto.setBoardDislike(rs.getInt("board_dislike"));
 			boardDto.setBoardReply(rs.getInt("board_reply"));
 			return boardDto;
 		}
@@ -48,10 +47,11 @@ public class BoardDao {
 	//게시글 생성
 	public void insert(BoardDto boardDto) {
 	    String sql = "INSERT INTO board "
-	               + "(board_no, allboard_no, board_writer, board_title, board_content, board_time, board_head, board_read, board_like, board_dislike, board_reply) "
-	               + "VALUES (?, ?, ?, ?, ?, SYSDATE, ?, 0, 0, 0, 0)";
+	               + "(board_no, allboard_no, board_writer, board_title, board_content, board_time, board_head, board_read, board_like, board_reply) "
+	               + "VALUES (?, ?, ?, ?, ?, SYSDATE, ?, 0, 0, 0)";
 	    Object[] param = {
 	    	boardDto.getBoardNo(),
+	    	boardDto.getAllboardNo(),
 	        boardDto.getBoardWriter(),
 	        boardDto.getBoardTitle(),
 	        boardDto.getBoardContent(),

@@ -75,7 +75,7 @@
 		<!-- 닉네임 및 즐겨찾기 -->
 				<div class="row flex-box board-nick-image">
 					<div class="do-not-line-over" style="width:165px">
-						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${auctionDto.urlLink}">
+						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${pageContext.request.contextPath}${auctionDto.urlLink}">
 						<span>${auctionDto.memberNick}</span></a>
 					</div>
 				</div>

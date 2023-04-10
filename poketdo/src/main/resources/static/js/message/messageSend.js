@@ -47,7 +47,7 @@ $(function () {
       // for문으로 delete 실행
       for (var i = 0; i < list.length; i++) {
         $.ajax({
-          url: "/rest/message/send",
+          url:contextPath+ "/rest/message/send",
           method: "put",
           data: { messageNo: list[i] },
           success: function () {
@@ -83,7 +83,7 @@ $(function () {
   // 메세지 비동기 load
   function loadList() {
     $.ajax({
-      url: "/rest/message/send",
+      url:contextPath+ "/rest/message/send",
       method: "get",
       data: data,
       success: function (response) {
@@ -200,7 +200,7 @@ $(function () {
                 )
               ) {
                 $.ajax({
-                  url: "/rest/message/" + message.messageNo,
+                  url:contextPath+ "/rest/message/" + message.messageNo,
                   method: "delete",
                   success: function () {
                     loadList();

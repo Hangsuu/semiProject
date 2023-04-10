@@ -5,7 +5,7 @@ $(function(){
 			var nowTime = now.getTime();
 			var time = $(this).data("finish-time");
 			var timeDif = time-nowTime;
-			var days = Math.floor(timeDif/1000/60/60/24)%10;
+			var days = Math.floor(timeDif/1000/60/60/24);
 			var hour = Math.floor(timeDif/1000/60/60)%24;
 			var min = Math.floor(timeDif/1000/60)%60;
 			var sec = Math.floor(timeDif/1000)%60;

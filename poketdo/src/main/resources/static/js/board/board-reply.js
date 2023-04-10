@@ -6,11 +6,7 @@ $(function(){
 		$(".reply-target").empty();
 		$(".reply-best-target").empty();
 		$.ajax({
-<<<<<<< HEAD
 			url:contextPath+"/rest/reply/"+allboardNo,
-=======
-			url:contextPath+contextPath+"/rest/reply/"+allboardNo,
->>>>>>> refs/remotes/origin/main
 			method:"get",
 			success:function(response){
 				$(".reply-count").text(response.replyCount);

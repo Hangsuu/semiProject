@@ -120,6 +120,12 @@ public class MemberDao {
     	return jdbcTemplate.update(sql, param)>0;
     }
 
+	//selectSealNo 입력(나의 인장 이미지 선택)
+	public boolean insertMemberSealNo (int selectSealNo, String memberId) {
+		String sql ="update member set member_seal_no=? where member_id = ? ";
+		Object [] param = {selectSealNo, memberId};
+		return jdbcTemplate.update(sql,param)>0;
+	}
 	//회원가입 시 나의 인장이미지 기본이미지 선택
 	public boolean insertMemberBasicSeal (int selectSealNo, String memberId) {
 		String sql ="update member set member_seal_no=? where member_id = ? ";

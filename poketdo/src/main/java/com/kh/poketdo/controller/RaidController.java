@@ -80,7 +80,8 @@ public class RaidController {
 			@RequestParam int allboardNo, @RequestParam(defaultValue="1") int page,
 			HttpSession session) {
 		String memberId = (String)session.getAttribute("memberId");
-		if(memberId.equals(raidDao.selectOne(allboardNo).getRaidWriter())) {
+		String sessionLevel = (String)session.getAttribute("memberLevel");
+		if(memberId.equals(raidDao.selectOne(allboardNo).getRaidWriter()) || sessionLevel.equals("관리자")) {
 			allboardDao.delete(allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:list";

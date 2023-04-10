@@ -51,8 +51,7 @@ public class MemberController {
     @Autowired
     private PointDao pointDao;
     
-   
- 
+
 
     @GetMapping("/login")
     public String login() {
@@ -132,26 +131,38 @@ public class MemberController {
     	vo.setCount(totalCount);
     	vo.setSize(20);
     	List<MemberSealWithImageDto> list = memberSealWithImageDao.selectOne(memberId, vo);
-    	
+    	MemberDto member = memberDao.selectOne(memberId);
     	model.addAttribute("list",list);
-    	model.addAttribute("point" , memberDao.selectMemberPoint(memberId));
+    	model.addAttribute("member" , member);
     	model.addAttribute("selectAttachNo" , sealService.mySeal(session));
     	return "/WEB-INF/views/member/myseal.jsp";
     }
     
+    //인장 적용 처리
     @PostMapping("/mysealSelect")
     public String mysealSelect (HttpSession session, @RequestParam int mySealNo) {
     	String memberId = (String) session.getAttribute("memberId");
-    	System.out.println(memberJoinSealDao.mySealNoSelect(memberId));
-    	String BasicSealNo = memberJoinSealDao.mySealNoSelect(memberId);
-//    	String mySealNoValid =  memberDao.selectMemberSealNo(memberId);
-    	
-    	
-//    	if(mySealNoValid==BasicSealNo) {
-//    	memberDao.insertMemberBasicSeal(BasicSealNo, memberId);	
-//    	}
+    	memberDao.insertMemberSealNo(mySealNo, memberId);
     	return "redirect:myseal";
     }
+    
+	//인장 판매 처리
+	@PostMapping("/mysealSell")
+	public String mysealSell(
+			@RequestParam int sealPrice,
+			@RequestParam int mySealNo,
+			HttpSession session
+			) {
+		String memberId = (String) session.getAttribute("memberId");
+		int memberSealNo = memberDao.selectOne(memberId).getMemberSealNo();
+		int basicSealNo = memberJoinSealDao.selectOne(memberId).getMySealNo();
+		if(memberSealNo==mySealNo) {
+			memberDao.insertMemberSealNo(basicSealNo, memberId);
+		}
+		pointDao.addPoint(sealPrice, memberId);
+		memberJoinSealDao.delete(mySealNo);
+		return "redirect:myseal";
+	}
     
    //개인정보수정 
     @GetMapping("/edit")
@@ -274,16 +285,7 @@ public class MemberController {
         model.addAttribute("memberId", memberId);
         model.addAttribute("newPassword", newPassword);
         return "/WEB-INF/views/member/findPwResult.jsp";
-    
-       
-        
-
     }
-    
-    
-    
-    
-
 
   //비밀번호 검사 및 변경 처리
   	 @GetMapping("/password")
@@ -317,22 +319,5 @@ public class MemberController {
   	}
   	
     
-    
-    
-    
-    
-	//인장 판매 처리
-	@PostMapping("/mysealSell")
-	public String mysealSell(
-			@RequestParam int sealPrice,
-			@RequestParam int mySealNo,
-			@ModelAttribute MemberSealWithImageDto memberSealWithImageDto,
-			HttpSession session
-			) {
-		String memberId = (String) session.getAttribute("memberId");
-		pointDao.addPoint(sealPrice, memberId);
-		memberJoinSealDao.delete(mySealNo);
-		return "redirect:myseal";
-	}
     
 }

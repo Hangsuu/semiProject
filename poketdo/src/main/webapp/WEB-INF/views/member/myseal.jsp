@@ -23,7 +23,7 @@ $(function () {
 
 		<div class="my-seal-information" >
 				<div>
-					<span>나의 인장 목록!</span>
+					<span>나의 인장 목록</span>
 				</div>
 				<div>
 					<span>보유 포인트 :  ${member.memberPoint} point</span>

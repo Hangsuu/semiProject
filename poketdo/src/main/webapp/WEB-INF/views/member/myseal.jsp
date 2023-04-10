@@ -26,7 +26,7 @@ $(function () {
 					<span>나의 인장 목록</span>
 				</div>
 				<div>
-					<span>보유 포인트 :  ${point} point</span>
+					<span>보유 포인트 :  ${member.memberPoint} point</span>
 					<span>현재 적용 인장</span>
 					<img width="96" height="96" src="${selectAttachNo}">
 					<a href="/seal/list">
@@ -47,7 +47,12 @@ $(function () {
 					<span>No.0${mySeal.sealNo}</span>
 				</div>
 				<div>
-					<span>${mySeal.sealName}</span>
+					<span>${mySeal.sealName}
+					<c:if test="${mySeal.mySealNo==member.memberSealNo}">
+							(적용중)
+					</c:if>
+					
+					</span>
 				</div>
 				<div >
 				<c:if test="${mySeal.sealPrice!=0}">

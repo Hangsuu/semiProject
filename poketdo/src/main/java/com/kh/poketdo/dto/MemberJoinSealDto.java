@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 public class MemberJoinSealDto {
 
 	private String memberJoinId;
-	private int mySealNo, sealJoinNo, selectSealNo;
+	private int mySealNo, sealJoinNo;
 }

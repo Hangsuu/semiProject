@@ -8,11 +8,9 @@ $(function () {
 	
 
 	var memberPoint = ${point};
-	
 	$(".buy-form button[type='submit']").on("click", function(e) {
 		  var sealPrice = $(this).siblings("input[name='point']").val();
 		  var PointCheck = memberPoint > sealPrice;
-		  console.log(PointCheck);
 		  if (!PointCheck) {
 		    alert("포인트가 부족합니다!");
 		    e.preventDefault();

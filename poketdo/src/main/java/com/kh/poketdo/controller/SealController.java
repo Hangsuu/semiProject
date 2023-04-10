@@ -81,6 +81,8 @@ public class SealController {
 			model.addAttribute("point" , memberDao.selectMemberPoint(memberId));
 			List<String> list2 = memberSealWithImageDao.selectSealNo(memberId);
 			model.addAttribute("list2" , list2);
+		}else {
+			model.addAttribute("point", 0);
 		}
 		return "/WEB-INF/views/seal/list.jsp";
 	}

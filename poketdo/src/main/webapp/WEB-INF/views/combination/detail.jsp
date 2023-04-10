@@ -102,13 +102,13 @@ $(function(){
 	<!-- 태그칸 -->
 		<div class="tag-place mt-10" style="display:inline-block">
 			<c:forEach var="tags" items="${tagDto}">
-				<a href="${pageContext.request.contextPath}list?page=1&column=tag&keyword=${tags.tagName}" class="hash-tag">#${tags.tagName}</a>
+				<a href="list?page=1&column=&keyword=&tagList=${tags.tagName}" class="hash-tag">#${tags.tagName}</a>
 			</c:forEach>
 		</div>
 		<!-- 본문 -->
 		<div class="row w-100 do-not-over mt-20" style="min-height:400px; padding-left:1em; padding-right:1em">${combinationDto.combinationContent}</div>
 		<div class="row">
-			<a href="${pageContext.request.contextPath}list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">${combinationDto.memberNick}님의 게시글 더 보기</a>
+			<a href="$list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">${combinationDto.memberNick}님의 게시글 더 보기</a>
 		</div>
 		<div class="row">
 		<!-- 좋아요 -->
@@ -137,10 +137,10 @@ $(function(){
 <!-- 마지막 줄 -->
 	<div class="row flex-box">
 		<div class="row">
-			<a href="${pageContext.request.contextPath}write" class="board-detail-btn">글쓰기</a>
+			<a href="write" class="board-detail-btn">글쓰기</a>
 		</div>
 		<div class="row align-right">
-			<a href="${pageContext.request.contextPath}list?page=${param.page}&${vo.tagParameter}" class="board-detail-btn align-right">목록</a>
+			<a href="list?page=${param.page}&${vo.tagParameter}" class="board-detail-btn align-right">목록</a>
 		</div>
 	</div>
 </div>

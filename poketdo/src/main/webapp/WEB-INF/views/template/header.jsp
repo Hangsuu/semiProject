@@ -37,6 +37,8 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
     <!-- font-awesome CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    
+    
     <!-- 링크확인창 CDN -->
     <script src="https://cdn.jsdelivr.net/gh/hangsuu/confirm-link@latest/confirm-link.min.js"></script>
     <!-- jquery cdn -->
@@ -75,6 +77,11 @@ $(function(){
 <div class="mb-20" style="background-color:#9DACE4">
    	<div class="flex-box w-100">
    		<div class="flex-box align-center ms-40 nickname-box" style="color:white"></div>
+   		<c:if test="${empty sessionScope.memberId}">
+	   		<div class="row align-right" style="display:inline-block">
+	   			<span class="flex-box align-center super-center"style="color:white">체험용 testuser1/Testuser1!  adminuser1/Adminuser1!</span>
+	   		</div>
+   		</c:if>
    		<div class="align-right" style="display:inline-block">
 			<c:choose>
 				<c:when test="${empty sessionScope.memberId}">

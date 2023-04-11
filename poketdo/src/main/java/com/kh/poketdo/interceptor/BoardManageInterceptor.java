@@ -77,11 +77,13 @@ public class BoardManageInterceptor implements HandlerInterceptor {
 //			return false;
 //		}
 		if(isAdmin) {
-			if(request.getRequestURI().equals("/auction/delete")) return true;
-			else if(request.getRequestURI().equals("/raid/delete")) return true;
-			else if(request.getRequestURI().equals("/combination/delete")) return true;
-			else if(request.getRequestURI().equals("/pocketmon_trade/delete")) return true;
-			else if(request.getRequestURI().equals("/board/delete")) return true;
+			if(request.getRequestURI().equals("/auction/delete")
+					|| request.getRequestURI().equals("/raid/delete")
+					|| request.getRequestURI().equals("/combination/delete")
+					|| request.getRequestURI().equals("/pocketmon_trade/delete")
+					|| request.getRequestURI().equals("/board/delete")) {
+				return true;
+			}
 		}
 		if(isOwner) {
 			return true;

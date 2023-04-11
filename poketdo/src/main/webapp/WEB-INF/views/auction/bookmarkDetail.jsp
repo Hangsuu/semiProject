@@ -108,7 +108,7 @@ $(function(){
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">
 		<span class="board-detail-origin">굿즈 경매</span>
-		<a href="${pageContext.request.contextPath}bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+		<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
 	<div class="row board-detail-title">
 		${auctionDto.auctionTitle}
@@ -121,15 +121,15 @@ $(function(){
 		<div class="row">
 			<span class="auction-writer">
 			<!-- 작성자 검색 링크 -->
-				<a href="${pageContext.request.contextPath}list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
-					<img class="board-seal" src="${pageContext.request.contextPath}+${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
+				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
+					<img class="board-seal" src="${pageContext.request.contextPath}${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-				<a href="${pageContext.request.contextPath}edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
-				<a href="${pageContext.request.contextPath}delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">
@@ -177,7 +177,7 @@ $(function(){
 		<!-- 본문 -->
 		<div class="row w-100" style="min-height:400px; padding-left:1em; padding-right:1em">${auctionDto.auctionContent}</div>
 		<div class="row">
-			<a href="${pageContext.request.contextPath}list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">${auctionDto.memberNick}님의 게시글 더 보기</a>
+			<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">${auctionDto.memberNick}님의 게시글 더 보기</a>
 		</div>
 		<div class="row">
 		<!-- 좋아요 -->
@@ -220,10 +220,10 @@ $(function(){
 <!-- 마지막 줄 -->
 	<div class="row flex-box">
 		<div class="row">
-			<a href="${pageContext.request.contextPath}write" class="board-detail-btn">글쓰기</a>
+			<a href="write" class="board-detail-btn">글쓰기</a>
 		</div>
 		<div class="row align-right">
-			<a href="${pageContext.request.contextPath}bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
+			<a href="bookmark?page=${param.page}&${vo.parameter}&${vo.addParameter}" class="board-detail-btn align-right">목록</a>
 		</div>
 	</div>
 </div>

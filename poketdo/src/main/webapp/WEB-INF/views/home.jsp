@@ -4,11 +4,11 @@
 <!-- swiper 의존성 주입 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script src="/static/js/swiper.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/swiper.js"></script>
 <!-- timer 의존성 주입 -->
-<script src="/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
 <!-- 랜덤 숫자 생성 js 주입 -->
-<script src="/static/js/random.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/random.js"></script>
 <!-- section -->
 <%-- base.css --%>
 <section class="container-1200 flex-box align-center">

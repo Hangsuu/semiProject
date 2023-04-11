@@ -149,8 +149,9 @@ public class RaidDao {
 	}
 	//수정(U)
 	public boolean edit(RaidDto raidDto) {
-		String sql = "update raid set raid_title=?, raid_content=?, raid_type=?, raid_code=? where allboard_no=?";
-		Object[] param = {raidDto.getRaidTitle(), raidDto.getRaidContent(), raidDto.getRaidType(), raidDto.getRaidCode(), raidDto.getAllboardNo()};
+		String sql = "update raid set raid_title=?, raid_content=?, raid_type=?, raid_code=?, raid_start_time=? where allboard_no=?";
+		Object[] param = {raidDto.getRaidTitle(), raidDto.getRaidContent(), raidDto.getRaidType(), raidDto.getRaidCode(),
+				raidDto.getRaidStartTime() ,raidDto.getAllboardNo()};
 		return jdbcTemplate.update(sql, param)>0;
 	}
 	//댓글 갯수 반영

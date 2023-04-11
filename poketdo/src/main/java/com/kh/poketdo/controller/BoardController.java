@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.AllboardDao;
-import com.kh.poketdo.dao.BoardDao;
 import com.kh.poketdo.dao.BoardWithImageDao;
 import com.kh.poketdo.dao.BoardWithNickDao;
-import com.kh.poketdo.dao.MemberSealAttachmentNoDao;
 import com.kh.poketdo.dto.AllboardDto;
-import com.kh.poketdo.dto.BoardDto;
 import com.kh.poketdo.dto.BoardWithImageDto;
 import com.kh.poketdo.dto.BoardWithNickDto;
 import com.kh.poketdo.vo.PaginationVO;
@@ -258,6 +255,4 @@ public class BoardController {
 	    return "/WEB-INF/views/board/detail2.jsp";
 	}
 
-	
-	
 }

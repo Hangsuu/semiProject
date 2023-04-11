@@ -77,32 +77,37 @@ $(function(){
 <div class="mb-20" style="background-color:#9DACE4">
    	<div class="flex-box w-100">
    		<div class="flex-box align-center ms-40 nickname-box" style="color:white"></div>
+   		<c:if test="${empty sessionScope.memberId}">
+	   		<div class="row align-right" style="display:inline-block">
+	   			<span class="flex-box align-center super-center"style="color:white">체험용 testuser1/Testuser1!  adminuser1/Adminuser1!</span>
+	   		</div>
+   		</c:if>
    		<div class="align-right" style="display:inline-block">
 			<c:choose>
 				<c:when test="${empty sessionScope.memberId}">
 				<!-- css:commons, base -->
 					<div class="row me-40">
-						<a href="${pageContext.request.contextPath}/member/login" class="link right"><span class="header-menu me-10">로그인</span></a>
-						<a href="${pageContext.request.contextPath}/member/join" class="link right"><span class="header-menu ms-10">회원가입</span></a>
+						<a href="/member/login" class="link right"><span class="header-menu me-10">로그인</span></a>
+						<a href="/member/join" class="link right"><span class="header-menu ms-10">회원가입</span></a>
 					</div>
 				</c:when>
 				<c:when test="${sessionScope.memberId!=null && sessionScope.memberLevel!='관리자'}">
 					<div class="row me-40">
-						<a href="${pageContext.request.contextPath}/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
-						<a href="${pageContext.request.contextPath}/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
-						<a href="${pageContext.request.contextPath}/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
-						<a href="${pageContext.request.contextPath}/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
-						<a href="${pageContext.request.contextPath}/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
+						<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
+						<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
+						<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
+						<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
+						<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
 					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="row me-40">
-						<a href="${pageContext.request.contextPath}/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
-						<a href="${pageContext.request.contextPath}/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
-						<a href="${pageContext.request.contextPath}/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
-						<a href="${pageContext.request.contextPath}/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
-						<a href="${pageContext.request.contextPath}/admin/adminCheck" class="link right"><span class="header-menu ms-10 me-10">관리 페이지</span></a>
-						<a href="${pageContext.request.contextPath}/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
+						<a href="/member/logout" class="link right"><span class="header-menu me-10">로그아웃</span></a>
+						<a href="/seal/list" class="link right"><span class="header-menu ms-10 me-10">인장구매</span></a>
+						<a href="/message/receive" class="link right"><span class="header-menu ms-10 me-10">쪽지</span></a>
+						<a href="/member/mypage" class="link right"><span class="header-menu ms-10 me-10">마이페이지</span></a>
+						<a href="/admin/adminCheck" class="link right"><span class="header-menu ms-10 me-10">관리 페이지</span></a>
+						<a href="/point/list" class="link right"><span class="header-menu ms-10">P.충전💰</span></a>
 					</div>
 				</c:otherwise>
 			</c:choose>
@@ -112,8 +117,8 @@ $(function(){
       <%-- base.css --%>
     <div class="float-box">
       <div class="float-left w-20">
-        <a href="${pageContext.request.contextPath}/">
-          <img src="${pageContext.request.contextPath}/static/image/logo_final.png" style="width:300px;" class="ms-40 mt-10 mb-10" >
+        <a href="/">
+          <img src="/static/image/logo_final.png" style="width:300px;" class="ms-40 mt-10 mb-10" >
         </a>
       </div>
     <div class="float-right w-70">
@@ -123,20 +128,20 @@ $(function(){
        <div class="nav-bar flex-box align-center">
         
          <div>
-           <a href="${pageContext.request.contextPath}/pocketdex/list" ><span>포켓몬도감</span></a>
+           <a href="/pocketdex/list" ><span>포켓몬도감</span></a>
          </div>
          
           <div>
            <a href="#" style="cursor:default;"><span>커뮤니티</span></a>
            <div>
 			<div>
-			  <a href="${pageContext.request.contextPath}/board/list"><span>자유 게시판</span></a>
+			  <a href="/board/list"><span>자유 게시판</span></a>
 			</div>
 			<div>
-			  <a href="${pageContext.request.contextPath}/board/hot"><span>인기 게시판</span></a>
+			  <a href="/board/hot"><span>인기 게시판</span></a>
 			</div>
 			<div>
-			  <a href="${pageContext.request.contextPath}/auction/list?page=1"><span>굿즈 경매</span></a>
+			  <a href="/auction/list?page=1"><span>굿즈 경매</span></a>
 			</div>
 		</div>
          </div>
@@ -145,13 +150,13 @@ $(function(){
            <a href="#" style="cursor:default;"><span>연구실</span></a>
            <div>
              <div>
-               <a href="${pageContext.request.contextPath}/simulator"><span>개체값 시뮬레이터</span></a>
+               <a href="/simulator"><span>개체값 시뮬레이터</span></a>
              </div>
              <div>
-               <a href="${pageContext.request.contextPath}/calculator"><span>스탯 계산기</span></a>
+               <a href="/calculator"><span>스탯 계산기</span></a>
              </div>
 			 <div>
-               <a href="${pageContext.request.contextPath}/combination/list?page=1&tagList=&keyword=&column="><span>공략 게시판</span></a>
+               <a href="/combination/list?page=1&tagList=&keyword=&column="><span>공략 게시판</span></a>
              </div>
            </div>
          </div>
@@ -159,15 +164,15 @@ $(function(){
            <a href="#" style="cursor:default;"><span>포켓몬게임</span></a>
            <div>
              <div>
-               <a href="${pageContext.request.contextPath}/raid/list?page=1"><span>레이드 참가</span></a>
+               <a href="/raid/list?page=1"><span>레이드 참가</span></a>
              </div>
              <div>
-               <a href="${pageContext.request.contextPath}/pocketmonTrade"><span>포켓몬교환 게시판</span></a>
+               <a href="/pocketmonTrade"><span>포켓몬교환 게시판</span></a>
              </div>
            </div>
          </div>
          <div class="me-10">
-           <a href="${pageContext.request.contextPath}/cardGenerator"><span>트레이너카드</span></a>
+           <a href="/cardGenerator"><span>트레이너카드</span></a>
          </div>
        </div>
      </nav>

@@ -17,8 +17,8 @@
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
-	var boardWriter = "${boardWithImageDto.boardWriter}";
-	var allboardNo = "${boardWIthImageDto.allboardNo}";
+	var boardWriter = "${boardWithNickDto.boardWriter}";
+	var allboardNo = "${boardWithNickDto.allboardNo}";
 </script>
 
 <script>
@@ -98,12 +98,12 @@ $(function(){
 				<fmt:formatDate value="${boardWithNickDto.boardTime}"
 					pattern="yyyy.MM.dd.H:m" />
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
-				<c:if test="${sessionScope.memberId==boardWithNickDto.memberNick}">
+				<c:if test="${sessionScope.memberId==boardWithNickDto.boardWriter}">
 					<a
-						href="edit?allboardNo=${boardWithNickDto.allboardNo}"
+						href="/board/edit?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">수정</a>
 					<a
-						href="delete?allboardNo=${boardWithNickDto.allboardNo}"
+						href="/board/delete?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>

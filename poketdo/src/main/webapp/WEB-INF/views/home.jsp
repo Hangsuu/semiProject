@@ -100,7 +100,7 @@
                 <c:choose>
                   <c:when test="${attachmentNoList.get(i)!=null}">
                     <a href="${pageContext.request.contextPath}/pocketmonTrade/${pocketmonTradeList.get(i).getPocketmonTradeNo()}" class="link">
-                      <img style="width: 100%; height:150px;" src="/attachment/download?attachmentNo=${attachmentNoList.get(i)}">
+                      <img style="width: 100%; height:150px;" src="${pageContext.request.contextPath}/attachment/download?attachmentNo=${attachmentNoList.get(i)}">
                     </a>
                   </c:when>
                   <c:otherwise>
@@ -189,7 +189,7 @@
 							<c:choose>
 								<c:when test="${auctionDto.auctionMainImg>0}">
 									<a href="${pageContext.request.contextPath}/auction/detail?allboardNo=${auctionDto.allboardNo}&page=1" class="link">
-										<img style="max-width:200px; width:auto;  height:auto; max-height:200px;" src="/attachment/download?attachmentNo=${auctionDto.auctionMainImg}">
+										<img style="max-width:200px; width:auto;  height:auto; max-height:200px;" src="${pageContext.request.contextPath}/attachment/download?attachmentNo=${auctionDto.auctionMainImg}">
 									</a>
 								</c:when>
 								<c:otherwise>

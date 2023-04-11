@@ -198,7 +198,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             >
           </div>
           <div class="flex-align-center">
-            <img class="board-seal" src="/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${trade.getMemberNick()}
+            <img class="board-seal" src="${pageContext.request.contextPath}/attachment/download?attachmentNo=${trade.getAttachmentNo()}">${trade.getMemberNick()}
           </div>
           <div class="flex-all-center">
             <c:choose>

@@ -34,9 +34,9 @@ $(function(){
 	})	
 });
 </script>
- <script src="/static/js/timer.js"></script> 
- <script src="/static/js/board/board-like.js"></script> 
- <script src="/static/js/board/board-reply.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/timer.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/board/board-like.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/board/board-reply.js"></script> 
  <!-- 댓글장 템플릿 -->
 <script type="text/template" id="reply-template">
 	<div class="row reply-box flex-box">

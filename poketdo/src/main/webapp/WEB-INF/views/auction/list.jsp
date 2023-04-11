@@ -36,7 +36,7 @@
 					<c:choose>
 						<c:when test="${auctionDto.auctionMainImg>0}">
 							<a href="detail?allboardNo=${auctionDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
-								<img style="max-width:165px; width:auto;  height:auto; max-height:165px;" src="/attachment/download?attachmentNo=${auctionDto.auctionMainImg}">
+								<img style="max-width:165px; width:auto;  height:auto; max-height:165px;" src="${pageContext.request.contextPath}/attachment/download?attachmentNo=${auctionDto.auctionMainImg}">
 							</a>
 						</c:when>
 						<c:otherwise>

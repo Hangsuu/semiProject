@@ -17,7 +17,7 @@
     					<img width="200" height="200" src="${pageContext.request.contextPath}/static/image/user.jpg">
   					</c:when>
   					<c:otherwise>
-    					<img width="200" height="200" src="/attachment/${memberWithImageDto.imageURL}">
+    					<img width="200" height="200" src="${pageContext.request.contextPath}/attachment/${memberWithImageDto.imageURL}">
   					</c:otherwise>
 				</c:choose>
 			</div>

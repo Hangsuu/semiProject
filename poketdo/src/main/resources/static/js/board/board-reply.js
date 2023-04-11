@@ -1,5 +1,7 @@
 /*전역변수(memberId, boardWriter) 설정 필요*/
 $(function(){
+	var params = new URLSearchParams(location.search);
+	var allboardNo = params.get("allboardNo");
 	loadList();
 	
 	function loadList(){

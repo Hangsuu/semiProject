@@ -17,8 +17,8 @@
 <script>
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
-	var boardWriter = "${boardDto.boardWriter}";
-	var allboardNo = "${boardDto.allboardNo}";
+	var boardWriter = "${boardWithNickDto.boardWriter}";
+	var allboardNo = "${boardWithNickDto.allboardNo}";
 </script>
 
 <script>
@@ -83,43 +83,42 @@ $(function(){
 		</div>
 		<div class="row flex-box">
 			<h1>
-				<c:if test="${boardDto.boardHead != null}">
-          [${boardDto.boardHead}] 
+				<c:if test="${boardWithNickDto.boardHead != null}">
+          [${boardWithNickDto.boardHead}] 
         </c:if>
-				${boardDto.boardTitle}
+				${boardWithNickDto.boardTitle}
 			</h1>
 		</div>
 		<div class="row flex-box">
 			<div>
 				<a class="link"
-					href="/board/list?column=member_nick&keyword=${member.memberNick}">
-					<%-- <img class="board-seal" src="${boardDto.urlLink}">${member.getMemberNick()} </a> --%>
+					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}">
+					<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
 				<span>/</span>
-				<fmt:formatDate value="${boardDto.boardTime}"
+				<fmt:formatDate value="${boardWithNickDto.boardTime}"
 					pattern="yyyy.MM.dd.H:m" />
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
-				<c:if test="${sessionScope.memberId==boardDto.boardWriter}">
+				<c:if test="${sessionScope.memberId==boardWithNickDto.boardWriter}">
 					<a
-						href="edit?page=${param.page}&allboardNo=${boardDto.allboardNo}"
+						href="/board/edit?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">수정</a>
 					<a
-						href="delete?allboardNo=${boardWithNickDto.allboardNo}"
+						href="/board/delete?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>
 			<div class="board-detail-count align-right">
-				조회수 : <span class="board-detail-read-count">${boardDto.boardRead}</span>
+				조회수 : <span class="board-detail-read-count">${boardWithNickDto.boardRead}</span>
 			</div>
 		</div>
 		<hr />
 		<div class="row boardContent w-100" style="min-height: 400px">
-			<div>${boardDto.boardContent}</div>
+			<div>${boardWithNickDto.boardContent}</div>
 		</div>
 		<div class="row">
 			<div>
 				<a class="link"
-					href="${pageContext.request.contextPath}/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의
-					게시글 더 보기</a>
+					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의게시글 더 보기</a>
 			</div>
 		</div>
 
@@ -128,11 +127,11 @@ $(function(){
 			<!-- 좋아요 -->
 			<div class="left like-box" style="display: inline-block">
 				<i class="fa-heart detail-like"></i> 좋아요 :<span class="like-count"
-					style="margin-left: 0.5em">${boardDto.boardLike}</span>
+					style="margin-left: 0.5em">${boardWithNickDto.boardLike}</span>
 			</div>
 			<!-- 댓글 개수 댓글 span(class=reply-count)에 카운트 처리되도록 함-->
 			<div class="reply-number-box" style="display: inline-block">
-				댓글 :<span class="reply-count" style="margin-left: 0.5em">${boardDto.boardReply}</span>
+				댓글 :<span class="reply-count" style="margin-left: 0.5em">${boardWithNickDto.boardReply}</span>
 			</div>
 		</div>
 		<hr>

@@ -16,7 +16,7 @@ import com.kh.poketdo.dto.LikeTableDto;
 import com.kh.poketdo.vo.BoardLikeVO;
 
 @RestController
-@RequestMapping("/rest/board")
+@RequestMapping("/rest")
 public class BoardRestController {
 	
 	@Autowired

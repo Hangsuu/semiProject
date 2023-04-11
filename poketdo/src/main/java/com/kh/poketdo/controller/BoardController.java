@@ -115,7 +115,7 @@ public class BoardController {
 	                   RedirectAttributes attr) {
 	    boardWithImageDao.update(boardWithImageDto);
 	    attr.addAttribute("allboardNo", boardWithImageDto.getAllboardNo());
-	    return "redirect:detail"; // allboardNo을 다시 디테일로 전달
+	    return "redirect:/board/detail"; // detail 페이지로 이동
 	}
 
 
@@ -156,7 +156,7 @@ public class BoardController {
 		BoardWithNickDto boardWithNickDto = boardWithNickDao.selectOne(allboardNo);
 		String memberId = (String) session.getAttribute("memberId");
 		
-		boolean owner = boardWithNickDto.getBoardWriter() != null 
+		boolean owner = boardWithNickDto != null && boardWithNickDto.getBoardWriter() != null 
 				&& boardWithNickDto.getBoardWriter().equals(memberId);
 		model.addAttribute("owner", owner);
 		
@@ -176,7 +176,9 @@ public class BoardController {
 			
 			if(!memory.contains(allboardNo)) {//읽은 적이 없는가(기억에 없는가)
 				boardWithImageDao.updateReadCount(allboardNo);
+				if(boardWithNickDto != null) {
 				boardWithNickDto.setBoardRead(boardWithNickDto.getBoardRead()+1);//DTO 조회수 1증가
+				}
 				memory.add(allboardNo);//저장소에 추가(기억에 추가)
 			}
 			//System.out.println("memory = " + memory);

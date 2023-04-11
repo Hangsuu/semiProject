@@ -80,7 +80,9 @@
   
   	<c:if test = "${param.mode == 'error'}">
  		<h5 class="row left" style="color:red;">비밀번호가 일치하지 않습니다</h5>
- 		</c:if>
+ 	</c:if>
+  	
+  
   
   
   <div class="center">
@@ -90,7 +92,7 @@
         
         <div class="row center" style="color:red">
         사용하지 않은 포인트는 영구소멸되며 복구 불가합니다. <br>
-        작성한 게시글 / 댓글 모두 삭제되며 복구 불가합니다.
+        작성한 게시글 / 댓글은 모두 삭제되며 복구 불가합니다.
         </div>
        
         
@@ -100,16 +102,10 @@
           </div> 		
  	
 
- 
-    
-    
-     
- 		
 
  		
   </article>
   
-   <input style="display: none;" name="prevPage" value="${param.prevPage != null ? param.prevPage : header.referer}">
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

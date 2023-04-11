@@ -35,7 +35,8 @@
         <div class="container-1100">
             <!-- 제목 -->
 			<div class="row center">
-				<h2>${boardWithImageDto.allboardNo}번 게시글 수정</h2>
+				<input type="hidden" name="allboardNo" value="${boardWithImageDto.allboardNo}">
+				<h2>${boardWithImageDto.boardNo}번 게시글 수정</h2>
 			</div>
 	
 			<div class="row">

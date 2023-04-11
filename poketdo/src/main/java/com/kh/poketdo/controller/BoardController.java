@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.poketdo.dao.AllboardDao;
-import com.kh.poketdo.dao.BoardDao;
 import com.kh.poketdo.dao.BoardWithImageDao;
 import com.kh.poketdo.dao.BoardWithNickDao;
-import com.kh.poketdo.dao.MemberSealAttachmentNoDao;
 import com.kh.poketdo.dto.AllboardDto;
-import com.kh.poketdo.dto.BoardDto;
 import com.kh.poketdo.dto.BoardWithImageDto;
 import com.kh.poketdo.dto.BoardWithNickDto;
 import com.kh.poketdo.vo.PaginationVO;
@@ -36,15 +33,9 @@ public class BoardController {
 	
 	@Autowired
 	private AllboardDao allboardDao;
-
-	@Autowired
-	private BoardDao boardDao;
 	
 	@Autowired
 	private BoardWithImageDao boardWithImageDao;
-	
-	@Autowired
-	private MemberSealAttachmentNoDao memberSealAttachmentNoDao;
 
 	@GetMapping("/list")
 	public String list(Model model, 
@@ -54,6 +45,7 @@ public class BoardController {
 		
 		model.addAttribute("list", boardWithNickDao.selectList());
 		model.addAttribute("list", boardWithNickDao.selectList(vo));
+		model.addAttribute("pagination", vo);
 		model.addAttribute("noticeList", boardWithNickDao.selectNoticeList(1,3));
 		return "/WEB-INF/views/board/list.jsp";
 	}
@@ -104,29 +96,30 @@ public class BoardController {
 	    boardWithImageDao.insert(boardWithImageDto);
 
 	    //상세 페이지로 redirect
-	    attr.addAttribute("boardNo", boardNo);
-	    // attr.addAttribute("allboardNo", allboardNo);
+	    attr.addAttribute("allboardNo", allboardNo);
 
 	    return "redirect:detail";
 	}
 	
 	
-	// 게시글 수정 페이지 구현[GET]
-		@GetMapping("/edit")
-		public String edit(@RequestParam int allboardNo, Model model) {
-			model.addAttribute("boardWithImageDto", boardWithImageDao.selectOne(allboardNo));
-			
-			return "/WEB-INF/views/board/edit.jsp";
-		}
-		// 게시글 수정 페이지 구현[POST]
-		@PostMapping("/edit")
-		public String edit(@ModelAttribute BoardWithImageDto boardWithImageDto,
-				RedirectAttributes attr) {
-			boardWithImageDao.update(boardWithImageDto);
-			attr.addAttribute("allboardNo", boardWithImageDto.getBoardNo());
-			
-			return "redirect:detail";
-		}
+	@GetMapping("/edit")
+	public String edit(@RequestParam int allboardNo, Model model) {
+	    BoardWithImageDto boardWithImageDto = boardWithImageDao.selectOne(allboardNo);
+	    model.addAttribute("boardWithImageDto", boardWithImageDto);
+	    model.addAttribute("allboardNo", allboardNo); // allboardNo도 함께 전달
+	    return "/WEB-INF/views/board/edit.jsp";
+	}
+
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute BoardWithImageDto boardWithImageDto,
+	                   RedirectAttributes attr) {
+	    boardWithImageDao.update(boardWithImageDto);
+	    attr.addAttribute("allboardNo", boardWithImageDto.getAllboardNo());
+	    return "redirect:/board/detail"; // detail 페이지로 이동
+	}
+
+
+	
 	
 	// 게시글 삭제 페이지 구현[GET]
 	@GetMapping("/delete")
@@ -157,40 +150,45 @@ public class BoardController {
 //		(3) 읽은 적이 있으면 조회수 증가를 하지 않고 없으면 추가 후 조회수 증가
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam int boardNo, Model model, HttpSession session) {
-	    // 사용자가 작성자인지 판정 후 JSP로 전달
-	    // BoardWithNickDto boardWithNickDto = boardWithNickDao.selectOne(allboardNo);
-		BoardDto boardDto = boardDao.selectOne(boardNo);
-		int allboardNo = boardDto.getAllboardNo();
-	    String memberId = session.getAttribute("memberId")== null ? null : (String) session.getAttribute("memberId");
-	    boolean owner = boardDto.getBoardWriter() != null
-	            && boardDto.getBoardWriter().equals(memberId);
-	    model.addAttribute("owner", owner);
-
-	    // 사용자가 관리자인지 판정 후 JSP로 전달
-	    String memberLevel = session.getAttribute("memberLevel")==null ? null : (String) session.getAttribute("memberLevel");
-	    boolean admin = memberLevel != null && memberLevel.equals("관리자");
-	    model.addAttribute("admin", admin);
-	    // 조회수 증가
-	    if (!owner) {// 내가 작성한 글이 아니라면(시나리오 1번)
-	        // 시나리오 2번 진행
-	    	
+	public String detail(@RequestParam int allboardNo,
+						Model model, HttpSession session) {
+		//사용자가 작성자인지 판정 후 JSP로 전달
+		BoardWithNickDto boardWithNickDto = boardWithNickDao.selectOne(allboardNo);
+		String memberId = (String) session.getAttribute("memberId");
+		
+		boolean owner = boardWithNickDto != null && boardWithNickDto.getBoardWriter() != null 
+				&& boardWithNickDto.getBoardWriter().equals(memberId);
+		model.addAttribute("owner", owner);
+		
+		//사용자가 관리자인지 판정 후 JSP로 전달
+		String memberLevel = (String) session.getAttribute("memberLevel");
+		boolean admin = memberLevel != null && memberLevel.equals("관리자");
+		model.addAttribute("admin", admin);
+		
+		//조회수 증가
+		if(!owner) {//내가 작성한 글이 아니라면(시나리오 1번)
+			
+			//시나리오 2번 진행
 			Set<Integer> memory = (Set<Integer>) session.getAttribute("memory");
-	        if (memory == null) {
-	            memory = new HashSet<>();
-	        }
-	        if (!memory.contains(allboardNo)) {// 읽은 적이 없는가(기억에 없는가)
-	            boardWithImageDao.updateReadCount(allboardNo);
-	            boardDto.setBoardRead(boardDto.getBoardRead() + 1);// DTO 조회수 1증가
-	            memory.add(allboardNo);// 저장소에 추가(기억에 추가)
-	        }
-	        session.setAttribute("memory", memory);// 저장소 갱신
-	    }
-		// boardDto.getBoardWriter()
-	    model.addAttribute("boardDto", boardDto);
-		model.addAttribute("member", memberSealAttachmentNoDao.selectOne(boardDto.getBoardWriter()));
-	    return "/WEB-INF/views/board/detail.jsp";
+			if(memory == null) {
+				memory = new HashSet<>();
+			}
+			
+			if(!memory.contains(allboardNo)) {//읽은 적이 없는가(기억에 없는가)
+				boardWithImageDao.updateReadCount(allboardNo);
+				if(boardWithNickDto != null) {
+				boardWithNickDto.setBoardRead(boardWithNickDto.getBoardRead()+1);//DTO 조회수 1증가
+				}
+				memory.add(allboardNo);//저장소에 추가(기억에 추가)
+			}
+			//System.out.println("memory = " + memory);
+			session.setAttribute("memory", memory);//저장소 갱신
+			
+		}
+		model.addAttribute("boardWithNickDto", boardWithNickDto);
+		return "/WEB-INF/views/board/detail.jsp";
 	}
+	
 	// backup
 	// @GetMapping("/detail3")
 	// public String detail3(@RequestParam int allboardNo, Model model, HttpSession session) {
@@ -259,6 +257,4 @@ public class BoardController {
 	    return "/WEB-INF/views/board/detail2.jsp";
 	}
 
-	
-	
 }

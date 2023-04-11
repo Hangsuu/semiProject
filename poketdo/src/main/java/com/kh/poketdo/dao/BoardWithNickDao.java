@@ -122,10 +122,11 @@ public class BoardWithNickDao {
 
 	public BoardWithNickDto selectOne(int allboardNo) {
 		String sql = "select * from board_name_image where allboard_no=?";
+		//select board_writer from board_name_image where allboard_no = 486;
 		Object[] param = {allboardNo};
 		List<BoardWithNickDto> list = jdbcTemplate.query(sql, mapper, param);
-		return list.isEmpty()? null : list.get(0);
-	}
+		return list.isEmpty() ? null : list.get(0);
+	} 
 	
 	//공지사항 조회하는 기능
 			public List<BoardWithNickDto> selectNoticeList(int begin, int end){

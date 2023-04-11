@@ -42,8 +42,6 @@
  </script> 
 </c:if>
 
-
-<div class="container-1100">
 <div class="container-1100 mt-30">
 	<div class="row center">
 		<h1>자유 게시판</h1>
@@ -81,7 +79,7 @@
                         <td>${boardWithNickDto.boardNo}</td>
                         <td class="left">
                             <!-- 제목을 누르면 상세로 이동 -->
-                            <a href="detail?boardNo=${boardWithNickDto.getBoardNo()}" class="link">
+                            <a href="detail?allboardNo=${boardWithNickDto.allboardNo}" class="link">
                                 
                                 <c:if test="${boardWithNickDto.boardHead != null}">
                                     <!-- 말머리가 있으면 출력 -->
@@ -115,7 +113,7 @@
 						<td>${boardWithNickDto.boardNo}</td>
 						<td class="left">
 							<!-- 제목을 누르면 상세로 이동 --> <a
-							href="detail?boardNo=${boardWithNickDto.getBoardNo()}" class="link">
+							href="detail?allboardNo=${boardWithNickDto.allboardNo}" class="link">
 
 								<c:if test="${boardWithNickDto.boardHead != null}">
 									<!-- 말머리가 있으면 출력 -->

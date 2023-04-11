@@ -456,8 +456,8 @@
 		           <div class="com2-overlay" id="overlay-com2"></div>
 		            
 		           
-		            <img id="image1" src="/static/image/A.png" >
-		            <img id="image2" src="/static/image/B.png" style= "display: none">
+		            <img id="image1" src="${pageContext.request.contextPath}/static/image/A.png" >
+		            <img id="image2" src="${pageContext.request.contextPath}/static/image/B.png" style= "display: none">
 		            
 		                <img id="preview" width="150px" height="150px" class="image-container image-2">
 		    	  

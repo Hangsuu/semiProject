@@ -116,7 +116,7 @@ pageEncoding="UTF-8"%>
           <c:choose>
 			<c:when test="${sessionScope.memberLevel=='관리자' || sessionScope.memberId == list.getPointBoardWriter() }">
           
-            	<img class="board-seal" src="/attachment/download?attachmentNo=${list.getAttachmentNo()}">${list.getMemberNick()}
+            	<img class="board-seal" src="${pageContext.request.contextPath}/attachment/download?attachmentNo=${list.getAttachmentNo()}">${list.getMemberNick()}
  	        </c:when>
  	        <c:otherwise>
  	        	포인트 구매자

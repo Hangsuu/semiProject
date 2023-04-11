@@ -9,7 +9,7 @@
 	<article class="mt-50 container-1200 center">
     
     <div>
-		<img src="/static/image/404.png">
+		<img src="${pageContext.request.contextPath}/static/image/404.png">
 	</div>
 	</article>
 	</section>

@@ -13,7 +13,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   rel="stylesheet"
 />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/pocketmonTrade/pocketmonTradeWrite.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/pocketmonTrade/pocketmonTradeWrite.js"></script>
 <script>
   const memberId = "${sessionScope.memberId}";
   const memberLevel = "${sessionScope.memberLevel}";

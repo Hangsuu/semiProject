@@ -59,7 +59,7 @@
                     <img width="100" height="100" src="${urlList.get(i)}">
                   </c:when>
                   <c:otherwise>
-                    <img width="100" height="100" src="/attachment/${list.get(i).imageURL}">
+                    <img width="100" height="100" src="${pageContext.request.contextPath}/attachment/${list.get(i).imageURL}">
                   </c:otherwise>
                 </c:choose>
               </td>

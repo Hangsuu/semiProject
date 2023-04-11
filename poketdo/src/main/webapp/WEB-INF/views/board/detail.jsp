@@ -34,9 +34,9 @@ $(function(){
 	})	
 });
 </script>
- <script src="/static/js/timer.js"></script> 
- <script src="/static/js/board/board-like.js"></script> 
- <script src="/static/js/board/board-reply.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/timer.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/board/board-like.js"></script> 
+ <script src="${pageContext.request.contextPath}/static/js/board/board-reply.js"></script> 
  <!-- 댓글장 템플릿 -->
 <script type="text/template" id="reply-template">
 	<div class="row reply-box flex-box">
@@ -79,7 +79,7 @@ $(function(){
 	<article class="container-900">
 		<div class="row flex-box">
 			<h1>자유 게시판</h1>
-			<a href="/board/list" class="board-detail-btn align-right">목록</a>
+			<a href="${pageContext.request.contextPath}/board/list" class="board-detail-btn align-right">목록</a>
 		</div>
 		<div class="row flex-box">
 			<h1>
@@ -100,18 +100,10 @@ $(function(){
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 				<c:if test="${sessionScope.memberId==boardDto.boardWriter}">
 					<a
-<<<<<<< HEAD
-						href="edit?allboardNo=${boardWithNickDto.allboardNo}"
-=======
 						href="edit?page=${param.page}&allboardNo=${boardDto.allboardNo}"
->>>>>>> refs/remotes/origin/main
 						class="board-detail-btn">수정</a>
 					<a
-<<<<<<< HEAD
 						href="delete?allboardNo=${boardWithNickDto.allboardNo}"
-=======
-						href="delete?page=${param.page}&allboardNo=${boardDto.allboardNo}"
->>>>>>> refs/remotes/origin/main
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>
@@ -126,7 +118,7 @@ $(function(){
 		<div class="row">
 			<div>
 				<a class="link"
-					href="/board/list?column=member_nick&keyword=${member.memberNick}"><b>${member.getMemberNick()}</b>님의
+					href="${pageContext.request.contextPath}/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의
 					게시글 더 보기</a>
 			</div>
 		</div>

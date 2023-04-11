@@ -2,7 +2,7 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script src="/static/js/message/messageWrite.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/message/messageWrite.js"></script>
 <script>
     const memberId = "${sessionScope.memberId}";
 </script>

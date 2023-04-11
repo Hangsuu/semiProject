@@ -47,7 +47,7 @@
         <div class= "container-500 center mb-30">
     	
 		<h3>${memberDto.memberId}님의 새로운 비밀번호는 ${newPassword}입니다.</h3>
-		<a href="/member/join"><button class="form-btn neutral w-100 mt-10 mt-50" type="button">로그인하기</button></a>
+		<a href="${pageContext.request.contextPath}/member/join"><button class="form-btn neutral w-100 mt-10 mt-50" type="button">로그인하기</button></a>
     </div>
     
     

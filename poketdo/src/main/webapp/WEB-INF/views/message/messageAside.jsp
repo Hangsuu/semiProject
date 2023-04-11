@@ -45,23 +45,23 @@ pageEncoding="UTF-8"%>
 <section class="container-1200 mt-50 mb-50">
   <aside class="message-nav">
     <div class="flex-row-grow">
-      <a class="back-sc white-bold message-send-btn" href="/message/write"
+      <a class="back-sc white-bold message-send-btn" href="${pageContext.request.contextPath}/message/write"
         >쪽지쓰기</a
       >
       <a
         class="back-sc white-bold message-send-btn"
-        href="/message/write?recipient=${sessionScope.memberId}"
+        href="${pageContext.request.contextPath}/message/write?recipient=${sessionScope.memberId}"
         >내게쓰기</a
       >
     </div>
     <div class="row reply-aside receive-store">
-      <a href="/message/receive" class="link"
+      <a href="${pageContext.request.contextPath}/message/receive" class="link"
         ><i class="fa-solid fa-message" style="color: #9dace4"></i>
         &nbsp;받은쪽지함</a
       >
     </div>
     <div class="row reply-aside send-store">
-      <a href="/message/send" class="link"
+      <a href="${pageContext.request.contextPath}/message/send" class="link"
         ><i class="fa-regular fa-message" style="color: #9dace4"></i>
         &nbsp;보낸쪽지함</a
       >

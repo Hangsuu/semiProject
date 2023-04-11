@@ -5,8 +5,8 @@
 
 <script type="text/javascript">
 $(function () {
-	
-	var memberPoint = parseInt("${point}")||0;
+	var memberPoint = parseInt("${point}") || 0;
+	var memberPoint = ${point};
 	$(".buy-form button[type='submit']").on("click", function(e) {
 		  var sealPrice = $(this).siblings("input[name='point']").val();
 		  var PointCheck = memberPoint > sealPrice;
@@ -48,7 +48,7 @@ $(function () {
 				<c:when test="${sessionScope.memberLevel != null}">
 					<div>
 							<span>보유 포인트 : ${point} point</span>
-						<a href="/member/myseal">
+						<a href="${pageContext.request.contextPath}/member/myseal">
 							<span>내 인장 목록 보러가기</span>
 							<i class="fa-solid fa-square-arrow-up-right"></i>
 						</a>
@@ -56,7 +56,7 @@ $(function () {
 				</c:when>
 				<c:otherwise>
 					<div>
-						<a href="/member/login">
+						<a href="${pageContext.request.contextPath}/member/login">
 							<span>로그인 후 이용하세요.</span>
 						</a>
 					</div>

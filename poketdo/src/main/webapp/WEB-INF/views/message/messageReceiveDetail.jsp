@@ -7,8 +7,9 @@
 <script>
   const messageNo = parseInt("${messageWithNickDto.getMessageNo()}");
   const messageSender = "${messageWithNickDto.getMessageSender()}";
+  const contextPath = "${pageContext.request.contextPath}";
 </script>
-<script src="/static/js/message/messageReceiveDetail.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/message/messageReceiveDetail.js"></script>
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
     <div>
       <h1>${messageWithNickDto.getMessageTitle()}</h1>
@@ -21,7 +22,7 @@
       <div class="pocketmonTrade-btn message-reply-btn">
         <i class="fa-solid fa-reply" style="color: #9DACE4;"></i> 답장
       </div>
-      <a href="/message/receive" class="pocketmonTrade-btn message-list-btn ml-auto">
+      <a href="${pageContext.request.contextPath}/message/receive" class="pocketmonTrade-btn message-list-btn ml-auto">
         <i class="fa-solid fa-list" style="color: #9DACE4;"></i> 목록
       </a>
     </div>

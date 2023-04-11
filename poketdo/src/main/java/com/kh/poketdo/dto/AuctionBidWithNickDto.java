@@ -22,7 +22,7 @@ public class AuctionBidWithNickDto {
 			return "/attachment/download?attachmentNo="+attachmentNo;
 		}
 		else {
-			return "/static/image/noimage.png";
+			return "${pageContext.request.contextPath}/static/image/noimage.png";
 		}
 	}
 }

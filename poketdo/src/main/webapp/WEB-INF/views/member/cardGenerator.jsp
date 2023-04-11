@@ -9,45 +9,6 @@
 
 
 
-  
-<!-- 카카오톡 공유 -->
-   
-<!--    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
-
-<!-- <script type='text/javascript'> -->
- 
-<!-- //     Kakao.init('52d9451f533482c35637e8f85921903f'); -->
-
-<!-- //     Kakao.Link.createDefaultButton({ -->
-<!-- //       container: '#kakao-link-btn', -->
-<!-- //       objectType: 'feed', -->
-<!-- //       content: { -->
-<!-- //         title: '국내 최대 포켓몬 커뮤니티 POCEKTDO!', -->
-<!-- //         description: '나만의 포켓몬 트레이너 카드를 만들어봐요!', -->
-<!-- //         imageUrl: 'https://ifh.cc/g/Xdk73X.png', -->
-<!-- //         link: { -->
-<!-- //           mobileWebUrl: 'localhost:8080', -->
-<!-- //           webUrl: 'localhost:8080' -->
-<!-- //         } -->
-<!-- //       }, -->
-<!-- //       buttons: [ -->
-<!-- //         { -->
-<!-- //           title: '트레이너 카드 만들기', -->
-<!-- //           link: { -->
-<!-- //             mobileWebUrl: 'localhost:8080/cardGenerator', -->
-<!-- //             webUrl: 'localhost:8080/cardGenerator' -->
-<!-- //           } -->
-<!-- //         } -->
-<!-- //       ] -->
-<!-- //     }); -->
- 
-<!-- </script> -->
-
-
-<!-- 서버고르기 -->
-
-	
-
     
     <script type="text/javascript">
 
@@ -581,7 +542,7 @@
 			<c:choose>
 				<c:when test="${not empty sessionScope.memberId}">
 	  			<%-- 로그인 했을 경우 버튼 노출 --%>
-				<button class= "form-btn neutral w-100 mb-10" type="button" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
+				<button class= "form-btn positive w-100" type="button" name="attach" onclick="saveImage2()" >내 정보에 저장</button> 
 				</c:when>
 				<c:otherwise>
 				<button class= "form-btn positive w-100" type="button" onclick="saveImage()">카드 이미지 다운로드</button>

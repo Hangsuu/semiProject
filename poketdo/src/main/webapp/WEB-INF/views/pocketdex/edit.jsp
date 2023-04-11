@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<script src="/static/js/pocket-edit.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/pocket-edit.js"></script>
 <section class="container-1200 flex-box flex-vertical">
 
 	<aside></aside>

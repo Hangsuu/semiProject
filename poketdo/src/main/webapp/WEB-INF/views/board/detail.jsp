@@ -79,7 +79,7 @@ $(function(){
 	<article class="container-900">
 		<div class="row flex-box">
 			<h1>자유 게시판</h1>
-			<a href="/board/list" class="board-detail-btn align-right">목록</a>
+			<a href="${pageContext.request.contextPath}/board/list" class="board-detail-btn align-right">목록</a>
 		</div>
 		<div class="row flex-box">
 			<h1>
@@ -118,8 +118,7 @@ $(function(){
 		<div class="row">
 			<div>
 				<a class="link"
-					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의
-					게시글 더 보기</a>
+					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의게시글 더 보기</a>
 			</div>
 		</div>
 

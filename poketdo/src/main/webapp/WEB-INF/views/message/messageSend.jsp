@@ -21,12 +21,12 @@
     <div class="message-send-cancle-btn message-cancle-col">발송취소</div>
   </div>
 </script>
-<script src="/static/js/message/messageSend.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/message/messageSend.js"></script>
 
   <!-- aside -->
   <jsp:include page="/WEB-INF/views/message/messageAside.jsp"></jsp:include>
     <div class="mb-30">
-        <h1>보낸 쪽지함 <a class="deco-none message-send-cnt" style="color:black" href="/message/send"></a></h1>
+        <h1>보낸 쪽지함 <a class="deco-none message-send-cnt" style="color:black" href="${pageContext.request.contextPath}/message/send"></a></h1>
     </div>
     <div class="row flex">
       <div class="pocketmonTrade-btn message-delete-btn"><i class="fa-solid fa-xmark" style="color:red;"></i> 삭제</div><div class="pocketmonTrade-btn ml-auto message-refresh-btn"><i class="fa-solid fa-rotate-right" style="color: gray;"></i> 새로고침</div>

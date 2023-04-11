@@ -6,8 +6,7 @@
 <script type="text/javascript">
 $(function () {
 	
-
-	var memberPoint = ${point};
+	var memberPoint = parseInt("${point}")||0;
 	$(".buy-form button[type='submit']").on("click", function(e) {
 		  var sealPrice = $(this).siblings("input[name='point']").val();
 		  var PointCheck = memberPoint > sealPrice;

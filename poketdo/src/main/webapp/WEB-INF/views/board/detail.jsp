@@ -92,7 +92,7 @@ $(function(){
 		<div class="row flex-box">
 			<div>
 				<a class="link"
-					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}">
+					href="${pageContext.request.contextPath}/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}">
 					<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
 				<span>/</span>
 				<fmt:formatDate value="${boardWithNickDto.boardTime}"
@@ -100,10 +100,10 @@ $(function(){
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 				<c:if test="${sessionScope.memberId==boardWithNickDto.boardWriter}">
 					<a
-						href="/board/edit?allboardNo=${boardWithNickDto.allboardNo}"
+						href="${pageContext.request.contextPath}/board/edit?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">수정</a>
 					<a
-						href="/board/delete?allboardNo=${boardWithNickDto.allboardNo}"
+						href="${pageContext.request.contextPath}/board/delete?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>
@@ -118,7 +118,7 @@ $(function(){
 		<div class="row">
 			<div>
 				<a class="link"
-					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의게시글 더 보기</a>
+					href="${pageContext.request.contextPath}/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의게시글 더 보기</a>
 			</div>
 		</div>
 

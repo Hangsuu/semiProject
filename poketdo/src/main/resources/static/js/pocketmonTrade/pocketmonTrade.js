@@ -5,7 +5,7 @@ $(function () {
   loadReply();
   summernote();
   $.ajax({
-    url:contextPath+contextPath+ "/rest/like/check",
+    url:contextPath+ "/rest/like/check",
     method: "post",
     data: likeTableDto,
     success: function (response) {
@@ -21,7 +21,7 @@ $(function () {
   // 댓글 목록 보이기
   function loadReply() {
     $.ajax({
-      url:contextPath+contextPath+ "/rest/reply/" + String(allboardNo),
+      url:contextPath + "/rest/reply/" + String(allboardNo),
       method: "get",
       // data: { allboardNo: allboardNo },
       success: function (response) {
@@ -44,7 +44,7 @@ $(function () {
           // 댓글 계층 처리
           let level;
           $.ajax({
-            url:contextPath+contextPath+ "/rest/reply/level/" + replyDto.replyNo,
+            url:contextPath + "/rest/reply/level/" + replyDto.replyNo,
             method: "get",
             async: false,
             success: function(response){
@@ -122,7 +122,7 @@ $(function () {
               let replyOrigin = allboardNo;
 
               $.ajax({
-                url:contextPath+contextPath+ "/rest/reply/",
+                url: contextPath+ "/rest/reply/",
                 method: "post",
                 data: { replyOrigin: replyOrigin, replyWriter: replyWriter, replyContent: replyContent, replyGroup: replyGroup },
                 success: function(){
@@ -154,7 +154,7 @@ $(function () {
               }
               // 댓글 테이블에 데이터 생성
               $.ajax({
-                url:contextPath+contextPath+ "/rest/reply/",
+                url:contextPath+ "/rest/reply/",
                 method: "post",
                 data: data,
                 success: function () {
@@ -193,7 +193,7 @@ $(function () {
             $(newReReplyEle).find(".pocketmonTrade-reply-update-btn").click(function () {
               const newReplyContent = $(newReReplyEle).find("textarea[name=replyContent]").val();
               $.ajax({
-                url:contextPath+contextPath+ "/rest/reply/",
+                url: contextPath+ "/rest/reply/",
                 method: "put",
                 data: { replyNo: replyDto.replyNo, replyContent: newReplyContent },
                 success: function(){
@@ -211,7 +211,7 @@ $(function () {
           newReplyEle.find(".pocketmonTrade-reply-delete-btn").click(function () {
             if (confirm("댓글을 삭제하시겠습니까?\n(댓글을 삭제하면, 완료하지 않은 대댓글, 수정한 내용이 사라집니다)")) {
               $.ajax({
-                url:contextPath+contextPath+ "/rest/reply/" + replyDto.replyNo,
+                url:contextPath+ "/rest/reply/" + replyDto.replyNo,
                 method: "delete",
                 success: function(){
                   loadReply();
@@ -263,7 +263,7 @@ $(function () {
     let likeCntEle = $(this).children().eq(1);
     // 좋아요일 때 하트 채우기, 아닐 때 비우기
     $.ajax({
-      url:contextPath+contextPath+ "/rest/like/",
+      url:contextPath+ "/rest/like/",
       method: "post",
       data: likeTableDto,
       success: function (responseIsLike) {
@@ -274,7 +274,7 @@ $(function () {
         }
         // 좋아요 갯수 반영
         $.ajax({
-          url:contextPath+contextPath+ "/rest/like/count/",
+          url:contextPath+ "/rest/like/count/",
           method: "get",
           data: { allboardNo: allboardNo },
           success: function (responseLikeCnt) {
@@ -318,7 +318,7 @@ $(function () {
     }
     // 댓글 테이블에 데이터 생성
     $.ajax({
-      url:contextPath+contextPath+ "/rest/reply/",
+      url:contextPath+ "/rest/reply/",
       method: "post",
       data: data,
       success: function () {
@@ -351,7 +351,7 @@ $(function () {
           let fd = new FormData();
           fd.append("attach", files[0]);
           $.ajax({
-            url:contextPath+contextPath+ "/rest/attachment/upload",
+            url: contextPath + "/rest/attachment/upload",
             method: "post",
             data: fd,
             processData: false,

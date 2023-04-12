@@ -86,7 +86,7 @@
 		<button type="submit" class="form-btn positive w-100">변경</button>
 	</div>
 	<div class="row">
-		<a href="/board/detail?allboardNo=${boardWithImageDto.allboardNo}" type="submit" class="form-btn neutral w-100">목록</a>
+		<a href="${pageContext.request.contextPath}/board/detail?allboardNo=${boardWithImageDto.allboardNo}" type="submit" class="form-btn neutral w-100">목록</a>
 	</div>
 		</div>
 	</form>

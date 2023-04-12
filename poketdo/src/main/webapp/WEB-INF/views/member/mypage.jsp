@@ -13,7 +13,7 @@
     
       <script type="text/javascript">           
 		function MakeCard() {
-			document.location.href="/cardGenerator"; <!-- 다른페이지로 이동하는 함수 -->
+			document.location.href="${pageContext.request.contextPath}/cardGenerator"; <!-- 다른페이지로 이동하는 함수 -->
 		}                                      
 	</script>
     

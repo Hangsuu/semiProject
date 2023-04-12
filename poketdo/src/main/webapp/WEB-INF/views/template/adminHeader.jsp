@@ -1,22 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
-
+pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    
-    <!-- 
-    Javascript에서 절대경로를 사용하기 위한 꼼수
-    - JS는 절대경로란 개념이 없으므로 JSP의 EL의 도움을 받아야한다.
-    - <script>는 분할해서 작성해도 결국 이어지는 특징을 활용
-    - 모든 <script>의 가장 위에 다음과 같이 변수를 하나 선언
-    - const로 변수를 선언하면 자바의 final과 같이 불변 처리가 됨
-     -->
-     
+
      <script>
      	const contextPath = "${pageContext.request.contextPath}";
      </script>
@@ -49,8 +39,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script src="${pageContext.request.contextPath}/static/js/pocketdex.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/message/messageHeader.js"></script>
 
-<script>
-</script>
 <script>
 $(function(){
 	$.ajax({

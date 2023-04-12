@@ -124,7 +124,7 @@ pageEncoding="UTF-8"%>
            </c:choose> 
           </div>
           <div class="flex-all-center">
-            ${list.getPointBoardTime()}
+            ${list.getPointTimeAuto()}
           </div>
         </div>
       </c:forEach>

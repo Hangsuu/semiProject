@@ -2,6 +2,7 @@ package com.kh.poketdo.dto;
 
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,5 +16,7 @@ public class PointDto {
 	int pointBoardNo, requestPoint, pointBoardHead;
 	Date pointBoardTime;
 	
-	
+
+
 }
+

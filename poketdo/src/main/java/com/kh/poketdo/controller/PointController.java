@@ -69,6 +69,7 @@ public class PointController {
 		vo.setCount(totalCount);
 		vo.setSize(15);
 		vo.setBlockSize(10);
+		
 		List<PointNameImageDto> list = pointNameImageDao.selectList(vo);
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/point/list.jsp";

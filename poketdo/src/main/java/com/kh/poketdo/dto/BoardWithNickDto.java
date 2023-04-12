@@ -28,7 +28,7 @@ public class BoardWithNickDto {
     private Integer attachmentNo;
 	
 	public String getImageURL() {
-		if(boardMainImg==null) return "https://via.placeholder.com/150x150?text=mainImg";
+		if(boardMainImg == null) return "https://via.placeholder.com/150x150?text=mainImg";
 		else return "/attachment/download?attachmentNo="+boardMainImg;
 	}
 	

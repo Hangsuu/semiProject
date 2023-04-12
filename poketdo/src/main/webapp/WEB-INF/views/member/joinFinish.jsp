@@ -55,8 +55,8 @@
  	
  	
  	   <div>
-        	<a href="${pageContext.request.contextPath}/member/login"><button class="form-btn neutral w-100 mb-10" type="button">로그인하기</button></a>
-        	<a href="${pageContext.request.contextPath}/"><button class="form-btn positive w-100" type="button">홈으로</button></a>
+        	<a href="${pageContext.request.contextPath}/member/login"><button class="form-btn positive w-100 mb-10" type="button">로그인하기</button></a>
+        	<a href="${pageContext.request.contextPath}/"><button class="form-btn neutral w-100" type="button">홈으로</button></a>
         
         </div>
 			 	

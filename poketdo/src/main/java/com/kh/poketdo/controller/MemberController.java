@@ -234,16 +234,10 @@ public class MemberController {
     	session.removeAttribute("memberId");
     	session.removeAttribute("memberLevel");
     	
-    	return "redirect:exitFinish";
+    	
+    	return "redirect:/";
     }
     
-    
-	
-	@GetMapping("/exitFinish")
-	public String exitFinish() {
-		return ("/WEB-INF/views/member/exitFinish.jsp");
-	}
-
     
     
     @GetMapping("/find")

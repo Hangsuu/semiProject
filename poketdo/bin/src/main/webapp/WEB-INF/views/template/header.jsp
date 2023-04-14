@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,18 +8,14 @@ pageEncoding="UTF-8"%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%-- css import --%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/load.css" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.}/static/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/commons.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/test.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/layout.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/component.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/base.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/home.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     <title>Document</title>
   </head>
   <body>
@@ -94,4 +89,7 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </div>
-      </nav>     
+      </nav>
+    </main>
+  </body>
+</html>

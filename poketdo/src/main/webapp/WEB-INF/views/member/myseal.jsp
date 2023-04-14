@@ -28,7 +28,7 @@ $(function () {
 				<div>
 					<span>보유 포인트 :  ${member.memberPoint} point</span>
 					<span>현재 적용 인장</span>
-					<img width="96" height="96" src="${selectAttachNo}">
+					<img width="96" height="96" src="${pageContext.request.contextPath}${selectAttachNo}">
 					<a href="${pageContext.request.contextPath}/seal/list">
 						<span>인장 구매하러 가기</span>
 						<i class="fa-solid fa-square-arrow-up-right"></i>
@@ -41,7 +41,7 @@ $(function () {
 			<c:forEach var="mySeal" items="${list}"  varStatus="status"> 
 			<div>
 				<div>
-					<img width="96" height="96" 	src="${mySeal.imageURL}">
+					<img width="96" height="96" 	src="${pageContext.request.contextPath}${mySeal.imageURL}">
 				</div>
 				<div>
 					<span>No.0${mySeal.sealNo}</span>

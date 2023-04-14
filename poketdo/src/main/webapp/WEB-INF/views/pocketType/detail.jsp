@@ -12,7 +12,7 @@
 		<div class="pocket-detail-container pdc-color type-back-color${pocketmonTypeWithImageDto.pocketTypeNo}">
 			<div class="detail-image-container">
 				<div class="detail-image" >
-					<img src="${pocketmonTypeWithImageDto.imageURL}" class="type-back-color${pocketmonTypeWithImageDto.pocketTypeNo}">
+					<img src="${pageContext.request.contextPath}${pocketmonTypeWithImageDto.imageURL}" class="type-back-color${pocketmonTypeWithImageDto.pocketTypeNo}">
 					<span class="no">No.0${pocketmonTypeWithImageDto.pocketTypeNo}</span>
 					<span class="name">${pocketmonTypeWithImageDto.pocketTypeName}</span>
 				</div>

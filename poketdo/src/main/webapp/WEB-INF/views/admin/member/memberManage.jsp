@@ -56,7 +56,7 @@
               <td>
                 <c:choose>
                   <c:when test="${list.get(0).attachmentNo == null}">
-                    <img width="100" height="100" src="${urlList.get(i)}">
+                    <img width="100" height="100" src="${pageContext.request.contextPath}${urlList.get(i)}">
                   </c:when>
                   <c:otherwise>
                     <img width="100" height="100" src="${pageContext.request.contextPath}/attachment/${list.get(i).imageURL}">

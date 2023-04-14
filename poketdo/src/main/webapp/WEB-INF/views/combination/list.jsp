@@ -165,7 +165,7 @@ $(function(){
 						.attr("title", response.list[i].combinationTitle);
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
-					var seal = $("<img>").addClass("board-seal").attr("src", contextPath+response.list[i].urlLink).css("vertical-align", "middle");
+					var seal = $("<img>").addClass("board-seal").attr("src", contextPath + response.list[i].urlLink).css("vertical-align", "middle");
 					var nick = response.list[i].memberNick;
 					nickLink.append(seal).append(nick);
 					$(html).find(".list-writer").append(nickLink);
@@ -274,7 +274,7 @@ $(function(){
 					//작성자 검색 링크 생성
 					var nickLink = $("<a>").addClass("link").attr("href","list?page=1&column=member_nick&keyword="+response.list[i].memberNick)
 						.css("vertical-align","middle")
-					var seal = $("<img>").addClass("board-seal").attr("src", contextPath+response.list[i].urlLink).css("vertical-align","middle");
+					var seal = $("<img>").addClass("board-seal").attr("src", contextPath + response.list[i].urlLink).css("vertical-align","middle");
 					var nick = $("<span>").text(response.list[i].memberNick).css("vertical-align","middle");
 					nickLink.append(seal).append(nick);
 					$(html).find(".list-writer").append(nickLink);

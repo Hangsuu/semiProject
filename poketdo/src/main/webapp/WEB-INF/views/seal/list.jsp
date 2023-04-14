@@ -69,7 +69,7 @@ $(function () {
 					<div>
 						<div>
 							<div>
-								<img src="${list.get(0).imageURL}">
+								<img src="${pageContext.request.contextPath}${list.get(0).imageURL}">
 							</div>
 							<div>
 								<span>No.0${list.get(0).sealNo}</span>
@@ -109,7 +109,7 @@ $(function () {
 			<div>
 				<div>
 					<div class="seal-image-container">
-						<img src="${sealWithImageDto.imageURL}">
+						<img src="${pageContext.request.contextPath}${sealWithImageDto.imageURL}">
 					</div>
 					<div>
 						<span>No.0${sealWithImageDto.sealNo}</span>

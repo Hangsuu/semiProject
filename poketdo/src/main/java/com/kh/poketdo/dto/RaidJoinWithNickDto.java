@@ -20,7 +20,7 @@ public class RaidJoinWithNickDto {
 			return "/attachment/download?attachmentNo="+attachmentNo;
 		}
 		else {
-			return "${pageContext.request.contextPath}/static/image/noimage.png";
+			return "/static/image/noimage.png";
 		}
 	}
 }

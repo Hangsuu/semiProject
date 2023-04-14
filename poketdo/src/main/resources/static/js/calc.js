@@ -33,7 +33,7 @@ $(".monster-search").click(function(){
 				$("[name=effortSpDef]").val(response.pocketEffortSdef);
 				$("[name=effortSpd]").val(response.pocketEffortSpd);
 				var index = response.pocketNo;
-			    $(".pocketmon-img").attr("src", "/attachment/download?attachmentNo="+index).show();
+			    $(".pocketmon-img").attr("src", contextPath+"/attachment/download?attachmentNo="+index).show();
 			}
 			else{
 				alert("정확한 포켓몬 이름을 입력하세요.")

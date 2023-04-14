@@ -8,13 +8,13 @@
 			var name = $(".search-input").val();
 			var index=0;
 			$.ajax({
-				url:"/rest/pocketmon/"+name,
+				url: contextPath+ "/rest/pocketmon/"+name,
 				method:"get",
 				success:function(response){
 					if(parseInt(response.pocketNo)>0){
 						index = response.pocketNo;
 						searchList();
-						var imageUrl = "/attachment/download?attachmentNo="+index;
+						var imageUrl = contextPath+"/attachment/download?attachmentNo="+index;
 						$(".target .monster-image").each(function(){
 							$(this).attr("src", imageUrl);
 						});
@@ -32,7 +32,7 @@
 			searchList();
 			$(".target .monster-image").each(function(){
 				var number = Math.floor(Math.random()*1008+1);
-				var imageUrl = "/attachment/download?attachmentNo="+number;
+				var imageUrl = contextPath+"/attachment/download?attachmentNo="+number;
 				$(this).attr("src", imageUrl);
 			});
 		})

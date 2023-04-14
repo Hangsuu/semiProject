@@ -74,7 +74,7 @@
 				</c:choose>
 				
 				<div class="detail-image">
-					<img src="${pocketmonWithImageDto.imageURL}">
+					<img src="${pageContext.request.contextPath}${pocketmonWithImageDto.imageURL}">
 					<span class="no">No.0${pocketmonWithImageDto.pocketNo}</span>
 					<span class="name">${pocketmonWithImageDto.pocketName}</span>
 				</div>

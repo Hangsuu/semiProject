@@ -70,7 +70,7 @@ $(function(){
 <div class="container-1000 mt-50">
 	<div class="row flex-box">
 		<span class="board-detail-origin">공략 게시판</span>
-		<a href="${pageContext.request.contextPath}list?page=${param.page}&${vo.tagParameter}" class="board-detail-btn align-right">목록</a>
+		<a href="list?page=${param.page}&${vo.tagParameter}" class="board-detail-btn align-right">목록</a>
 	</div>
 	<div class="row board-detail-title">
 		[${combinationDto.combinationType}] ${combinationDto.combinationTitle}
@@ -79,18 +79,18 @@ $(function(){
 		<div class="row" style="vertical-align:center; display:inline-block">
 			<span class="combination-writer">
 			<!-- 작성자 검색 링크 -->
-				<a href="${pageContext.request.contextPath}list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">
+				<a href="list?page=1&column=member_nick&keyword=${combinationDto.memberNick}" class="link">
 					<img class="board-seal" src="${pageContext.request.contextPath}${combinationDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${combinationDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${combinationDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==combinationDto.combinationWriter}">
-				<a href="${pageContext.request.contextPath}edit?page=${param.page}&allboardNo=${combinationDto.allboardNo}&tagList=${tagList}" class="board-detail-btn" style="vertical-align:middle">수정</a>
-				<a href="${pageContext.request.contextPath}delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
+				<a href="edit?page=${param.page}&allboardNo=${combinationDto.allboardNo}&tagList=${tagList}" class="board-detail-btn" style="vertical-align:middle">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 			<c:if test="${sessionScope.memberLevel=='관리자'}">
-				<a href="${pageContext.request.contextPath}delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
+				<a href="delete?page=${param.page}&allboardNo=${combinationDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">

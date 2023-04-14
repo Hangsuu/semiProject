@@ -15,8 +15,8 @@ var randomNum = Math.floor(Math.random() * 1008) + 1; // 1~1008 중 랜덤한 �
 	    // 3번째 자식 div에 img 태그와 response.getImageURL 값 추가
 	    $('.random-box').children().eq(2).html(
 			
-			'<a href=/pocketdex/detail?pocketNo='+response.pocketNo+' style="width:300px;height:300px; display:block;">' 
-			+ '<img style="width:300px; height:300px; margin:0px;" src='+response.imageURL+'>'
+			'<a href=' + contextPath + '/pocketdex/detail?pocketNo='+response.pocketNo+' style="width:300px;height:300px; display:block;">' 
+			+ '<img style="width:300px; height:300px; margin:0px;" src=' + contextPath + response.imageURL+'>'
 			+ '</a>'
 			
 			);
@@ -48,8 +48,8 @@ function refreshPage() {
 	    // 3번째 자식 div에 img 태그와 response.getImageURL 값 추가
 	    $('.random-box').children().eq(2).html(
 			
-			'<a href=/pocketdex/detail?pocketNo='+response.pocketNo+' style="width:300px;height:300px; display:block;">' 
-			+ '<img style="width:300px; height:300px; margin:0px;" src='+response.imageURL+'>'
+			'<a href=' + contextPath + '/pocketdex/detail?pocketNo='+response.pocketNo+' style="width:300px;height:300px; display:block;">' 
+			+ '<img style="width:300px; height:300px; margin:0px;" src=' + contextPath + response.imageURL+'>'
 			+ '</a>'
 			
 			);

@@ -17,25 +17,6 @@ import com.kh.poketdo.vo.PaginationVO;
 public class BoardWithNickDao {
 	 @Autowired
 	    private JdbcTemplate jdbcTemplate;
-	 
-	 public void insert(BoardWithNickDto boardWithNickDto) {
-		    // board 테이블에 데이터 추가를 위한 SQL
-		    String sql = "insert into board ("
-		        + "board_no, allboard_no, board_writer, board_title, board_content, board_time, board_head, board_read, board_like, board_reply"
-		        + ") values ("
-		        + "?, ?, ?, ?, ?, sysdate, ?, 0, 0, 0)";
-		    Object[] param = {
-		        boardWithNickDto.getBoardNo(),
-		        boardWithNickDto.getAllboardNo(),
-		        boardWithNickDto.getBoardWriter(),
-		        boardWithNickDto.getBoardTitle(),
-		        boardWithNickDto.getBoardContent(),
-		        boardWithNickDto.getBoardHead()
-		    };
-		    
-		    // jdbcTemplate을 사용하여 SQL 실행
-		    jdbcTemplate.update(sql, param);
-		}
 
 	    private RowMapper<BoardWithNickDto> mapper = new RowMapper<BoardWithNickDto>() {
 	        @Override
@@ -140,12 +121,6 @@ public class BoardWithNickDao {
 				return jdbcTemplate.query(sql, mapper, param);
 			}	
 			
-			// 인기 게시판 구현
-			public List<BoardWithNickDto> selectHotList() {
-				String sql = "select * from board_name_image where board_like >= 1";
-				return jdbcTemplate.query(sql, mapper);
-			}
-			
 			//(답글 구현X) 전체 게시글 리스트 조회
 			public List<BoardWithNickDto> selectList() {
 //				String sql = "select * from board order by board_no desc";
@@ -220,6 +195,6 @@ public class BoardWithNickDao {
 					}
 					return jdbcTemplate.queryForObject(sql, int.class);
 				}
-			}
+	 }
 			
 }

@@ -77,7 +77,7 @@ $(function(){
 	<article class="container-900">
 		<div class="row flex-box">
 			<h1>인기 게시판</h1>
-			<a href="${pageContext.request.contextPath}/board/hot" class="board-detail-btn align-right">목록</a>
+			<a href="hot" class="board-detail-btn align-right">목록</a>
 		</div>
 		<div class="row flex-box">
 			<h1>
@@ -90,7 +90,7 @@ $(function(){
 		<div class="row flex-box">
 			<div>
 				<a class="link"
-					href="${pageContext.request.contextPath}/board/hot?column=member_nick&keyword=${boardWithNickDto.memberNick}">
+					href="hot?column=member_nick&keyword=${boardWithNickDto.memberNick}">
 					<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
 				<span>/</span>
 				<fmt:formatDate value="${boardWithNickDto.boardTime}"
@@ -116,7 +116,7 @@ $(function(){
 		<div class="row">
 			<div>
 				<a class="link"
-					href="${pageContext.request.contextPath}/board/hot?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의
+					href="hot?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의
 					게시글 더 보기</a>
 			</div>
 		</div>
@@ -146,7 +146,7 @@ $(function(){
 		<!-- 마지막 줄 -->
 		<div class="row flex-box">
 			<div class="row">
-				<a href="write" class="board-detail-btn">글쓰기</a>
+				
 			</div>
 			<div class="row align-right">
 				<a href="hot"

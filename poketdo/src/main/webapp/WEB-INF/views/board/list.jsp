@@ -139,61 +139,55 @@
 		<c:if test="${sessionScope.memberLevel == '관리자'}">
 			<button type="submit" class="form-btn negative">삭제</button>
 		</c:if>
+		<c:if test="${sessionScope.memberId != null}">
 		<a href="write" class="form-btn positive">글쓰기</a>
+		</c:if>
 	</div>
 	</form>
 
-	<div class="row pagination">
-
-		<!-- 처음 -->
+	<!-- 페이지네이션 -->
+	<div class="row center pagination">
+	<!-- 1페이지로 이동 -->
 		<c:choose>
 			<c:when test="${vo.first}">
-				<a class="disabled">&laquo;</a>
+				<a class="disabled"><i class="fa-solid fa-angles-left"></i></a>
 			</c:when>
 			<c:otherwise>
-				<a href="list?${vo.parameter}&page=1">&laquo;</a>
+				<a href="list?${vo.parameter}&page=1&${vo.addParameter}"><i class="fa-solid fa-angles-left"></i></a>
 			</c:otherwise>
 		</c:choose>
-
-		<!-- 이전 -->
+	<!-- 이전 페이지로 이동 -->
 		<c:choose>
 			<c:when test="${vo.prev}">
-				<a href="list?${vo.parameter}&page=${vo.prevPage}">&lt;</a>
+				<a href="list?${vo.parameter}&page=${vo.prevPage}&${vo.addParameter}"><i class="fa-solid fa-angle-left"></i></a>
 			</c:when>
 			<c:otherwise>
-				<a class="disabled">&lt;</a>
+				<a class="disabled"><i class="fa-solid fa-angle-left disabled"></i></a>
 			</c:otherwise>
 		</c:choose>
-
-		<!-- 숫자 -->
-		<c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}">
+	<!-- 번호들 -->
+		<c:forEach var="i" begin="${vo.startBlock}" end="${vo.finishBlock}" step="1">
 			<c:choose>
-				<c:when test="${vo.page == i}">
-					<a class="on">${i}</a>
-				</c:when>
-				<c:otherwise>
-					<a href="list?${vo.parameter}&page=${i}">${i}</a>
-				</c:otherwise>
+				<c:when test="${vo.page==i}"><a class="on disabled">${i}</a></c:when>
+				<c:otherwise><a href="list?${vo.parameter}&page=${i}&${vo.addParameter}" class="">${i}</a></c:otherwise>
 			</c:choose>
 		</c:forEach>
-
-		<!-- 다음 -->
+	<!-- 다음 페이지 -->
 		<c:choose>
 			<c:when test="${vo.next}">
-				<a href="list?${vo.parameter}&page=${vo.nextPage}">&gt;</a>
+				<a href="list?${vo.parameter}&page=${vo.nextPage}&${vo.addParameter}" class=""><i class="fa-solid fa-angle-right"></i></a>
 			</c:when>
-			<c:otherwise>
-				<a class="disabled">&gt;</a>
+			<c:otherwise><a class="disabled">
+				<i class="fa-solid fa-angle-right"></i></a>
 			</c:otherwise>
 		</c:choose>
-
-		<!-- 마지막 -->
+	<!-- 마지막페이지로 -->
 		<c:choose>
-			<c:when test="${vo.last}">
-				<a class="disabled">&raquo;</a>
+			<c:when test="${!vo.last}">
+				<a href="list?${vo.parameter}&page=${vo.totalPage}&${vo.addParameter}" class=""><i class="fa-solid fa-angles-right"></i></a>
 			</c:when>
 			<c:otherwise>
-				<a href="list?${vo.parameter}&page=${vo.totalPage}">&raquo;</a>
+				<a class="disabled"><i class="fa-solid fa-angles-right"></i></a>
 			</c:otherwise>
 		</c:choose>
 	</div>

@@ -79,7 +79,7 @@ $(function(){
 	<article class="container-900">
 		<div class="row flex-box">
 			<h1>자유 게시판</h1>
-			<a href="${pageContext.request.contextPath}/board/list" class="board-detail-btn align-right">목록</a>
+			<a href="list" class="board-detail-btn align-right">목록</a>
 		</div>
 		<div class="row flex-box">
 			<h1>
@@ -92,7 +92,7 @@ $(function(){
 		<div class="row flex-box">
 			<div>
 				<a class="link"
-					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}">
+					href="list?column=member_nick&keyword=${boardWithNickDto.memberNick}">
 					<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
 				<span>/</span>
 				<fmt:formatDate value="${boardWithNickDto.boardTime}"
@@ -100,10 +100,10 @@ $(function(){
 				<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 				<c:if test="${sessionScope.memberId==boardWithNickDto.boardWriter}">
 					<a
-						href="/board/edit?allboardNo=${boardWithNickDto.allboardNo}"
+						href="edit?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">수정</a>
 					<a
-						href="/board/delete?allboardNo=${boardWithNickDto.allboardNo}"
+						href="delete?allboardNo=${boardWithNickDto.allboardNo}"
 						class="board-detail-btn">삭제</a>
 				</c:if>
 			</div>
@@ -118,7 +118,7 @@ $(function(){
 		<div class="row">
 			<div>
 				<a class="link"
-					href="/board/list?column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의게시글 더 보기</a>
+					href="list?page=${param.page}&column=member_nick&keyword=${boardWithNickDto.memberNick}"><b>${boardWithNickDto.memberNick}</b>님의게시글 더 보기</a>
 			</div>
 		</div>
 
@@ -146,9 +146,11 @@ $(function(){
 		<!-- 댓글 끝 -->
 		<!-- 마지막 줄 -->
 		<div class="row flex-box">
+			<c:if test="${sessionScope.memberId != null && sessionScope.memberId == boardWithNickDto.boardWriter}">
 			<div class="row">
-				<a href="write" class="board-detail-btn">글쓰기</a>
+					<a href="write" class="board-detail-btn">글쓰기</a>
 			</div>
+			</c:if>
 			<div class="row align-right">
 				<a href="list"
 					class="board-detail-btn align-right">목록</a>

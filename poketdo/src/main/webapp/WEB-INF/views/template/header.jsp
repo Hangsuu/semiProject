@@ -135,10 +135,10 @@ $(function(){
            <a href="#" style="cursor:default;"><span>커뮤니티</span></a>
            <div>
 			<div>
-			  <a href="/board/list"><span>자유 게시판</span></a>
+			  <a href="/board/list?page=1"><span>자유 게시판</span></a>
 			</div>
 			<div>
-			  <a href="/board/hot"><span>인기 게시판</span></a>
+			  <a href="/board/hot?page=1"><span>인기 게시판</span></a>
 			</div>
 			<div>
 			  <a href="/auction/list?page=1"><span>굿즈 경매</span></a>

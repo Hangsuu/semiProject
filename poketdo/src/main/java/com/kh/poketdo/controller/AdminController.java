@@ -77,6 +77,7 @@ public class AdminController {
 		}
 	    model.addAttribute("list", list);
 	    model.addAttribute("urlList", urlList);
+	    model.addAttribute("vo", vo);
 
 	    return "/WEB-INF/views/admin/member/memberManage.jsp";
 	}
@@ -85,8 +86,10 @@ public class AdminController {
 
 	@GetMapping("/member/memberDetail")
 	public String memberDetail(Model model,
-			@RequestParam String memberId) {
+			@RequestParam String memberId,
+			@ModelAttribute PaginationVO vo) {
 		model.addAttribute("memberWithImageDto", memberWithImageDao.selectOne(memberId));
+		model.addAttribute("vo", vo);
 		return "/WEB-INF/views/admin/member/memberDetail.jsp"; 
 	}
 	
@@ -104,20 +107,23 @@ public class AdminController {
 	//회원 정보 변경
 	@GetMapping("/member/memberEdit")
 	public String memberEdit(@RequestParam String memberId,
-			Model model) {
+			Model model, @ModelAttribute PaginationVO vo) {
 		MemberWithImageDto memberWithImageDto = memberWithImageDao.selectOne(memberId);
 		model.addAttribute("memberWithImageDto", memberWithImageDto);
+		model.addAttribute("vo", vo);
 		return "/WEB-INF/views/admin/member/memberEdit.jsp";
 	}
 	
 	@PostMapping("/member/memberEdit")
 	public String memberEdit(@ModelAttribute MemberWithImageDto memberWithImageDto,
 			@RequestParam String memberId,
-			RedirectAttributes attr) {
+			RedirectAttributes attr,
+			@ModelAttribute PaginationVO vo) {
 		//정보 변경
 		memberWithImageDto.setMemberId(memberId);
 		memberWithImageDao.changeInformationByAdmin(memberWithImageDto);
 		attr.addAttribute("memberId", memberWithImageDto.getMemberId());
+		attr.addAttribute("page", vo.getPage());
 		
 		return "redirect:memberDetail";
 	}

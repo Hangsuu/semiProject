@@ -44,7 +44,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 
 		//관리자만 접속
 		registry.addInterceptor(adminInterceptor).addPathPatterns(
-				"/admin","/pocketdex/insert","/pocketdex/edit",
+				"/admin/**","/pocketdex/insert","/pocketdex/edit",
 				"/pockettype/insert","/pockettype/edit","/pockettype/detail","/pockettype/list",
 				"/seal/insert","/seal/edit"
 				);

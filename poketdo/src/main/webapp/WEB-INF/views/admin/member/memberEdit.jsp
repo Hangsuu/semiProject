@@ -7,12 +7,12 @@
 
 	<div class="container-800">
 	<form action="memberEdit" method="post">
-		<div class="row">
+		<div class="row center">
 			<h2>회원 정보 변경</h2>
 		</div>
 		<div class="row flex-box">
 			<div class="w-30">
-				<img width="200" height="200" class="board-seal" src="${boardWithNickDto.urlLink}">
+				<img width="200" height="200" src="${pageContext.request.contextPath}/attachment/${memberWithImageDto.imageURL}">
 			</div>
 				<div class="w-70">
 				<input type="hidden" name="memberId" value="${memberWithImageDto.memberId}" class="">

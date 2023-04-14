@@ -133,10 +133,10 @@ $(function(){
            <a href="#" style="cursor:default;"><span>커뮤니티</span></a>
            <div>
 			<div>
-			  <a href="${pageContext.request.contextPath}/board/list"><span>자유 게시판</span></a>
+			  <a href="${pageContext.request.contextPath}/board/list?page=1"><span>자유 게시판</span></a>
 			</div>
 			<div>
-			  <a href="${pageContext.request.contextPath}/board/hot"><span>인기 게시판</span></a>
+			  <a href="${pageContext.request.contextPath}/board/hot?page=1"><span>인기 게시판</span></a>
 			</div>
 			<div>
 			  <a href="${pageContext.request.contextPath}/auction/list?page=1"><span>굿즈 경매</span></a>
@@ -186,8 +186,8 @@ $(function(){
                     <div class="mb-10">
                         <h2>관리자 메뉴</h2>
                     </div>
-                    <div class="row"><a href="${pageContext.request.contextPath}/admin/memberStat" class="link">홈으로</a></div>
-                    <div class="row"><a href="${pageContext.request.contextPath}/admin/member/memberManage" class="link">회원 목록으로</a></div>
+                    <div class="row"><a href="memberStat" class="link">홈으로</a></div>
+                    <div class="row"><a href="${pageContext.request.contextPath}/admin/member/memberManage?page=1" class="link">회원 목록으로</a></div>
                 </div>
             </aside>
             <article>

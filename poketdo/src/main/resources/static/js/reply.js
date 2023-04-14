@@ -341,7 +341,7 @@ function summernote(){
 	    		var input = $("<input>").attr("type","hidden").attr("name","attachmentNo").val(response.attachmentNo);
 	    		$("form").prepend(input);
 	    		//에디터에 추가할 이미지 생성
-	     		var imgNode=$("<img>").attr("src", "/rest/attachment/download/"+response.attachmentNo);
+	     		var imgNode=$("<img>").attr("src", contextPath+"/rest/attachment/download/"+response.attachmentNo);
 	     		$(".summernote-reply").summernote('insertNode', imgNode.get(0));
 	    	 },
 	    	 error:function(){},
@@ -389,7 +389,7 @@ function editSummernote(){
   	    		var input = $("<input>").attr("type","hidden").attr("name","attachmentNo").val(response.attachmentNo);
   	    		$("form").prepend(input);
   	    		//에디터에 추가할 이미지 생성
-	     		var imgNode=$("<img>").attr("src", "/rest/attachment/download/"+response.attachmentNo);
+	     		var imgNode=$("<img>").attr("src", contextPath+"/rest/attachment/download/"+response.attachmentNo);
 	     		$(".summernote-reply-edit").summernote('insertNode', imgNode.get(0));
   	    	 },
   	    	 error:function(){},
@@ -438,7 +438,7 @@ function childSummernote(){
 	    		var input = $("<input>").attr("type","hidden").attr("name","attachmentNo").val(response.attachmentNo);
 	    		$("form").prepend(input);
 	    		//에디터에 추가할 이미지 생성
-	     		var imgNode=$("<img>").attr("src", "/rest/attachment/download/"+response.attachmentNo);
+	     		var imgNode=$("<img>").attr("src", contextPath+"/rest/attachment/download/"+response.attachmentNo);
 	     		$(".summernote-reply-child").summernote('insertNode', imgNode.get(0));
 	    	 },
 	    	 error:function(){},

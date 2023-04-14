@@ -65,9 +65,9 @@ $(function(){
 						$(".bid-info").show();
 						$(".final-price").text(response.auctionBidWithNickDto.auctionBidPrice);
 						$(".last-bid-nick").text(response.auctionBidWithNickDto.memberNick);
-						$(".last-bid-seal").attr("src", contextPath+response.auctionBidWithNickDto.urlLink);
+						$(".last-bid-seal").attr("src", contextPath + response.auctionBidWithNickDto.urlLink);
 						$(".final-last-bid").text(response.auctionBidWithNickDto.memberNick)
-							.prepend($("<img>").addClass("board-seal").attr("src", contextPath+response.auctionBidWithNickDto.urlLink).css("vertical-align","middle"));
+							.prepend($("<img>").addClass("board-seal").attr("src", contextPath + response.auctionBidWithNickDto.urlLink).css("vertical-align","middle"));
 						$(".send-message").attr("href", "/message/write?recipient="+response.auctionBidWithNickDto.auctionBidMember)
 						$(".finish-bid-id").val(response.auctionBidWithNickDto.auctionBidMember)
 					}

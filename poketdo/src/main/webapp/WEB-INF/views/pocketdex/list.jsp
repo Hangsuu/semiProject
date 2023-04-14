@@ -118,7 +118,7 @@
 							      <div></div>
 							      <div></div>
 							      <div class="image-container">
-							          <img src="${pocketmonDto.imageURL}">
+							          <img src="${pageContext.request.contextPath}${pocketmonDto.imageURL}">
 							      </div>
 							    </div>
 							    <div class="pocket-data">

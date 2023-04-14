@@ -12,7 +12,7 @@
 		</div>
 		<div class="row flex-box">
 			<div class="w-30">
-				<img width="200" height="200" class="board-seal" src="${boardWithNickDto.urlLink}">
+				<img width="200" height="200" class="board-seal" src="${pageContext.request.contextPath}${boardWithNickDto.urlLink}">
 			</div>
 				<div class="w-70">
 				<input type="hidden" name="memberId" value="${memberWithImageDto.memberId}" class="">

@@ -91,7 +91,7 @@
                             </a>
                         </td>
                         <td class="left">
-                        <img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick}</td>
+                        <img class="board-seal" src="${pageContext.request.contextPath}${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick}</td>
                         
                         <%-- DTO에 만든 가상의 Getter 메소드를 불러 처리 --%>
                         <td>${boardWithNickDto.boardTime}</td>
@@ -123,7 +123,7 @@
 						</a>
 						</td>
 						<td class="left">
-						<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick}</td>
+						<img class="board-seal" src="${pageContext.request.contextPath}${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick}</td>
 
 						<%-- DTO에 만든 가상의 Getter 메소드를 불러 처리 --%>
 						<td>${boardWithNickDto.boardTime}</td>

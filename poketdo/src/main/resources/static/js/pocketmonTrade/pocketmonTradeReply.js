@@ -24,7 +24,7 @@ $(function () {
             var text = response.replyLike[i].replyContent;
 			//인장 처리
 			var memberNick = $("<span>").text(response.replyLike[i].memberNick).css("vertical-align", "middle");
-			var seal = $("<img>").addClass("board-seal").attr("src", response.replyLike[i].urlLink).css("vertical-align", "middle");
+			var seal = $("<img>").addClass("board-seal").attr("src", contextPath + response.replyLike[i].urlLink).css("vertical-align", "middle");
 			$(html).find(".reply-writer").css("vertical-align", "middle").append(seal).append(memberNick);
             //작성자 딱지 넣기
             if (boardWriter == response.replyDto[i].replyWriter) {
@@ -69,7 +69,7 @@ $(function () {
 
 			//인장 처리
 			var memberNick = $("<span>").text(response.replyDto[i].memberNick).css("vertical-align", "middle");
-			var seal = $("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink).css("vertical-align", "middle");
+			var seal = $("<img>").addClass("board-seal").attr("src", contextPath + response.replyDto[i].urlLink).css("vertical-align", "middle");
 			$(html).find(".reply-writer").css("vertical-align", "middle").append(seal).append(memberNick);
           //시간 넣는 자리
           var thisTime = response.replyDto[i].time;
@@ -552,7 +552,7 @@ $(function () {
             $(html)
               .find(".reply-writer")
               .text(response.replyLike[i].memberNick)
-              .prepend($("<img>").addClass("board-seal").attr("src", response.replyLike[i].urlLink));
+              .prepend($("<img>").addClass("board-seal").attr("src", contextPath + response.replyLike[i].urlLink));
             //작성자 딱지 넣기
             if (boardWriter == response.replyDto[i].replyWriter) {
               var span = $("<span>").text(" (작성자)").css("color", "#AD000E");
@@ -595,7 +595,7 @@ $(function () {
           $(html)
             .find(".reply-writer")
             .text(response.replyDto[i].memberNick)
-            .prepend($("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink));
+            .prepend($("<img>").addClass("board-seal").attr("src", contextPath + response.replyDto[i].urlLink));
           $(html).find(".reply-content").html(text);
           //시간 넣는 자리
           var thisTime = response.replyDto[i].time;
@@ -631,7 +631,7 @@ $(function () {
                 // seal
                 newCompleteEle.find(".reply-writer")
                 .text(response.replyDto[i].memberNick)
-                .prepend($("<img>").addClass("board-seal").attr("src", response.replyDto[i].urlLink));
+                .prepend($("<img>").addClass("board-seal").attr("src", contextPath + response.replyDto[i].urlLink));
                 // writer
                 newCompleteEle.find(".complete-replyWriter")
                 // content

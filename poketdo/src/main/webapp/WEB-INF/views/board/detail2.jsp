@@ -91,7 +91,7 @@ $(function(){
 			<div>
 				<a class="link"
 					href="${pageContext.request.contextPath}/board/hot?column=member_nick&keyword=${boardWithNickDto.memberNick}">
-					<img class="board-seal" src="${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
+					<img class="board-seal" src="${pageContext.request.contextPath}${boardWithNickDto.urlLink}">${boardWithNickDto.memberNick} </a>
 				<span>/</span>
 				<fmt:formatDate value="${boardWithNickDto.boardTime}"
 					pattern="yyyy.MM.dd.H:m" />

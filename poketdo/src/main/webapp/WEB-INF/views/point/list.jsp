@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%>
 <!-- section -->
 <section>
   <!-- article -->
-  <article class="container-1200" style="min-height: 1000px">
+  <article class="container-1100" style="min-height: 1000px">
     <div class="mt-50 mb-10">
       <h1>포인트 요청</h1>
     </div>
@@ -116,7 +116,7 @@ pageEncoding="UTF-8"%>
           <c:choose>
 			<c:when test="${sessionScope.memberLevel=='관리자' || sessionScope.memberId == list.getPointBoardWriter() }">
           
-            	<img class="board-seal" src="/attachment/download?attachmentNo=${list.getAttachmentNo()}">${list.getMemberNick()}
+            	<img class="board-seal" src="${pageContext.request.contextPath}/attachment/download?attachmentNo=${list.getAttachmentNo()}">${list.getMemberNick()}
  	        </c:when>
  	        <c:otherwise>
  	        	포인트 구매자
@@ -124,7 +124,7 @@ pageEncoding="UTF-8"%>
            </c:choose> 
           </div>
           <div class="flex-all-center">
-            ${list.getPointBoardTime()}
+            ${list.getPointTimeAuto()}
           </div>
         </div>
       </c:forEach>

@@ -50,7 +50,7 @@
 				}
 				else{
 				$.ajax({
-					url:"/rest/pocketmon/pocketName/" + pocketName,
+					url:contextPath+"/rest/pocketmon/pocketName/" + pocketName,
 					method:"get",
 					success:function(response){//성공시 Y 실패시 N
 						if(response =="Y"){ //사용 가능할 경우

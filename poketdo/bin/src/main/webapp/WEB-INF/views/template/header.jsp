@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,19 +7,15 @@ pageEncoding="UTF-8"%>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%-- css import --%>
-    <link rel="stylesheet" type="text/css" href="/static/css/load.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/commons.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/test.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/component.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/home.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/load.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.}/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/commons.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/test.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/component.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/home.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     <title>Document</title>
   </head>
   <body>
@@ -30,7 +25,7 @@ pageEncoding="UTF-8"%>
       <header>
         <%-- base.css --%>
         <div class="favicon">
-          <img src="/static/image/monsterball.png" />
+          <img src="${pageContext.request.contextPath}/static/image/monsterball.png" />
           <div>1조 홈페이지</div>
         </div>
       </header>
@@ -40,7 +35,7 @@ pageEncoding="UTF-8"%>
         <%-- base.css --%>
         <div class="nav-bar">
           <div>
-            <a href="/"><span>홈</span></a>
+            <a href="${pageContext.request.contextPath}/"><span>홈</span></a>
           </div>
           <div>
             <a href="#"><span>포켓몬도감</span></a>
@@ -94,4 +89,7 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </div>
-      </nav>     
+      </nav>
+    </main>
+  </body>
+</html>

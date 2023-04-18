@@ -37,7 +37,6 @@ public class RandomComponent {
 			int index = r.nextInt(data.size());
 			buffer.append(data.get(index));
 		}
-		System.out.println(buffer.toString());
 		return buffer.toString();
 	}
 	

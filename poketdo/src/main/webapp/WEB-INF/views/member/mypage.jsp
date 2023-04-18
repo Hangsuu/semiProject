@@ -13,7 +13,7 @@
     
       <script type="text/javascript">           
 		function MakeCard() {
-			document.location.href="http://localhost:8080/cardGenerator"; <!-- 다른페이지로 이동하는 함수 -->
+			document.location.href="${pageContext.request.contextPath}/cardGenerator"; <!-- 다른페이지로 이동하는 함수 -->
 		}                                      
 	</script>
     
@@ -117,7 +117,7 @@
 	    <c:choose>
 	    <c:when test = "${profile != null}">
 	    	<div id="myDiv">
-	    		<img width="500" height="300" src="/attachment/download?attachmentNo=${profile.attachmentNo}"> 
+	    		<img width="500" height="300" src="${pageContext.request.contextPath}/attachment/download?attachmentNo=${profile.attachmentNo}"> 
 	    	</div>
 			<button type="button" class = "form-btn positive w-100 mt-30" onclick="saveImage()">카드 이미지 저장하기</button>
 			<button type="button" class = "form-btn neutral w-100 mt-10 mb-30" onclick="MakeCard()">트레이너 카드 만들기</button>

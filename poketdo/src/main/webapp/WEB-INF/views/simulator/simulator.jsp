@@ -8,16 +8,20 @@
 			var name = $(".search-input").val();
 			var index=0;
 			$.ajax({
-				url:"/rest/pocketmon/"+name,
+				url: contextPath+ "/rest/pocketmon/"+name,
 				method:"get",
 				success:function(response){
-					index = response.pocketNo;
-					console.log(index);
-					searchList();
-					var imageUrl = "/attachment/download?attachmentNo="+index;
-					$(".target .monster-image").each(function(){
-						$(this).attr("src", imageUrl);
-					});
+					if(parseInt(response.pocketNo)>0){
+						index = response.pocketNo;
+						searchList();
+						var imageUrl = contextPath+"/attachment/download?attachmentNo="+index;
+						$(".target .monster-image").each(function(){
+							$(this).attr("src", imageUrl);
+						});
+					}
+					else{
+						alert("정확한 포켓몬 이름을 입력하세요.")
+					}
 				},
 				error:function(){
 					alert("정확한 포켓몬 이름을 입력하세요.")
@@ -28,7 +32,7 @@
 			searchList();
 			$(".target .monster-image").each(function(){
 				var number = Math.floor(Math.random()*1008+1);
-				var imageUrl = "/attachment/download?attachmentNo="+number;
+				var imageUrl = contextPath+"/attachment/download?attachmentNo="+number;
 				$(this).attr("src", imageUrl);
 			});
 		})
@@ -77,7 +81,7 @@
         	<c:forEach var="statList" items="${list}">
         	<table class="table table-border" style="font-size:13px; width:20%">
                 <tr><td colspan="4" style="height:180px">
-                	<img class="monster-image" width="180px" height="180px" src="/static/image/leaf.png">
+                	<img class="monster-image" width="180px" height="180px" src="${pageContext.request.contextPath}/static/image/leaf.png">
 				</td></tr>
                 <tr>
                     <td class="w-25">체력</td>

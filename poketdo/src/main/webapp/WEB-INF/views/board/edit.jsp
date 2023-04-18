@@ -32,10 +32,11 @@
     </script>
 
     <form action="edit" method="post">
-        <div class="container-800">
+        <div class="container-1100">
             <!-- 제목 -->
 			<div class="row center">
-				<h2>${boardDto.boardNo}번 게시글 수정</h2>
+				<input type="hidden" name="allboardNo" value="${boardWithImageDto.allboardNo}">
+				<h2>${boardWithImageDto.boardNo}번 게시글 수정</h2>
 			</div>
 	
 			<div class="row">
@@ -44,7 +45,7 @@
 				<c:when test="${boardWithImageDto.boardHead == '없음'}">
 					<select name="boardHead" class="form-input">
 						<option selected value="">없음</option>
-						<c:if test="${memberLevel == '마스터'}">
+						<c:if test="${memberLevel == '관리자'}">
 						<option>공지</option>
 						</c:if>
 						<option>자유</option>
@@ -53,7 +54,7 @@
 				<c:when test="${boardWithImageDto.boardHead == '자유'}">
 					<select name="boardHead" class="form-input">
 						<option value="">없음</option>
-						<c:if test="${memberLevel == '마스터'}">
+						<c:if test="${memberLevel == '관리자'}">
 						<option>공지</option>
 						</c:if>
 						<option selected>자유</option>
@@ -62,7 +63,7 @@
 				<c:otherwise>
 					<select name="boardHead" class="form-input">
 						<option value="">없음</option>
-						<c:if test="${memberLevel == '마스터'}">
+						<c:if test="${memberLevel == '관리자'}">
 						<option selected>공지</option>
 						</c:if>
 						<option>자유</option>
@@ -84,7 +85,9 @@
 	<div class="row">
 		<button type="submit" class="form-btn positive w-100">변경</button>
 	</div>
-	
+	<div class="row">
+		<a href="${pageContext.request.contextPath}/board/detail?allboardNo=${boardWithImageDto.allboardNo}" type="submit" class="form-btn neutral w-100">목록</a>
+	</div>
 		</div>
 	</form>
 

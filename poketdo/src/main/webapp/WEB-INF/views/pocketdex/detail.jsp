@@ -74,7 +74,7 @@
 				</c:choose>
 				
 				<div class="detail-image">
-					<img src="${pocketmonWithImageDto.imageURL}">
+					<img src="${pageContext.request.contextPath}${pocketmonWithImageDto.imageURL}">
 					<span class="no">No.0${pocketmonWithImageDto.pocketNo}</span>
 					<span class="name">${pocketmonWithImageDto.pocketName}</span>
 				</div>
@@ -93,7 +93,7 @@
 										</c:when>
 										<c:otherwise>
 											<div class="type-back-color${list.get(0).getPocketTypeNoes().get(i)} ">
-												<img src="${list2.get(i)}" >
+												<img src="${pageContext.request.contextPath}${list2.get(i)}" >
 												<span>
 													${list.get(0).getPocketTypes().get(i)}
 												</span>

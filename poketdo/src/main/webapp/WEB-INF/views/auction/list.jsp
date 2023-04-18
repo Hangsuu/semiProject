@@ -6,8 +6,8 @@
 	/* 전역변수 설정 */
 	var memberId = "${sessionScope.memberId}";
 </script>
-<script src="/static/js/timer.js"></script>
-<script src="/static/js/bookmark.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/bookmark.js"></script>
 <div class="container-1100 mt-50">
 	<div class="row"><h1 style="font-size:2em">굿즈 경매</h1></div>
 <!-- 검색 -->
@@ -36,12 +36,12 @@
 					<c:choose>
 						<c:when test="${auctionDto.auctionMainImg>0}">
 							<a href="detail?allboardNo=${auctionDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
-								<img style="max-width:165px; width:auto;  height:auto; max-height:165px;" src="/attachment/download?attachmentNo=${auctionDto.auctionMainImg}">
+								<img style="max-width:165px; width:auto;  height:auto; max-height:165px;" src="${pageContext.request.contextPath}/attachment/download?attachmentNo=${auctionDto.auctionMainImg}">
 							</a>
 						</c:when>
 						<c:otherwise>
 							<a href="detail?allboardNo=${auctionDto.allboardNo}&page=${param.page}&${vo.parameter}" class="link">
-								<img style="max-width:165px; max-height:165px; height:auto; width:auto; " src="/static/image/noimage.png">
+								<img style="max-width:165px; max-height:165px; height:auto; width:auto; " src="${pageContext.request.contextPath}/static/image/noimage.png">
 							</a>
 						</c:otherwise>
 					</c:choose>
@@ -75,7 +75,7 @@
 		<!-- 닉네임 및 즐겨찾기 -->
 				<div class="row flex-box board-nick-image">
 					<div class="do-not-line-over" style="width:165px">
-						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${auctionDto.urlLink}">
+						<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link"><img class="board-seal" src="${pageContext.request.contextPath}${auctionDto.urlLink}">
 						<span>${auctionDto.memberNick}</span></a>
 					</div>
 				</div>

@@ -21,7 +21,7 @@
 						<a href="insert" class="form-btn positive" >포켓몬스터 신규 등록</a>
 					</div>
 					<div class="pocket-insert-btn">
-						<a href="/pockettype/list" class="form-btn positive" >포켓몬스터 타입 관리</a>
+						<a href="${pageContext.request.contextPath}/pockettype/list" class="form-btn positive" >포켓몬스터 타입 관리</a>
 					</div>
 				</c:if>
 			
@@ -118,7 +118,7 @@
 							      <div></div>
 							      <div></div>
 							      <div class="image-container">
-							          <img src="${pocketmonDto.imageURL}">
+							          <img src="${pageContext.request.contextPath}${pocketmonDto.imageURL}">
 							      </div>
 							    </div>
 							    <div class="pocket-data">
@@ -157,7 +157,7 @@
 			<a href="insert" class="form-btn positive" >포켓몬스터 신규 등록</a>
 		</div>
 		<div class="pocket-insert-btn">
-			<a href="/pockettype/list" class="form-btn positive" >포켓몬스터 타입 관리</a>
+			<a href="${pageContext.request.contextPath}/pockettype/list" class="form-btn positive" >포켓몬스터 타입 관리</a>
 		</div>
 	</c:if>
 	

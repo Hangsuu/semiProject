@@ -27,7 +27,7 @@
 									<div class="pocket-type-box">
 										<div></div>
 										<div class="pdc-color type-back-color${pocketmonTypeWithImageDto.pocketTypeNo}" >
-											<img width="200" height="200" src="${pocketmonTypeWithImageDto.imageURL}">
+											<img width="200" height="200" src="${pageContext.request.contextPath}${pocketmonTypeWithImageDto.imageURL}">
 										</div>
 									</div>
 									<div class="pocket-data">

@@ -41,7 +41,7 @@
     	<h1 class="mb-50">아이디 찾기 결과</h1>
 
 		<h2 class="mb-50">아이디는 ${requestScope.findId} 입니다</h2>
-		<a href="/member/login"><button class="form-btn neutral w-100 mt-10" type="button">로그인하기</button></a>
+		<a href="${pageContext.request.contextPath}/member/login"><button class="form-btn neutral w-100 mt-10" type="button">로그인하기</button></a>
     </div>
     
     

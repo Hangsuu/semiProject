@@ -76,7 +76,7 @@ $(function () {
     // 메세지 수신 memberId 설정
     let isExist;
     $.ajax({
-      url: "/rest/member/memberId/" + recipientVal,
+      url:contextPath+ "/rest/member/memberId/" + recipientVal,
       method: "get",
       async: false,
       success: function (response) {
@@ -133,7 +133,7 @@ $(function () {
 
           let isExist;
           $.ajax({
-            url: "/rest/member/memberId/" + newRecipient,
+            url:contextPath+ "/rest/member/memberId/" + newRecipient,
             method: "get",
             async: false,
             success: function (response) {
@@ -270,7 +270,7 @@ $(function () {
     let result = true;
     $(".message-recipient-ele").each(function () {
       $.ajax({
-        url:
+        url:contextPath+
           "/rest/member/memberId/" +
           $(this).find("[name=messageRecipient]").val(),
         method: "get",
@@ -294,7 +294,7 @@ $(function () {
       test.push($(this).find("[name=messageRecipient]").val());
     });
     $.ajax({
-      url: "/rest/message/write",
+      url:contextPath+ "/rest/message/write",
       method: "post",
       data:
         messageSendForm.serialize() +

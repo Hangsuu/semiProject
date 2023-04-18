@@ -5,14 +5,11 @@
 
 <script type="text/javascript">
 $(function () {
-	
-
-	var memberPoint = ${point};
-	
+	var memberPoint = parseInt("${point}") || 0;
+// 	var memberPoint = ${point};
 	$(".buy-form button[type='submit']").on("click", function(e) {
 		  var sealPrice = $(this).siblings("input[name='point']").val();
 		  var PointCheck = memberPoint > sealPrice;
-		  console.log(PointCheck);
 		  if (!PointCheck) {
 		    alert("포인트가 부족합니다!");
 		    e.preventDefault();
@@ -51,7 +48,7 @@ $(function () {
 				<c:when test="${sessionScope.memberLevel != null}">
 					<div>
 							<span>보유 포인트 : ${point} point</span>
-						<a href="/member/myseal">
+						<a href="${pageContext.request.contextPath}/member/myseal">
 							<span>내 인장 목록 보러가기</span>
 							<i class="fa-solid fa-square-arrow-up-right"></i>
 						</a>
@@ -59,7 +56,7 @@ $(function () {
 				</c:when>
 				<c:otherwise>
 					<div>
-						<a href="/member/login">
+						<a href="${pageContext.request.contextPath}/member/login">
 							<span>로그인 후 이용하세요.</span>
 						</a>
 					</div>
@@ -72,7 +69,7 @@ $(function () {
 					<div>
 						<div>
 							<div>
-								<img src="${list.get(0).imageURL}">
+								<img src="${pageContext.request.contextPath}${list.get(0).imageURL}">
 							</div>
 							<div>
 								<span>No.0${list.get(0).sealNo}</span>
@@ -87,8 +84,16 @@ $(function () {
 							</div>
 						</div>
 						<div class="seal-admin">
-							<c:if test="${sessionScope.memberLevel=='관리자' }">
 							
+								<c:if test="${list.get(0).sealNo!=0}">
+									<form action="purchase" method="post" class="buy-form">
+										<input type="hidden" name="sealNo" value="${sealWithImageDto.sealNo}"> 
+										<input type="hidden" name="point" value="${sealWithImageDto.sealPrice}"> 
+										<button type="submit" class="form-btn positive">구매</button>
+									</form>
+								</c:if>
+								
+							<c:if test="${sessionScope.memberLevel=='관리자' }">
 								<div>
 									<a href="edit?sealNo=${list.get(0).sealNo}" class="form-btn neutral" >수정</a>
 								</div>
@@ -104,7 +109,7 @@ $(function () {
 			<div>
 				<div>
 					<div class="seal-image-container">
-						<img src="${sealWithImageDto.imageURL}">
+						<img src="${pageContext.request.contextPath}${sealWithImageDto.imageURL}">
 					</div>
 					<div>
 						<span>No.0${sealWithImageDto.sealNo}</span>

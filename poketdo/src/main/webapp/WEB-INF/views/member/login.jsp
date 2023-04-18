@@ -64,14 +64,14 @@
         
         <div>
         	<button class="form-btn positive w-100 mt-20" type="submit">로그인</button>
-        	<a href="/member/join"><button class="form-btn neutral w-100 mt-10" type="button">회원가입</button></a>
+        	<a href="${pageContext.request.contextPath}/member/join"><button class="form-btn neutral w-100 mt-10" type="button">회원가입</button></a>
         
         </div>
         
         
         <div class="flex-row-grow mt-10" style="margin-bottom:100px;" >
-          <div class="w-50" style="border-right: 1px solid black" ><a href="/member/find" style="text-decoration:none; font-size: 18px;">아이디 찾기   </a></div>
-          <div class="w-50" ><a href="/member/findPw" style="text-decoration:none; font-size: 18px;">   비밀번호 찾기</a></div>
+          <div class="w-50" style="border-right: 1px solid black" ><a href="${pageContext.request.contextPath}/member/find" style="text-decoration:none; font-size: 18px;">아이디 찾기   </a></div>
+          <div class="w-50" ><a href="${pageContext.request.contextPath}/member/findPw" style="text-decoration:none; font-size: 18px;">   비밀번호 찾기</a></div>
           
           </div>
           

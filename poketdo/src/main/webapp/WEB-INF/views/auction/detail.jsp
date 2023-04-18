@@ -8,12 +8,12 @@
 	var boardWriter = "${auctionDto.auctionWriter}";
 	var auctionFinish="${auctionDto.auctionFinish}";
 </script>
-<script src="/static/js/timer.js"></script>
-<script src="/static/js/auction-bid.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/timer.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/auction-bid.js"></script>
 <!-- 댓글창 summernote 사용을 위한 import -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/reply.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/reply.js"></script>
 <script>
 $(function(){
 	$(".delete-btn").click(function(event){
@@ -24,7 +24,24 @@ $(function(){
 		else{
 			window.location.href=$(this).attr("href");
 		}
-	})	
+	})
+	$(".edit-btn").click(function(event){
+					event.preventDefault();
+		var params = new URLSearchParams(location.search);
+		var allboardNo = params.get("allboardNo");
+		$.ajax({
+			url:contextPath+"/rest/auction/check/"+allboardNo,
+			method:"get",
+			success:function(response){
+				if(response){
+					alert("경매가 시작된 게시물을 수정할 수 없습니다.");
+				}
+				else{
+					window.location.href=$(".edit-btn").attr("href");
+				}
+			}
+		});
+	});
 });
 </script>
 <!-- 댓글장 템플릿 -->
@@ -102,8 +119,8 @@ $(function(){
 	</div>
 </div>
 </script>
-<script src="/static/js/like.js"></script>
-<script src="/static/js/bookmark.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/like.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/bookmark.js"></script>
 <div class="container-1000 mt-50">
 <input type="hidden" class="finish-bid-id">
 	<div class="row flex-box">
@@ -122,14 +139,17 @@ $(function(){
 			<span class="auction-writer">
 			<!-- 작성자 검색 링크 -->
 				<a href="list?page=1&column=member_nick&keyword=${auctionDto.memberNick}" class="link">
-					<img class="board-seal" src="${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
+					<img class="board-seal" src="${pageContext.request.contextPath}${auctionDto.urlLink}" style="vertical-align:middle"><span style="vertical-align:middle">${auctionDto.memberNick}</span>
 				</a>
 			</span>
 			<span class="board-detail-time" style="vertical-align:middle">${auctionDto.boardTime}</span>
 			<!-- 작성자와 memberId가 같으면 수정, 삭제 버튼 생김 -->
 			<c:if test="${sessionScope.memberId==auctionDto.auctionWriter}">
-				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}&${vo.parameter}" class="board-detail-btn" style="vertical-align:middle">수정</a>
-				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn" style="vertical-align:middle">삭제</a>
+				<a href="edit?page=${param.page}&allboardNo=${auctionDto.allboardNo}&${vo.parameter}" class="board-detail-btn edit-btn" style="vertical-align:middle">수정</a>
+				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
+			</c:if>
+			<c:if test="${sessionScope.memberLevel=='관리자'}">
+				<a href="delete?page=${param.page}&allboardNo=${auctionDto.allboardNo}" class="board-detail-btn delete-btn" style="vertical-align:middle">삭제</a>
 			</c:if>
 		</div>
 		<div class="row align-right">
@@ -161,11 +181,12 @@ $(function(){
 					<span class="rest-time" data-finish-time="${auctionDto.finishTime}">${auctionDto.time}</span>
 				</div>
 				<div class="row">
-					<div style="display:inline-block">
-						현재 입찰가 : <span class="min-bid-price"></span>
+					<div style="display:inline-block" style="vertical-align:middle">
+						<span  style="vertical-align:middle">현재 입찰가 : </span><span class="min-bid-price" style="vertical-align:middle"></span>
 					</div>
-					<div style="display:inline-block" class="bid-info ms-10">
-						<span style="vertical-align:middle">(입찰자 : </span><img class="board-seal last-bid-seal" style="vertical-align:middle"><span class="last-bid-nick" style="vertical-align:middle"></span>)
+					<div style="display:inline-block" class="bid-info ms-10" style="vertical-align:middle">
+						<span style="vertical-align:middle">(입찰자 : </span><img class="board-seal last-bid-seal" style="vertical-align:middle">
+						<span class="last-bid-nick" style="vertical-align:middle"></span><span style="vertical-align:middle">)</span>
 					</div>
 				</div>
 				<div class="row">

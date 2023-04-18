@@ -125,7 +125,8 @@ public class AuctionController {
 			HttpSession session) {
 		String memberId = auctionDao.selectOne(allboardNo).getAuctionWriter();
 		String sessionId = (String)session.getAttribute("memberId");
-		if(memberId.equals(sessionId)) {
+		String sessionLevel = (String)session.getAttribute("memberLevel");
+		if(memberId.equals(sessionId) || sessionLevel.equals("관리자")) {
 			allboardDao.delete(allboardNo);
 			attr.addAttribute("page", page);
 			return "redirect:list";

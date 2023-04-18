@@ -31,7 +31,7 @@
     </script>
     
     <form action="write" method="post" autocomplete="off">
-        <div class="container-800">
+        <div class="container-1100">
             <div class="row center">
                 <h1>게시글 작성</h1>
             </div>
@@ -58,7 +58,7 @@
                 <button type="submit" class="form-btn positive w-100">등록</button>
             </div>
             <div class="row">
-            	<a class="form-btn neutral w-100" href="memberManage">목록</a>
+            	<a class="form-btn neutral w-100" href="${pageContext.request.contextPath}/board/list">목록</a>
         	</div>
         </div>
     </form>

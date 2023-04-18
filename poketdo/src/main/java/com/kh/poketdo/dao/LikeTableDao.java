@@ -65,7 +65,7 @@ public class LikeTableDao {
     AllboardDto allboardDto = allboardDao.selectOne(allboardNo);
     int likeCount = likeCount(allboardNo);
     String allboardType = allboardDto.getAllboardBoardType();
-    // System.out.println(allboardType);
+    // //System.out.println(allboardType);
     switch (allboardType) {
       case "auction":
         auctionDao.likeSet(allboardNo, likeCount);

@@ -9,7 +9,7 @@
 	var boardWriter = "${combinationDto.combinationWriter}";
 </script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="/static/js/summernote.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/summernote.js"></script>
 <script>
 	$(function(){
 		var valid={
@@ -48,6 +48,7 @@
 		//내용이 입력되었을 때
 		$('[name=raidContent]').on('summernote.change', function(we, contents, $editable) {
 			$(this).removeClass("invalid valid");
+			console.log(contents)
 			if(contents=="<p><br></p>" || contents=="<br>"){
 				$(this).addClass("invalid");
 				valid.contentValid=false;
@@ -65,7 +66,7 @@
 			var text =raidMonster.val().trim();
 			if(text.length>0){
 				$.ajax({
-					url:"/rest/pocketmon/stats/"+text,
+					url:contextPath+"/rest/pocketmon/stats/"+text,
 					method:"get",
 					success:function(response){
 						if(response.pocketName==text){

@@ -38,6 +38,7 @@ public class AuctionWithNickDao {
 					.auctionFinish(rs.getInt("auction_finish"))
 					.memberNick(rs.getString("member_nick"))
 					.attachmentNo(rs.getInt("attachment_no"))
+					.auctionBidCount(rs.getInt("auction_bid_count"))
 					.build();
 		}
 	};

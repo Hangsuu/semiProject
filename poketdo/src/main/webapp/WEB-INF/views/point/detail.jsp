@@ -21,7 +21,7 @@
 	
 	<article class="mt-50 container-1200 ">
 
-<!-- 	<form action="pointProcess" method="post" enctype="multipart/form-data" class="form buy-point-form"> -->
+	<form action="pointProcess" method="post" enctype="multipart/form-data" class="form buy-point-form">
 		<div class="pocket-input-container" >
 			<div>
 				<c:if test="${pointDto.getPointBoardHead()!=0}">
@@ -90,14 +90,14 @@
 						</div>
 						<c:if test="${sessionScope.memberLevel=='관리자' || memberId == pointDto.getPointBoardWriter() || sessionScope.memberId != null}">
 							<div>	
-								<a href="/point/delete?pointBoardNo=${pointDto.getPointBoardNo()}" class="form-btn negative confirm-delete" >삭제</a>
+								<a href="${pageContext.request.contextPath}/point/delete?pointBoardNo=${pointDto.getPointBoardNo()}" class="form-btn negative confirm-delete" >삭제</a>
 							</div>
 						</c:if>
 					</div>
 				</div>	
 			</div>	
 			</div>
-<!-- 	</form> -->
+	</form>
 	</article>
 	
 </section>

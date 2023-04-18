@@ -19,6 +19,7 @@ import com.kh.poketdo.dao.AuctionWithNickDao;
 import com.kh.poketdo.dao.PointDao;
 import com.kh.poketdo.dto.AuctionBidDto;
 import com.kh.poketdo.dto.AuctionBidWithNickDto;
+import com.kh.poketdo.vo.AuctionVO;
 import com.kh.poketdo.vo.BookmarkVO;
 import com.kh.poketdo.vo.PaginationVO;
 
@@ -52,14 +53,15 @@ public class AuctionRestController {
 			auctionBidDto.setAuctionBidNo(auctionBidNo);
 			auctionBidDao.insert(auctionBidDto);
 			auctionDao.changeMinPrice(auctionBidDto.getAuctionBidPrice(), auctionBidDto.getAuctionBidOrigin());
+			auctionDao.changeCount(auctionBidDto.getAuctionBidOrigin());
 			pointDao.subPoint(auctionBidDto.getAuctionBidPrice(), memberId);
 		}
 		return auctionBidWithNickDao.selectOne(auctionBidNo);
 	}
 	
 	@GetMapping("/min/{allboardNo}")
-	public AuctionBidWithNickDto getMin(@PathVariable int allboardNo) {
-		return auctionBidWithNickDao.lastBid(allboardNo);
+	public AuctionVO getMin(@PathVariable int allboardNo) {
+		return AuctionVO.builder().auctionBidWithNickDto(auctionBidWithNickDao.lastBid(allboardNo)).auctionWithNickDto(auctionWithNickDao.selectOne(allboardNo)).build();
 	}
 	@GetMapping("/max/{allboardNo}")
 	public int getMax(@PathVariable int allboardNo) {
@@ -86,5 +88,10 @@ public class AuctionRestController {
 	@GetMapping("/delivery/{allboardNo}")
 	public void delivery(@PathVariable int allboardNo) {
 		auctionDao.changeDelivery(allboardNo);
+	}
+	@GetMapping("/check/{allboardNo}")
+	public boolean check(@PathVariable int allboardNo) {
+		AuctionBidWithNickDto lastDto = auctionBidWithNickDao.lastBid(allboardNo);
+		return lastDto!=null? true: false;
 	}
 }

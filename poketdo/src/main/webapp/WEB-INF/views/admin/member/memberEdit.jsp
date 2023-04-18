@@ -12,14 +12,7 @@
 		</div>
 		<div class="row flex-box">
 			<div class="w-30">
-				<c:choose>
-					<c:when test="${memberWithImageDto.attachmentNo == null}">
-    					<img width="200" height="200" src="/static/image/user.jpg">
-  					</c:when>
-  					<c:otherwise>
-    					<img width="200" height="200" src="/attachment/${memberWithImageDto.imageURL}">
-  					</c:otherwise>
-				</c:choose>
+				<img width="200" height="200" class="board-seal" src="${pageContext.request.contextPath}${boardWithNickDto.urlLink}">
 			</div>
 				<div class="w-70">
 				<input type="hidden" name="memberId" value="${memberWithImageDto.memberId}" class="">

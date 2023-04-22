@@ -5,7 +5,7 @@ $(function () {
     $(".reply-target").empty();
     $(".reply-best-target").empty();
     $.ajax({
-      url: "/rest/reply/" + allboardNo,
+      url: contextpath+"/rest/reply/" + allboardNo,
       method: "get",
       success: function (response) {
         var now = new Date();
@@ -100,7 +100,7 @@ $(function () {
               .addClass("fa-solid fa-check ps-10 recipient-btn me-5")
               .css("color", "forestgreen")).click(function(){
                 $.ajax({
-                  url: "/rest/pocketmonTrade/complete",
+                  url: contextPath+"/rest/pocketmonTrade/complete",
                   method: "put",
                   data: {allboardNo: allboardNo},
                   success: function(){
@@ -182,7 +182,7 @@ $(function () {
     if (isDelete) {
       var replyNo = $(this).data("reply-no");
       $.ajax({
-        url: "/rest/reply/" + replyNo,
+        url:contextPath+ "/rest/reply/" + replyNo,
         method: "delete",
         success: function () {
           loadList();
@@ -217,7 +217,7 @@ $(function () {
     var thisLike = $(this).children(".reply-like");
     var replyNo = $(this).children(".reply-like").data("reply-no");
     $.ajax({
-      url: "/rest/reply/like/",
+      url: contextPath+"/rest/reply/like/",
       method: "post",
       data: {
         replyNo: replyNo,
@@ -234,7 +234,7 @@ $(function () {
           thisLike.removeClass("fa-solid fa-regular").addClass("fa-regular").css("color", "#2d3436");
         }
         $.ajax({
-          url: "/rest/reply/like/count?replyNo=" + replyNo,
+          url:contextPath+ "/rest/reply/like/count?replyNo=" + replyNo,
           method: "get",
           success: function (response) {
             if (response == 0) {
@@ -270,7 +270,7 @@ $(function () {
           replyGroup = $(this).parent().parent().parent().parent().children(".data-target").data("reply-parent");
         }
         $.ajax({
-          url: "/rest/reply/",
+          url:contextPath+ "/rest/reply/",
           method: "post",
           data: {
             replyWriter: memberId,
@@ -300,7 +300,7 @@ $(function () {
         var replyNo = $(this).parent().parent().parent().parent().children(".data-target").data("reply-no");
         if (confirm("수정하시겠습니까?")) {
           $.ajax({
-            url: "/rest/reply/",
+            url:contextPath+ "/rest/reply/",
             method: "put",
             data: {
               replyNo: replyNo,
@@ -362,7 +362,7 @@ $(function () {
           var fd = new FormData();
           fd.append("attach", files[0]); //파일이 한개밖에 없어서 [0]
           $.ajax({
-            url: "/rest/attachment/upload",
+            url:contextPath+ "/rest/attachment/upload",
             method: "post",
             data: fd,
             processData: false,
@@ -372,7 +372,7 @@ $(function () {
               var input = $("<input>").attr("type", "hidden").attr("name", "attachmentNo").val(response.attachmentNo);
               $("form").prepend(input);
               //에디터에 추가할 이미지 생성
-              var imgNode = $("<img>").attr("src", "/rest/attachment/download/" + response.attachmentNo);
+              var imgNode = $("<img>").attr("src", contextPath+"/rest/attachment/download/" + response.attachmentNo);
               $(".summernote-reply").summernote("insertNode", imgNode.get(0));
             },
             error: function () {},
@@ -410,7 +410,7 @@ $(function () {
           var fd = new FormData();
           fd.append("attach", files[0]); //파일이 한개밖에 없어서 [0]
           $.ajax({
-            url: "/rest/attachment/upload",
+            url:contextPath+ "/rest/attachment/upload",
             method: "post",
             data: fd,
             processData: false,
@@ -420,7 +420,7 @@ $(function () {
               var input = $("<input>").attr("type", "hidden").attr("name", "attachmentNo").val(response.attachmentNo);
               $("form").prepend(input);
               //에디터에 추가할 이미지 생성
-              var imgNode = $("<img>").attr("src", "/rest/attachment/download/" + response.attachmentNo);
+              var imgNode = $("<img>").attr("src", contextPath+"/rest/attachment/download/" + response.attachmentNo);
               $(".summernote-reply-edit").summernote("insertNode", imgNode.get(0));
             },
             error: function () {},
@@ -459,7 +459,7 @@ $(function () {
           var fd = new FormData();
           fd.append("attach", files[0]); //파일이 한개밖에 없어서 [0]
           $.ajax({
-            url: "/rest/attachment/upload",
+            url: contextPath+"/rest/attachment/upload",
             method: "post",
             data: fd,
             processData: false,
@@ -469,7 +469,7 @@ $(function () {
               var input = $("<input>").attr("type", "hidden").attr("name", "attachmentNo").val(response.attachmentNo);
               $("form").prepend(input);
               //에디터에 추가할 이미지 생성
-              var imgNode = $("<img>").attr("src", "/rest/attachment/download/" + response.attachmentNo);
+              var imgNode = $("<img>").attr("src", contextPath+"/rest/attachment/download/" + response.attachmentNo);
               $(".summernote-reply-child").summernote("insertNode", imgNode.get(0));
             },
             error: function () {},
@@ -481,7 +481,7 @@ $(function () {
   /*---------------------------*/
 
   $.ajax({
-    url: "/rest/like/check",
+    url:contextPath+ "/rest/like/check",
     method: "post",
     data: likeTableDto,
     success: function (response) {
@@ -499,14 +499,14 @@ $(function () {
     if (memberId == "") {
       e.preventDefault();
       if (confirm("로그인을 한 회원만 사용할 수 있는 기능입니다. 로그인하시겠습니까?")) {
-        location.href = "/member/login";
+        location.href = contextPath+"/member/login";
       }
     }
     let heartEle = $(this).children().first();
     let likeCntEle = $(this).children().eq(1);
     // 좋아요일 때 하트 채우기, 아닐 때 비우기
     $.ajax({
-      url: "/rest/like/",
+      url:contextPath+ "/rest/like/",
       method: "post",
       data: likeTableDto,
       success: function (responseIsLike) {
@@ -517,7 +517,7 @@ $(function () {
         }
         // 좋아요 갯수 반영
         $.ajax({
-          url: "/rest/like/count/",
+          url:contextPath+ "/rest/like/count/",
           method: "get",
           data: { allboardNo: allboardNo },
           success: function (responseLikeCnt) {

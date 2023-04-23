@@ -203,7 +203,7 @@
 		        
 		    
 		    $.ajax({
-		    	  url: "/rest/pocketmon/" + pocketmonName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
+		    	  url: "${pageContext.request.contextPath}/rest/pocketmon/" + pocketmonName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
 		    	  method: "get", // HTTP 요청 방식을 선택합니다.
 		    	  success: function(response) { // 요청이 성공했을 때 실행될 콜백 함수입니다.
 		    		  if(response.attachmentNo>0){

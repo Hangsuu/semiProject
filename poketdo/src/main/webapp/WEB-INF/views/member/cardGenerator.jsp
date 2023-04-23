@@ -203,14 +203,14 @@
 		        
 		    
 		    $.ajax({
-		    	  url: "/rest/pocketmon/" + pocketmonName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
+		    	  url: contextPath+"/rest/pocketmon/" + pocketmonName, // 포켓몬 이름에 해당하는 attachmentNo를 가져오는 URL을 입력합니다.
 		    	  method: "get", // HTTP 요청 방식을 선택합니다.
 		    	  success: function(response) { // 요청이 성공했을 때 실행될 콜백 함수입니다.
 		    		  if(response.attachmentNo>0){
 			    	    var attachmentNo = response.attachmentNo; // attachmentNo 값을 가져옵니다.
 			    	    console.log("attachmentNo: " + attachmentNo); // attachmentNo 값을 콘솔에 출력합니다.
 			    	 	
-				       	$("[name=cardSlot" + currentInputNo + "]").attr("src", "/attachment/download?attachmentNo=" + attachmentNo);
+				       	$("[name=cardSlot" + currentInputNo + "]").attr("src", contextPath+"/attachment/download?attachmentNo=" + attachmentNo);
 		    		  }
 		    		  else{
 		    			  alert("정확한 포켓몬 이름을 입력하세요");
